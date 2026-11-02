@@ -709,7 +709,7 @@
     var opts = U.shuffle(LEFT_KINDS.slice());
     for (var i = 0; i < opts.length; i++) {
       var o = opts[i];
-      var key = 'left:' + o.cap + ':' + o.words;
+      var key = 'left:' + o.cap + ':' + o.out;
       if (used[key]) continue;
       used[key] = true;
       return { type: 'left', cap: o.cap, out: o.out, left: o.cap - o.out, words: o.words, quarter: o.quarter || 0, key: key };
@@ -998,7 +998,7 @@
         var part = q.cap / 4;
         work.appendChild(el('div', { class: 'sma-tip' }, '4 equal parts make ' + q.cap + ' ml:'));
         work.appendChild(MQ.ui.sum([part, part, part, part], q.cap, 'ml'));
-        lines.push(q.words.charAt(0).toUpperCase() + q.words.slice(1) + ' of ' + capWords + ' is ' + q.out + ' ml.');
+        lines.push(q.words.charAt(0).toUpperCase() + q.words.slice(1) + ' of ' + (q.cap === 1000 ? '1 litre' : '2 litres') + ' is ' + q.out + ' ml.');
       }
       var back = [];
       for (var v = q.cap; v >= q.left; v -= 250) back.push(v);

@@ -619,7 +619,7 @@
       if (q.variant === 'rhalf' && n === lo) {
         api.check(false, strong ? v + ' is exactly halfway between ' + lo + ' and ' + hi + '. Halfway rounds up.' : 'The line is exactly halfway. What do we do at halfway?', 'Rounded down at exactly halfway');
       } else if (n === lo || n === hi) {
-        api.check(false, strong ? 'Count the small steps from the end of the line to ' + lo + ', then to ' + hi + '. Which is fewer?' : 'Which label is closer to the end of the red line, ' + lo + ' or ' + hi + '?', 'Rounded to the wrong label');
+        api.check(false, strong ? (r10 ? 'Find the middle between ' + lo + ' and ' + hi + '. Is the end of the line before or past the middle?' : 'Count the small steps from the end of the line to ' + lo + ', then to ' + hi + '. Which is fewer?') : 'Which label is closer to the end of the red line, ' + lo + ' or ' + hi + '?', 'Rounded to the wrong label');
       } else if (n === v || (n > lo && n < hi)) {
         api.check(false, strong ? 'Now round it: is it nearer ' + lo + ' or ' + hi + '?' : 'Good reading, but the answer must be a labelled number, like ' + lo + ' or ' + hi + '.', 'Gave the exact reading, not a label');
       } else {
@@ -919,7 +919,7 @@
    * Learn screens
    * ------------------------------------------------------------------ */
   var THINGS = [
-    { icon: '🍧', name: 'ice lolly', lo: 0, hi: 10, at: 0, row: 1, say: 'An ice lolly is very cold, about 0 °C.', hot: 'Too warm! The lolly would melt. Try much colder.' },
+    { icon: '🍧', name: 'ice lolly', lo: 0, hi: 10, at: 0, row: 1, say: 'An ice lolly is very cold, about 0 °C.', hot: 'Too warm! The lolly would melt. Try much colder.', cold: 'Put it on the scale, at the cold end.' },
     { icon: '🏫', name: 'classroom', lo: 15, hi: 30, at: 20, row: 0, say: 'A classroom is about 20 °C.', hot: 'Too hot for a classroom! Try cooler.', cold: 'Brrr, too cold for a classroom. Try warmer.' },
     { icon: '☀️', name: 'sunny garden', lo: 25, hi: 45, at: 35, row: 1, say: 'A sunny garden can be about 35 °C.', hot: 'That is hotter than any garden! Try lower.', cold: 'Too cold for a sunny day. Try warmer.' },
     { icon: '☕', name: 'cup of tea', lo: 50, hi: 95, at: 70, row: 0, say: 'A hot cup of tea is about 70 °C.', hot: 'Nearly boiling! Tea we drink is a bit cooler.', cold: 'Too cold for hot tea. Try much hotter.' },

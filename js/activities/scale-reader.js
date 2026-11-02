@@ -352,17 +352,23 @@
     kg5: { 1: { sack: 'RICE', n: 'bag of rice' }, 2: { sack: 'FLOUR', n: 'bag of flour', color: '#f7f2e8' }, 3: { e: '🍈', n: 'melon' }, 4: { e: '🥔', n: 'bag of potatoes' }, 5: { e: '🍉', n: 'watermelon' } },
     g1250: { 250: { e: '🧈', n: 'block of butter' }, 500: { e: '🧀', n: 'piece of cheese' }, 750: { e: '🍍', n: 'pineapple' }, 1000: { sack: 'SUGAR', n: 'bag of sugar', color: '#ffffff' }, 1250: { e: '🥬', n: 'cabbage' } },
   };
+  // lo/hi: the masses (kg) where each thing is realistic.
   var KG10_ITEMS = [
-    { e: '🎃', n: 'pumpkin' },
-    { e: '🥔', n: 'sack of potatoes' },
-    { e: '🍎', n: 'box of apples' },
-    { e: '🍉', n: 'pile of watermelons' },
+    { e: '🍈', n: 'melon', lo: 1, hi: 3 },
+    { e: '🎃', n: 'pumpkin', lo: 2, hi: 7 },
+    { e: '🍉', n: 'watermelon', lo: 3, hi: 8 },
+    { e: '🥔', n: 'sack of potatoes', lo: 5, hi: 10 },
+    { e: '🍎', n: 'box of apples', lo: 4, hi: 10 },
   ];
+  // lo/hi: the masses (in the dial's unit) where each thing is realistic. Every value is covered.
   var ROUND_ITEMS = {
-    g1000: [{ e: '🍌', n: 'bunch of bananas' }, { e: '🍎', n: 'bag of apples' }, { e: '🥕', n: 'bag of carrots' }, { e: '🧅', n: 'bag of onions' }, { e: '🥦', n: 'broccoli' }],
-    g100: [{ e: '🍅', n: 'tomato' }, { e: '🥝', n: 'kiwi fruit' }, { e: '🍒', n: 'handful of cherries' }, { e: '🍑', n: 'peach' }],
-    kg5: [{ e: '🥔', n: 'bag of potatoes' }, { e: '🎃', n: 'pumpkin' }, { e: '🍈', n: 'melon' }, { e: '🍊', n: 'bag of oranges' }],
+    g1000: [{ e: '🥜', n: 'handful of nuts', lo: 0, hi: 150 }, { e: '🧅', n: 'onion', lo: 100, hi: 300 }, { e: '🥦', n: 'broccoli', lo: 250, hi: 600 }, { e: '🍌', n: 'bunch of bananas', lo: 400, hi: 1000 }, { e: '🍎', n: 'bag of apples', lo: 300, hi: 1000 }, { e: '🥕', n: 'bag of carrots', lo: 300, hi: 1000 }],
+    g100: [{ e: '🍓', n: 'strawberry', lo: 0, hi: 35 }, { e: '🍒', n: 'handful of cherries', lo: 20, hi: 100 }, { e: '🥚', n: 'egg', lo: 45, hi: 70 }, { e: '🥝', n: 'kiwi fruit', lo: 65, hi: 100 }],
+    kg5: [{ e: '🍝', n: 'bag of pasta', lo: 0, hi: 1 }, { e: '🥬', n: 'cabbage', lo: 0.5, hi: 1.5 }, { e: '🍈', n: 'melon', lo: 0.8, hi: 3 }, { e: '🎃', n: 'pumpkin', lo: 1, hi: 5 }, { e: '🥔', n: 'bag of potatoes', lo: 1, hi: 5 }, { e: '🍊', n: 'bag of oranges', lo: 1, hi: 5 }],
   };
+  function itemFor(list, v) {
+    return U.pick(list.filter(function (it) { return v >= it.lo && v <= it.hi; }));
+  }
   var ROUND_TO = { g1000: 100, g100: 10, kg5: 1 };
 
   // Pairs to compare. a/b: [value, unit, dial, item]. The g dial value always sits on a label.
@@ -406,7 +412,7 @@
     });
     var v = U.pick(vals);
     used[kind + ':' + v] = true;
-    var item = kind === 'kg10' ? U.pick(KG10_ITEMS) : READ_ITEMS[kind][v];
+    var item = kind === 'kg10' ? itemFor(KG10_ITEMS, v) : READ_ITEMS[kind][v];
     return { type: 'read', kind: kind, value: v, unit: DIALS[kind].unit, item: item, answer: v };
   }
 
@@ -418,7 +424,7 @@
       guard++;
     } while ((roundAnswer(kind, v) === 0 || used['r' + kind + ':' + v]) && guard < 100);
     used['r' + kind + ':' + v] = true;
-    return { type: 'round', kind: kind, value: v, unit: DIALS[kind].unit, to: ROUND_TO[kind], item: U.pick(ROUND_ITEMS[kind]), answer: roundAnswer(kind, v) };
+    return { type: 'round', kind: kind, value: v, unit: DIALS[kind].unit, to: ROUND_TO[kind], item: itemFor(ROUND_ITEMS[kind], v), answer: roundAnswer(kind, v) };
   }
 
   function subQ(kgTotal) {
@@ -830,6 +836,10 @@
         if (okNum && unit === q.unit) {
           box.done();
           api.check(true, 'Yes! ' + fmtV(q.value, q.unit) + '.');
+          return;
+        }
+        if (unit !== q.unit && U.same(toG(num, unit), toG(q.value, q.unit))) {
+          api.feedback('Right amount! ' + fmtV(num, unit) + ' = ' + fmtV(q.value, q.unit) + '. But this dial counts in ' + q.unit + ', so write it in ' + q.unit + '.', 'info');
           return;
         }
         box.ni.bad();
