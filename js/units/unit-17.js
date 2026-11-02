@@ -51,8 +51,8 @@
       'reflect-it': {
         title: 'Mirror Drawing',
         icon: '🦋',
-        summary: 'Finish the picture by flipping it over the mirror line.',
-        book: 'Textbook p.262–263 Q2–Q3, p.264 Q6, p.273 Check your progress Q1–Q2 · Workbook p.238–239 Q2, p.241 Q5b, p.242–243 Q8',
+        summary: 'Flip the shape over the mirror line: each square goes the same distance away on the other side.',
+        book: 'Textbook p.262–263 Q2–Q3, p.273 Check your progress Q1–Q2 · Workbook p.238–239 Q2, p.241 Q5b, p.242 Q8a',
         tips: {
           goal: 'Draw an accurate reflection: every square ends up the same distance from the mirror line on the other side, and the picture faces the other way.',
           say: [
