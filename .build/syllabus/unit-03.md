@@ -410,20 +410,87 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 }
 ```
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3 (2nd edition), printed pages 35-50 (image index = printed page + 2; checked on every page, no drift). The workbook has no pages for Project 1. ◆ marks a 'Think like a mathematician' question.
+
+**Child's pencil work in the workbook:** only two answers, on p.35 (24 + 5 = 29 and 48 + 9 = 57, both correct). Pages 36-50 are blank.
+
+### 3.1 Addition (workbook pp.35-39)
+
+| Q (page) | Level | What the child does | Numbers | Notes / answers |
+|---|---|---|---|---|
+| 1 (p.35) | Focus | 2-digit + 1-digit, show method | 24+5, 42+5, 48+9, 37+8 | 29, 47, 57, 45 |
+| 2 (p.35) | Focus | 3-digit + 1-digit, show method | 123+6, 153+5, 254+7, 235+8 | 129, 158, 261, 243 |
+| 3 (p.36) | Focus | Estimate, then finish a number line that already shows a +20 jump | 112+26, 164+28 | 138 (132 then +6), 192 (184 then +8, crossing a ten) |
+| 4 (p.36) | Focus | Finish a **partitioning** method: split both numbers into H + T + O and recombine; complete the estimate | 315+232 (est. 320+230 = 550), 247+218 (est. 250+220 = 470) | 547; 465 (7 + 8 = 15 ones regrouped) |
+| 5 (p.37) | Practice | Read 2-digit numbers across or down a 2×2 grid and add 6 to each | grid 4 3 / 7 8 → 43, 78, 47, 38 | 49, 84, 53, 44 |
+| 6 (p.37) | Practice | 3-digit + 1-digit | 246+3, 171+7, 345+8, 269+9 | 249, 178, 353, 278 |
+| 7 (p.37) | Practice | Word problem: estimate and add | 246 small + 26 large cakes | 272 (est. 250 + 30 = 280) |
+| 8 (p.38) | Practice | Word problem with the **2-digit number first** | 38 apples + a box of 148 | 186 |
+| 9 (p.38) | Practice | Word problem: estimate and add two 3-digit numbers | 359 children + 218 adults | 577 (est. 360 + 220 = 580) |
+| 10 (p.38) | Practice | Estimate, then add on an **empty number line** | 414 + 268 | 682 |
+| 11 (p.39) | Challenge | +56 machine on a 3×3 grid: estimate grid and answer grid | 122 225 413 / 430 328 117 / 134 229 516 | 178 281 469 / 486 384 173 / 190 285 572 |
+| 12 ◆ (p.39) | Challenge | Ink-blot ones digits: find all possibilities | 32? + 14? = 475 | ones make 15: 326+149, 327+148, 328+147, 329+146 (4 answers) |
+
+**Methods the workbook expects that the textbook does not show:** the empty number line (jump the tens, then the ones) and partitioning into hundreds + tens + ones written out in a line. Estimates round each number to the nearest 10, with halfway numbers (315, 225, 245) rounding up.
+
+### 3.2 Subtraction (workbook pp.40-44)
+
+| Q (page) | Level | What the child does | Numbers | Notes / answers |
+|---|---|---|---|---|
+| 1 (p.40) | Focus | 2-digit − 1-digit, show method | 38-5, 49-7, 64-7, 25-8 | 33, 42, 57, 17 |
+| 2 (p.40) | Focus | 3-digit − 1-digit | 169-6, 238-4, 134-8, 243-7 | 163, 234, 126, 236 |
+| 3 (p.41) | Focus | Estimate, then finish a number line jumping back the tens then the ones | 184-42 (est. 180-40), 361-33 (est. 360-30) | 142; 328 (331 then −3 crosses a ten) |
+| 4 (p.41) | Focus | Finish an **expanded column method**: no regrouping, then regrouping 373 as 300 + 60 + 13 | 458-246 (est. 460-250), 373-217 (est. 370-220) | 212 (est. 210); 156 (est. 150) |
+| 5 ◆ (p.42) | Practice | Sort subtractions into 'change a ten for 10 ones' or 'no regrouping' | 47-3, 72-17, 87-29, 93-8, 54-5, 61-15, 76-23, 57-7 | Regroup: 72-17, 87-29, 93-8, 54-5, 61-15. No regroup: 47-3, 76-23, 57-7 |
+| 6 (p.42) | Practice | Two-step word problem (metres of rope) | 268 m, then −5 m, then −8 m | 263 m; 255 m |
+| 7 (p.42) | Practice | Estimate and subtract | 763 children, 38 away | 725 |
+| 8 (p.43) | Practice | Estimate and subtract | 362 on a train, 47 get off | 315 |
+| 9 (p.43) | Practice | Estimate and subtract two 3-digit numbers | 763 children, 427 girls → boys | 336 |
+| 10 (p.43) | Practice | Estimate, then find the **difference** on an empty number line | 426 and 483 | 57 (count up from 426) |
+| 11 (p.44) | Challenge | −37 machine on a 3×3 grid: estimate and answer grids | 179 228 691 / 154 545 472 / 989 863 366 | 142 191 654 / 117 508 435 / 952 826 329. **228 − 37 needs a hundred changed into tens**, which 3.2 does not teach |
+| 12 ◆ (p.44) | Challenge | Ink-blot ones digits: find all possibilities | 55? − 31? = 232 | second digit is 8 more than the first: 550 − 318, 551 − 319 (2 answers) |
+
+**Hidden prerequisites and traps (3.2):** the expanded column method and empty number line (not modelled in the textbook); 'difference' as counting up; deciding whether regrouping is needed before calculating (Q5); regrouping a hundred into tens in Q11; units (metres) in a word problem.
+
+### 3.3 Money (workbook pp.45-50)
+
+| Q (page) | Level | What the child does | Numbers | Notes / answers |
+|---|---|---|---|---|
+| 1 (p.45) | Focus | Convert both ways between 'dollars and cents' and decimal notation | $3 and 25c, $6 and 74c, $12 and 18c; $9.50, $14.95, $1.62 | $3.25, $6.74, $12.18; 9 dollars 50 cents, etc. |
+| 2 (pp.45-46) | Focus | Total pictured US notes and coins with a decimal point | two $5 + two 25c + 5c; three **$2** notes + three 10c + two 1c; two $1 + 10c + three 5c; a **half-dollar (50c)** + 25c + three 1c | $10.55, $6.32, $2.25, $0.78. The $2 note and the 50c coin are not in the textbook |
+| 3 (p.46) | Focus | School shop (same prices as the textbook): spend and change | 50c; pencil 18c + sharpener 30c | 48c; 2c change |
+| 4 (p.47) | Focus | Two equal items cost $10: find one, writing a number sentence with a picture or box for the unknown | $10 ÷ 2 | $5 |
+| 5 (p.47) | Practice | Both ways, with zero place holders | $11 and 9c; $65; $0 and 4c; $4.01; $0 and 75c; $0.99 | $11.09; 65 dollars 0 cents; $0.04; 4 dollars 1 cent; $0.75; 0 dollars 99 cents |
+| 6 (p.48) | Practice | Add two prices and find change from $10 | $7.25 + 70c | $7.95; $2.05 change |
+| Worked example (p.48) | - | Two bags cost $7: find half of $7 using half of $6 = $3 (written as 6 ÷ 2 = 3 and 3 + 3 = 6) and half of $1 = 50c | $7 | $3 and 50c. **Uses the ÷ sign and halving an odd amount**, neither taught in the textbook |
+| 7 (p.49) | Practice | Two plants cost $9: one plant, with a number sentence | $9 | $4.50 (halving an odd amount) |
+| 8 ◆ (p.49) | Challenge | Explain a mistake: $7 and 9 cents written as $9.7 | - | Dollars and cents swapped and the 0 place holder missing; should be $7.09 |
+| 9 (p.50) | Challenge | Find a price from money paid and change | $30, change $1 and 1c | $28.99 (subtracting across zero cents) |
+| 10 (p.50) | Challenge | Find the starting money from the amount spent and the change | spent $63 and 25c, change $2 and 75c | $66.00 (add them; the cents make a whole dollar) |
+
+**Hidden prerequisites and traps (3.3):**
+* **Halving money (Q4, Q7 and the worked example) is division.** $10 → $5 is fine with doubles, but $7 → $3.50 and $9 → $4.50 need halving an odd number of dollars and changing $1 into 100c. This is the biggest trap in the unit for this child; show it as sharing coins into two equal piles.
+* A $2 note and a 50c coin appear in the workbook only.
+* Cents that cross a dollar (70c + 25c in Q6, 25c + 75c in Q10) and subtracting from a whole number of dollars ($30 − $1.01).
+* Working backwards: Q10 needs **adding** spent + change, where the textbook only subtracts.
+
 ## Proposed activities
 
 ### 1. `add-with-regrouping` - Adding with swaps
 * **title**: Adding with swaps · **icon**: ➕ · **section**: 3.1
 * **summary**: Add 1-, 2- and 3-digit numbers to a 3-digit number, swapping 10 ones for a ten, and check with an estimate.
-* **book**: p.36 Getting started Q1; p.38 Q1; p.39 Q2-Q3; p.40 Q4-Q6; p.52 CYP Q1
+* **book**: p.36 Getting started Q1; p.38 Q1; p.39 Q2-Q3; p.40 Q4-Q6; p.52 CYP Q1. Workbook pp.35-38 Q1-Q10, p.39 Q11
 * **Learn screens**
   1. A bakery: 148 chocolate cakes (1 tray of 100, 4 boxes of 10, 8 single cakes) and 6 more single cakes. The child drags the 6 in; there are 14 singles, so 10 of them glow and the child clicks "pack a box of 10" - they become a box in the tens column. Total 154.
   2. Adding two 3-digit numbers on the mat (148 + 136): ones first (with a swap), then tens, then hundreds. The written column layout builds underneath in step with the blocks, with the small regrouped 1 shown.
-  3. Estimate first: each number rounds to the nearest 10 on a mini number line (150 + 140 = 290); after calculating, Bolt puts the estimate and the answer side by side - close, so it makes sense.
+  3. Other ways to show it (from the workbook): an empty number line where the child drags a +100, +20 and +6 jump from 112, and a partition strip (315 + 232 = 300 + 10 + 5 + 200 + 30 + 2, with the hundreds, tens and ones then slid together).
+  4. Estimate first: each number rounds to the nearest 10 on a mini number line (150 + 140 = 290); after calculating, Bolt puts the estimate and the answer side by side - close, so it makes sense.
 * **Practice (count 9)**
   * Level 1: 3-digit + single digit with one swap (e.g. 357 + 8), on the block mat; tens digit 0-8 so no second regroup.
   * Level 2: 3-digit + 2-digit with a swap (e.g. 215 + 67); first pick the best estimate from 3 options, then type the answer.
-  * Level 3: two 3-digit numbers, totals to 999, regrouping the ones only (e.g. 439 + 326); word-problem wording (people in a museum, books in a library); one question with no regrouping needed (134 + 53).
+  * Level 3: two 3-digit numbers, totals to 999, regrouping the ones only (e.g. 439 + 326, 414 + 268 on the empty number line); word-problem wording (people in a museum, apples on a market stall with the 2-digit number first: 38 + 148); one question with no regrouping needed (134 + 53); an 'adding machine' round (+56 to three grid numbers).
 * **Mistake tags**: Wrote 2 digits in the ones column · Forgot the swapped ten · Added a digit to the wrong column · Estimate far from the answer · Answered a different question
 * **Parent tips**
   * Goal: add numbers to 1000 when the ones make more than 9, and check with an estimate.
@@ -434,15 +501,16 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 ### 2. `subtract-with-regrouping` - Take away with swaps
 * **title**: Take away with swaps · **icon**: ➖ · **section**: 3.2
 * **summary**: Subtract 1-, 2- and 3-digit numbers from a 3-digit number, opening a ten into 10 ones when needed.
-* **book**: p.36 Q2; p.42 Q1; p.43 Q2-Q4; p.44 Q5-Q6; p.52 CYP Q2
+* **book**: p.36 Q2; p.42 Q1; p.43 Q2-Q4; p.44 Q5-Q6; p.52 CYP Q2. Workbook pp.40-43 Q1-Q10, p.44 Q11
 * **Learn screens**
   1. A store gets 262 melons (2 crates of 100, 6 boxes of 10, 2 loose) and 7 are damaged. Only 2 loose melons - not enough. The child clicks a box of 10 to open it: 12 loose. Take 7 away: 255.
   2. A case where no swap is needed (178 - 25): Bolt asks "Enough ones?" and the child answers yes/no before each subtraction.
-  3. 3-digit minus 3-digit (472 - 267) on the mat with the written column steps building underneath; estimate first (470 - 270 = 200), compare at the end.
+  3. 3-digit minus 3-digit (472 - 267) on the mat with the written column steps building underneath, shown also as the workbook's expanded form (373 = 300 + 60 + 13); estimate first (470 - 270 = 200), compare at the end.
+  4. Finding a difference by counting up on an empty number line: from 426, jump +4 to 430, +50 to 480, +3 to 483; the jumps add to 57.
 * **Practice (count 9)**
-  * Level 1: 3-digit minus single digit (e.g. 352 - 7), half needing a swap; choose "swap needed?" before answering.
+  * Level 1: 3-digit minus single digit (e.g. 352 - 7), half needing a swap; choose "swap needed?" before answering (or sort 4 subtractions into 'swap' and 'no swap' boxes, as in workbook p.42).
   * Level 2: 3-digit minus 2-digit (e.g. 262 - 37) with estimate choice; include word problems (damaged cartons, parcels on a van).
-  * Level 3: 3-digit minus 3-digit with regrouping in the ones only (e.g. 683 - 548), and digit-card questions: make a 3-digit and 1-digit number from 4 cards and subtract.
+  * Level 3: 3-digit minus 3-digit with regrouping in the ones only (e.g. 683 - 548, 763 - 427); 'find the difference' by counting up on a number line (426 and 483); and digit-card questions: make a 3-digit and 1-digit number from 4 cards and subtract. Avoid numbers that need a hundred changed into tens (like 228 - 37 in the workbook) until Unit 9.
 * **Mistake tags**: Took the small digit from the big one · Swapped but didn't reduce the tens · Swapped when not needed · Added instead of subtracted · Lined up digits wrongly
 * **Parent tips**
   * Goal: subtract within 1000 when there are not enough ones, by swapping a ten for 10 ones.
@@ -453,7 +521,7 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 ### 3. `ink-blot-sums` - Ink blot puzzles
 * **title**: Ink blot puzzles · **icon**: 🖋️ · **section**: 3.1 / 3.2
 * **summary**: Find the hidden ones digits in additions and subtractions, and look for all the answers.
-* **book**: p.41 TLAM (Kiko); p.45 TLAM (Faisal) and reflection
+* **book**: p.41 TLAM (Kiko); p.45 TLAM (Faisal) and reflection. Workbook p.39 Q12 (Angela, 4 answers), p.44 Q12 (Ahliya, 2 answers)
 * **Learn screens**
   1. An addition on a school desk with two blots over the ones digits and a known total (like 24? + 13? = 381). Bolt first adds the parts we can see (240 + 130 = 370), so the hidden ones must make 11. The child drags digit tiles under the blots and the sum checks itself.
   2. One answer is not the end: found answers are pinned on a board; empty slots show how many more are left to find.
@@ -472,7 +540,7 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 ### 4. `dollars-and-cents` - Dollars and cents
 * **title**: Dollars and cents · **icon**: 💵 · **section**: 3.3
 * **summary**: Count notes and coins and write money amounts with a decimal point.
-* **book**: p.46 Worked example; p.47 Q1-Q3; p.48 Q3b-d; p.37 Getting started Q3; p.49 TLAM
+* **book**: p.46 Worked example; p.47 Q1-Q3; p.48 Q3b-d; p.37 Getting started Q3; p.49 TLAM. Workbook p.45 Q1-Q2, p.46 Q2, p.47 Q5, p.49 Q8
 * **Learn screens**
   1. A purse with $4 in notes and 24c in coins. Bolt writes $4 and 24c, then slides the parts together around a decimal point: $4.24. Dollars before the point, cents after.
   2. Two places for cents: 5c goes in as .05 (the 0 holds the tens-of-cents place). The child drags a 5c coin in and sees $24.05, not $24.5.
@@ -480,7 +548,7 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 * **Practice (count 9)**
   * Level 1: "dollars and cents" to decimal and back (whole dollars 1-25, cents 10-99 in tens or 2-digit amounts), choosing from 3 options.
   * Level 2: type the decimal form, including single-digit cents ($2.09), no cents ($15.00) and no dollars ($0.30); or click coins/notes in a purse and type the total (totals under $10).
-  * Level 3: make an amount: drag notes ($1, $5, $10, $20) and coins (1c, 5c, 10c, 25c) to pay exactly a price like $16.95; then find a second way.
+  * Level 3: make an amount: drag notes ($1, $2, $5, $10, $20) and coins (1c, 5c, 10c, 25c, 50c) to pay exactly a price like $16.95; then find a second way. Also 'spot the mistake': someone wrote $7 and 9 cents as $9.7 - pick the right amount ($7.09).
 * **Mistake tags**: Missed the 0 in cents · Read .30 as 3 cents · Counted coins not their value · Wrote both $ and c · Mixed up dollars and cents
 * **Parent tips**
   * Goal: read, write and total money amounts using a decimal point.
@@ -492,7 +560,7 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 ### 5. `shop-and-change` - School shop
 * **title**: School shop · **icon**: 🛒 · **section**: 3.3
 * **summary**: Add prices, find change, and work backwards to a missing price.
-* **book**: p.49 Q4; p.50 Q5-Q6; p.51 Q7-Q8; p.52 Q9; p.53 CYP Q3
+* **book**: p.49 Q4; p.50 Q5-Q6; p.51 Q7-Q8; p.52 Q9; p.53 CYP Q3. Workbook p.46 Q3, p.47 Q4, p.48 Q6 and Worked example, p.49 Q7, p.50 Q9-Q10
 * **Learn screens**
   1. School shop counter with priced items (pencil 18c, eraser 26c, etc.). The child puts two items in the basket; the till adds them (44c).
   2. Change by counting up: the child has 50c; a number line from 44c to 50c lights up as Bolt counts on, so the change is 6c. Bolt also shows 50 - 44 = 6.
@@ -500,12 +568,12 @@ Sections: 3.1 Addition (pp.38-41), 3.2 Subtraction (pp.42-45), 3.3 Money (pp.46-
 * **Practice (count 10)**
   * Level 1: two items in cents (totals under $1), money given in 50c or 90c; find what is spent and the change.
   * Level 2: drinks menu in dollars and cents ($1.10-$3.25): total of 2-3 drinks and change from $5 or $10; choose two drinks within a budget.
-  * Level 3: missing price from money and change (whole dollars to $50, or dollars and cents like $6.50 and $1.20 change); "which two items cost 63c?"; two equal items cost $8 - what does one cost? (shown as $8 shared into two equal piles).
-* **Mistake tags**: Found the total but not the change · Subtracted the wrong way round · Added the change instead of subtracting · Mixed dollars and cents · Missed a second answer
+  * Level 3: missing price from money and change (whole dollars to $50, or dollars and cents like $6.50 and $1.20 change, $30 and $1.01 change); 'how much did he have before?' (spent + change, e.g. $63.25 + $2.75); "which two items cost 63c?"; two equal items cost $8 or $10 - what does one cost? (shown as notes shared into two equal piles). One step up: two items cost $7 - share $6 into two piles, then change the last $1 into 100c and share that (50c each).
+* **Mistake tags**: Found the total but not the change · Subtracted the wrong way round · Added the change instead of subtracting · Mixed dollars and cents · Missed a second answer · Halved wrongly
 * **Parent tips**
   * Goal: add prices and find change, including working out a missing price.
   * Say: "How much did you spend altogether?" · "Count up from the price to the money you gave." · "Paid $50, got $17 back - so what did it cost?"
-  * Watch for: adding $50 + $17 for a missing price; the halving question (two for $8) - this needs sharing, which is still new for him.
+  * Watch for: adding $50 + $17 for a missing price, but the opposite in 'how much did he have before?', where you do add; the halving questions (two for $8, and the workbook's two for $7 or $9) - this is sharing (division), which is still new for him, so use real coins in two piles.
   * Away from screen: play shop with real coins and a few priced items from the kitchen; take turns being the shopkeeper giving change.
 
 ### 6. `digit-sum-detective` - Digit sum detective

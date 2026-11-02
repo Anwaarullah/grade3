@@ -169,12 +169,45 @@ One section: 2.1 Tally charts and frequency tables (pp.26-33), with the unit ope
 }
 ```
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3 (2nd edition), printed pages 23-34 (image index = printed page + 2; checked on every page, no drift). One section, 2.1 Tally charts and frequency tables (key words: frequency table, survey). ◆ marks a 'Think like a mathematician' question.
+
+**Child's pencil work in the workbook:** pp.23 and 25 only; pp.24 and 26-34 are blank.
+* p.23 Q1: all correct: tallies right, total worked out as 24 + 25 + 17 + 9 = 75, highest, lowest, and which two make 42.
+* p.25 Q4 (plan a party): instead of a party question with four options asked to up to ten people, the child made a **10-row animal chart** with frequencies up to 35. Several frequencies do not match their tallies (e.g. the snake row, about 14 strokes, and the tiger row are hard to count). This shows he can draw a chart but does not yet connect it to **a real question, a fixed set of options and a sample size**.
+
+### 2.1 Tally charts and frequency tables (workbook pp.23-34)
+
+| Q (page) | Level | What the child does | Numbers | Notes / answers |
+|---|---|---|---|---|
+| 1 (p.23) | Focus | Draw tallies for given counts, then total, highest, lowest, and which two make 42 | triangles 17, squares 25, pentagons 9, circles 24 | Total 75; squares; pentagons; triangles + squares. **The rows are drawn as shapes in a different order from the sentence** |
+| 2 (p.24) | Focus | Turn the Q1 tally chart into a frequency table, drawing the shapes | same | |
+| 3 (p.24) | Focus | Fill missing tallies and frequencies in 'Ways to travel to school'; most popular; total | walk 12, bike 9, bus 6, car 3 | walk; 30 |
+| 4 ◆ (pp.25-26) | Focus | Plan part of a party: write a question with 4 options, ask up to 10 people, record with labels, write 3 sentences, explain your choice | ≤10 people | Open |
+| 5 (pp.26-27) | Practice | Tally 11 flat shapes by **number of vertices** (rows 0-5), write 3 things the chart shows | 2 circles, 3 triangles, 4 squares, 2 pentagons | 0 → 2, 1 → 0, 2 → 0, 3 → 3, 4 → 4, 5 → 2. **Needs 2D-shape vertices (a circle has 0)**, not taught in this unit; two rows stay empty |
+| 6 (p.27) | Practice | Write 3 questions for a partner from a table of sweets in 20 bags | 23 sweets → 1 bag, 24 → 4, 25 → 9, 26 → 3, 27 → 3 | **The categories are numbers too**: easy to mix up 'number of sweets' and 'number of bags' |
+| 7 (p.28) | Practice | Sort 24 car colours from a grid into a tally/frequency table **laid out sideways** (colours across the top), then write 3 questions | white 4, blue 5, black 4, red 1, yellow 3, green 4, purple 3 | Total 24 |
+| 8 ◆ (pp.29-30) | Practice | Design a park: question with options, ask ≤10 people, record, 3 sentences, explain choice, how to improve the investigation | open | |
+| 9 (p.30) | Challenge | Find and correct mistakes in someone's frequency column (pets survey) | cat tally 21 (written 26), fish 8, rabbit 4, horse tally 4 (written 3), other 10, total written 47 | Two clear row mistakes (cat should be 21, horse 4). The book says there are three; the printed total of 47 is right for the tallies but does not match his own column, which adds to 51. **Ambiguous: the third mistake is unclear** |
+| 10 (p.31) | Challenge | Table of people per car (1-5) and number of cars: total cars, then total people | 41, 54, 32, 20, 3 cars | (a) 150 cars. (b) 41 + 2×54 + 3×32 + 4×20 + 5×3 = 340 people. **Needs multiplication** (2×, 3×, 4×, 5× of 2-digit numbers) and 3-digit addition, not yet taught (Units 5 and 11) |
+| 11 (p.32) | Challenge | Funfair ride survey with ink blots: fill blotted tallies from frequencies and blotted frequencies from tallies; write 3 questions | carousel 18, bumper cars 15, Ferris wheel 23, helter skelter 14, roller coaster 28, teacups 12, waltzers 21, drop tower 31, pirate ship 27 | Drawing tallies up to 31 (6 gates + 1) |
+| 12 ◆ (pp.32-34) | Challenge | Plan a charity event: how to investigate, question with options, ask ≤10 people, record, 3 sentences, explain choice, two more questions to investigate, improvements | open | |
+
+**Hidden prerequisites and traps (Unit 2 workbook):**
+* **Multiplication in Q10b** (people = cars × people per car) - a real trap for this child. On screen it should be shown as cars filled with people and counted as repeated addition (54 cars with 2 people = 54 + 54), or left out at his level.
+* Vertices of 2D shapes (Q5) and empty rows with frequency 0.
+* Tables laid out sideways (Q7) and tables where the categories are numbers (Q6, Q10).
+* Totals of 3-4 two-digit numbers (75, 150) need column addition from Unit 3.
+* Turning frequencies back into tallies (Q3, Q11), the reverse of the textbook direction.
+* The surveys (Q4, Q8, Q12) need a question with a fixed set of options and a set number of people (up to ten); the child's own attempt shows this is not yet understood.
+
 ## Proposed activities
 
 ### 1. `tally-marks` - Tally marks
 * **title**: Tally marks · **icon**: ✏️ · **section**: 2.1
 * **summary**: Make and read tally marks grouped in fives, counting the gates in 5s.
-* **book**: p.24 Getting started; p.26 tally reference table; p.34 Q1
+* **book**: p.24 Getting started; p.26 tally reference table; p.34 Q1. Workbook p.23 Q1, p.24 Q3, p.32 Q11a
 * **Learn screens**
   1. A garden bird table: each time a bird lands, the child clicks the tally box and a stroke appears. On the fifth click the stroke crosses the other four ("a gate"). Bolt says: one gate = 5.
   2. Counting tallies quickly: a row of 3 gates and 2 strokes; the child clicks each gate and hears 5, 10, 15, then 16, 17 on the strokes. A small number line jumps along in 5s beside it.
@@ -182,7 +215,7 @@ One section: 2.1 Tally charts and frequency tables (pp.26-33), with the unit ope
 * **Practice (count 9)**
   * Level 1: read a tally of 1-12 (at most two gates) - type or pick the number.
   * Level 2: make a tally for a number 6-20 by clicking (gates form automatically on every fifth click), or read tallies 13-26 with gates in a row.
-  * Level 3: read a long continuous run of gates (15-30, like p.34) and spot a wrongly-drawn tally (a group of 6 strokes, a gate of 4) and say what it should show.
+  * Level 3: read a long continuous run of gates (15-31, like p.34 and workbook p.32) and spot a wrongly-drawn tally (a group of 6 strokes, a gate of 4) and say what it should show; and the reverse: a frequency (e.g. 23) is shown and the child clicks out the tally.
 * **Mistake tags**: Counted a gate as 1 · Counted the crossing line as a stroke · Made groups bigger than 5 · Counted in 1s and lost track
 * **Parent tips**
   * Goal: record and read numbers to about 30 as tally marks grouped in fives.
@@ -193,26 +226,26 @@ One section: 2.1 Tally charts and frequency tables (pp.26-33), with the unit ope
 ### 2. `survey-tally-table` - Class survey
 * **title**: Class survey · **icon**: 📋 · **section**: 2.1
 * **summary**: Collect answers from a picture, tally them and turn the tally chart into a frequency table.
-* **book**: p.26-27 party drinks; p.32 Q4 hobbies; p.35 Q3 test scores; p.31 Q3
+* **book**: p.26-27 party drinks; p.32 Q4 hobbies; p.35 Q3 test scores; p.31 Q3. Workbook p.24 Q2-Q3, p.25-26 Q4, p.26-27 Q5, p.28 Q7, p.29-30 Q8, p.32-34 Q12
 * **Learn screens**
-  1. Planning a class party: Bolt asks "What is your favourite drink?". Twelve children appear one by one with a speech bubble; the child clicks the matching row to tally each answer, and each child fades when counted.
+  1. Planning a class party: first the child picks a question and exactly four options from cards (e.g. "Which drink?" with water, milk, juice, milkshake). Bolt explains we will ask 10 people. Ten family members then appear one by one with a speech bubble; the child clicks the matching row to tally each answer, and each person fades when counted.
   2. The tally chart grows a third column, Frequency; the child counts each row and types the number. Bolt shows that the table now answers "how many?" without recounting.
   3. Writing a sentence: drag word chips to make "Seven children chose water." and decide what to buy.
 * **Practice (count 8)**
   * Level 1: a picture of 8-12 everyday items (fruit in a bowl, toys on a shelf) in 3 categories; click to tally, then fill the frequency column.
   * Level 2: 12-16 faces with labelled choices (hobbies, snacks, ways to get to school), 4 categories; the child must also choose a title for the chart from 3 options.
-  * Level 3: a list of 20-24 raw values (e.g. test scores in tens, shoe sizes) shown as cards; sort them into a 5-7 row tally and frequency table; then type the total and check it matches the number of cards.
-* **Mistake tags**: Counted an item twice · Missed an item · Frequency doesn't match the tally · Left out the frequency column · Total doesn't match the data
+  * Level 3: a list of 20-24 raw values (e.g. test scores in tens, car colours in a grid) shown as cards; sort them into a 5-7 row tally and frequency table (some tables are laid out sideways, as in the workbook); then type the total and check it matches the number of cards. One round sorts flat shapes by number of corners (0-5), with empty rows that get a frequency of 0.
+* **Mistake tags**: Counted an item twice · Missed an item · Frequency doesn't match the tally · Left out the frequency column · Total doesn't match the data · Forgot a row with 0
 * **Parent tips**
   * Goal: collect data into a tally chart and turn it into a frequency table.
   * Say: "Cross it off once you've tallied it." · "Count your tally - does the number match?" · "Do all your frequencies add up to how many people there were?"
-  * Watch for: skipping the frequency column (seen in his book); items counted twice.
+  * Watch for: skipping the frequency column (seen in his book); items counted twice; making up a big chart with no real question behind it (his workbook party survey had 10 animals and counts up to 35). Keep it to one question, four choices and ten people.
   * Away from screen: ask family members a question (favourite fruit, how they travel to work), tally the answers on paper, then make a frequency table with numbers.
 
 ### 3. `read-the-table` - What does the table tell us?
 * **title**: What does the table tell us? · **icon**: 🔎 · **section**: 2.1
 * **summary**: Answer questions from tally charts and frequency tables: most, least, the same, total and how many more.
-* **book**: p.30 Q2; p.32 Q4a-c; p.34 Q1-Q2; p.35 Q3
+* **book**: p.30 Q2; p.32 Q4a-c; p.34 Q1-Q2; p.35 Q3. Workbook p.23 Q1a-d, p.24 Q3b-c, p.27 Q6, p.28 Q7, p.30 Q9, p.31 Q10a, p.32 Q11
 * **Learn screens**
   1. A school sports survey shown as a tally chart and as a frequency table side by side. Bolt asks "Are these the same data?" and the child clicks matching rows to link them.
   2. Most and least: the child clicks the biggest and smallest frequency; Bolt shows "most popular" and "least popular". Two equal rows light up together for "the same number".
@@ -220,18 +253,18 @@ One section: 2.1 Tally charts and frequency tables (pp.26-33), with the unit ope
 * **Practice (count 9)**
   * Level 1: one frequency table (4-5 rows, values 1-15): which is most / least / which two are the same.
   * Level 2: tally-only charts (values 6-22) - how many in one row, total of two rows (sums to 40), how many more (differences to 10).
-  * Level 3: total of all rows (to 50); a word-clue chart (one row given, the next is double it, the next half of it, the next a stated number - with a picture of two equal groups for double/half); and "which of these does the table NOT tell us?" (choose from 3 statements).
+  * Level 3: total of all rows (to 75, or 150 with column addition); 'which two rows make 42?'; a word-clue chart (one row given, the next is double it, the next half of it, the next a stated number - with a picture of two equal groups for double/half); 'spot the mistakes' (a frequency column with 2 wrong numbers to find and fix by recounting the tallies); and "which of these does the table NOT tell us?" (choose from 3 statements). Leave out 'how many people in the cars altogether' (workbook p.31 Q10b): it needs multiplication.
 * **Mistake tags**: Picked the longest name not the biggest number · Added wrong · Gave the number of rows as the total · Misread a word clue · Thought the data said why
 * **Parent tips**
   * Goal: use a table to answer questions and say what it shows.
   * Say: "Which number is biggest?" · "How many people altogether - what do we add?" · "Does the table tell us why they chose it?"
-  * Watch for: reading a clue like "seven people" as "add seven" (seen in his book); adding slips like 17 + 15 = 22.
+  * Watch for: reading a clue like "seven people" as "add seven" (seen in his book); adding slips like 17 + 15 = 22; tables where the categories are numbers (24 sweets in 4 bags): ask "which column tells us how many bags?". Skip workbook p.31 Q10b for now; it needs multiplication.
   * Away from screen: look at a simple table in a newspaper, cereal box or sports page and ask each other three questions about it.
 
 ### 4. `chance-experiment` - Test your guess
 * **title**: Test your guess · **icon**: 🎲 · **section**: 2.1
 * **summary**: Make a prediction, run a coin or dice experiment, tally the results and see that chance results change each time.
-* **book**: p.28 Worked example 1; p.29 Q1; p.31 Q3 conjecture; p.33 TLAM and reflection
+* **book**: p.28 Worked example 1; p.29 Q1; p.31 Q3 conjecture; p.33 TLAM and reflection. Workbook p.30 Q8 and p.34 Q12 ('how could you improve your investigation?')
 * **Learn screens**
   1. Bolt says: "I think a dice thrown 12 times lands on each number twice. That is my conjecture." The child clicks Throw 12 times; a 1-6 tally fills. Bolt checks: the prediction did not match - and that is fine.
   2. Throw again: a second tally appears next to the first and is different. Bolt: chance results change every time.
