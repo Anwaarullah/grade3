@@ -555,13 +555,15 @@
         api.lockNext();
         stage.appendChild(MQ.ui.lesson('Make 13', 'Add sticks. When 4 are standing, press <b>Cross them</b>.'));
         var done = false;
+        var misses = 0;
         var w = maker(api, {
           manual: true,
           cap: 18,
           onCheck: function (gs) {
             if (done) return;
-            var m = makeMistake(gs, 13, 0);
+            var m = makeMistake(gs, 13, misses);
             if (m) {
+              misses++;
               api.sound('wrong');
               api.say(m.hint, 'oops');
               api.feedback(m.hint, 'try');
@@ -747,6 +749,7 @@
           area.appendChild(fixed);
           ni2.focus();
         }
+        var spotMisses = 0;
         q.groups.forEach(function (g, i) {
           if (g.bad) oddIndex = i;
           var p = spic.pos[i];
@@ -765,8 +768,12 @@
             var h;
             if (g.cross) h = 'That one has 4 sticks and a crossing line, so it is a proper gate. Look for a group with too many or too few sticks.';
             else h = 'Those single sticks are fine: they are not a full group yet. Look at the bigger groups.';
-            if (api.tries() >= 1) h = 'Count the sticks standing up in each group. One group does not have exactly 4 under its line.';
-            api.check(false, h, q.odd === 'six' ? 'Missed a group of 6 sticks' : 'Missed a gate of only 4');
+            spotMisses++;
+            if (spotMisses >= 2) h = 'Count the sticks standing up in each group. One group does not have exactly 4 under its line.';
+            // Step 1 is a pointer to the odd group, not the maths answer: give feedback only,
+            // so tries (and Show me) are saved for the counting step.
+            api.sound('wrong');
+            api.feedback(h, 'try');
           });
           spic.hits.appendChild(hit);
         });

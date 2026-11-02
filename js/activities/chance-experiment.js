@@ -892,6 +892,7 @@
         ch.disable();
         ch.mark(ans, 'good');
         tallyHold.classList.add('ce-lit');
+        work.appendChild(countLine('Last round', P));
         work.appendChild(countLine('This round', packets));
         work.appendChild(workLine(packets === P ? 'Both rounds needed ' + P + '. That is rare!' : packets + ' is ' + (ans === 'more' ? 'more' : 'fewer') + ' than ' + P + '. Each round is different, because the toys come by chance.'));
       });

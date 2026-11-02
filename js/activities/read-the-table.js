@@ -28,7 +28,7 @@
       { k: 'cat', name: 'Cat', icon: '🐱' }, { k: 'dog', name: 'Dog', icon: '🐶' },
       { k: 'fish', name: 'Fish', icon: '🐟' }, { k: 'rabbit', name: 'Rabbit', icon: '🐰' },
       { k: 'hamster', name: 'Hamster', icon: '🐹' }, { k: 'tortoise', name: 'Tortoise', icon: '🐢' } ] },
-    school: { title: 'How we get to school', head: 'Way', noun: 'way to school', cats: [
+    school: { title: 'How we get to school', head: 'Way', noun: 'way to school', plural: 'ways to school', cats: [
       { k: 'walk', name: 'Walk', icon: '🚶' }, { k: 'bike', name: 'Bike', icon: '🚲' },
       { k: 'bus', name: 'Bus', icon: '🚌' }, { k: 'car', name: 'Car', icon: '🚗' },
       { k: 'scooter', name: 'Scooter', icon: '🛴' }, { k: 'train', name: 'Train', icon: '🚆' } ] },
@@ -657,7 +657,7 @@
   // Level 1: which two are the same
   function renderSame(stage, api, q) {
     api.say('Two rows have the same number. Can you find them?', 'think');
-    var wrap = header(stage, q, 'Which two ' + q.ctx.noun + 's have <b>the same</b> number? Click both rows.');
+    var wrap = header(stage, q, 'Which two ' + (q.ctx.plural || q.ctx.noun + 's') + ' have <b>the same</b> number? Click both rows.');
     var sel = [];
     var t = makeTable({ rows: q.rows, head: q.ctx.head, freq: true, caption: q.ctx.title, onRow: function (k) {
       if (sel.indexOf(k) !== -1) {

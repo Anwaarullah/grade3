@@ -775,12 +775,17 @@
     });
     var others = U.shuffle(
       L2_THEMES.filter(function (t) {
-        return t.id !== theme.id;
+        // Hobbies and sports overlap (football), so never offer one as a wrong title for the other.
+        return t.id !== theme.id && !((theme.id === 'hobby' && t.id === 'sport') || (theme.id === 'sport' && t.id === 'hobby'));
       })
         .map(function (t) {
           return t.title;
         })
-        .concat(OTHER_TITLES)
+        .concat(
+          OTHER_TITLES.filter(function (t) {
+            return !(theme.id === 'snack' && t === 'Our favourite fruit');
+          })
+        )
     ).slice(0, 2);
     return {
       level: 2,
@@ -1011,7 +1016,8 @@
       if (ticked[i]) {
         itemEls[i].classList.remove('st-picked');
         picked = -1;
-        api.check(false, 'Oops! That one already has a tick. Count each thing only once.', 'Counted an item twice');
+        api.sound('wrong');
+        api.feedback('Oops! That one already has a tick. Count each thing only once.', 'try');
         return;
       }
       if (k !== it.cat) {
@@ -1048,6 +1054,7 @@
     chainInputs(table.allInputs(), doCheck);
     checkBtn.addEventListener('click', doCheck);
 
+    var earlyChecks = 0;
     function doCheck() {
       if (api.isAnswered()) return;
       var tries = t0();
@@ -1061,10 +1068,11 @@
           void itemEls[i].offsetWidth;
           itemEls[i].classList.add('st-flash-item');
         });
-        api.check(
-          false,
-          tries >= 1 ? 'Look for things with no tick ✓. There ' + (left.length === 1 ? 'is 1' : 'are ' + left.length) + ' still to tally. They are flashing.' : 'Some things have no tick yet. Tally every one before you check.',
-          'Missed an item'
+        earlyChecks++;
+        api.sound('wrong');
+        api.feedback(
+          earlyChecks >= 2 ? 'Look for things with no tick ✓. There ' + (left.length === 1 ? 'is 1' : 'are ' + left.length) + ' still to tally. They are flashing.' : 'Some things have no tick yet. Tally every one before you check.',
+          'try'
         );
         return;
       }
