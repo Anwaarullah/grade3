@@ -1066,6 +1066,12 @@
       } else if ((f = find(function (c, ry) { return q.row === 'lt:50' && c.n === 50 && ry; }))) {
         tag = "Put 50 in 'less than 50'";
         hint = lead + '"Not less than 50" means 50 or more, so 50 goes in the "not less than 50" row.';
+      } else if ((f = find(function (c) {
+        var at = V.cellOf(c.id);
+        return c.cell.charAt(0) !== c.cell.charAt(1) && at === c.cell.charAt(1) + c.cell.charAt(0);
+      }))) {
+        tag = 'Read row label as column';
+        hint = lead + 'Read the label at the side for the row, and the label on top for the column.';
       } else if ((f = find(function (c, ry, cy) {
         return (isMult(q.row) && ry !== (c.cell.charAt(0) === 'y')) || (isMult(q.col) && cy !== (c.cell.charAt(1) === 'y'));
       }))) {
@@ -1073,12 +1079,6 @@
         var mid = isMult(q.row) && V.cellOf(f.id).charAt(0) !== f.cell.charAt(0) ? q.row : q.col;
         var k = rule(mid).mult;
         hint = lead + 'Check "' + rule(mid).label + '": press Jumps of ' + k + ' and see if ' + f.n + ' is a landing spot.';
-      } else if ((f = find(function (c) {
-        var at = V.cellOf(c.id);
-        return c.cell.charAt(0) !== c.cell.charAt(1) && at === c.cell.charAt(1) + c.cell.charAt(0);
-      }))) {
-        tag = 'Read row label as column';
-        hint = lead + 'Read the label at the side for the row, and the label on top for the column.';
       } else {
         tag = 'Placed in the wrong cell';
         hint = lead + 'For each orange card, check the row label first, then the column label.';

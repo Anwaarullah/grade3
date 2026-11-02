@@ -142,7 +142,7 @@
   }
   var SHAPES = {
     rt: { name: 'right-angled triangle', tri: 1, sym: 0, pts: '6,30 6,8 40,30', why: 'no fold line makes its two halves match' },
-    sc: { name: 'slanted triangle', tri: 1, sym: 0, pts: '2,30 40,30 12,5', why: 'all its sides are different, so no fold line works' },
+    sc: { name: 'slanted triangle', tri: 1, sym: 0, pts: '2,30 40,30 36,4', why: 'all its sides are different, so no fold line works' },
     is: { name: 'tall triangle', tri: 1, sym: 1, pts: '9,30 33,30 21,1', line: [21, 0, 21, 31] },
     eq: { name: 'triangle with equal sides', tri: 1, sym: 1, pts: '5,30 37,30 21,2.3', line: [21, 1, 21, 31] },
     rect: { name: 'rectangle', tri: 0, sym: 1, pts: '2,8 40,8 40,26 2,26', line: [21, 5, 21, 29] },
@@ -1034,15 +1034,15 @@
         });
       });
       var hint;
-      if (inEmpty.length) {
+      if (oneHoop.length) {
+        tag = 'Fits both but put in one hoop';
+        focus = oneHoop[0];
+        hint = lead + 'One of them fits BOTH rules, so it goes in the middle where the hoops overlap.';
+      } else if (inEmpty.length) {
         tag = 'Thought a region cannot be empty';
         focus = inEmpty[0];
         var er = V.regionOf(focus.id);
         hint = lead + 'Does anything really belong in ' + regionText(q, er) + '? A space is allowed to stay empty.';
-      } else if (oneHoop.length) {
-        tag = 'Fits both but put in one hoop';
-        focus = oneHoop[0];
-        hint = lead + 'One of them fits BOTH rules, so it goes in the middle where the hoops overlap.';
       } else if (multBad.length) {
         tag = 'Multiple-of check wrong';
         focus = multBad[0].c;

@@ -918,7 +918,7 @@
         tally.setFreqText(v, q.counts[v]);
         hint = q.ctx.cats[v].name + ' is ' + alongText(q.counts[v]) + ', so it has ' + q.counts[v] + '. Is there a row with more?';
       }
-      api.check(false, hint, 'Tally marks miscounted (gate of 5)');
+      api.check(false, hint, q.counts[v] >= 5 || q.counts[best] >= 5 ? 'Tally marks miscounted (gate of 5)' : 'Compared the tallies wrongly');
     }, { columns: 4 });
     stage.appendChild(tally.el);
     stage.appendChild(ch);
@@ -1408,7 +1408,7 @@
         tally.setFreqText(row7(v), counts[v]);
         hint = v + ' came up ' + times(counts[v]) + '. Find a longer tally.';
       }
-      api.check(false, hint, 'Tally marks miscounted (gate of 5)');
+      api.check(false, hint, counts[v] >= 5 || counts[qq.ans] >= 5 ? 'Tally marks miscounted (gate of 5)' : 'Compared the tallies wrongly');
     }
     function checkCount(n, raw) {
       if (api.isAnswered()) return;

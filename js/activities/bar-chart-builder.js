@@ -670,7 +670,7 @@
     if (v === t + 1) return 'Bar started at 1 not 0';
     return 'Bar drawn to the wrong height';
   }
-  var TAG_ORDER = ['Counted gridlines not the scale', 'Bar started at 1 not 0', 'Misread a bar between two marks', 'Bar drawn to the wrong height', 'Left a bar at 0'];
+  var TAG_ORDER = ['Did not spot a wrong bar', 'Counted gridlines not the scale', 'Bar started at 1 not 0', 'Misread a bar between two marks', 'Bar drawn to the wrong height', 'Left a bar at 0'];
 
   /** Wire a "build these bars" question: Check button, hints, reveal, test hook. */
   function buildQuestion(stage, api, q, ch, side, extra) {
@@ -710,7 +710,7 @@
         api.check(true, extra.praise || 'Every bar stops at the right number!');
         return;
       }
-      var tags = wrong.map(function (i) { return barTag(vals[i], q.vals[i], q.step); });
+      var tags = wrong.map(function (i) { return q.start && vals[i] === q.start[i] ? 'Did not spot a wrong bar' : barTag(vals[i], q.vals[i], q.step); });
       var tag = TAG_ORDER.filter(function (t) { return tags.indexOf(t) !== -1; })[0];
       var first = wrong[tags.indexOf(tag)];
       wrong.forEach(function (i) { ch.barState(i, 'bad'); });
@@ -719,7 +719,8 @@
       var more = wrong.length > 1 ? ' ' + wrong.length + ' bars need fixing (the orange ones).' : '';
       var hint;
       if (api.tries() === 0) {
-        if (tag === 'Counted gridlines not the scale') hint = 'Look at the numbers on the scale: each line is worth 2, not 1. Find ' + t + ' on the scale.';
+        if (tag === 'Did not spot a wrong bar') hint = 'The ' + c.name + ' bar still does not match the data. The data says ' + t + '. Find ' + t + ' on the scale.';
+        else if (tag === 'Counted gridlines not the scale') hint = 'Look at the numbers on the scale: each line is worth 2, not 1. Find ' + t + ' on the scale.';
         else if (tag === 'Misread a bar between two marks') hint = t + ' is not on a line. It is halfway between ' + (t - 1) + ' and ' + (t + 1) + '.';
         else if (tag === 'Bar started at 1 not 0') hint = 'Every bar starts at 0. Make the ' + c.name + ' bar stop at ' + t + ' on the scale.';
         else if (tag === 'Left a bar at 0') hint = 'The ' + c.name + ' bar is still at 0. Drag its top ' + horizWord + ' to ' + t + '.';
@@ -863,7 +864,7 @@
     var bn = U.pick([4, 5]);
     q.push({ type: 'build', ctx: bctx, cats: CTX[bctx].cats.slice(0, bn), vals: distinct(bn, 1, 9), step: 1, max: 9 });
     // Level 2: read a chart, scale of 1, values up to 7
-    var rctx = U.shuffle(['dice', 'fruit', 'sports', 'travel', 'books', 'icecream'].filter(function (k) { return used.indexOf(k) === -1; }));
+    var rctx = U.shuffle(['dice', 'fruit', 'sports', 'travel', 'books'].filter(function (k) { return used.indexOf(k) === -1; }));
     if (rctx.indexOf('dice') > 2) rctx[U.rand(0, 2)] = 'dice';
     rctx = rctx.slice(0, 3);
     var kinds = [U.pick(['value', 'most', 'least']), 'more', 'total'];
@@ -871,7 +872,7 @@
       var opts = {};
       if (k === 'dice' && kinds[i] === 'total' && Math.random() < 0.5) opts.vals = [2, 6, 1, 3, 5, 3];
       var rq = readQ(kinds[i], k, opts);
-      if (rq.kind === 'total' && rq.cats.length === 5) {
+      if (rq.kind === 'total') {
         // keep totals friendly for adding (no more than 25)
         while (rq.answer > 25) rq = readQ('total', k, opts);
       }
@@ -902,7 +903,7 @@
       return { type: 'build', ctx: k, cats: CTX[k].cats.slice(0, 5), vals: twosVals(5), step: 2, max: 18, l3: 'build2' };
     }
     if (t === 'read2') {
-      var k2 = freeCtx(['trees', 'books', 'icecream', 'sports', 'fruit'], used);
+      var k2 = freeCtx(['trees', 'books', 'sports', 'fruit'], used);
       var v2 = twosVals(5);
       var rq = readQ('value', k2, { vals: v2, oddOnly: true, step: 2, max: evenTop(v2, 12) });
       rq.l3 = 'read2';
