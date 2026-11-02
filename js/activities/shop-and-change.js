@@ -534,7 +534,7 @@
     var dollars = odd ? U.pick([5, 7, 9, 11]) : U.pick([6, 8, 10, 12]);
     q.push({ type: 'half', total: dollars * 100, each: dollars * 50, thing: U.pick(PAIRS), who: U.pick(NAMES) });
     if (Math.random() < 0.5) {
-      var spent = U.rand(5, 70) * 100 + U.rand(1, 19) * 5;
+      var spent = U.rand(10, 70) * 100 + U.rand(1, 19) * 5;
       var left = U.rand(0, 9) * 100 + U.rand(1, 19) * 5;
       q.push({ type: 'before', spent: spent, left: left, start: spent + left, who: U.pick(NAMES) });
     } else {
