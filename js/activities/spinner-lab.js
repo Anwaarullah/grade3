@@ -332,7 +332,7 @@
 
   /**
    * Check an estimate set against a spinner. Rule: total must equal N; a key not on the spinner gets 0;
-   * a bigger section never gets fewer spins than a smaller one; and not every letter the same.
+   * every key on the spinner gets at least 1; a bigger section gets more spins than a smaller one; and not every letter the same.
    * Returns null when fine, else { why, key1, key2, mis }.
    */
   function estimateProblem(sz, rowKeys, vals, N) {
@@ -348,9 +348,12 @@
     var on = rowKeys.filter(function (k) {
       return sz[k];
     });
+    for (var z = 0; z < on.length; z++) {
+      if (!(vals[on[z]] > 0)) return { why: 'zero', key1: on[z], mis: MIS.size };
+    }
     for (var a = 0; a < on.length; a++) {
       for (var b = 0; b < on.length; b++) {
-        if (sz[on[a]] > sz[on[b]] && vals[on[a]] < vals[on[b]]) return { why: 'order', key1: on[a], key2: on[b], mis: MIS.size };
+        if (sz[on[a]] > sz[on[b]] && vals[on[a]] <= vals[on[b]]) return { why: 'order', key1: on[a], key2: on[b], mis: MIS.size };
       }
     }
     var allSame = on.every(function (k) {
@@ -1243,9 +1246,10 @@
       var nm = q.names;
       if (pr.why === 'absent') api.check(false, nm[pr.key1] + ' is not on the spinner, so it will not happen. Give it 0.', pr.mis);
       else if (pr.why === 'total') api.check(false, 'Your guesses add up to ' + pr.t + '. They must add up to ' + N + ', one for each spin.' + (second ? ' Use − or + to fix it.' : ''), pr.mis);
+      else if (pr.why === 'zero') api.check(false, cap(nm[pr.key1]) + ' is on the spinner, so it might happen. Give it at least 1 spin.', pr.mis);
       else if (pr.why === 'order') {
         if (second) view.guides();
-        api.check(false, cap(nm[pr.key1]) + ' is a bigger slice than ' + nm[pr.key2] + ', so it should get at least as many spins.' + (second ? ' Count the small parts between the dashed lines.' : ''), pr.mis);
+        api.check(false, cap(nm[pr.key1]) + ' is a bigger slice than ' + nm[pr.key2] + ', so it should get more spins.' + (second ? ' Count the small parts between the dashed lines.' : ''), pr.mis);
       } else api.check(false, 'The parts are not all the same size. Should the big part get the same as a small part?', pr.mis);
     });
     api.onReveal(function () {

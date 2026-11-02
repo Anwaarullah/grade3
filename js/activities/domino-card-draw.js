@@ -428,7 +428,7 @@
       var q = { type: 'pairs', n: n, t: t, pairs: pairsMaking(n, t) };
       q.answer = q.pairs.length ? 'might' : 'wont';
       q.key = 'p|' + n + '|' + t;
-      if ((q.pairs.length > 0) !== possible || used[q.key]) continue;
+      if ((q.pairs.length > 0) !== possible || used[q.key] || used['c|' + n + '|exact' + t]) continue;
       used[q.key] = true;
       return q;
     }

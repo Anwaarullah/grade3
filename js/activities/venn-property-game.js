@@ -164,7 +164,7 @@
   // empty: the region that can NEVER have a number (true for every whole number, not only on the strip).
   var EMPTY_PAIRS = [
     { a: 'm10', b: 'even', empty: 'L', reason: 'Every multiple of 10 ends in 0, so it is always even.' },
-    { a: 'odd', b: 'm2', empty: 'B', reason: 'Counting in 2s only lands on even numbers, so no multiple of 2 is odd.' },
+    { a: 'odd', b: 'm4', empty: 'B', reason: 'Counting in 4s only lands on even numbers, so no multiple of 4 is odd.' },
     { a: 'odd', b: 'one4', empty: 'R', reason: 'Numbers in the 4 times table are even, and one more than an even number is odd.' },
     { a: 'm5', b: 'ends0', empty: 'R', reason: 'Every number that ends in 0 is on the counting-in-5s path: 10, 20, 30 …' },
     { a: 'even', b: 'ends5', empty: 'B', reason: 'A number that ends in 5 is always odd, so it can never be even.' },
