@@ -152,6 +152,8 @@
       var g = { a: a.v, b: b.v, sum: a.v + b.v, ten: a.v + b.v === 10 };
       groups.push(g);
       a.group = b.group = g;
+      a.btn.classList.remove('boa-bad');
+      b.btn.classList.remove('boa-bad');
       a.btn.classList.add('boa-gone');
       b.btn.classList.add('boa-gone');
       tray.appendChild(
@@ -197,6 +199,9 @@
       },
       lock: function () {
         locked = true;
+        cards.forEach(function (c) {
+          c.btn.classList.remove('boa-bad');
+        });
         if (sel) sel.btn.classList.remove('boa-sel');
         sel = null;
         wrap.classList.add('boa-locked');
@@ -474,6 +479,7 @@
     var addArea = el('div', { class: 'boa-add' });
     var w = null;
     var inp = null;
+    var badPairs = 0;
 
     if (q.balloon) {
       api.say('Pop them into friendly pairs: make 10 or a double. Then add.', 'think');
@@ -489,9 +495,11 @@
       onBad: function (a, b) {
         var p = board.findFriendly();
         var hint;
-        if (api.tries() >= 1 && p) hint = 'Try ' + p[0].v + ' and ' + p[1].v + ': ' + pairText(p[0].v, p[1].v) + '.';
+        badPairs++;
+        if (badPairs >= 2 && p) hint = 'Try ' + p[0].v + ' and ' + p[1].v + ': ' + pairText(p[0].v, p[1].v) + '.';
         else hint = a + ' + ' + b + ' = ' + (a + b) + '. That is not 10 and not a double. What goes with ' + a + ' to make 10?';
-        api.check(false, hint, 'Pair did not make 10');
+        api.feedback(hint, 'try');
+        api.say('Not a friendly pair. Look again!', 'oops');
       },
       onPair: function (g) {
         api.feedback(pairText(g.a, g.b) + (board.findFriendly() ? '. Any more pairs?' : ''), 'good');
@@ -633,7 +641,7 @@
       var bb = pairBoard([a, b, c], {
         api: api,
         onBad: function (x, y) {
-          api.check(false, x + ' + ' + y + ' = ' + (x + y) + '. Which two make exactly 10?', 'Could not name the bond to 10');
+          api.feedback(x + ' + ' + y + ' = ' + (x + y) + '. Which two make exactly 10?', 'try');
         },
         onPair: function (g) {
           if (!g.ten) return; // a double cannot happen: the three digits are different
