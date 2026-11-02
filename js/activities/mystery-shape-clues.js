@@ -1106,7 +1106,7 @@
           var notFit = q.board.filter(function (x, j) {
             return stillIn(j) && !fits(x, c);
           });
-          hint += ' ' + LOOK_FOR[c.key] + (notFit.length ? ' Try ' + the(notFit[0]) + '.' : '');
+          hint += ' ' + LOOK_FOR[c.key] + (notFit.length ? ' ' + (notFit.length === 1 ? '1 shape left does' : notFit.length + ' shapes left do') + ' not fit.' : '');
         }
         api.check(false, hint, TAG_CROSSED);
         return;
@@ -1156,7 +1156,7 @@
           el('div', { class: 'ms-workrow' }, el('b', null, 'Clue ' + (n + 1) + ': '), clueText(c) + ' ', out.length ? '✗ ' + list(out.map(function (x) { return KINDS[x].name; })) : '')
         );
       });
-      work.appendChild(el('div', { class: 'ms-fact' }, '✓ ' + KINDS[q.answer].name + ': ' + q.clues.map(function (c) { return reason(q.answer, c); }).join('; ') + '.'));
+      work.appendChild(el('div', { class: 'ms-fact' }, '✓ ' + KINDS[q.answer].name + ': ' + q.clues.map(function (c) { return reason(q.answer, c); }).filter(function (t, j, a) { return a.indexOf(t) === j; }).join('; ') + '.'));
       api.feedback('The mystery shape is ' + the(q.answer) + '.', 'info');
     });
   }
@@ -1282,7 +1282,7 @@
       shake(api, b);
       var opts = freeFits(game, face);
       var hint = The(t.kind) + ' does not match: ' + diceWhy(t.kind, face) + '.';
-      if (api.tries() >= 1) hint += opts.length ? ' Look for a free shape that ' + DICE_KEY[face].sent + '. Try ' + the(opts[0].kind) + '.' : ' Is there any free shape that fits?';
+      if (api.tries() >= 1) hint += opts.length ? ' Look for a free shape that ' + DICE_KEY[face].sent + '. ' + (opts.length === 1 ? '1 free shape fits.' : opts.length + ' free shapes fit.') : ' Is there any free shape that fits?';
       api.check(false, hint, TAG_DICE_WRONG);
     }
 
@@ -1297,7 +1297,7 @@
         return;
       }
       var h = 'Look again: a free shape ' + DICE_KEY[face].sent + '.';
-      if (api.tries() >= 1) h += ' Try ' + the(opts[0].kind) + '.';
+      if (api.tries() >= 1) h += ' ' + (opts.length === 1 ? '1 free shape fits.' : opts.length + ' free shapes fit.') + ' Check each one.';
       api.check(false, h, TAG_DICE_MISSED);
     });
 

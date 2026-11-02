@@ -838,7 +838,7 @@
     var edgeKind = U.pick(['triPrism', 'triPyramid', 'hexPrism']);
     q.push({ type: 'count', kind: edgeKind, ask: 'edges' });
     q.push({ type: 'curved', kind: U.pick(['cylinder', 'cone', 'sphere']) });
-    q.push({ type: 'card', kind: U.pick(['triPrism', 'hexPrism', 'triPyramid', 'octPrism'].filter(function (k) { return k !== edgeKind; })) });
+    q.push({ type: 'card', kind: U.pick(['triPrism', 'hexPrism', 'triPyramid'].filter(function (k) { return k !== edgeKind; })) });
     // Level 3: two riddles (different answers), then make your own riddle.
     var rs = U.shuffle(RIDDLES.slice());
     var r1 = rs[0], r2 = rs.filter(function (r) { return r.answer !== r1.answer; })[0];
@@ -969,7 +969,9 @@
         if (val < r.want) return { h: 'Turn it and look underneath. Is there another flat face?' + (t >= 1 ? ' A tin has a flat circle on top AND on the bottom.' : ''), tag: T.hidden };
         return { h: 'Click the flat parts on the picture and count them.', tag: T.curvedFace };
       }
-      if (r.key === 'curved') return { h: 'The curved surface is the part that rolls. It goes all the way round as one piece. How many?', tag: T.curvedFace };
+      if (r.key === 'curved') return { h: t >= 1
+        ? 'There is just 1 curved surface. It is one piece that goes all the way round' + (q.kind === 'sphere' ? ' the ball.' : '.')
+        : 'The curved surface is the part that rolls. It goes all the way round as one piece. How many?', tag: T.curvedFace };
       if (q.kind === 'cone') return val === 0 ? { h: 'Look at the very top of the party hat. That sharp point is a vertex.', tag: T.curvedCorner } : { h: 'Only one sharp point: the tip at the top.', tag: T.curvedCorner };
       if (q.kind === 'cylinder' && val === 2) return { h: 'A tin has 2 curved edges, but no corners. Edges are lines; vertices are sharp points.', tag: T.ev };
       return { h: 'Is there any sharp point? ' + (q.kind === 'sphere' ? 'A ball is smooth all over.' : 'The edges of a tin are round circles.'), tag: T.curvedCorner };

@@ -529,6 +529,15 @@
     if (k === 'cone') return U.pick(['stand', 'upside']);
     return 'stand';
   }
+  // Board tiles are small and cannot be turned, so only use poses that read clearly at that size:
+  // a triangular prism lying down (triangle end showing), pyramids standing or upside down.
+  function boardPose(k) {
+    var K = KINDS[k];
+    if (k === 'triPrism') return 'lying';
+    if (K.cat === 'pyramid') return k === 'triPyramid' ? 'upside' : U.pick(['stand', 'upside']);
+    if (K.cat === 'prism') return prismPose(k);
+    return anyPose(k);
+  }
   function isTurned(it) {
     return it.pose !== 'stand' && it.kind !== 'triPrism' && it.kind !== 'cube';
   }
@@ -556,12 +565,12 @@
         pr.push(k);
       });
     var items = pr.map(function (k) {
-      return { kind: k, pose: prismPose(k) };
+      return { kind: k, pose: boardPose(k) };
     });
     items[1].pose = 'lying'; // at least one prism lying on its side
     var non = ['cylinder'].concat(U.shuffle(['triPyramid', 'sqPyramid', 'pentPyramid', 'hexPyramid', 'octPyramid', 'cone', 'sphere']).slice(0, 3));
     non.forEach(function (k) {
-      items.push({ kind: k, pose: anyPose(k) });
+      items.push({ kind: k, pose: boardPose(k) });
     });
     return { type: 'board', target: 'prism', items: U.shuffle(items) };
   }
@@ -569,7 +578,7 @@
   function board12() {
     var npy = U.pick([4, 5]);
     var py = U.shuffle(PYRAMIDS).slice(0, npy).map(function (k, i) {
-      return { kind: k, pose: i === 0 ? 'upside' : i === 1 ? 'tipped' : U.pick(['stand', 'stand', 'upside']) };
+      return { kind: k, pose: i < 2 || k === 'triPyramid' ? 'upside' : U.pick(['stand', 'stand', 'upside']) };
     });
     var items = py.concat([
       { kind: 'cone', pose: anyPose('cone') },
@@ -579,7 +588,7 @@
     U.shuffle(PRISMS)
       .slice(0, 12 - items.length)
       .forEach(function (k) {
-        items.push({ kind: k, pose: prismPose(k) });
+        items.push({ kind: k, pose: boardPose(k) });
       });
     return { type: 'board', target: 'pyramid', items: U.shuffle(items) };
   }
@@ -640,7 +649,7 @@
       opts: [
         { t: 'It has a point, not two matching ends', ok: true },
         { t: 'It has a curved surface', why: 'Look closely: all its faces are flat.' },
-        { t: 'It is too pointy to be a shape', why: 'It is a shape! Look at its two ends: do they match?' },
+        { t: 'A prism cannot have triangle faces', why: 'A triangular prism has triangle faces too! Look for two matching ends: are there two?' },
       ],
       explain: 'A prism needs two matching ends. This shape has one base, and its triangles meet at a point. It is a pyramid.',
     },
@@ -914,8 +923,11 @@
           ch.mark(val, 'bad');
           var P = KINDS[val];
           var hint;
-          if (api.tries() >= 1) hint = 'The gold end has ' + K.sides + ' sides. ' + K.sides + ' sides make a ' + K.endName + '.';
-          else if ((q.kind === 'cube' && val === 'cuboid') || (q.kind === 'cuboid' && val === 'cube')) hint = 'Look at the gold end. Are all 4 sides the same length?';
+          var boxMix = (q.kind === 'cube' && val === 'cuboid') || (q.kind === 'cuboid' && val === 'cube');
+          if (boxMix) hint = api.tries() >= 1
+            ? (q.kind === 'cube' ? 'Every side of the gold end is the same length, and every face is a square. That is a cube.' : 'The gold end has two long sides and two short sides. Not all squares, so it is a cuboid.')
+            : 'Look at the gold end. Are all 4 sides the same length?';
+          else if (api.tries() >= 1) hint = 'The gold end has ' + K.sides + ' sides. ' + K.sides + ' sides make a ' + K.endName + '.';
           else hint = 'Count the sides of the gold end. A ' + P.endName + ' has ' + P.sides + ' sides. Does the gold end?';
           api.check(false, hint, T.name);
         }

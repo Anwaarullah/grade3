@@ -459,7 +459,7 @@
    * ---------------------------------------------------------------- */
   var LABELS = {
     curved: { key: 'curved', text: 'has a curved surface', test: function (o) { return o.curved; } },
-    rect: { key: 'rect', text: 'all faces are rectangles', test: function (o) { return o.allRect; } },
+    rect: { key: 'rect', text: 'all faces are rectangles or squares', test: function (o) { return o.allRect; } },
     more5: { key: 'more5', text: 'has more than 5 corners', test: function (o) { return o.V > 5; } },
     fewer6: { key: 'fewer6', text: 'has fewer than 6 corners', test: function (o) { return o.V < 6; } },
     square: { key: 'square', face: 'square', text: 'has a square face', test: function (o) { return o.faceShapes.square > 0; } },
@@ -480,8 +480,8 @@
   var UNI = { x: 10, y: 4, w: 800, h: 368 };
   var TRAY_Y = 424;
   var SLOTS = {
-    A: [[212, 205], [268, 118], [268, 292]],
-    B: [[608, 205], [552, 118], [552, 292]],
+    A: [[200, 205], [276, 106], [276, 304]],
+    B: [[620, 205], [544, 106], [544, 304]],
     AB: [[410, 155], [410, 262]],
     out: [[60, 66], [60, 205], [60, 318], [760, 66], [760, 205], [760, 318]],
   };
@@ -584,13 +584,16 @@
     var curvedAll = U.shuffle(CURVED_EDGE.concat(SPHERES));
     var rects = U.shuffle(RECT_G);
     var mores = U.shuffle(MORE_G);
-    var fews = ['paperweight', 'teabag', 'paperweight'];
-    for (var i = 0; i < 3; i++) q.push({ type: 'labels', items: U.shuffle([curvedAll[i], rects[i], mores[i], fews[i]]) });
+    // One 5-or-fewer-corner flat shape in two of the questions (the paperweight is the 5-corner trap);
+    // the third gets a second curved thing instead, so nothing repeats.
+    var fews = U.shuffle(['paperweight', 'teabag']);
+    var fourth = [fews[0], fews[1], curvedAll[3]];
+    for (var i = 0; i < 3; i++) q.push({ type: 'labels', items: U.shuffle([curvedAll[i], rects[i], mores[i], fourth[i]]) });
     // Level 3: two Venn diagrams, then "a shape with fewer than 6 corners".
     var pairs = U.shuffle([['square', 'triangle'], ['circle', 'curved'], ['fewer6', 'triangle']]).slice(0, 2);
     q.push(pickVenn(pairs[0]));
     q.push(pickVenn(pairs[1]));
-    var right = U.pick(['paperweight', 'paperweight', 'teabag']);
+    var right = U.pick(['paperweight', 'teabag']);
     var dist = [U.pick(['tent', 'choc']), U.pick(RECT_G), U.pick(['hexbox', 'tent', 'choc'].filter(function () { return true; }))];
     if (dist[2] === dist[0]) dist[2] = 'hexbox';
     q.push({ type: 'fewer', right: right, items: U.shuffle([right].concat(dist)) });
@@ -930,6 +933,17 @@
         var c = clampIn(x, y);
         // keep the region of the drop point even after nudging inside the box
         if (regionAt({ x: c[0], y: c[1] }) !== reg) c = [x, y];
+        // Never let one token hide another: if the spot is taken, use a free slot in the same part.
+        var crowded = function (pt) {
+          return q.items.some(function (k) {
+            return k !== id && state.place[k] && Math.hypot(toks[k].pos.x - pt[0], toks[k].pos.y - pt[1]) < 62;
+          });
+        };
+        if (crowded(c)) {
+          var free = SLOTS[reg].filter(function (sl) { return !crowded(sl); });
+          if (free.length) c = free[0];
+          else c = [c[0] + 30, c[1] + 30 <= UNI.y + UNI.h - 54 ? c[1] + 30 : c[1] - 30];
+        }
         t.moveTo(c[0], c[1]);
         state.place[id] = reg;
         t.setAttribute('data-placed', reg);
