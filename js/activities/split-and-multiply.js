@@ -1093,7 +1093,11 @@
       } else {
         tag = 'Times fact slip';
         var jl = jumpList(p, c);
-        hint = strong ? 'Count in ' + p + 's, one jump for each tray: ' + jl.slice(0, c - 1).join(', ') + ', …' : 'Add up the trays: ' + repeatAdd(p, c) + '. Count in ' + p + 's.';
+        hint = !strong
+          ? 'Add up the trays: ' + repeatAdd(p, c) + '. Count in ' + p + 's.'
+          : c === 2
+            ? 'Double ' + p + ': ' + addHelp(p, p)
+            : 'Count in ' + p + 's, one jump for each tray: ' + jl.slice(0, c - 1).join(', ') + ', …';
       }
       api.check(false, hint, tag);
     }
