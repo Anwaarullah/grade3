@@ -251,7 +251,7 @@
       var k = 0.8 + 0.24 * Math.max(0, dot(nz[fi], LIGHT));
       var key = hlF[fi] || hl[f.role];
       var c = shade(key ? HL[key].fill : baseFill, key ? 0.93 + 0.08 * (k - 0.8) / 0.24 : k);
-      g.appendChild(S('polygon', { points: ptsOf(f), fill: c, stroke: c, 'stroke-width': 0.8, 'stroke-linejoin': 'round', 'data-role': f.role, 'data-fi': fi, class: 'pp-face' }));
+      g.appendChild(S('polygon', { points: ptsOf(f), fill: c, stroke: c, 'stroke-width': 0.8, 'stroke-linejoin': 'round', 'data-role': f.role, 'data-fi': fi, class: 'pyr-face' }));
     });
     // hidden faces that are highlighted: dashed coloured outline
     m.faces.forEach(function (f, fi) {
@@ -293,7 +293,7 @@
         var a = m.verts[i], b = m.verts[n + i];
         sp.push(project(st, [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]), a[2] + t * (b[2] - a[2])], M));
       }
-      g.appendChild(S('polygon', { points: sp.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '), fill: 'rgba(255,159,28,.55)', stroke: '#e76f00', 'stroke-width': 3, 'stroke-linejoin': 'round', 'pointer-events': 'none', class: 'pp-slice' }));
+      g.appendChild(S('polygon', { points: sp.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '), fill: 'rgba(255,159,28,.55)', stroke: '#e76f00', 'stroke-width': 3, 'stroke-linejoin': 'round', 'pointer-events': 'none', class: 'pyr-slice' }));
     }
     if (st.apexDot && m.apex != null) {
       var ap = pts[m.apex];
@@ -308,7 +308,7 @@
   function viewer(api, kind, o) {
     o = o || {};
     var W = o.W || 360, H = o.H || 250;
-    var root = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pp-svg' + (o.cls ? ' ' + o.cls : '') + (o.drag ? ' pp-turnable' : ''), style: { width: W + 'px' }, role: 'img', 'aria-label': KINDS[kind].name });
+    var root = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pyr-svg' + (o.cls ? ' ' + o.cls : '') + (o.drag ? ' pyr-turnable' : ''), style: { width: W + 'px' }, role: 'img', 'aria-label': KINDS[kind].name });
     var g = S('g');
     root.appendChild(g);
     var m = o.model || model(kind);
@@ -413,12 +413,12 @@
     var why = cat === 'prism' ? 'Matching ends + flat faces' : cat === 'pyramid' ? 'Flat faces + one point' : kind === 'cylinder' ? 'Matching ends, but a curved side' : kind === 'cone' ? 'A point, but a curved side' : 'Curved all over';
     return el(
       'div',
-      { class: 'pp-card pp-check' },
+      { class: 'pyr-card pyr-check' },
       rows.map(function (r) {
-        return el('div', { class: 'pp-ck-row ' + (p[r[0]] ? 'pp-yes' : 'pp-no') + (focus === r[0] ? ' pp-focus' : '') }, el('span', { class: 'pp-ck-ic' }, p[r[0]] ? '✓' : '✗'), el('span', null, r[1]));
+        return el('div', { class: 'pyr-ck-row ' + (p[r[0]] ? 'pyr-yes' : 'pyr-no') + (focus === r[0] ? ' pyr-focus' : '') }, el('span', { class: 'pyr-ck-ic' }, p[r[0]] ? '✓' : '✗'), el('span', null, r[1]));
       }),
-      el('div', { class: 'pp-ck-why' }, why + ':'),
-      el('div', { class: 'pp-ck-verdict pp-v-' + cat }, CAT_WORD[cat] === 'Neither' ? 'Neither!' : CAT_WORD[cat] + '!')
+      el('div', { class: 'pyr-ck-why' }, why + ':'),
+      el('div', { class: 'pyr-ck-verdict pyr-v-' + cat }, CAT_WORD[cat] === 'Neither' ? 'Neither!' : CAT_WORD[cat] + '!')
     );
   }
 
@@ -435,7 +435,7 @@
     var pts = poly.map(function (p) {
       return [cx + p[0] * s, cy - p[1] * s];
     });
-    var root = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pp-svg pp-endpic', style: { width: W + 'px' } });
+    var root = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pyr-svg pyr-endpic', style: { width: W + 'px' } });
     root.appendChild(S('polygon', { points: pts.map(function (p) { return p.join(','); }).join(' '), fill: HL.gold.fill, stroke: '#1b2a4a', 'stroke-width': 3, 'stroke-linejoin': 'round' }));
     pts.forEach(function (p, i) {
       var q = pts[(i + 1) % pts.length];
@@ -737,11 +737,11 @@
     var K = KINDS[q.kind];
     var turnedWord = q.caption ? null : POSE_WORD[q.pose];
     api.say(q.caption ? 'Two matching ends? A point? Curved?' : 'Drag it to turn it. Is it a prism, a pyramid or neither?', 'think');
-    var wrap = el('div', { class: 'pp-q', 'data-type': 'single', 'data-ans': K.cat });
+    var wrap = el('div', { class: 'pyr-q', 'data-type': 'single', 'data-ans': K.cat });
     wrap.appendChild(MQ.ui.prompt(q.caption ? 'Is ' + q.caption + ' a <b>prism</b>, a <b>pyramid</b> or <b>neither</b>?' : (turnedWord ? 'This shape is <b>' + turnedWord + '</b>. ' : '') + 'Prism, pyramid or neither?'));
     var v = viewer(api, q.kind, { pose: q.pose, drag: true, pips: !!q.caption, W: 360, H: 240 });
-    var side = el('div', { class: 'pp-side' });
-    wrap.appendChild(el('div', { class: 'pp-row' }, el('div', { class: 'pp-viewbox' }, v.svg, el('div', { class: 'pp-dragnote' }, '↔ drag to turn')), side));
+    var side = el('div', { class: 'pyr-side' });
+    wrap.appendChild(el('div', { class: 'pyr-row' }, el('div', { class: 'pyr-viewbox' }, v.svg, el('div', { class: 'pyr-dragnote' }, '↔ drag to turn')), side));
     var ch = catChoices(function (val) {
       if (val === K.cat) {
         ch.mark(val, 'good');
@@ -771,22 +771,22 @@
       return KINDS[it.kind].cat === target;
     }).length;
     api.say(target === 'prism' ? 'Find every prism, even ones lying down!' : 'Find every pyramid, even upside-down ones!', 'think');
-    var wrap = el('div', { class: 'pp-q', 'data-type': 'board', 'data-ans': target });
+    var wrap = el('div', { class: 'pyr-q', 'data-type': 'board', 'data-ans': target });
     wrap.appendChild(MQ.ui.prompt('Click <b>all the ' + target + 's</b>. Then press Check.'));
     var finished = false;
-    var board = el('div', { class: 'pp-board' + (q.items.length > 8 ? ' pp-board-big' : '') });
+    var board = el('div', { class: 'pyr-board' + (q.items.length > 8 ? ' pyr-board-big' : '') });
     var tiles = q.items.map(function (it) {
-      var t = el('button', { class: 'pp-tile', type: 'button', 'data-cat': KINDS[it.kind].cat, 'data-kind': it.kind, 'aria-pressed': 'false' });
+      var t = el('button', { class: 'pyr-tile', type: 'button', 'data-cat': KINDS[it.kind].cat, 'data-kind': it.kind, 'aria-pressed': 'false' });
       var v = viewer(api, it.kind, { pose: it.pose, W: 150, H: 116, pad: 9 });
       t.appendChild(v.svg);
-      t.appendChild(el('span', { class: 'pp-tag' }));
+      t.appendChild(el('span', { class: 'pyr-tag' }));
       t.view = v;
       t.item = it;
       t.addEventListener('click', function () {
         if (finished) return;
-        var on = !t.classList.contains('pp-on');
-        t.classList.toggle('pp-on', on);
-        t.classList.remove('pp-bad');
+        var on = !t.classList.contains('pyr-on');
+        t.classList.toggle('pyr-on', on);
+        t.classList.remove('pyr-bad');
         t.setAttribute('aria-pressed', on ? 'true' : 'false');
         MQ.sound('click');
       });
@@ -794,14 +794,14 @@
       return t;
     });
     wrap.appendChild(board);
-    var btn = el('button', { class: 'btn pp-checkbtn', type: 'button' }, 'Check ✓');
+    var btn = el('button', { class: 'btn pyr-checkbtn', type: 'button' }, 'Check ✓');
     wrap.appendChild(btn);
     stage.appendChild(wrap);
 
     function label(t) {
       var cat = KINDS[t.item.kind].cat;
-      t.querySelector('.pp-tag').textContent = cat;
-      t.classList.add('pp-labelled', 'pp-c-' + cat);
+      t.querySelector('.pyr-tag').textContent = cat;
+      t.classList.add('pyr-labelled', 'pyr-c-' + cat);
     }
     function lock() {
       finished = true;
@@ -816,7 +816,7 @@
       var missed = [], extra = [], found = 0;
       tiles.forEach(function (t) {
         var isT = KINDS[t.item.kind].cat === target;
-        var on = t.classList.contains('pp-on');
+        var on = t.classList.contains('pyr-on');
         if (isT && on) found++;
         if (isT && !on) missed.push(t.item);
         if (!isT && on) extra.push(t.item);
@@ -824,7 +824,7 @@
       if (!missed.length && !extra.length) {
         tiles.forEach(function (t) {
           if (KINDS[t.item.kind].cat === target) {
-            t.classList.add('pp-good');
+            t.classList.add('pyr-good');
             showEvidence(t.view);
           }
           label(t);
@@ -876,7 +876,7 @@
       if (tr >= 1) {
         hint += ' There are ' + want + ' ' + target + 's. You have ' + found + (extra.length ? ' and ' + extra.length + ' wrong (marked).' : '.');
         tiles.forEach(function (t) {
-          if (t.classList.contains('pp-on') && KINDS[t.item.kind].cat !== target) t.classList.add('pp-bad');
+          if (t.classList.contains('pyr-on') && KINDS[t.item.kind].cat !== target) t.classList.add('pyr-bad');
         });
       }
       api.check(false, hint, tag);
@@ -885,10 +885,10 @@
     api.onReveal(function () {
       tiles.forEach(function (t) {
         var isT = KINDS[t.item.kind].cat === target;
-        t.classList.toggle('pp-on', isT);
-        t.classList.remove('pp-bad');
+        t.classList.toggle('pyr-on', isT);
+        t.classList.remove('pyr-bad');
         if (isT) {
-          t.classList.add('pp-good');
+          t.classList.add('pyr-good');
           showEvidence(t.view);
         }
         label(t);
@@ -904,11 +904,11 @@
   function renderName(stage, api, q) {
     var K = KINDS[q.kind];
     api.say('Prisms are named after their ends. Count the sides of the gold end.', 'think');
-    var wrap = el('div', { class: 'pp-q', 'data-type': 'name', 'data-ans': K.name });
+    var wrap = el('div', { class: 'pyr-q', 'data-type': 'name', 'data-ans': K.name });
     wrap.appendChild(MQ.ui.prompt('What is this prism called?'));
     var v = viewer(api, q.kind, { pose: q.pose, drag: true, W: 340, H: 230, pitch: q.pose === 'stand' ? 34 : 22, hl: { end: 'gold' } });
-    var side = el('div', { class: 'pp-side' });
-    wrap.appendChild(el('div', { class: 'pp-row' }, el('div', { class: 'pp-viewbox' }, v.svg, el('div', { class: 'pp-dragnote' }, '↔ drag to turn')), side));
+    var side = el('div', { class: 'pyr-side' });
+    wrap.appendChild(el('div', { class: 'pyr-row' }, el('div', { class: 'pyr-viewbox' }, v.svg, el('div', { class: 'pyr-dragnote' }, '↔ drag to turn')), side));
     var ch = MQ.ui.choices(
       q.options.map(function (k) {
         return { label: KINDS[k].name, value: k };
@@ -950,11 +950,11 @@
     var correct = w.opts.filter(function (o) {
       return o.ok;
     })[0];
-    var wrap = el('div', { class: 'pp-q', 'data-type': 'why', 'data-ans': correct.t });
+    var wrap = el('div', { class: 'pyr-q', 'data-type': 'why', 'data-ans': correct.t });
     wrap.appendChild(MQ.ui.prompt(w.q));
     var v = viewer(api, q.kind, { pose: q.pose, drag: true, W: 330, H: 220 });
-    var side = el('div', { class: 'pp-side' });
-    wrap.appendChild(el('div', { class: 'pp-row' }, el('div', { class: 'pp-viewbox' }, v.svg, el('div', { class: 'pp-dragnote' }, '↔ drag to turn')), side));
+    var side = el('div', { class: 'pyr-side' });
+    wrap.appendChild(el('div', { class: 'pyr-row' }, el('div', { class: 'pyr-viewbox' }, v.svg, el('div', { class: 'pyr-dragnote' }, '↔ drag to turn')), side));
     var ch = MQ.ui.choices(
       q.opts.map(function (o) {
         return { label: o.t, value: o.t };
@@ -990,7 +990,7 @@
   function renderOdd(stage, api, q) {
     var group = q.group;
     api.say('Three are the same kind. One is different!', 'think');
-    var wrap = el('div', { class: 'pp-q', 'data-type': 'odd', 'data-ans': String(q.odd) });
+    var wrap = el('div', { class: 'pyr-q', 'data-type': 'odd', 'data-ans': String(q.odd) });
     wrap.appendChild(MQ.ui.prompt('Which one is the <b>odd one out</b>?'));
     var views = [];
     var tags = [];
@@ -998,9 +998,9 @@
       q.items.map(function (it, i) {
         var v = viewer(api, it.kind, { pose: it.pose, W: 150, H: 120, pad: 10 });
         views.push(v);
-        var tag = el('span', { class: 'pp-tag' });
+        var tag = el('span', { class: 'pyr-tag' });
         tags.push(tag);
-        return { label: el('span', { class: 'pp-oo', 'data-i': i, 'data-cat': KINDS[it.kind].cat }, v.svg, tag), value: i };
+        return { label: el('span', { class: 'pyr-oo', 'data-i': i, 'data-cat': KINDS[it.kind].cat }, v.svg, tag), value: i };
       }),
       function (val) {
         if (val === q.odd) {
@@ -1019,11 +1019,11 @@
       },
       { columns: 4 }
     );
-    ch.classList.add('pp-oochoices');
+    ch.classList.add('pyr-oochoices');
     function labelAll() {
       q.items.forEach(function (it, i) {
         tags[i].textContent = KINDS[it.kind].cat;
-        tags[i].className = 'pp-tag pp-c-' + KINDS[it.kind].cat;
+        tags[i].className = 'pyr-tag pyr-c-' + KINDS[it.kind].cat;
         showEvidence(views[i]);
       });
     }
@@ -1065,9 +1065,9 @@
     var x0 = sliceEnd(0), x1 = sliceEnd(1);
     var lo = Math.min(x0, x1), hi = Math.max(x0, x1);
     // knife track lined up with the box
-    var ks = S('svg', { viewBox: '0 0 ' + W + ' 60', class: 'pp-svg pp-knife', style: { width: W + 'px' } });
+    var ks = S('svg', { viewBox: '0 0 ' + W + ' 60', class: 'pyr-svg pyr-knife', style: { width: W + 'px' } });
     ks.appendChild(S('line', { x1: lo, y1: 30, x2: hi, y2: 30, stroke: '#c9d3ee', 'stroke-width': 8, 'stroke-linecap': 'round' }));
-    var knob = S('g', { class: 'pp-knob' });
+    var knob = S('g', { class: 'pyr-knob' });
     knob.appendChild(S('rect', { x: -26, y: 6, width: 52, height: 48, rx: 14, fill: 'transparent' }));
     knob.appendChild(S('path', { d: 'M0,6 L9,22 L9,40 L-9,40 L-9,22 Z', fill: '#e9eef5', stroke: '#4a5a7d', 'stroke-width': 2 }));
     knob.appendChild(S('rect', { x: -7, y: 40, width: 14, height: 16, rx: 4, fill: '#8d5a2b' }));
@@ -1077,17 +1077,17 @@
       knob.setAttribute('transform', 'translate(' + kx.toFixed(1) + ',0)');
     }
     placeKnob();
-    var sliceCap = el('div', { class: 'pp-slicecap' }, 'Slice');
-    var tri = S('svg', { viewBox: '0 0 120 110', class: 'pp-svg', style: { width: '120px' } }, S('polygon', { points: '60,10 112,100 8,100', fill: 'rgba(255,159,28,.55)', stroke: '#e76f00', 'stroke-width': 4, 'stroke-linejoin': 'round' }));
-    var card = el('div', { class: 'pp-card pp-slicecard' }, tri, sliceCap, el('div', { class: 'pp-small' }, 'Same triangle every time!'));
-    var turnBtn = el('button', { class: 'btn btn-ghost pp-turn', type: 'button' }, 'Turn it round ↻');
+    var sliceCap = el('div', { class: 'pyr-slicecap' }, 'Slice');
+    var tri = S('svg', { viewBox: '0 0 120 110', class: 'pyr-svg', style: { width: '120px' } }, S('polygon', { points: '60,10 112,100 8,100', fill: 'rgba(255,159,28,.55)', stroke: '#e76f00', 'stroke-width': 4, 'stroke-linejoin': 'round' }));
+    var card = el('div', { class: 'pyr-card pyr-slicecard' }, tri, sliceCap, el('div', { class: 'pyr-small' }, 'Same triangle every time!'));
+    var turnBtn = el('button', { class: 'btn btn-ghost pyr-turn', type: 'button' }, 'Turn it round ↻');
     turnBtn.addEventListener('click', function () {
       turnBtn.disabled = true;
       spin(api, v, 180, function () {
         turnBtn.disabled = false;
       });
     });
-    stage.appendChild(el('div', { class: 'pp-row' }, el('div', { class: 'pp-viewbox' }, v.svg, ks), card));
+    stage.appendChild(el('div', { class: 'pyr-row' }, el('div', { class: 'pyr-viewbox' }, v.svg, ks), card));
     stage.appendChild(turnBtn);
     api.cleanup(
       MQ.ui.drag(ks, knob, {
@@ -1151,7 +1151,7 @@
     var v = viewer(api, 'sqPyramid', { W: W, H: H, yaw: -30, pitch: 22, model: pyramid(poly, h, false, YB), s: 105 });
     v.st.cy = H / 2 + 6;
     var root = v.svg;
-    var handle = S('g', { class: 'pp-handle' });
+    var handle = S('g', { class: 'pyr-handle' });
     var ring = S('circle', { r: 22, fill: 'rgba(194,65,12,.12)', stroke: '#c2410c', 'stroke-width': 2, 'stroke-dasharray': '4 3' });
     var dotC = S('circle', { r: 9, fill: '#c2410c', stroke: '#fff', 'stroke-width': 2.5 });
     var arrow = S('text', { x: 30, y: 6, 'font-size': 22, 'font-weight': 800, fill: '#c2410c' }, '↑ pull');
@@ -1170,8 +1170,8 @@
       handle.setAttribute('transform', 'translate(' + ap[0].toFixed(1) + ',' + ap[1].toFixed(1) + ')');
     }
     update();
-    var facts = el('div', { class: 'pp-facts' });
-    stage.appendChild(el('div', { class: 'pp-row' }, root, facts));
+    var facts = el('div', { class: 'pyr-facts' });
+    stage.appendChild(el('div', { class: 'pyr-row' }, root, facts));
     var h0;
     api.cleanup(
       MQ.ui.drag(root, handle, {
@@ -1191,7 +1191,7 @@
       arrow.setAttribute('visibility', 'hidden');
       apexLbl.setAttribute('visibility', 'visible');
       update();
-      facts.appendChild(el('div', { class: 'pp-card pp-factcard' }, el('div', null, el('b', null, '1'), ' square base'), el('div', null, el('b', null, '4'), ' triangle faces'), el('div', null, el('b', null, '1'), ' point: the apex')));
+      facts.appendChild(el('div', { class: 'pyr-card pyr-factcard' }, el('div', null, el('b', null, '1'), ' square base'), el('div', null, el('b', null, '4'), ' triangle faces'), el('div', null, el('b', null, '1'), ' point: the apex')));
       api.say('The triangles meet at the apex. A square-based pyramid!', 'cheer');
       api.feedback('One square base. Four triangle faces meet at one point, the apex.', 'good');
       api.unlockNext();
@@ -1235,32 +1235,32 @@
       },
     ];
     var minis = STEPS.map(function (s) {
-      var t = el('div', { class: 'pp-mini' });
+      var t = el('div', { class: 'pyr-mini' });
       t.appendChild(viewer(api, s.kind, { W: 96, H: 80, pad: 6 }).svg);
-      t.appendChild(el('span', { class: 'pp-tag' }, KINDS[s.kind].obj.replace('a ', '')));
+      t.appendChild(el('span', { class: 'pyr-tag' }, KINDS[s.kind].obj.replace('a ', '')));
       return t;
     });
-    stage.appendChild(el('div', { class: 'pp-minis' }, minis));
-    var area = el('div', { class: 'pp-q pp-neither' });
+    stage.appendChild(el('div', { class: 'pyr-minis' }, minis));
+    var area = el('div', { class: 'pyr-q pyr-neither' });
     stage.appendChild(area);
     var n = 0;
     function show() {
       MQ.clear(area);
       minis.forEach(function (m, i) {
-        m.classList.toggle('pp-cur', i === n);
+        m.classList.toggle('pyr-cur', i === n);
       });
       if (n >= STEPS.length) {
         api.say('Tin, party hat, ball: all curved, so all neither!', 'cheer');
         api.feedback('Curved surface = neither a prism nor a pyramid.', 'good');
-        area.appendChild(el('div', { class: 'pp-card pp-sumcard' }, 'Has a curved surface? → ', el('b', null, 'Neither')));
+        area.appendChild(el('div', { class: 'pyr-card pyr-sumcard' }, 'Has a curved surface? → ', el('b', null, 'Neither')));
         api.unlockNext();
         return;
       }
       var s = STEPS[n];
       api.say(s.say, 'think');
       var v = viewer(api, s.kind, { W: 250, H: 180, drag: true });
-      var side = el('div', { class: 'pp-side' });
-      area.appendChild(el('div', { class: 'pp-row' }, v.svg, side));
+      var side = el('div', { class: 'pyr-side' });
+      area.appendChild(el('div', { class: 'pyr-row' }, v.svg, side));
       area.appendChild(MQ.ui.prompt(s.q));
       var ch = MQ.ui.choices(
         s.opts.map(function (o) {
@@ -1277,7 +1277,7 @@
             showEvidence(v);
             side.appendChild(checklist(s.kind, 'flat'));
             api.feedback(s.after, 'good');
-            minis[n].classList.add('pp-done');
+            minis[n].classList.add('pyr-done');
             n++;
             api.later(show, 2200);
           } else {
@@ -1311,8 +1311,8 @@
     btnR.addEventListener('click', function () {
       spin(api, v, 15, check);
     });
-    var after = el('div', { class: 'pp-after' });
-    stage.appendChild(el('div', { class: 'pp-row' }, el('div', { class: 'pp-viewbox' }, v.svg, el('div', { class: 'pp-btnrow' }, btnL, el('span', { class: 'pp-dragnote' }, 'or drag it'), btnR)), after));
+    var after = el('div', { class: 'pyr-after' });
+    stage.appendChild(el('div', { class: 'pyr-row' }, el('div', { class: 'pyr-viewbox' }, v.svg, el('div', { class: 'pyr-btnrow' }, btnL, el('span', { class: 'pyr-dragnote' }, 'or drag it'), btnR)), after));
     api.feedback('Turn the tin until you can see a whole end.', 'info');
     function endFacing() {
       var M = viewMatrix(v.st);
@@ -1335,9 +1335,9 @@
         { kind: 'pentPyramid', pose: 'upside', t: 'Upside down: still a pyramid' },
         { kind: 'cylinder', pose: 'lying', t: 'Lying down: still neither' },
       ].forEach(function (x) {
-        var m = el('div', { class: 'pp-mini pp-mini-wide' });
+        var m = el('div', { class: 'pyr-mini pyr-mini-wide' });
         m.appendChild(viewer(api, x.kind, { pose: x.pose, W: 110, H: 84, pad: 6 }).svg);
-        m.appendChild(el('span', { class: 'pp-tag' }, x.t));
+        m.appendChild(el('span', { class: 'pyr-tag' }, x.t));
         after.appendChild(m);
       });
       api.unlockNext();
@@ -1377,68 +1377,68 @@
   });
 
   var css = [
-    '.pp-q{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}',
-    '.pp-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;width:100%}',
-    '.pp-row>*{min-width:0;max-width:100%}',
-    '.pp-viewbox{display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%}',
-    '.pp-svg{max-width:100%;height:auto;display:block;overflow:visible}',
-    '.pp-turnable{cursor:grab;background:#fbfcff;border:2px solid var(--paper-2);border-radius:16px}',
-    '.pp-turnable.dragging{cursor:grabbing}',
-    '.pp-face{cursor:inherit}',
-    '.pp-dragnote{font-size:.85rem;color:var(--ink-soft);font-weight:700}',
-    '.pp-side:empty{display:none}',
-    '.pp-card{background:#fff;border:3px solid var(--line);border-radius:16px;padding:10px 14px}',
-    '.pp-check{display:flex;flex-direction:column;gap:4px;min-width:220px;font-weight:700}',
-    '.pp-ck-row{display:flex;align-items:center;gap:8px;font-size:1.02rem;padding:2px 6px;border-radius:8px}',
-    '.pp-ck-ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-weight:900;color:#fff;flex:none}',
-    '.pp-yes .pp-ck-ic{background:var(--good)}',
-    '.pp-no .pp-ck-ic{background:#c2410c}',
-    '.pp-focus{background:var(--try-bg);outline:2px solid #ffab76}',
-    '.pp-ck-why{margin-top:4px;color:var(--ink-soft);font-size:.92rem}',
-    '.pp-ck-verdict{font-size:1.35rem;font-weight:900}',
-    '.pp-v-prism{color:#0b6e66}.pp-v-pyramid{color:#9a5b00}.pp-v-neither{color:#c2410c}',
-    '.pp-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%;max-width:700px}',
-    '.pp-board-big{max-width:660px;gap:8px}',
-    '.pp-tile{position:relative;background:#fff;border:3px solid var(--line);border-radius:14px;padding:4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font-family:inherit;color:var(--ink);transition:transform .08s ease,border-color .1s ease}',
-    '.pp-tile:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}',
-    '.pp-tile:disabled{cursor:default}',
-    '.pp-tile .pp-svg{width:100%!important}',
-    '.pp-board-big .pp-tile .pp-svg{max-height:96px}',
-    '.pp-tile.pp-on{border-color:#2563eb;background:#eaf1ff;box-shadow:0 0 0 2px #2563eb inset}',
-    '.pp-tile.pp-on::after{content:"✓";position:absolute;top:4px;right:6px;width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center}',
-    '.pp-tile.pp-good{border-color:var(--good);background:var(--good-bg);box-shadow:none}',
-    '.pp-tile.pp-good::after{background:var(--good)}',
-    '.pp-tile.pp-bad{border-color:#c2410c;background:var(--try-bg);box-shadow:0 0 0 2px #c2410c inset}',
-    '.pp-tile.pp-bad::after{content:"✗";background:#c2410c}',
-    '.pp-tag{font-size:.85rem;font-weight:800;color:var(--ink-soft);min-height:1.1em;text-align:center;line-height:1.15}',
-    '.pp-c-prism{color:#0b6e66}.pp-c-pyramid{color:#9a5b00}.pp-c-neither{color:#c2410c}',
-    '.pp-checkbtn{min-width:160px}',
-    '.pp-oochoices{max-width:680px}',
-    '.pp-oochoices .choice{padding:6px;display:flex;justify-content:center}',
-    '.pp-oo{display:flex;flex-direction:column;align-items:center;width:100%}',
-    '.pp-oo .pp-svg{width:100%!important}',
-    '.pp-endpic{margin:0 auto}',
-    '.pp-slicecard{display:flex;flex-direction:column;align-items:center;gap:4px;width:170px;text-align:center}',
-    '.pp-slicecap{font-weight:900;color:#c2410c;font-size:1.05rem}',
-    '.pp-small{font-size:.9rem;color:var(--ink-soft);font-weight:700}',
-    '.pp-knob{cursor:grab}',
-    '.pp-handle{cursor:grab}',
-    '.pp-facts:empty{display:none}',
-    '.pp-factcard{display:flex;flex-direction:column;gap:6px;font-size:1.15rem;font-weight:700}',
-    '.pp-factcard b{display:inline-block;min-width:30px;text-align:center;background:var(--gold);border-radius:8px;margin-right:6px}',
-    '.pp-minis{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}',
-    '.pp-mini{display:flex;flex-direction:column;align-items:center;background:#fff;border:3px solid var(--line);border-radius:14px;padding:4px 8px}',
-    '.pp-mini.pp-cur{border-color:var(--accent)}',
-    '.pp-mini.pp-done{border-color:var(--good);background:var(--good-bg)}',
-    '.pp-mini-wide .pp-tag{max-width:120px}',
-    '.pp-after{display:flex;flex-direction:column;gap:6px}',
-    '.pp-after:empty{display:none}',
-    '.pp-after .pp-mini{flex-direction:row;gap:8px;padding:2px 8px}',
-    '.pp-after .pp-tag{font-size:.95rem;color:var(--ink);text-align:left}',
-    '.pp-btnrow{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:6px}',
-    '.pp-sumcard{font-size:1.3rem;font-weight:800}',
-    '.pp-neither .choices{max-width:520px}',
-    '@media (max-width:640px){.pp-board{grid-template-columns:repeat(3,minmax(0,1fr))}.pp-oochoices{grid-template-columns:repeat(2,minmax(0,1fr))!important}}',
+    '.pyr-q{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}',
+    '.pyr-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;width:100%}',
+    '.pyr-row>*{min-width:0;max-width:100%}',
+    '.pyr-viewbox{display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%}',
+    '.pyr-svg{max-width:100%;height:auto;display:block;overflow:visible}',
+    '.pyr-turnable{cursor:grab;background:#fbfcff;border:2px solid var(--paper-2);border-radius:16px}',
+    '.pyr-turnable.dragging{cursor:grabbing}',
+    '.pyr-face{cursor:inherit}',
+    '.pyr-dragnote{font-size:.85rem;color:var(--ink-soft);font-weight:700}',
+    '.pyr-side:empty{display:none}',
+    '.pyr-card{background:#fff;border:3px solid var(--line);border-radius:16px;padding:10px 14px}',
+    '.pyr-check{display:flex;flex-direction:column;gap:4px;min-width:220px;font-weight:700}',
+    '.pyr-ck-row{display:flex;align-items:center;gap:8px;font-size:1.02rem;padding:2px 6px;border-radius:8px}',
+    '.pyr-ck-ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-weight:900;color:#fff;flex:none}',
+    '.pyr-yes .pyr-ck-ic{background:var(--good)}',
+    '.pyr-no .pyr-ck-ic{background:#c2410c}',
+    '.pyr-focus{background:var(--try-bg);outline:2px solid #ffab76}',
+    '.pyr-ck-why{margin-top:4px;color:var(--ink-soft);font-size:.92rem}',
+    '.pyr-ck-verdict{font-size:1.35rem;font-weight:900}',
+    '.pyr-v-prism{color:#0b6e66}.pyr-v-pyramid{color:#9a5b00}.pyr-v-neither{color:#c2410c}',
+    '.pyr-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%;max-width:700px}',
+    '.pyr-board-big{max-width:660px;gap:8px}',
+    '.pyr-tile{position:relative;background:#fff;border:3px solid var(--line);border-radius:14px;padding:4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font-family:inherit;color:var(--ink);transition:transform .08s ease,border-color .1s ease}',
+    '.pyr-tile:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}',
+    '.pyr-tile:disabled{cursor:default}',
+    '.pyr-tile .pyr-svg{width:100%!important}',
+    '.pyr-board-big .pyr-tile .pyr-svg{max-height:96px}',
+    '.pyr-tile.pyr-on{border-color:#2563eb;background:#eaf1ff;box-shadow:0 0 0 2px #2563eb inset}',
+    '.pyr-tile.pyr-on::after{content:"✓";position:absolute;top:4px;right:6px;width:24px;height:24px;border-radius:50%;background:#2563eb;color:#fff;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center}',
+    '.pyr-tile.pyr-good{border-color:var(--good);background:var(--good-bg);box-shadow:none}',
+    '.pyr-tile.pyr-good::after{background:var(--good)}',
+    '.pyr-tile.pyr-bad{border-color:#c2410c;background:var(--try-bg);box-shadow:0 0 0 2px #c2410c inset}',
+    '.pyr-tile.pyr-bad::after{content:"✗";background:#c2410c}',
+    '.pyr-tag{font-size:.85rem;font-weight:800;color:var(--ink-soft);min-height:1.1em;text-align:center;line-height:1.15}',
+    '.pyr-c-prism{color:#0b6e66}.pyr-c-pyramid{color:#9a5b00}.pyr-c-neither{color:#c2410c}',
+    '.pyr-checkbtn{min-width:160px}',
+    '.pyr-oochoices{max-width:680px}',
+    '.pyr-oochoices .choice{padding:6px;display:flex;justify-content:center}',
+    '.pyr-oo{display:flex;flex-direction:column;align-items:center;width:100%}',
+    '.pyr-oo .pyr-svg{width:100%!important}',
+    '.pyr-endpic{margin:0 auto}',
+    '.pyr-slicecard{display:flex;flex-direction:column;align-items:center;gap:4px;width:170px;text-align:center}',
+    '.pyr-slicecap{font-weight:900;color:#c2410c;font-size:1.05rem}',
+    '.pyr-small{font-size:.9rem;color:var(--ink-soft);font-weight:700}',
+    '.pyr-knob{cursor:grab}',
+    '.pyr-handle{cursor:grab}',
+    '.pyr-facts:empty{display:none}',
+    '.pyr-factcard{display:flex;flex-direction:column;gap:6px;font-size:1.15rem;font-weight:700}',
+    '.pyr-factcard b{display:inline-block;min-width:30px;text-align:center;background:var(--gold);border-radius:8px;margin-right:6px}',
+    '.pyr-minis{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}',
+    '.pyr-mini{display:flex;flex-direction:column;align-items:center;background:#fff;border:3px solid var(--line);border-radius:14px;padding:4px 8px}',
+    '.pyr-mini.pyr-cur{border-color:var(--accent)}',
+    '.pyr-mini.pyr-done{border-color:var(--good);background:var(--good-bg)}',
+    '.pyr-mini-wide .pyr-tag{max-width:120px}',
+    '.pyr-after{display:flex;flex-direction:column;gap:6px}',
+    '.pyr-after:empty{display:none}',
+    '.pyr-after .pyr-mini{flex-direction:row;gap:8px;padding:2px 8px}',
+    '.pyr-after .pyr-tag{font-size:.95rem;color:var(--ink);text-align:left}',
+    '.pyr-btnrow{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:6px}',
+    '.pyr-sumcard{font-size:1.3rem;font-weight:800}',
+    '.pyr-neither .choices{max-width:520px}',
+    '@media (max-width:640px){.pyr-board{grid-template-columns:repeat(3,minmax(0,1fr))}.pyr-oochoices{grid-template-columns:repeat(2,minmax(0,1fr))!important}}',
   ].join('\n');
   document.head.appendChild(el('style', { 'data-activity': ID }, css));
 })();
