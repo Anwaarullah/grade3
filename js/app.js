@@ -90,13 +90,13 @@
     return el(
       'header',
       { class: 'topbar' },
-      el('a', { class: 'brand', href: '#/' }, MQ.robot('happy', 30), el('span', null, 'Grade 3 Maths')),
+      el('a', { class: 'brand', href: '#home' }, MQ.robot('happy', 30), el('span', null, 'Grade 3 Maths')),
       crumb ? el('span', { class: 'crumb' }, crumb) : null,
       el('span', { class: 'spacer' }),
       el('span', { class: 'total-stars', title: 'Stars collected' }, '★ ', String(MQ.store.totalStars())),
       soundBtn,
       voiceBtn,
-      el('a', { class: 'icon-btn parent-link', href: '#/parent', title: 'Parent corner' }, '👪')
+      el('a', { class: 'icon-btn parent-link', href: '#parent', title: 'Parent corner' }, '👪')
     );
   }
 
@@ -116,7 +116,7 @@
           el('p', { class: 'kicker' }, 'Grade 3 · Cambridge Stage 3'),
           el('h1', null, 'Hello! Ready to practise?'),
           el('p', { class: 'lead' }, 'I am Bolt, your maths helper. Each activity takes about 15 minutes. Try to collect 3 stars in every one.'),
-          rec ? el('a', { class: 'btn btn-big', href: '#/play/' + rec }, 'Next activity: ' + recMeta.icon + ' ' + recMeta.title + ' ▶') : null
+          rec ? el('a', { class: 'btn btn-big', href: '#play-' + rec }, 'Next activity: ' + recMeta.icon + ' ' + recMeta.title + ' ▶') : null
         )
       )
     );
@@ -152,7 +152,7 @@
               null,
               el(
                 'a',
-                { class: 'mission' + (id === rec ? ' is-next' : '') + (ready ? '' : ' is-locked'), href: ready ? '#/play/' + id : null, 'aria-disabled': ready ? null : 'true' },
+                { class: 'mission' + (id === rec ? ' is-next' : '') + (ready ? '' : ' is-locked'), href: ready ? '#play-' + id : null, 'aria-disabled': ready ? null : 'true' },
                 el('span', { class: 'mission-icon', 'aria-hidden': 'true' }, m.icon),
                 el('span', { class: 'mission-text' }, el('strong', null, m.title), el('small', null, ready ? m.summary : 'Being built…')),
                 ready ? starRow(starsOf(id)) : null
@@ -193,7 +193,7 @@
     root.appendChild(topbar(where ? 'Unit ' + where.unit.number + ' › ' + where.section.id + ' ' + where.section.title : ''));
 
     if (!MQ.activities[id]) {
-      root.appendChild(el('main', { class: 'page' }, el('div', { class: 'card center' }, MQ.robot('think', 90), el('h2', null, 'This activity is still being built'), el('p', null, 'Check back soon!'), el('a', { class: 'btn', href: '#/' }, '◀ Back to all activities'))));
+      root.appendChild(el('main', { class: 'page' }, el('div', { class: 'card center' }, MQ.robot('think', 90), el('h2', null, 'This activity is still being built'), el('p', null, 'Check back soon!'), el('a', { class: 'btn', href: '#home' }, '◀ Back to all activities'))));
       return;
     }
 
@@ -246,7 +246,7 @@
       el(
         'div',
         { class: 'play-main' },
-        el('div', { class: 'play-head' }, el('a', { class: 'back', href: '#/' }, '◀ All activities'), el('h1', null, m.icon + ' ' + m.title), progress),
+        el('div', { class: 'play-head' }, el('a', { class: 'back', href: '#home' }, '◀ All activities'), el('h1', null, m.icon + ' ' + m.title), progress),
         el('div', { class: 'robot-row' }, robotBox, bubble),
         stage,
         el('div', { class: 'controls' }, fb, el('div', { class: 'control-btns' }, revealBtn, nextBtn))
@@ -337,8 +337,8 @@
                 },
                 '↻ Play again'
               ),
-              nextId && MQ.activities[nextId] ? el('a', { class: 'btn', href: '#/play/' + nextId }, 'Next: ' + meta(nextId).title + ' ▶') : null,
-              el('a', { class: 'btn btn-ghost', href: '#/' }, 'All activities')
+              nextId && MQ.activities[nextId] ? el('a', { class: 'btn', href: '#play-' + nextId }, 'Next: ' + meta(nextId).title + ' ▶') : null,
+              el('a', { class: 'btn btn-ghost', href: '#home' }, 'All activities')
             )
           )
         );
@@ -355,6 +355,49 @@
   }
 
   /* ---------------- parent corner ---------------- */
+  /** Two-step reset button (browser confirm dialogs are not available everywhere). */
+  function resetControl() {
+    var wrap = el('div', { class: 'reset-row' });
+    function ask() {
+      MQ.clear(wrap);
+      wrap.appendChild(
+        el(
+          'button',
+          {
+            class: 'btn btn-danger',
+            type: 'button',
+            onclick: function () {
+              MQ.clear(wrap);
+              wrap.appendChild(el('p', { class: 'muted' }, 'Are you sure? This deletes all stars and progress on this device.'));
+              wrap.appendChild(
+                el(
+                  'div',
+                  { class: 'reset-btns' },
+                  el(
+                    'button',
+                    {
+                      class: 'btn btn-danger',
+                      type: 'button',
+                      onclick: function () {
+                        MQ.store.reset();
+                        renderParent();
+                      },
+                    },
+                    'Yes, delete everything'
+                  ),
+                  el('button', { class: 'btn btn-ghost', type: 'button', onclick: ask }, 'Cancel')
+                )
+              );
+            },
+          },
+          'Reset all progress'
+        )
+      );
+    }
+    ask();
+    return wrap;
+  }
+
   function renderParent() {
     var prog = MQ.store.load();
     var page = el('main', { class: 'page parent' });
@@ -383,7 +426,7 @@
             el(
               'tr',
               null,
-              el('td', null, el('a', { href: '#/play/' + id }, m.icon + ' ' + m.title)),
+              el('td', null, el('a', { href: '#play-' + id }, m.icon + ' ' + m.title)),
               el('td', null, starRow(p ? p.stars : 0)),
               el('td', null, p ? String(p.plays) : '0'),
               el('td', null, pct),
@@ -413,20 +456,7 @@
         'section',
         { class: 'card' },
         el('h2', null, 'Settings'),
-        el(
-          'button',
-          {
-            class: 'btn btn-danger',
-            type: 'button',
-            onclick: function () {
-              if (window.confirm('Delete all stars and progress on this laptop?')) {
-                MQ.store.reset();
-                renderParent();
-              }
-            },
-          },
-          'Reset all progress'
-        )
+        resetControl()
       )
     );
     MQ.clear(root);
@@ -443,10 +473,11 @@
         window.speechSynthesis.cancel();
       } catch (e) {}
     }
-    var h = window.location.hash || '#/';
-    var m = h.match(/^#\/play\/([\w-]+)/);
+    var h = window.location.hash || '#home';
+    // Accepts #play-<id> (current) and #/play/<id> (older links).
+    var m = h.match(/^#\/?play[-\/]([\w-]+)/);
     if (m) renderPlay(m[1]);
-    else if (h.indexOf('#/parent') === 0) renderParent();
+    else if (/^#\/?parent/.test(h)) renderParent();
     else renderMap();
     window.scrollTo(0, 0);
   }

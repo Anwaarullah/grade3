@@ -6,7 +6,7 @@
  *   node tools/smoke.js ruler-lab which-unit  # just these
  *   node tools/smoke.js ruler-lab --out /some/dir --width 1366 --height 900
  *
- * For each activity it opens index.html#/play/<id> in headless Chromium, visits every
+ * For each activity it opens index.html#play-<id> in headless Chromium, visits every
  * learn screen and every practice question (using the MQ.dev hook), saves a screenshot
  * of each, and reports JavaScript errors and empty screens. Exit code 1 if anything failed.
  */
@@ -61,7 +61,7 @@ const indexUrl = 'file://' + path.resolve(__dirname, '..', 'index.html');
     await page.evaluate(() => {
       try { localStorage.clear(); } catch (e) {}
     });
-    await page.goto(indexUrl + '#/play/' + id, { waitUntil: 'load' });
+    await page.goto(indexUrl + '#play-' + id, { waitUntil: 'load' });
     await page.waitForTimeout(400);
     const counts = await page.evaluate(() => ({ learn: window.MQ.dev.learnCount, practice: window.MQ.dev.practiceCount }));
     const screens = [];
