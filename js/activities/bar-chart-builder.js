@@ -161,7 +161,7 @@
       base = T + PH;
       endLine = L + n * CW;
       W = endLine + 22;
-      H = base + 88;
+      H = base + (o.slots ? 100 : 88);
     } else {
       L = 150;
       RH = 42;
@@ -680,9 +680,20 @@
     side.appendChild(btn);
     side.appendChild(box);
     var horizWord = 'up';
+    var lastSig = null;
     function check() {
       if (api.isAnswered()) return;
       var vals = ch.vals();
+      var sig = vals.join(',');
+      if (sig === (q.start ? q.start.join(',') : q.vals.map(function () { return 0; }).join(','))) {
+        api.feedback(q.start ? 'First drag the bars that do not match the data.' : 'First drag the top of each bar up to its number.', 'try');
+        return;
+      }
+      if (sig === lastSig) {
+        api.feedback('Move a bar first, then check again.', 'try');
+        return;
+      }
+      lastSig = sig;
       var wrong = [];
       vals.forEach(function (v, i) {
         if (v !== q.vals[i]) wrong.push(i);
@@ -740,7 +751,9 @@
         });
       }
       nextBar();
-      setInfo(box, txt(extra.revealText || 'Each bar starts at 0 and stops at its number on the scale.'), q.step === 2 ? skipStrip(q.max) : null);
+      var work = extra.revealText || 'Each bar starts at 0 and stops at its number on the scale.';
+      setInfo(box, txt(work), q.step === 2 ? skipStrip(q.max) : null);
+      api.feedback(work.replace(/&nbsp;/g, ' '), 'info');
     });
     MQ.__test = {
       solve: function () {
@@ -749,7 +762,8 @@
       },
       wrong: function () {
         q.vals.forEach(function (v, i) { ch.set(i, v); });
-        ch.set(0, q.vals[0] + 1 <= q.max ? q.vals[0] + 1 : q.vals[0] - 1);
+        var k = wrongN++ % q.vals.length;
+        ch.set(k, q.vals[k] + 1 <= q.max ? q.vals[k] + 1 : q.vals[k] - 1);
         btn.click();
       },
     };
@@ -778,6 +792,7 @@
    * Deck
    * ------------------------------------------------------------------ */
   var deck = null;
+  var wrongN = 0; // varies the test hook's wrong answers so repeats still count
 
   function pickCats(ctx, n) {
     return ctx.cats.slice(0, n);
@@ -987,6 +1002,7 @@
 
   function renderLabel(stage, api, q) {
     var ctx = CTX[q.ctx];
+    var lastSig = null;
     api.say('Finish the chart. Drag the title and the two axis labels into place.', 'think');
     stage.appendChild(MQ.ui.prompt('Add a <b>title</b> and label <b>both axes</b>.'));
     var ch = chart({ cats: q.cats, vals: q.vals, step: q.step, max: q.max, slots: true });
@@ -1002,6 +1018,16 @@
     function check() {
       if (api.isAnswered()) return;
       var p = lab.placed();
+      var sig = JSON.stringify(p) + (typeof scale === 'undefined' ? '' : scale);
+      if (!Object.keys(p).length && !(typeof scale !== 'undefined' && scale)) {
+        api.feedback('First drag the cards into the dashed boxes.', 'try');
+        return;
+      }
+      if (sig === lastSig) {
+        api.feedback('Change something first, then check again.', 'try');
+        return;
+      }
+      lastSig = sig;
       var vd = labelVerdict(p);
       ['title', 'cat', 'val'].forEach(function (s) {
         if (p[s]) ch.slotState(s, p[s] === s ? 'good' : 'bad');
@@ -1042,6 +1068,7 @@
       lab.lock();
       btn.disabled = true;
       setInfo(box, txt('<b>Title</b>: what the chart is about.<br><b>Along the bottom</b>: the groups.<br><b>Up the side</b>: how many.'));
+      api.feedback('Title: what the chart is about. Along the bottom: the groups (' + ctx.cat + '). Up the side: how many (' + ctx.val + ').', 'info');
     });
     MQ.__test = {
       solve: function () {
@@ -1049,9 +1076,8 @@
         btn.click();
       },
       wrong: function () {
-        lab.place('title', 'title');
-        lab.place('cat', 'val');
-        lab.place('val', 'cat');
+        var a = wrongN++ % 2 ? ['cat', 'title', 'val'] : ['title', 'val', 'cat'];
+        ['title', 'cat', 'val'].forEach(function (s, i) { lab.place(s, a[i]); });
         btn.click();
       },
     };
@@ -1096,6 +1122,7 @@
 
     if (q.kind === 'most' || q.kind === 'least') {
       var correctName = q.cats[q.a].name;
+      var lastPick = null;
       var chs = MQ.ui.choices(q.cats.map(function (c) { return { label: c.icon + ' ' + c.name, value: c.name }; }), function (v) {
         if (api.isAnswered()) return;
         var i = q.cats.map(function (c) { return c.name; }).indexOf(v);
@@ -1107,6 +1134,11 @@
           api.check(true, q.cats[i].name + ' has the ' + (q.kind === 'most' ? word : wordS) + ' bar: ' + q.vals[i] + '.');
           return;
         }
+        if (v === lastPick) {
+          api.feedback('You tried that one. Pick a different bar.', 'try');
+          return;
+        }
+        lastPick = v;
         chs.mark(v, 'bad');
         var other = q.kind === 'most' ? Math.min.apply(null, q.vals) : Math.max.apply(null, q.vals);
         var tag = q.vals[i] === other ? 'Mixed up most and least' : 'Did not compare all the bars';
@@ -1127,15 +1159,18 @@
         ch.clearMarks();
         ch.barState(q.a, 'good');
         ch.ruler(q.a, true);
-        setInfo(box, txt('The ' + (q.kind === 'most' ? word : wordS) + ' bar is ' + correctName + ': ' + q.vals[q.a] + '.'));
+        var work = 'The ' + (q.kind === 'most' ? word : wordS) + ' bar is ' + correctName + ': ' + q.vals[q.a] + '.';
+        setInfo(box, txt(work));
+        api.feedback(work, 'info');
       });
       MQ.__test = {
         solve: function () { chs.buttons[q.a].click(); },
-        wrong: function () { chs.buttons[(q.a + 1) % q.cats.length].click(); },
+        wrong: function () { chs.buttons[(q.a + 1 + (wrongN++ % (q.cats.length - 1))) % q.cats.length].click(); },
       };
       return;
     }
 
+    var lastAns = null;
     var ni = MQ.ui.numberInput({
       onSubmit: function (ans) {
         if (api.isAnswered()) return;
@@ -1147,6 +1182,11 @@
           api.check(true);
           return;
         }
+        if (ans === lastAns) {
+          api.feedback('That is the same answer. Look at the dashed lines and try a different number.', 'try');
+          return;
+        }
+        lastAns = ans;
         ni.bad();
         var tag = readTag(q, ans);
         api.check(false, hintFor(ans, tag), tag);
@@ -1215,6 +1255,9 @@
       ni.disable();
       ch.clearMarks();
       showWorking(true);
+      var c = q.cats[q.a];
+      var work = q.kind === 'value' ? 'The end of the ' + c.name + ' bar lines up with ' + q.answer + ' on the scale.' : q.kind === 'more' ? q.vals[q.a] + ' − ' + q.vals[q.b] + ' = ' + q.answer + ': the difference between the two bars.' : q.vals.join(' + ') + ' = ' + q.answer;
+      api.feedback(work, 'info');
     });
     MQ.__test = {
       solve: function () {
@@ -1222,7 +1265,7 @@
         ni.el.querySelector('.btn-check').click();
       },
       wrong: function () {
-        ni.setValue(String(q.answer + 1));
+        ni.setValue(String(q.answer + 1 + (wrongN++ % 3)));
         ni.el.querySelector('.btn-check').click();
       },
     };
@@ -1230,6 +1273,7 @@
 
   function renderBare(stage, api, q) {
     var ctx = CTX[q.ctx];
+    var lastSig = null;
     api.say('This chart has no title, no labels and no numbers. Can you finish it?', 'think');
     stage.appendChild(MQ.ui.prompt('Give the chart a <b>title</b>, <b>axis labels</b> and a <b>scale</b>.'));
     var bars = q.vals.map(function (v) { return v / 2; });
@@ -1256,6 +1300,16 @@
     function check() {
       if (api.isAnswered()) return;
       var p = lab.placed();
+      var sig = JSON.stringify(p) + (typeof scale === 'undefined' ? '' : scale);
+      if (!Object.keys(p).length && !(typeof scale !== 'undefined' && scale)) {
+        api.feedback('First drag the cards into the dashed boxes.', 'try');
+        return;
+      }
+      if (sig === lastSig) {
+        api.feedback('Change something first, then check again.', 'try');
+        return;
+      }
+      lastSig = sig;
       var vd = labelVerdict(p);
       ['title', 'cat', 'val'].forEach(function (s) {
         if (p[s]) ch.slotState(s, p[s] === s ? 'good' : 'bad');
@@ -1299,7 +1353,9 @@
       scaleCh.disable();
       btn.disabled = true;
       ch.ruler(tallest, 2);
-      setInfo(box, txt('The ' + q.cats[tallest].name + ' bar reaches ' + q.vals[tallest] / 2 + ' lines and shows ' + q.vals[tallest] + ', so the scale counts in 2s.'), skipStrip(q.lines * 2, q.vals[tallest]));
+      var work = 'The ' + q.cats[tallest].name + ' bar reaches ' + q.vals[tallest] / 2 + ' lines and shows ' + q.vals[tallest] + ', so the scale counts in 2s.';
+      setInfo(box, txt(work), skipStrip(q.lines * 2, q.vals[tallest]));
+      api.feedback(work + ' Then add the title and both axis labels.', 'info');
     });
     MQ.__test = {
       solve: function () {
@@ -1308,8 +1364,10 @@
         btn.click();
       },
       wrong: function () {
-        ['title', 'cat', 'val'].forEach(function (s) { lab.place(s, s); });
-        scaleCh.buttons[0].click();
+        var odd = wrongN++ % 2;
+        var a = odd ? ['title', 'val', 'cat'] : ['title', 'cat', 'val'];
+        ['title', 'cat', 'val'].forEach(function (s, i) { lab.place(s, a[i]); });
+        scaleCh.buttons[odd ? 1 : 0].click();
         btn.click();
       },
     };
@@ -1322,6 +1380,7 @@
     var mini = el('div', { class: 'bc-minis' }, miniBar(), miniPicto());
     stage.appendChild(mini);
     var good = q.opts.filter(function (o) { return o.ok; })[0];
+    var lastPick = null;
     var chs = MQ.ui.choices(q.opts.map(function (o) { return { label: o.text, value: o.text }; }), function (v) {
       if (api.isAnswered()) return;
       if (v === good.text) {
@@ -1330,6 +1389,11 @@
         api.check(true, 'Yes! That is a true reason.');
         return;
       }
+      if (v === lastPick) {
+        api.feedback('You tried that one. Read another reason.', 'try');
+        return;
+      }
+      lastPick = v;
       chs.mark(v, 'bad');
       var hint = api.tries() >= 1 ? 'Every bar chart and pictogram needs a title. Bars start at 0. Pictures must be the same size. Which reason is still true?' : 'That reason is not true. Read the other choices.';
       api.check(false, hint, 'Chose a graph for a wrong reason');
@@ -1346,7 +1410,7 @@
         chs.buttons.filter(function (b) { return b.value_ === good.text; })[0].click();
       },
       wrong: function () {
-        chs.buttons.filter(function (b) { return b.value_ !== good.text; })[0].click();
+        chs.buttons.filter(function (b) { return b.value_ !== good.text; })[wrongN++ % 2].click();
       },
     };
   }
