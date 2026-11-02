@@ -19,6 +19,7 @@
     swap: 'Mixed up group size and number of groups',
     added: 'Added the two numbers instead of multiplying',
     lost: 'Lost count of the groups',
+    picture: 'Picked a × fact with the same total that does not match the picture',
   };
 
   /* ---------------------------------------------------------------- *
@@ -770,7 +771,7 @@
       if (others.length) {
         var p = U.pick(others);
         wrong = p[0] + ' × ' + p[1] + ' = ' + total;
-        tag = TAG.swap;
+        tag = TAG.picture;
       } else mode = 'off';
     }
     if (mode === 'plus') {
@@ -879,7 +880,7 @@
           api.check(true, q.size + ' × ' + q.groups + ' = ' + q.total + ': ' + q.groups + ' ' + k.groups + ' of ' + q.size + '!');
         } else {
           ch.mark(v, 'bad');
-          var hint = q.choice.wrongTag === TAG.added ? 'That one adds just two numbers. We have ' + q.groups + ' groups of ' + q.size + ', so we multiply.' : 'Look at the picture: ' + q.size + ' in each ' + k.group + ', and ' + q.groups + ' ' + k.groups + '.';
+          var hint = q.choice.wrongTag === TAG.added ? 'That one adds just two numbers. We have ' + q.groups + ' groups of ' + q.size + ', so we multiply.' : q.choice.wrongTag === TAG.picture ? 'That fact is true too, but it is not this picture. Look: ' + q.size + ' in each ' + k.group + ', and ' + q.groups + ' ' + k.groups + '.' : 'Look at the picture: ' + q.size + ' in each ' + k.group + ', and ' + q.groups + ' ' + k.groups + '.';
           api.check(false, hint, q.choice.wrongTag);
         }
       });

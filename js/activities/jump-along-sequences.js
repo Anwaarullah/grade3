@@ -211,7 +211,7 @@
     var yes = Math.random() < 0.5;
     var target;
     if (yes) target = U.pick([rem, rem + k].filter(function (x) { return x >= 1 && x <= 12; }));
-    else target = U.pick(U.range(1, 12).filter(function (x) { return x % k !== rem; }));
+    else target = U.pick(U.range(1, 12).filter(function (x) { return x % k !== rem && x > rem; })); // above the last term, so the frog really jumps over it
     return {
       type: 'back',
       step: -k,
@@ -502,7 +502,7 @@
       var b = bridge(cur, 4);
       MQ.clear(help);
       help.appendChild(el('span', null, b ? b.pre + ' = ' + nx : cur + ' + 4 = ' + nx));
-      if (b) api.say('Crossing ' + b.mid + '? Jump to ' + b.mid + ' first, then 1 more.', 'think');
+      if (b) api.say('Crossing ' + b.mid + '? Jump to ' + b.mid + ' first, then ' + (nx - b.mid) + ' more.', 'think');
       cur = nx;
       n++;
       if (n === 4) {
@@ -795,7 +795,8 @@
           var b = terms[1];
           var hint;
           if (rv === b) hint = b + ' is a number in the sequence. The rule is the jump: how far from ' + a + ' to ' + b + '?';
-          else if (rv === Math.abs(s) - 1) hint = 'Nearly! Do not count ' + a + ' itself. Count on from ' + a + ' to ' + b + '.';
+          else if (rv === Math.abs(s) + 1) hint = 'Nearly! Do not count ' + a + ' itself. Count the jumps from ' + a + ' to ' + b + '.';
+          else if (rv === Math.abs(s) - 1) hint = 'Nearly! Count every jump, right up to ' + b + '.';
           else hint = 'How far from ' + a + ' to ' + b + '? Count on from ' + a + '.';
           if (api.tries() >= 1) {
             var ten = Math.ceil((a + 1) / 10) * 10;

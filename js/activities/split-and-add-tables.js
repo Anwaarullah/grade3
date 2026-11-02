@@ -641,6 +641,12 @@
       var pb = part(v.b, v.n2);
       var second = api.tries() >= 1;
       if (pa === null || pb === null) {
+        // Splitting the number of groups instead (e.g. 9 × 6 = 9 × 3 + 9 × 3) is valid maths: say so, don't count a try.
+        var gs = [v.a, v.n1, v.b, v.n2];
+        if (gs[0] === s && gs[2] === s && v.n1 >= 1 && v.n2 >= 1 && v.n1 + v.n2 === n) {
+          api.feedback('Splitting the ' + n + ' rows works too, but this time split the ' + s + ' with the line: __ × ' + n + ' + __ × ' + n + '.', 'info');
+          return;
+        }
         if (pa === null) {
           bx.mark('a', false);
           bx.mark('n1', false);
@@ -1117,7 +1123,7 @@
           btns[i].classList.add('sa-optbad');
         });
         var o = q.options[bad[0]];
-        api.check(false, '“' + o.text + '” is not true. ' + o.why, o.kind === 'mix' ? TAG.mix : TAG.webFalse);
+        api.check(false, '“' + o.text + '” is not true. ' + o.why, o.kind === 'mix' && (o.text.indexOf('6 × 7 =') === 0 || o.text.indexOf('6 × 8 =') === 0) ? TAG.mix : TAG.webFalse);
         return;
       }
       var need = q.options.filter(function (o) {

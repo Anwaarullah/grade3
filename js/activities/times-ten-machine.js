@@ -1080,7 +1080,7 @@
       m.setIn(q.n);
       ch.divide10(function () {});
       work.appendChild(factChip(q.n + ' × 10 = ' + q.product));
-      work.appendChild(el('div', { class: 'tt-note' }, 'Going back: ' + hundWord(pd[0]) + ' were ' + tensWord(pd[0]) + ', ' + tensWord(pd[1]) + ' were ' + onesWord(pd[1]) + '. ' + q.n + ' tens = ' + q.product + '.'));
+      work.appendChild(el('div', { class: 'tt-note' }, 'Going back: ' + hundWord(pd[0]) + (pd[0] === 1 ? ' was ' : ' were ') + tensWord(pd[0]) + ', ' + tensWord(pd[1]) + (pd[1] === 1 ? ' was ' : ' were ') + onesWord(pd[1]) + '. ' + q.n + ' tens = ' + q.product + '.'));
     }
     function submit(v) {
       if (api.isAnswered()) return;

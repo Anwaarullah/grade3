@@ -284,7 +284,7 @@
       { value: 'mixed', label: 'Odd and even are mixed', test: function (arr) { return arr.some(isEven) && arr.some(function (n) { return !isEven(n); }); } },
       {
         value: 'nine',
-        label: 'Add the digits: always 9',
+        label: 'Keep adding the digits until one is left: always 9',
         test: function (arr) {
           return arr.every(function (n) {
             var c = digitChain(n);
@@ -1311,7 +1311,8 @@
         } else if (s.value === 'mixed') hint = 'Look at the last digits: ' + lastDigits.join(', ') + '. Is any of them odd?';
         else {
           var bad = landed.filter(function (n) { var c = digitChain(n); return c[c.length - 1] !== 9; })[0];
-          hint = 'Try ' + bad + ': ' + String(bad).split('').join(' + ') + ' = ' + digitSum(bad) + '. Is that 9?';
+          var ch = digitChain(bad);
+          hint = 'Try ' + bad + ': ' + ch.slice(0, -1).map(function (v, i) { return String(v).split('').join(' + ') + ' = ' + ch[i + 1]; }).join(', then ') + '. Is that 9?';
         }
       } else {
         hint = 'Good! There is one more true sentence. Read each one again.';
