@@ -1,0 +1,223 @@
+You are one of several parallel cloud sessions building the "Grade 3 Maths" website. Your job: build 3 activities — robot-patrol, regular-irregular, perimeter-puzzles — in this repository, test them, commit them and push.
+
+IMPORTANT SETUP NOTES
+- $REPO_ROOT below means the repository root (your working directory; run `pwd` to get the absolute path). The repo is already checked out on the right base branch with the shared core, the plain design and one finished reference activity (js/activities/which-unit.js).
+- You have 4 CPUs. You may build your activities one after another yourself, or use the Agent tool to build them in parallel (at most 2 at a time, each restricted to its own file). Either way, YOU are responsible for the final quality.
+- Only add/modify these files: js/activities/robot-patrol.js, js/activities/regular-irregular.js, js/activities/perimeter-puzzles.js. Never edit core.js, components.js, app.js, curriculum.js, style.css, index.html or other activities — other sessions are working in parallel and your branch will be merged.
+- When done and all tests pass: git add only your activity files, commit with a clear message, and push to the branch you were given (git push -u origin HEAD). Do not open a pull request.
+- End with a short report: for each activity, its learn screens, practice question types, the test results, and any concerns.
+
+You are building one activity for "Grade 3 Maths", an interactive maths website a parent is making for their Grade 3 son (Cambridge Primary Mathematics Stage 3, Unit 6: Measurement, area and perimeter). His class covered Unit 6 but he struggled; he is fine with + and −, rounding and simple quarters, but WEAK at multiplication and division. The parent sits beside him on a laptop (mouse + keyboard), 15–20 minutes per session. Design: PLAIN and clean, light background. Use EVERYDAY OBJECTS from home and school (pencils, crayons, keys, books, spoons, rooms, doors, gardens, playgrounds, shops, school fields) like the textbook and workbook. Bolt the robot is the only character (he gives instructions and hints via api.say). NO space, planet, rocket, alien or fantasy theme anywhere.
+
+Repository: $REPO_ROOT (static site, no build step, plain browser JS, global MQ object, no ES modules).
+Before writing code, read:
+- $REPO_ROOT/ACTIVITY_API.md (the contract — follow it exactly)
+- $REPO_ROOT/js/activities/which-unit.js (complete working reference activity)
+- $REPO_ROOT/js/core.js and $REPO_ROOT/js/components.js (the APIs you can use)
+- $REPO_ROOT/css/style.css (shared classes and CSS variables)
+- your activity's entry in $REPO_ROOT/js/curriculum.js (parent tips; your teaching must match them)
+- the syllabus notes for your section in (syllabus notes are included at the end of this message)/ (textbook extraction + workbook page notes; use them for number ranges, question styles and misconceptions)
+
+Rules:
+- Write ONLY $REPO_ROOT/js/activities/<your-id>.js. Do not edit any other file in the repo (core, components, css, curriculum, index.html, other activities). If you think a shared file needs a change, work around it inside your file and say so in your report.
+- Register with exactly MQ.register('<your-id>', ...). Activity-specific CSS goes in a <style data-activity="<your-id>"> tag added by your file; prefix your classes with a short code.
+- Every practice question must: call api.check(ok, hint, mistakeTag) with a specific, kind hint on wrong answers (point at the likely mistake; a stronger hint on the 2nd try via api.tries()), log a short parent-readable mistake phrase, and register api.onReveal(fn) that shows the correct answer visually with the working.
+- Use api.later instead of setTimeout; pass drag unbind functions and window listeners to api.cleanup.
+- Build a question deck when api.index === 0 or when the deck is missing (the test tool jumps to any index). No duplicate questions in one run. Use api.level to raise difficulty.
+- Maths must be exactly right. Double-check every generated answer, unit and label. Generated shapes must be drawn to scale where the child counts or measures from the picture; if labels are used, say "not to scale" only when it isn't.
+- Keep reading light: short robot lines, big text, one idea per screen. Every learn screen has something to look at or interact with.
+- Original content only: do not copy text or pictures from the textbooks.
+- Make it work well at 1366x900 and still usable at 800px wide (SVGs scale with viewBox, max-width:100%).
+- Do NOT git commit.
+
+Testing (required):
+1. node $REPO_ROOT/tools/smoke.js <your-id> --out /tmp/smoke/<your-id>  → must report ✓ with no errors. Then Read several of the PNG screenshots and fix anything that looks wrong, cramped, overlapping or confusing.
+2. Write a short Playwright script (in /tmp/smoke/, not in the repo; require('playwright') works anywhere; load file://$REPO_ROOT/index.html#/play/<your-id>, block fonts.googleapis/gstatic) that, for several practice questions, gives a WRONG answer (checks the hint appears), then a correct answer (checks the Next button becomes enabled), and on another question triggers two wrong answers then clicks "Show me" (button in .controls .btn-ghost) and checks Next becomes enabled. Also exercise any drag interaction with page.mouse. Fix what fails.
+Finish with a short report.
+
+Note: where the text above says "Write ONLY ...<your-id>.js" and "Do NOT git commit", that applies to each agent you spawn; you (the session) commit and push your activity files at the end as described in the setup notes.
+
+=== SPECS FOR YOUR ACTIVITIES ===
+
+ACTIVITY: robot-patrol — "Walk the Edge" (section 6.2, 2D shapes and perimeter). Textbook p.102, p.106 Q6; Workbook p.83 Q2, p.84 Q2c/Q3, p.89 Q9–10.
+Learn screens:
+1. "What is perimeter?": a garden or playground drawn on a grid (a 5×3 rectangle). Button "Walk the edge": a small walker (e.g. a dot with footsteps or Bolt) moves along the edges; each side lights up with its length as it is completed and chips build the running total 5 + 3 + 5 + 3 = 16 units (MQ.ui.sum). Perimeter = the distance all the way round.
+2. "Edges, not squares": a 3×3 square. Two buttons: "Walk the edge" (highlights the 12 unit edges, counting 1..12) and "Squares inside" (highlights the 9 squares). Bolt: perimeter is the walk round = 12, not 9.
+3. "Missing labels": a rectangle labelled only 4 cm (top) and 3 cm (side). The child clicks each unlabelled side to fill in its length (opposite sides are equal), then the sum 4 + 3 + 4 + 3 = 14 cm appears. lockNext until all filled.
+Practice (count 8), number input with the right unit:
+- Level 1: rectilinear shapes on a grid (rectangles and L-shapes) — count unit edges; answer in units (or cm if each square is labelled 1 cm). Drawn exactly on the grid.
+- Level 2: labelled shapes: triangle 4, 5, 6 cm; irregular pentagon with all sides labelled; rectangle with only two labels (m); regular triangle 4 cm (tick marks show equal sides) = 12 cm; square 5 cm = 20 cm; regular hexagon 3 cm = 18 cm.
+- Level 3: regular pentagon with 16 m sides (= 80 m; hint with 16 + 16 + 16 + 16 + 16 or doubling), rectangle 8 m × 7 m (= 30 m), a triangular route 3 km, 4 km, 5 km (= 12 km).
+Mistake tags: 'Added only the labelled sides', 'Counted squares inside instead of edges', 'Missed a side'. Reveal: the walker goes round the shape and the full sum appears.
+
+ACTIVITY: regular-irregular — "Shape Sorter" (section 6.2). Textbook p.101, p.104 Q4; Workbook p.82–83 Q1, p.86 Q5, p.89 Q8.
+Learn screens:
+1. "Regular = ALL sides equal AND ALL angles equal": show an equilateral triangle, square, regular pentagon, regular hexagon with tick marks on sides and angle arcs; then irregular examples (rectangle, right-angled triangle, irregular pentagon). Clicking a shape toggles its side/angle markers.
+2. "Tricky shapes": rectangle (angles equal, sides not → irregular), rhombus (sides equal, angles not → irregular), tilted square (still a regular square). The child answers regular/irregular for each of the three, with an explanation after each. lockNext until done.
+3. "Draw on dots": a 5×5 dot grid (SVG). Click dots to place 4 corners (lines drawn between them, closing back to the first). When closed, tell the child whether it is a square (regular: 4 equal sides AND equal diagonals — compute exactly with squared distances, works for tilted squares) or an irregular quadrilateral. A Clear button. lockNext until one shape is drawn. Encourage drawing a tilted square.
+Practice (count 10): show one SVG shape (some rotated by a random angle) and choices "Regular" / "Irregular". Shape bank: equilateral triangle, isosceles triangle, right-angled triangle, square, tilted square, rectangle, rhombus, parallelogram, trapezium, kite, arrowhead (concave), regular pentagon, irregular pentagon, regular hexagon, irregular hexagon, regular octagon, irregular octagon. Include rectangle, rhombus and a tilted square in every run. Level 3 may also ask "How many sides?" / name the polygon (triangle, quadrilateral, pentagon, hexagon, octagon) for 1–2 questions.
+Specific hints: rectangle → 'Are ALL the sides the same length?'; rhombus → 'Look at the corners — are they all the same?'; tilted square → 'Turn your head — it is still a square'. Mistake tags: 'Called a rectangle regular', 'Did not recognise a turned square', 'Called a rhombus regular'. Reveal: draw tick marks on equal sides and angle markers, and explain.
+
+ACTIVITY: perimeter-puzzles — "Perimeter Puzzles" (section 6.2). Textbook p.104 Q3, p.106 Q7, p.107–108; Workbook p.83 Q2b, p.87 Q6, p.90 Q10c.
+Learn screens:
+1. "Growing squares": squares with sides 1–6 cm on a grid; a "Grow" button adds the next square and fills a table (side | perimeter): 4, 8, 12, 16, 20, 24 cm. Highlight "+4 each time" and say it is the 4 times table: 4, 8, 12, 16 … (each side gets 1 cm longer, 4 sides → 4 cm more). lockNext until all 6 grown.
+2. "Working backwards": a square with perimeter 16 cm. Animate 16 dots/tokens being shared out onto the 4 sides one at a time → 4 on each side → each side is 4 cm. Bolt: share the perimeter between 4 equal sides.
+3. "Double it": a 3 cm square (perimeter 12 cm); button "Double the sides" → 6 cm square (perimeter 24 cm): the perimeter doubles too; "Halve" goes back.
+Practice (count 8):
+- Level 1: square with side n (2–6 cm) → perimeter (hint shows n + n + n + n); regular triangle with 4 cm sides → 12 cm.
+- Level 2: square with perimeter 8, 12, 16, 20 or 24 cm → side length (hint: share between 4 sides / count back in 4s); "Each side of this 5 cm square gets 2 cm longer. What is the new perimeter?" (= 28 cm; hint: each of the 4 sides grows by 2).
+- Level 3: build a rectangle with a given perimeter (12, 16 or 20 units) on a grid by dragging a corner handle (anchored at the top-left; snaps to grid; live perimeter shown); accept ANY rectangle with that perimeter and mention another possible one in the praise. Also a pattern question: shrinking squares 24, 20, 16, … what comes next?
+Mistake tags: 'Added only 3 sides', 'Divided by 2 instead of 4', 'Added 2 instead of 8 when each side grew by 2'. Reveal shows the working visually.
+
+=== SYLLABUS NOTES ===
+
+# Unit 6 section 6.2 - syllabus notes (paraphrased; do not copy book text)
+
+## Textbook (Learner's Book 3), verified extraction
+
+```json
+{
+ "section": "6.2 2D shapes and perimeter",
+ "book_pages": "101-108 (6.2 starts partway down p101; the top of p101, a talk box about shortest routes and the 6.1 'Look what I can do' list, belongs to 6.1 and is left out)",
+ "objectives": [
+  "Find the perimeter of a shape by adding up the lengths of its sides",
+  "Draw lines, rectangles and squares and work out the perimeter of a shape",
+  "Tell the difference between regular and irregular shapes (polygons)"
+ ],
+ "vocabulary": [
+  "Book key-word box (p102): centi, kilo, perimeter, polygon, regular shape, irregular shape",
+  "Other words used on the pages: regular polygon, irregular polygon, side, angle, edge, distance around, centimetre squared paper, square, rectangle, triangle, sequence, number pattern, properties, sketch, units (lengths of equal sticks in Q5)",
+  "Length units used in answers: cm, m, km"
+ ],
+ "key_facts": [
+  "A regular polygon has every side the same length and every angle the same size. The book's examples are an equilateral triangle, a square and a regular pentagon. Regular polygons were met in Stage 2.",
+  "An irregular polygon has sides and angles that are not all the same. The book's examples are a right-angled triangle, a trapezium and an irregular pentagon. A shape only needs some sides or some angles to differ to be irregular, so a rectangle (equal angles, unequal sides) is irregular.",
+  "The book gives two ways of saying what perimeter is: the total length of all the sides, and the distance all the way around the edge of a shape.",
+  "To find a perimeter, add the lengths of every side and write the unit (cm, m or km).",
+  "On centimetre squared paper each small square is 1 cm along each side, so a side that covers 3 squares is 3 cm long.",
+  "A square with 3 cm sides has a perimeter of 3 + 3 + 3 + 3 = 12 cm, not 9 cm. 9 is how many small squares are inside it.",
+  "Opposite sides of a rectangle are equal, so when only one length and one width are labelled you can still work out all four sides (needed in 6b and 6c).",
+  "In a symmetrical shape such as 6f, matching sides are equal, so unlabelled sides can be worked out from labelled ones.",
+  "Squares with sides of 1, 2, 3, 4, 5 and 6 cm have perimeters of 4, 8, 12, 16, 20 and 24 cm. Each extra 1 cm of side adds 4 cm of perimeter (one for each side), so the perimeters go up in 4s, the 4 times table. Going down from 6 cm to 1 cm, they drop by 4 each time.",
+  "Different shapes can have the same perimeter. For example, 10 equal sticks can make more than one closed shape, each with a perimeter of 10 units.",
+  "Very different-looking shapes (arrowhead, trapezium, rectangle, tilted square, parallelogram, square) can share properties: 4 straight sides, 4 corners/vertices and 4 angles. They are all four-sided polygons.",
+  "Perimeters in this section are in centimetres, metres and kilometres, plus 'units' for the stick task. The Q6 diagrams are not to scale, so use the labels rather than measuring the picture."
+ ],
+ "question_types": [
+  {
+   "type": "Discussion starter: how do you find a perimeter?",
+   "description": "Before the worked example, the child talks about how they might work out the perimeter of a shape, building on the idea that perimeter is the total length of the sides.",
+   "number_ranges": "No numbers",
+   "difficulty": "core",
+   "book_page": "102"
+  },
+  {
+   "type": "Shared properties of shapes",
+   "description": "Look at six four-sided shapes (an arrowhead/dart, a trapezium, a tall thin rectangle, a square tilted to look like a diamond, a slanted parallelogram and a small upright square). Finish three sentences, each giving a different property all of them share (such as number of sides, number of corners, number of angles, straight sides). Then sketch two more shapes with those same properties.",
+   "number_ranges": "Shapes with 4 sides; no measurements",
+   "difficulty": "core",
+   "book_page": "103"
+  },
+  {
+   "type": "Draw and describe a triangle",
+   "description": "Draw any triangle in the box, then describe it to a partner. Think about which details the description needs (side lengths, angles, type of triangle, which way round it sits) so the partner could sketch an exact copy, and check whether they managed it.",
+   "number_ranges": "No given measurements; the child chooses",
+   "difficulty": "core",
+   "book_page": "103"
+  },
+  {
+   "type": "Growing squares perimeter pattern",
+   "description": "Four squares are drawn on cm squared paper, getting bigger each time (sides of 1, 2, 3 and 4 cm). Explain in words what happens to the perimeter as the squares grow, then draw the next two squares in the sequence (5 cm and 6 cm) and write their perimeters. Marked with the reasoning icon.",
+   "number_ranges": "Side lengths 1-6 cm; perimeters 4, 8, 12, 16, 20, 24 cm (up in 4s)",
+   "difficulty": "stretch",
+   "book_page": "104"
+  },
+  {
+   "type": "Sort regular and irregular shapes",
+   "description": "Thirteen outline shapes: an equilateral triangle, a tall thin rectangle, a semicircle, two regular pentagons (one upright, one tilted), a thin slanted parallelogram, a scalene triangle, a tall isosceles triangle, two regular octagons, a concave chevron/boomerang shape (6 sides), a four-sided shape with one sloping edge, and a stretched hexagon. (a) Colour the regular ones (5: the triangle, both pentagons, both octagons). (b) Ring the irregular ones. The book only offers these two choices, so the semicircle would be ringed, although strictly it is not a polygon. (c) Draw and label two regular and two irregular shapes of your own.",
+   "number_ranges": "Shapes with 3-8 sides plus one curved shape; no measurements",
+   "difficulty": "core",
+   "book_page": "104"
+  },
+  {
+   "type": "Same perimeter, different shapes (sticks)",
+   "description": "Use 10 equal sticks to make two different closed shapes, each with a perimeter of 10 units, and draw them. Then try again with 12 equal sticks and draw what you made.",
+   "number_ranges": "Perimeters of 10 and 12 units (1 stick = 1 unit)",
+   "difficulty": "stretch",
+   "book_page": "105"
+  },
+  {
+   "type": "Calculate perimeter from labelled sides",
+   "description": "Find the perimeter of six shapes. (a) A 4 cm by 2 cm rectangle on a grid with all four sides labelled. (b) A 4 cm by 3 cm rectangle on a grid with only the top and one side labelled. (c) A 7 m by 2 m rectangle with only two sides labelled. (d) An irregular four-sided shape with sides of 7, 5, 6 and 2 cm. (e) A triangle with sides of 7, 10 and 11 km. (f) A five-sided arrow/house-on-its-side shape labelled 6 cm along the top, 4 cm on the left and 2 cm on one slanted edge. The child has to work out that the bottom is 6 cm and the other slanted edge is 2 cm. Answers: 12 cm, 14 cm, 18 m, 20 cm, 28 km, 20 cm. Note: the diagrams are not to scale, and 6f cannot be drawn accurately with those numbers.",
+   "number_ranges": "Side lengths 2-11 in cm, m or km; perimeters 12-28; adding 3-5 numbers",
+   "difficulty": "core",
+   "book_page": "106"
+  },
+  {
+   "type": "Design a shape with a given perimeter",
+   "description": "Draw your own irregular shape whose sides add up to exactly 23 cm, and decide how many sides (lines) to use. The drawing space is a blank box, not squared paper.",
+   "number_ranges": "Target perimeter 23 cm; the child chooses whole-cm side lengths",
+   "difficulty": "stretch",
+   "book_page": "106"
+  },
+  {
+   "type": "Think like a mathematician: shrinking squares",
+   "description": "(a) Find the perimeter of a 6 cm square drawn on cm squared paper. (b) Remove one row and one column to draw the next two squares (5 cm, 4 cm) and write their perimeters. (c) Picture, then draw, the rest of the squares (3, 2, 1 cm) on a second grid. (d) Write the perimeter of every square from 6 cm to 1 cm. (e) Write the number pattern these perimeters make. A talk box afterwards asks the child to compare with a partner, argue convincingly that they are right, and predict what would happen to the perimeters with other regular shapes. Marked with the reasoning icon.",
+   "number_ranges": "Side lengths 6 cm down to 1 cm; perimeters 24, 20, 16, 12, 8, 4 cm (down in 4s)",
+   "difficulty": "challenge",
+   "book_page": "107-108"
+  }
+ ],
+ "worked_examples": [
+  "Worked example 2 (it is number 2 because Worked example 1 is in 6.1): a square, Shape A, is drawn on centimetre squared paper and covers 3 grid squares along each side. The question asks whether its perimeter is 9 cm, and the child has to explain. The answer is no. Each of the four sides is 3 cm, so the perimeter is 3 + 3 + 3 + 3 = 12 cm. The teaching point is that perimeter is the distance around the edge, found by adding every side. The number 9 matches the count of squares inside, which is the trap."
+ ],
+ "misconceptions": [
+  "Confusing perimeter with the number of squares inside (area): giving 9 for a 3 cm by 3 cm square instead of 12. The worked example is aimed at exactly this.",
+  "Adding only the labelled sides. In 6b, 6c and 6f some sides have no label, so a child may give 4 + 3 = 7 instead of 14 for 6b, or leave out the bottom and the second slanted edge in 6f.",
+  "Counting grid squares around the edge instead of grid edges, so corner squares get counted wrongly.",
+  "Measuring the picture instead of using the labels. The Q6 diagrams are not to scale.",
+  "Thinking a square must sit upright, so the tilted square in Q1 is not seen as a square, or the tilted pentagon in Q4 is not seen as regular.",
+  "Thinking a rectangle is regular because all its angles are right angles. It is irregular because its sides are not all equal.",
+  "Thinking equal sides alone make a shape regular. A rhombus has equal sides but unequal angles, so it is irregular.",
+  "Taking the book's definition of irregular too literally ('sides and angles of different sizes') and deciding a shape with some equal sides, like the isosceles triangle or the trapezium, must be regular. Irregular only needs sides or angles that are not all the same.",
+  "Not knowing what to do with the semicircle in Q4. It has a curved side, so it is not a polygon, but with only two choices in the book it goes with the irregular shapes.",
+  "Not counting the arrowhead/dart in Q1 as four-sided because it dents inwards (it is concave).",
+  "Leaving off the unit, or writing cm when the answer should be in m (6c) or km (6e).",
+  "Thinking shapes with the same perimeter must be the same shape. The stick task shows they need not be.",
+  "Adding only 3 of a square's 4 sides, or not seeing that each 1 cm step in the square pattern changes the perimeter by 4 cm (1 cm per side)."
+ ],
+ "prerequisites": [
+  "Naming common 2D shapes (triangle, square, rectangle, pentagon, hexagon, octagon, trapezium, parallelogram, semicircle) and counting their sides and corners (Stage 2)",
+  "Knowing what a regular polygon is (the book says this was introduced in Stage 2)",
+  "Adding 3 to 5 small whole numbers, with totals up to about 30",
+  "Knowing the units cm, m and km and reading labelled measurements (6.1)",
+  "Drawing straight lines with a ruler (6.1)",
+  "Knowing that opposite sides of a rectangle are equal",
+  "Counting in 4s helps with the square-perimeter pattern. The book only uses repeated addition (3 + 3 + 3 + 3), so no formal multiplication is needed. This makes it a gentle bridge into the 4 times table for a child who finds multiplication hard.",
+  "Spotting simple number patterns that go up or down by the same amount each time"
+ ],
+ "interactive_ideas": [
+  "Ant around the edge: an animated ant walks the outline of a shape on a cm grid while a counter goes up 1 cm per grid edge. A 'fill the inside' button then counts the inside squares, so the child sees 12 (perimeter) and 9 (squares inside) side by side for the same 3 cm square.",
+  "Click-the-sides adder: the child clicks each side of a labelled shape (rectangles, triangles, pentagons in cm, m and km). Each clicked side lights up and joins a growing number sentence (for example 7 + 5 + 6 + 2 = ?). No answer is accepted until every side has been clicked, and the unit must be picked to match the shape.",
+  "Missing-side detective: rectangles and arrow-shaped pentagons with some sides unlabelled. The child drags number tags onto the blank sides (opposite sides of a rectangle match, the two slanted edges of the arrow match), then totals them. Matching sides flash in the same colour. Draw these shapes with numbers that actually fit together, for example 3 cm slanted edges for a 4 cm tall arrow.",
+  "Regular or irregular sorting game: drag shapes into a 'regular' bin or an 'irregular' bin, as in the book. Include tilted regular shapes, a rectangle, a rhombus, an isosceles triangle and a semicircle. On a wrong drop, tick marks and angle arcs show which sides or angles differ. The semicircle goes in 'irregular', with a pop-up explaining it is not a polygon because one side is curved.",
+  "What do they have in common?: show a group of shapes and let the child choose property chips (4 sides, 4 corners, straight sides, all sides equal, right angles) that fit every shape, rejecting chips that only fit some of them. Then the child draws or picks one more shape that fits all the chosen chips.",
+  "Square growth slider: a slider sets a square's side from 1 to 10 cm on a grid, and a table fills in the perimeter (4, 8, 12, ...). A 'show me' panel turns 5 + 5 + 5 + 5 into 4 groups of 5 and then 4 x 5 = 20, linking perimeter to the 4 times table. A 'shrink' mode removes a row and a column each step, as in the TLAM task.",
+  "Regular shape perimeter machine: choose a regular triangle, square, pentagon, hexagon or octagon and a side length from 1 to 10. The machine shows the repeated addition and the matching multiplication (for example 3 + 3 + 3 + 3 + 3 = 5 x 3 = 15). The child predicts how much the perimeter grows when the side goes up by 1 (it grows by the number of sides), which answers the book's 'other regular shapes' question.",
+  "Stick builder: drag 10 (or 12) equal sticks onto a dot grid to make a closed shape. The app checks the shape is closed, shows its perimeter in units, and keeps a gallery of every different shape found (for example 1 by 4 and 2 by 3 rectangles, or a 3-3-4 triangle, from 10 sticks; a 3 by 3 square, 2 by 4 and 1 by 5 rectangles, or 4-4-4 and 3-4-5 triangles, from 12).",
+  "Build-a-perimeter challenge: pick how many sides a shape will have, then use plus and minus buttons to set each side's length until the total is exactly 23 cm, while a rough sketch updates live. Extra challenges: hit 23 with 3 sides, then 5, then 7. An optional bonus fact for grid mode: shapes drawn only along grid lines always have an even perimeter.",
+  "Describe-and-build with the parent: one player secretly makes a triangle on an on-screen geoboard and describes it out loud. The other rebuilds it from the description alone, and then the two triangles are laid on top of each other to see how close they are."
+ ]
+}
+```
+
+## WORKBOOK 3 (pages 82-90), 6.2 2D shapes and perimeter, observed from photos:
+- Key words: centi, kilo, perimeter, irregular shape, regular shape.
+- p82-83 Q1: on 5x5 dot grids draw four-sided shapes; write regular or irregular under each. Q2a: perimeter of a 5 cm x 5 cm square. Q2b: draw a square with perimeter 16 cm with a ruler; how long is each side?
+- p84 Q2c: perimeter of a regular triangle with a 4 cm side. Q3: estimate the side of a regular hexagon, measure, how far off was the estimate, work out the perimeter.
+- p85 Q4: find shapes at home (square, rectangle, triangle, pentagon, hexagon), draw them, write two properties each (e.g. square: 4 vertices, 4 straight sides, all sides the same length); find a perimeter.
+- p86 Q5: use dots to draw three different regular shapes and three irregular shapes; label them; g: write two differences between regular and irregular shapes.
+- p87 Q6: measure a square, perimeter; halve the side, draw, perimeter; double the side, draw, perimeter.
+- p88 Q7: estimate side of a square, measure, how far off, perimeter. Q8 (challenge): on dot grids draw three squares with the same side length that look different (tilted), and three triangles with equal sides that look different.
+- p89 Q9: regular pentagon with 16 m sides - perimeter, show working; draw a rectangle choosing side lengths, calculate perimeter. Q10: regular octagon - estimate side, measure, perimeter.
+- p90 Q10c: if each line is made 2 cm longer, what will the perimeter be?

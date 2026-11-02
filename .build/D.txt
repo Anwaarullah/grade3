@@ -1,0 +1,295 @@
+You are one of several parallel cloud sessions building the "Grade 3 Maths" website. Your job: build 2 activities — rectangle-builder, mission-challenge — in this repository, test them, commit them and push.
+
+IMPORTANT SETUP NOTES
+- $REPO_ROOT below means the repository root (your working directory; run `pwd` to get the absolute path). The repo is already checked out on the right base branch with the shared core, the plain design and one finished reference activity (js/activities/which-unit.js).
+- You have 4 CPUs. You may build your activities one after another yourself, or use the Agent tool to build them in parallel (at most 2 at a time, each restricted to its own file). Either way, YOU are responsible for the final quality.
+- Only add/modify these files: js/activities/rectangle-builder.js, js/activities/mission-challenge.js. Never edit core.js, components.js, app.js, curriculum.js, style.css, index.html or other activities — other sessions are working in parallel and your branch will be merged.
+- When done and all tests pass: git add only your activity files, commit with a clear message, and push to the branch you were given (git push -u origin HEAD). Do not open a pull request.
+- End with a short report: for each activity, its learn screens, practice question types, the test results, and any concerns.
+
+You are building one activity for "Grade 3 Maths", an interactive maths website a parent is making for their Grade 3 son (Cambridge Primary Mathematics Stage 3, Unit 6: Measurement, area and perimeter). His class covered Unit 6 but he struggled; he is fine with + and −, rounding and simple quarters, but WEAK at multiplication and division. The parent sits beside him on a laptop (mouse + keyboard), 15–20 minutes per session. Design: PLAIN and clean, light background. Use EVERYDAY OBJECTS from home and school (pencils, crayons, keys, books, spoons, rooms, doors, gardens, playgrounds, shops, school fields) like the textbook and workbook. Bolt the robot is the only character (he gives instructions and hints via api.say). NO space, planet, rocket, alien or fantasy theme anywhere.
+
+Repository: $REPO_ROOT (static site, no build step, plain browser JS, global MQ object, no ES modules).
+Before writing code, read:
+- $REPO_ROOT/ACTIVITY_API.md (the contract — follow it exactly)
+- $REPO_ROOT/js/activities/which-unit.js (complete working reference activity)
+- $REPO_ROOT/js/core.js and $REPO_ROOT/js/components.js (the APIs you can use)
+- $REPO_ROOT/css/style.css (shared classes and CSS variables)
+- your activity's entry in $REPO_ROOT/js/curriculum.js (parent tips; your teaching must match them)
+- the syllabus notes for your section in (syllabus notes are included at the end of this message)/ (textbook extraction + workbook page notes; use them for number ranges, question styles and misconceptions)
+
+Rules:
+- Write ONLY $REPO_ROOT/js/activities/<your-id>.js. Do not edit any other file in the repo (core, components, css, curriculum, index.html, other activities). If you think a shared file needs a change, work around it inside your file and say so in your report.
+- Register with exactly MQ.register('<your-id>', ...). Activity-specific CSS goes in a <style data-activity="<your-id>"> tag added by your file; prefix your classes with a short code.
+- Every practice question must: call api.check(ok, hint, mistakeTag) with a specific, kind hint on wrong answers (point at the likely mistake; a stronger hint on the 2nd try via api.tries()), log a short parent-readable mistake phrase, and register api.onReveal(fn) that shows the correct answer visually with the working.
+- Use api.later instead of setTimeout; pass drag unbind functions and window listeners to api.cleanup.
+- Build a question deck when api.index === 0 or when the deck is missing (the test tool jumps to any index). No duplicate questions in one run. Use api.level to raise difficulty.
+- Maths must be exactly right. Double-check every generated answer, unit and label. Generated shapes must be drawn to scale where the child counts or measures from the picture; if labels are used, say "not to scale" only when it isn't.
+- Keep reading light: short robot lines, big text, one idea per screen. Every learn screen has something to look at or interact with.
+- Original content only: do not copy text or pictures from the textbooks.
+- Make it work well at 1366x900 and still usable at 800px wide (SVGs scale with viewBox, max-width:100%).
+- Do NOT git commit.
+
+Testing (required):
+1. node $REPO_ROOT/tools/smoke.js <your-id> --out /tmp/smoke/<your-id>  → must report ✓ with no errors. Then Read several of the PNG screenshots and fix anything that looks wrong, cramped, overlapping or confusing.
+2. Write a short Playwright script (in /tmp/smoke/, not in the repo; require('playwright') works anywhere; load file://$REPO_ROOT/index.html#/play/<your-id>, block fonts.googleapis/gstatic) that, for several practice questions, gives a WRONG answer (checks the hint appears), then a correct answer (checks the Next button becomes enabled), and on another question triggers two wrong answers then clicks "Show me" (button in .controls .btn-ghost) and checks Next becomes enabled. Also exercise any drag interaction with page.mouse. Fix what fails.
+Finish with a short report.
+
+Note: where the text above says "Write ONLY ...<your-id>.js" and "Do NOT git commit", that applies to each agent you spawn; you (the session) commit and push your activity files at the end as described in the setup notes.
+
+=== SPECS FOR YOUR ACTIVITIES ===
+
+ACTIVITY: rectangle-builder — "Rectangle Builder" (section 6.3). THIS IS THE TIMES-TABLES BRIDGE for a child weak at multiplication. Textbook p.96 Q5, p.111 Q3; Workbook p.95 Q8a, p.96 Q9.
+Learn screens:
+1. "Rows of squares": a 3 × 4 array of squares. Button "Count in rows": each row lights up in turn while the count jumps 4, 8, 12. Show "3 rows of 4 = 4 + 4 + 4 = 3 × 4 = 12".
+2. "Turn it round": rotate the rectangle (animated) to 4 rows of 3: still 12. 3 × 4 = 4 × 3.
+3. "Build it": a grid with a rectangle anchored at the top-left; the child drags the bottom-right corner handle (snaps to grid lines) — also provide + / − buttons for rows and columns for easy laptop use. Live label "rows × columns = area" e.g. "2 × 3 = 6". Task: make area 6. lockNext when area is 6 (any of 1×6, 2×3, 3×2, 6×1).
+Practice (count 8):
+- Level 1: show an array (rows 2–5, columns 2, 3, 4, 5 or 10). "How many squares?" number input; hint shows counting in rows (repeated addition); reveal animates the row jumps. Mistake 'Counted only one row'.
+- Level 2: "Build a rectangle with area 12" (then 8, 10, 15, 18, 20) with the drag/± builder; accept any factor pair that fits the grid; praise names other possible rectangles (e.g. "Other ways: 1 × 12, 2 × 6, 3 × 4").
+- Level 3: squares: "A square has area 25 square units. How long is each side?" (also 9 → 3, 16 → 4, 36 → 6); the child may build squares to test. If they answer area ÷ 4 (or something like it), hint that this is perimeter thinking and log 'Divided the area by 4 (perimeter thinking)'. Final question: "A square has area 25. What is its perimeter?" (5 + 5 + 5 + 5 = 20).
+Keep numbers within times tables 2, 3, 4, 5, 10 mostly, plus square numbers up to 36.
+
+ACTIVITY: mission-challenge — "Unit 6 Challenge" (section 6.3, last activity of Unit 6). Textbook p.112, p.114 Q4, p.115–116 Project 3; Workbook p.94 Q7.
+Learn screens:
+1. "Garden fences": every garden has 24 m of fence (perimeter 24). A slider (or ± buttons) sets the length 1–11; width = 12 − length automatically; the rectangle is drawn on a grid and its area computed; a table records each different rectangle tried (length, width, area). Goal: find the biggest garden (6 × 6 = 36 square metres — a square is a rectangle too). lockNext until at least 3 different rectangles have been tried.
+2. "Same area, different fences": rectangles with area 12 shown side by side: 1 × 12 (perimeter 26), 2 × 6 (16), 3 × 4 (14). Same floor, different fences.
+Practice (count 10) — a mixed review of all of Unit 6, one question of each type, each self-contained (do not call other activity files):
+1. Convert: 3 m = ? cm (300).
+2. Broken ruler: an SVG ruler piece starting at 5 with an object from 5 to 13 → 8 cm (drawn to scale).
+3. Which unit (cm/m/km) for one item (e.g. the distance to another city → km).
+4. Round 275 cm to the nearest 10 cm (choices 270 / 280).
+5. Perimeter of a rectangle labelled only 6 cm and 4 cm (= 20 cm).
+6. Regular or irregular? (show a rectangle or a regular hexagon).
+7. Area of a grid shape with half-squares (e.g. 5 whole + 2 halves = 6).
+8. A 4 × 5 rectangle on a grid: asked area (20) or perimeter (18) — keyword highlighted.
+9. A square has area 25 square units: how long is each side? (5)
+10. Perimeter 24: which garden has the most space? choices 2 × 10, 4 × 8, 6 × 6 drawn small → 6 × 6.
+Randomise numbers a little where it stays faithful (e.g. different conversion, different broken-ruler start). Each question has its own hint, mistake tag and reveal. At the end the core shows stars; nothing extra needed.
+
+=== SYLLABUS NOTES ===
+
+# Unit 6 section 6.3 - syllabus notes (paraphrased; do not copy book text)
+
+## Textbook (Learner's Book 3), verified extraction
+
+```json
+{
+ "section": "6.3 Introducing area + Project 3 Chalky shapes (includes the Unit 6 'Check your progress' review, printed pp.113-114)",
+ "book_pages": "109-116 (images p113-p120). 6.3 lesson pp.109-112 (intro p.109, Worked example 3 p.110, Exercise 6.3 p.111, Think like a mathematician + partner talk + 'Look what I can do' p.112). Check your progress pp.113-114. Project 3 Chalky shapes pp.115-116. Image p112 (printed p.108) is the end of 6.2 (perimeter number-pattern part e, partner talk on other regular shapes, 6.2 'Look what I can do') and is left out.",
+ "objectives": [
+  "Draw lines, rectangles and squares",
+  "Estimate, measure and calculate areas, finding area by counting the squares a shape covers and recording it in square units",
+  "Estimate, measure and calculate perimeters, and explain how area is different from perimeter",
+  "Work with regular and irregular shapes, including shapes with half-squares (slanted edges)",
+  "(Review) Round lengths to the nearest metre or half metre, and distances to the nearest quarter, half or three-quarters of a kilometre; measure and add line lengths; find perimeters; link a given perimeter to possible areas",
+  "(Project) Use area and perimeter reasoning in real settings: chalk shapes on a 1 m playground grid, and pools on a floor of 1 m triangular tiles"
+ ],
+ "vocabulary": [
+  "area (book key word)",
+  "square units (book key word)",
+  "perimeter",
+  "estimate",
+  "measure",
+  "calculate",
+  "regular shapes",
+  "irregular shapes",
+  "line, rectangle, square",
+  "side",
+  "squared paper",
+  "grid",
+  "metre, half metre",
+  "kilometre: half, quarter, three-quarters of a kilometre",
+  "length, total length",
+  "triangular tiles",
+  "(inferred, not printed) square metre, hexagon, diagonal, half-square"
+ ],
+ "key_facts": [
+  "Book: area is the amount of space a shape covers (the worked example says how much space a shape uses).",
+  "Book: the intro diagram is a 10 x 4 grid rectangle (40 squares). One arrow points into the shape, labelled 'area'; the other points at its edge, labelled 'perimeter'.",
+  "Book (Worked example 3): a 2-by-2 square covers 4 squares, so its area is 4 square units. Adding the sides (2 + 2 + 2 + 2 = 8) counts round the outside, which is not the area.",
+  "Area is recorded in square units; perimeter is a length (units, cm, m). (Implied by the key words and the questions.)",
+  "Shapes that look different can cover the same area (Ex 6.3 Q2 and the follow-on task). Two half-squares make one whole square.",
+  "Answer key, not printed: a square of area 81 square units has 9-unit sides (9 x 9 = 81), so its perimeter is 36 units.",
+  "Answer key, not printed: Thandiwe is wrong. Rectangles with a 26 m perimeter have two side lengths that add to 13, giving areas 12, 22, 30, 36, 40 or 42 m\u00b2 (1x12 up to 6x7). Long and thin is smallest; closest to a square is biggest.",
+  "Answer key, not printed: the three playground shapes all have area 8 m\u00b2 but different perimeters (rectangle 12 m, triangle about 13.7 m, diamond about 11.3 m). So the same area does not mean the same perimeter.",
+  "Answer key, not printed: the two pools have the same perimeter (12 m) but different areas (triangle 16 tiles, hexagon 24 tiles). So the same perimeter does not mean the same area.",
+  "On a grid with 1 m between lines, each grid square is 1 m by 1 m. A slanted line across a grid square is longer than 1 m (about 1.4 m) but shorter than going round two sides (2 m).",
+  "On the triangle-tile floor, perimeter is counted in 1 m tile edges, and space (area) can be compared by counting whole triangle tiles.",
+  "Perimeter of a rectangle = add all four sides, using opposite sides equal (8 m by 7 m gives 8 + 7 + 8 + 7 = 30 m). A 2 cm square has perimeter 8 cm.",
+  "Background needed for the review (from 6.1, not printed here): 100 cm = 1 m, half a metre = 50 cm, 1 km = 1000 m, a quarter km = 250 m, half a km = 500 m, three-quarters km = 750 m."
+ ],
+ "question_types": [
+  {
+   "type": "Estimate, then count the area of shapes on a grid",
+   "description": "Four coloured shapes sit inside larger squared grids. The child writes an estimate on the line under each shape, then counts (or works out) the squares the shape covers and writes the area on the shape.",
+   "number_ranges": "(a) 5x4 = 20 on a 7x6 grid, (b) 4x4 square = 16 on a 6x6 grid, (c) 3x1 = 3 on a 5x3 grid, (d) 1x6 = 6 on a 3x8 grid. All in square units.",
+   "difficulty": "core",
+   "book_page": "111 (Ex 6.3 Q1)"
+  },
+  {
+   "type": "Predict and check: do two irregular shapes have the same area?",
+   "description": "Two shapes on one grid: a pink arch-and-step shape made only of whole squares, and a blue shape with a pointed top and an arrow-point end that includes half-squares. The child predicts whether the areas match, then checks by counting and pairs half-squares into wholes. Marked with the reasoning (paper-plane) icon.",
+   "number_ranges": "Pink: 6 whole squares. Blue: 4 whole + 4 half-squares = 6. Both are 6 square units, on a 13 x 4 grid.",
+   "difficulty": "stretch",
+   "book_page": "111 (Ex 6.3 Q2)"
+  },
+  {
+   "type": "Make different-looking shapes with the same area",
+   "description": "The child builds more shapes that cover the same number of squares but look different, and records them on squared paper.",
+   "number_ranges": "Small areas; 6 square units follows on naturally from Q2",
+   "difficulty": "core",
+   "book_page": "111 (Ex 6.3 Q2 follow-on)"
+  },
+  {
+   "type": "From a square's area to its side length, then its perimeter",
+   "description": "Given only that a square covers 81 square units, the child works out the length of each side, then finds the perimeter and shows the working.",
+   "number_ranges": "Area 81, so side 9 units and perimeter 36 units. Needs 9 x 9 = 81 (or trial: which number times itself makes 81?).",
+   "difficulty": "challenge",
+   "book_page": "111 (Ex 6.3 Q3a-b)"
+  },
+  {
+   "type": "Test a claim: same perimeter means same area?",
+   "description": "Thandiwe (he) claims every rectangle with a 26 m perimeter has the same area. The child decides whether he is right, chooses a way to test it (for example drawing or listing rectangles), and explains. A separate partner-talk box follows: compare methods and answers, and look for a quicker way.",
+   "number_ranges": "Perimeter 26 m. Whole-number rectangles 1x12, 2x11, 3x10, 4x9, 5x8, 6x7, with areas 12-42 m\u00b2.",
+   "difficulty": "challenge",
+   "book_page": "112 (Think like a mathematician)"
+  },
+  {
+   "type": "Review: round cm to the nearest whole or half metre",
+   "description": "For each length in centimetres, choose whichever is closer: the nearest whole metre or the nearest half metre.",
+   "number_ranges": "247 cm (2.5 m), 724 cm (7 m), 923 cm (9 m)",
+   "difficulty": "core",
+   "book_page": "113 (Check your progress Q1a)"
+  },
+  {
+   "type": "Review: round metres to the nearest quarter, half or three-quarter km",
+   "description": "For each distance in metres, choose whichever is closest: a quarter, a half or three-quarters of a kilometre.",
+   "number_ranges": "527 m (1/2 km), 328 m (1/4 km), 473 m (1/2 km), 803 m (3/4 km)",
+   "difficulty": "stretch",
+   "book_page": "113 (Check your progress Q1b)"
+  },
+  {
+   "type": "Review: measure the parts of a zigzag line and total them",
+   "description": "Measure each of the four straight segments of a joined zigzag line with a ruler, then add them to get the total length.",
+   "number_ranges": "Four segments, most likely 4 cm, 2 cm, 8 cm and 5 cm (total about 19 cm), worked out from scan proportions; check against the printed book",
+   "difficulty": "core",
+   "book_page": "113 (Check your progress Q2a)"
+  },
+  {
+   "type": "Review: make a given length two different ways",
+   "description": "In an open box, show two different ways to make a total length of 16 cm (for example two or more lines whose lengths add to 16 cm).",
+   "number_ranges": "Total 16 cm (e.g. 10 + 6, 8 + 8, 4 + 4 + 4 + 4)",
+   "difficulty": "core",
+   "book_page": "113 (Check your progress Q2b)"
+  },
+  {
+   "type": "Review: perimeter of labelled shapes",
+   "description": "Find the perimeter of a square labelled on two sides and a rectangle labelled on two sides. The unlabelled sides come from opposite sides being equal.",
+   "number_ranges": "Square 2 cm x 2 cm (8 cm). Rectangle 8 m x 7 m (30 m).",
+   "difficulty": "core",
+   "book_page": "114 (Check your progress Q3a)"
+  },
+  {
+   "type": "Review: draw a shape with a given perimeter",
+   "description": "On separate squared paper, draw a shape whose perimeter is 35 cm. A shape that keeps to whole-cm grid lines always has an even perimeter, so 35 cm needs a half-cm length (e.g. 10 cm by 7.5 cm).",
+   "number_ranges": "Perimeter 35 cm",
+   "difficulty": "challenge",
+   "book_page": "114 (Check your progress Q3b)"
+  },
+  {
+   "type": "Review: two possible areas for a given perimeter",
+   "description": "For each perimeter, work out two different areas a shape could have. One method: pick rectangle sides that add to half the perimeter, then count or multiply.",
+   "number_ranges": "Perimeter 60 cm (e.g. 1x29 = 29 cm\u00b2, 2x28 = 56 cm\u00b2, 10x20 = 200 cm\u00b2); 24 units (e.g. 1x11 = 11, 2x10 = 20, 6x6 = 36); 10 units (1x4 = 4 or 2x3 = 6)",
+   "difficulty": "challenge",
+   "book_page": "114 (Check your progress Q4a-c)"
+  },
+  {
+   "type": "Project: area of chalk shapes on a 1 m playground grid",
+   "description": "At a school, three chalk shapes are drawn on a playground grid with 1 m between the lines: a right-angled triangle, a square standing on its corner (diamond) and a rectangle. The child finds each area and explains how.",
+   "number_ranges": "Triangle: 4 m and 4 m straight sides, 6 whole + 4 half squares = 8 m\u00b2. Diamond: 4 m across both ways, 4 whole + 8 half squares = 8 m\u00b2. Rectangle: 4 m x 2 m = 8 m\u00b2. All equal.",
+   "difficulty": "stretch",
+   "book_page": "115 (Project 3)"
+  },
+  {
+   "type": "Project: which creature walks furthest or shortest round its shape?",
+   "description": "A ladybird, a caterpillar and an ant each walk once round a shape and back to the start (pictured next to the triangle, diamond and rectangle). The child decides who walks the longest and the shortest distance, and explains. This needs the idea that slanted grid lines are longer than 1 m; measuring with a ruler or string is a fair method at this stage.",
+   "number_ranges": "Rectangle 12 m. Triangle 4 + 4 + a diagonal of about 5.7 m = about 13.7 m (longest). Diamond 4 sides of about 2.8 m = about 11.3 m (shortest).",
+   "difficulty": "challenge",
+   "book_page": "115 (Project 3)"
+  },
+  {
+   "type": "Project: perimeters of two pools on a triangular-tile floor",
+   "description": "A leisure centre floor has triangular tiles with 1 m sides. Two pools have orange paths round them: a large triangle and a hexagon. The child finds each perimeter by counting tile edges along the path, and explains.",
+   "number_ranges": "Triangle pool: 3 sides x 4 m = 12 m. Hexagon pool: 6 sides x 2 m = 12 m. Equal perimeters.",
+   "difficulty": "stretch",
+   "book_page": "116 (Project 3 continued)"
+  },
+  {
+   "type": "Project: which pool gives more swimming space?",
+   "description": "A frog (pictured by the triangle pool) and a toad (pictured by the hexagon pool) each choose a pool. The child decides which animal has more room to swim by comparing areas, for example by counting triangle tiles, and explains.",
+   "number_ranges": "Triangle pool 16 tiles, hexagon pool 24 tiles. The toad has more space even though the perimeters are equal.",
+   "difficulty": "stretch",
+   "book_page": "116 (Project 3 continued)"
+  }
+ ],
+ "worked_examples": [
+  "Intro diagram (p.109): a blue 10 x 4 grid rectangle with one arrow into the middle labelled 'area' and one at the edge labelled 'perimeter'. This shows the difference between the space covered and the distance round.",
+  "Worked example 3 (p.110): Sofia and Zara discuss a 2-by-2 square. Sofia says the area is 4 square units because it is made of four squares. Zara says each of the four sides is 2 squares long, so the area is 2 + 2 + 2 + 2 = 8 square units. The answer: Sofia is right, because area is the space the shape uses and it covers 4 squares. Zara was counting round the outside of the square, which is really the perimeter."
+ ],
+ "misconceptions": [
+  "Mixing up area and perimeter, for example adding side lengths when asked for area (Zara's mistake in Worked example 3)",
+  "Writing area in plain units or cm instead of square units (or square metres), or giving perimeter in square units",
+  "Counting all the squares of the background grid instead of only the squares inside the coloured shape (the Q1 shapes sit inside bigger grids)",
+  "Counting grid lines or corner dots instead of squares",
+  "Counting a half-square as a whole square, or leaving it out, instead of pairing two halves to make one",
+  "Thinking shapes that look different cannot have the same area",
+  "Thinking all rectangles with the same perimeter have the same area (Thandiwe's claim), or that the same area means the same perimeter (the playground shapes)",
+  "Treating a slanted line across a grid square as 1 m long, like a side. It is longer, so the triangle and diamond perimeters cannot be found by counting squares",
+  "Assuming the diamond is the longest walk because all its sides are slanted. It is actually the shortest (about 11.3 m against 12 m)",
+  "Going from area 81 to the side length by dividing 81 by 4 (perimeter thinking) instead of finding the number that times itself makes 81",
+  "Rectangle perimeter: adding only the two labelled sides (8 + 7 = 15 m) instead of all four (30 m)",
+  "Getting stuck on the 35 cm perimeter: an odd total cannot be made with whole-cm grid edges only, so a half cm is needed",
+  "Rounding: choosing the next half metre just because a number is past a whole (724 cm to 7.5 m instead of 7 m), or not knowing that a quarter, half and three-quarters of a km are 250, 500 and 750 m",
+  "Thinking area must always be counted in squares. On the tile floor the counting unit is a triangle tile",
+  "Thinking a bigger perimeter always means a bigger area. The pools have equal perimeters but different areas"
+ ],
+ "prerequisites": [
+  "Reliable counting to about 40, and skip counting in 2s, 3s, 4s, 5s and 10s (to count rows of squares)",
+  "Perimeter as the total of all side lengths (6.2)",
+  "Square and rectangle properties: opposite sides are equal, and all four sides of a square are equal",
+  "Multiplication as an array or repeated addition (rows x columns). Q1 can be done by counting, but Q3 needs 9 x 9 = 81, and the 26 m task and review Q4 use products such as 4x9, 5x7, 6x7 and 6x6. This is the learner's weak spot, and area arrays are a strong visual model for building it. Long thin rectangles (1 x n) let him answer Q4 with almost no multiplication.",
+  "Halving: two half-squares make one whole",
+  "Measuring lines in cm with a ruler (6.1)",
+  "Rounding and the conversions 100 cm = 1 m and 1000 m = 1 km (6.1)",
+  "Simple fractions of a kilometre: quarter, half, three-quarters (250, 500, 750 m)",
+  "Adding several 1-digit and 2-digit numbers (perimeters, zigzag total)",
+  "Halving an even number (half the perimeter = the two sides added together)"
+ ],
+ "interactive_ideas": [
+  "Paint the area: the child clicks or drags over grid squares to fill a shape. A live counter shows the area in square units (fill colour), and a separate glowing outline shows the perimeter in units, so the two are always shown differently.",
+  "Rows make multiplication: a rectangle appears on a grid and the child lights it up one row at a time while a running total skip-counts (4, 8, 12, 16, 20). The app then shows '5 rows of 4 = 5 x 4 = 20'. Start with 2x, 5x and 10x, then 3x and 4x.",
+  "Estimate then count (Q1 style): a shape inside a bigger grid flashes for 2-3 seconds. The child types an estimate, then counts or uses rows x columns, with points for getting close. Background squares are greyed out so only the shape is counted.",
+  "Area or perimeter? A shape and a claim appear (e.g. '8, because 2+2+2+2'). The child picks AREA or PERIMETER; an animation then fills the squares or walks a bug round the edge to show who was right. Based on Sofia and Zara.",
+  "Half + half = whole: the child drags two triangular halves together into one whole square before counting. Practises the skill for Ex 6.3 Q2 and the playground shapes.",
+  "Same area, new shape: the child gets a fixed set of tiles (e.g. 6 squares, or 4 squares + 4 half-squares) to snap into any shape. The area readout stays the same while the perimeter readout changes. Challenge: longest and shortest perimeter.",
+  "Fixed fence: a rectangle with a locked perimeter (10, 24 or 26). The child drags a corner to reshape it, and a table records each sides-and-area pair. Pattern: long and thin is small, square-ish is biggest. This directly tests Thandiwe's claim.",
+  "Mystery square: 'my square covers 16 squares' (then 4, 9, 25, 36, 49, 64, 81). The child grows a square with a slider until it matches, then types its perimeter.",
+  "On-screen ruler: drag a virtual ruler along each segment of a zigzag line, record each length, and add them for the total. A second mode builds a 16 cm line two different ways from coloured segments.",
+  "Bug walk: a ladybird, caterpillar and ant walk round a triangle, a tilted square and a rectangle on a 1 m grid, with distance counters. A virtual ruler shows that a diagonal step is about 1.4 m. The child predicts the longest and shortest walk before pressing Go.",
+  "Pool builder: on a triangular tile grid, the child outlines a triangle pool and a hexagon pool. The app counts tile edges (perimeter) and tiles (area), and the child hunts for two pools with the same path length but different water space.",
+  "Odd perimeter puzzle (35 cm): a grid that allows half-cm steps. The child discovers that whole-cm grid shapes always give even perimeters and that a half cm is needed to reach 35.",
+  "Rounding slider (review): a 0-1000 m number line with flags at 250, 500, 750 and 1000. A value drops on and the child clicks the nearest allowed flag. A second mode uses cm with whole and half-metre flags (e.g. 724 cm: 7 m or 7.5 m?)."
+ ]
+}
+```
+
+## WORKBOOK 3 (pages 90-96), 6.3 Introducing area, observed from photos:
+- Key words: area, square units. Worked example: a shape drawn on a grid of 9 whole squares made of 5 whole squares and 3 half squares = 6 and a half squares.
+- p90 Q1: how many whole squares inside each shape (a cross/plus shape and a stepped shape).
+- p91 Q2: complete a right-angled triangle on a grid, its area is __ square units. Q3: table of area and perimeter (square units) for a growing sequence of L-shapes made of squares (a-d); e: area and perimeter of the next shape; draw it.
+- p92 Q3f: what do you notice about the numbers. Q4 (practice): estimate and calculate the area of shapes using square units: L shape, square, C shape, hexagon with half squares, triangle, trapezium with half squares.
+- p93 Q5: draw lines to join pairs of shapes with the same area (rectangles, triangle, L shape). Q6a: area and perimeter of squares 1x1, 2x2, 3x3, 4x4 in a table; b: predict the next.
+- p94 Q6c: what do you notice about the area and perimeter of the 16-square (4x4) square (both 16). Q7 (challenge): estimate then measure the sides of four squares/rectangles; which has the largest area.
+- p95 Q8a: draw a rectangle with an area of 12 square units on squared paper; Q8b: draw any shape with an area of 13 and a half square units.
+- p96 Q9: imagine a square with an area of 25 square units: how long is each side? how long is the perimeter? show working.

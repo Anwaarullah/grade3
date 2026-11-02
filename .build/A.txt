@@ -1,0 +1,273 @@
+You are one of several parallel cloud sessions building the "Grade 3 Maths" website. Your job: build 2 activities — rounding-rover, estimate-measure — in this repository, test them, commit them and push.
+
+IMPORTANT SETUP NOTES
+- $REPO_ROOT below means the repository root (your working directory; run `pwd` to get the absolute path). The repo is already checked out on the right base branch with the shared core, the plain design and one finished reference activity (js/activities/which-unit.js).
+- You have 4 CPUs. You may build your activities one after another yourself, or use the Agent tool to build them in parallel (at most 2 at a time, each restricted to its own file). Either way, YOU are responsible for the final quality.
+- Only add/modify these files: js/activities/rounding-rover.js, js/activities/estimate-measure.js. Never edit core.js, components.js, app.js, curriculum.js, style.css, index.html or other activities — other sessions are working in parallel and your branch will be merged.
+- When done and all tests pass: git add only your activity files, commit with a clear message, and push to the branch you were given (git push -u origin HEAD). Do not open a pull request.
+- End with a short report: for each activity, its learn screens, practice question types, the test results, and any concerns.
+
+You are building one activity for "Grade 3 Maths", an interactive maths website a parent is making for their Grade 3 son (Cambridge Primary Mathematics Stage 3, Unit 6: Measurement, area and perimeter). His class covered Unit 6 but he struggled; he is fine with + and −, rounding and simple quarters, but WEAK at multiplication and division. The parent sits beside him on a laptop (mouse + keyboard), 15–20 minutes per session. Design: PLAIN and clean, light background. Use EVERYDAY OBJECTS from home and school (pencils, crayons, keys, books, spoons, rooms, doors, gardens, playgrounds, shops, school fields) like the textbook and workbook. Bolt the robot is the only character (he gives instructions and hints via api.say). NO space, planet, rocket, alien or fantasy theme anywhere.
+
+Repository: $REPO_ROOT (static site, no build step, plain browser JS, global MQ object, no ES modules).
+Before writing code, read:
+- $REPO_ROOT/ACTIVITY_API.md (the contract — follow it exactly)
+- $REPO_ROOT/js/activities/which-unit.js (complete working reference activity)
+- $REPO_ROOT/js/core.js and $REPO_ROOT/js/components.js (the APIs you can use)
+- $REPO_ROOT/css/style.css (shared classes and CSS variables)
+- your activity's entry in $REPO_ROOT/js/curriculum.js (parent tips; your teaching must match them)
+- the syllabus notes for your section in (syllabus notes are included at the end of this message)/ (textbook extraction + workbook page notes; use them for number ranges, question styles and misconceptions)
+
+Rules:
+- Write ONLY $REPO_ROOT/js/activities/<your-id>.js. Do not edit any other file in the repo (core, components, css, curriculum, index.html, other activities). If you think a shared file needs a change, work around it inside your file and say so in your report.
+- Register with exactly MQ.register('<your-id>', ...). Activity-specific CSS goes in a <style data-activity="<your-id>"> tag added by your file; prefix your classes with a short code.
+- Every practice question must: call api.check(ok, hint, mistakeTag) with a specific, kind hint on wrong answers (point at the likely mistake; a stronger hint on the 2nd try via api.tries()), log a short parent-readable mistake phrase, and register api.onReveal(fn) that shows the correct answer visually with the working.
+- Use api.later instead of setTimeout; pass drag unbind functions and window listeners to api.cleanup.
+- Build a question deck when api.index === 0 or when the deck is missing (the test tool jumps to any index). No duplicate questions in one run. Use api.level to raise difficulty.
+- Maths must be exactly right. Double-check every generated answer, unit and label. Generated shapes must be drawn to scale where the child counts or measures from the picture; if labels are used, say "not to scale" only when it isn't.
+- Keep reading light: short robot lines, big text, one idea per screen. Every learn screen has something to look at or interact with.
+- Original content only: do not copy text or pictures from the textbooks.
+- Make it work well at 1366x900 and still usable at 800px wide (SVGs scale with viewBox, max-width:100%).
+- Do NOT git commit.
+
+Testing (required):
+1. node $REPO_ROOT/tools/smoke.js <your-id> --out /tmp/smoke/<your-id>  → must report ✓ with no errors. Then Read several of the PNG screenshots and fix anything that looks wrong, cramped, overlapping or confusing.
+2. Write a short Playwright script (in /tmp/smoke/, not in the repo; require('playwright') works anywhere; load file://$REPO_ROOT/index.html#/play/<your-id>, block fonts.googleapis/gstatic) that, for several practice questions, gives a WRONG answer (checks the hint appears), then a correct answer (checks the Next button becomes enabled), and on another question triggers two wrong answers then clicks "Show me" (button in .controls .btn-ghost) and checks Next becomes enabled. Also exercise any drag interaction with page.mouse. Fix what fails.
+Finish with a short report.
+
+Note: where the text above says "Write ONLY ...<your-id>.js" and "Do NOT git commit", that applies to each agent you spawn; you (the session) commit and push your activity files at the end as described in the setup notes.
+
+=== SPECS FOR YOUR ACTIVITIES ===
+
+ACTIVITY: rounding-rover — "Rounding Measurements" (section 6.1). Textbook p.99 Q10, p.113 Q1; Workbook p.77 Q6, p.79 Q9. NOTE: he already knows rounding, so keep learning short (2 screens) and practice in measurement context.
+Learn screens:
+1. A number line (SVG) from 100 to 110 cm with a marker (e.g. a toy car or a coloured pin) at 108 and two flags at 100 and 110. Child clicks "Go!" and the marker moves to the nearer flag (110). Then show 275 → exactly halfway between 270 and 280 → the rule: halfway rounds up → 280.
+2. "Nearest 100 cm = nearest metre": a line from 200 cm (2 m) to 300 cm (3 m) with the marker at 275 cm; child clicks which flag; result 300 cm = 3 m. Point out the two answers mean the same thing.
+Practice (count 8): each question shows a number line with the two possible flags either side of the value and the marker at the value (drawn to scale); child clicks the flag (or a choice button below with both labels). The marker animates to the chosen flag on correct.
+- Level 1: nearest 10 cm with 2- and 3-digit cm values (e.g. 108 cm → 110 cm, 64 cm → 60 cm, 132 cm → 130 cm).
+- Level 2: nearest 100 cm and nearest metre (e.g. 108 cm → 100 cm, 275 cm → 3 m, 724 cm → 7 m, 247 cm → 2 m); label flags in m when asking for metres.
+- Level 3: halfway cases (275 cm → 280 cm, 450 cm → 5 m, 65 cm → 70 cm) and km (16 km → 20 km to the nearest 10 km, 34 km → 30 km).
+Mistake tags 'Rounded a halfway number down', 'Rounded to the further ten/hundred'. Hint on wrong: which flag is closer — count the jumps to each. Reveal: show the distance to each station with jump arcs.
+
+ACTIVITY: estimate-measure — "Estimate and Measure" (section 6.1). Textbook p.89, p.91–92; Workbook p.75 Q2, p.78 Q7, p.80–81 Q10–11, p.84 Q3b, p.88 Q7b ("how far away was your estimate").
+Learn screens:
+1. "Body rulers": show benchmarks visually: a finger width ≈ 1 cm, a hand span ≈ 10–15 cm, a school ruler = 30 cm, a door is about 2 m tall, a long grown-up stride ≈ 1 m. An estimate is a clever guess — it does not have to be exact.
+2. "Guess, then measure": an object on screen next to a 1 cm reference square (screen cm = the on-screen ruler scale, ~32px). The child drags a slider to set an estimate (0–20 cm), clicks "Lock in", then a ruler slides in under the object and shows the real length; show how close the guess was (difference) with a fun meter (e.g. "within 1 cm — Super Estimator!").
+3. "Try it at home" card: away-from-screen task matching the workbook p.80–81: find 4 things you think are about 20 cm, 4 things about 10 cm, and 4 things between 1 m and 2 m, then measure. (Text + icons; no input.)
+Practice (count 8):
+- Level 1: estimate-then-measure: slider estimate (not marked wrong), then the ruler appears and the child types the measured length (whole cm, 3–15 cm) → api.check on the measurement; feedback also says how close the estimate was.
+- Level 2: "My estimate was 9 cm. It measured 12 cm. How many cm away was my estimate?" (difference questions, number input), and real-world sense choices: "Which is about 1 metre?" (a door's width / a pencil / a bus), "Which is about 20 cm?" (a shoe / a car / an ant), "About how tall is a door?" (2 m / 20 cm / 2 km).
+- Level 3: mixed: estimate-then-measure with longer objects (12–18 cm), and "Is the next town more or less than 1 km away?" style reasoning choices.
+Mistake tags e.g. 'Misread the ruler', 'Found the difference wrongly', 'No feel for 1 m yet'. Reveal shows the ruler reading/working.
+
+=== SYLLABUS NOTES ===
+
+# Unit 6 section 6.1 - syllabus notes (paraphrased; do not copy book text)
+
+## Textbook (Learner's Book 3), verified extraction
+
+```json
+{
+ "section": "Unit 6 (Measurement, area and perimeter) opener + 6.1 Measurement",
+ "book_pages": "89-101 (p.89 = unit title page with Getting started and the unit introduction; p.90 = opener picture plus the start of 6.1; 6.1 runs to the top half of p.101, which ends with the snail reflection and the 'Look what I can do!' box. The lower half of p.101 begins 6.2 2D shapes and perimeter and is excluded.)",
+ "objectives": [
+  "[Book objective] Estimate lengths and measure them in centimetres, metres and kilometres, rounding the measurement to the nearest whole unit",
+  "[Book objective] Understand how the units of length are related (100 cm in a metre, 1000 m in a kilometre) and convert between them",
+  "[Repeated as 'Look what I can do!' self-check statements on p.101: the child ticks off the two objectives above]",
+  "[Unit preview, p.89] Know that kilometres are for long distances, that perimeter is the distance around a space, and that area is the space inside the perimeter",
+  "[Inferred from Q3 and Q9] Choose a sensible unit or measuring tool for things of very different sizes, from a glove to the distance between continents",
+  "[Inferred from the p.90 intro and Q4, Q5, Q7] Work with regular shapes (squares, including a tilted square) and other rectangles: draw them to size, find the perimeter, and find the area by counting centimetre squares"
+ ],
+ "vocabulary": [
+  "Official key words (p.90 box): centimetre (cm), metre (m), kilometre (km), rounding",
+  "estimate / estimated length",
+  "measure / measurement / actual length",
+  "round up / round down / to the nearest (cm, 10 cm, 100 cm, metre, 5 km, 10 km)",
+  "length, width, height, size",
+  "distance, long distance, journey",
+  "conversion",
+  "perimeter",
+  "area, square units, square cm",
+  "square, rectangle",
+  "regular and irregular shapes",
+  "ruler, metre stick (named tools)",
+  "centimetre squared paper"
+ ],
+ "key_facts": [
+  "100 cm = 1 metre and 1000 m = 1 kilometre (Tip box, p.98)",
+  "Kilometres are the unit for long distances (p.89)",
+  "Perimeter is the distance all the way around a shape or space (p.89)",
+  "Area is the space inside the perimeter (p.89). On these pages it is found by counting centimetre squares and recorded in square units / square cm (p.96)",
+  "When you estimate you do not need to be exact. When you measure, the measurement must be exact (Worked example 1, p.91)",
+  "A measured length is rounded up or down to the nearest whole centimetre (Q2, Q6). No rounding rule is taught on these pages: it is assumed knowledge",
+  "Expected conversion answers (derived, not printed): 7 m = 700 cm; 250 cm = 2 and a half m; 3 and a half m = 350 cm; half a km = 500 m; 750 m = three-quarters of a km; a quarter of a km = 250 m",
+  "Expected km items in Q9 (derived): distance between two continents, a marathon race, a long journey. The others (door height, football pitch, towel width, train, whale, giraffe height) are measured in m or cm",
+  "Expected rounding answers in Q10 (derived): 108 cm is 110 cm to the nearest 10 cm and 100 cm to the nearest 100 cm; 275 cm is 280 cm to the nearest 10 cm (exact halfway, so it rounds up) and 3 m to the nearest metre; 16 km rounded up to the next 10 km is 20 km, and rounded down to a multiple of 5 km is 15 km",
+  "Rounding to the nearest 100 cm is the same as rounding to the nearest metre",
+  "'Round up' and 'round down' to a step mean going in one direction only, which can differ from 'nearest'",
+  "Rectangles with perimeter 24 cm have length + width = 12, giving 1x11, 2x10, 3x9, 4x8, 5x7 and 6x6 with areas 11, 20, 27, 32, 35 and 36: same perimeter, different areas. The square (6x6) has the biggest area",
+  "Rectangles with area 20 square cm (whole-cm sides) are 1x20, 2x10 and 4x5 (plus turned versions), with perimeters 42, 24 and 18 cm: same area, different perimeters. The 2x10 rectangle appears in both lists",
+  "A person's step is not the same length as a metre, so a distance gives a different number of steps from the number of metres (expected answer to Q1)",
+  "Snail problem: the bricks are 30 cm long and 15 cm high, so routes along the edges add up 30s and 15s"
+ ],
+ "question_types": [
+  {
+   "type": "Draw lines of given lengths",
+   "description": "Use a ruler and pencil to draw lines of an exact length, a length lying between two whole-cm values, and a length anywhere inside a wide range",
+   "number_ranges": "2 cm, 8 cm, between 5 and 6 cm, more than 3 cm but less than 14 cm",
+   "difficulty": "core",
+   "book_page": "89"
+  },
+  {
+   "type": "Estimate then measure everyday things",
+   "description": "Guess and then measure the length of your hand, your shoe, a pencil and a book (no unit or rounding specified)",
+   "number_ranges": "everyday objects roughly 10-30 cm",
+   "difficulty": "core",
+   "book_page": "89"
+  },
+  {
+   "type": "Steps vs metres comparison",
+   "description": "Work out your own way to measure the length of your step. With a partner pick a long distance and measure it in steps, then measure it again with a metre stick. Fill in sentence frames for both counts, then say whether the two numbers match and explain why or why not",
+   "number_ranges": "classroom or playground distances, a few metres to tens of metres; whole steps and whole metres",
+   "difficulty": "core",
+   "book_page": "91"
+  },
+  {
+   "type": "Classroom hunt with estimate/actual table",
+   "description": "Find classroom objects between half a metre and one metre long. Write an estimate for each, then measure to the nearest cm and record the actual length in a 3-column table (object, estimated length, actual length) with 4 rows",
+   "number_ranges": "50-100 cm, measured to the nearest cm",
+   "difficulty": "core",
+   "book_page": "92"
+  },
+  {
+   "type": "Choose what to measure with",
+   "description": "For 10 items, draw what you would use to measure each one (a tool, or by implication the unit): distance between two continents, length of a seal, size of a saucepan, an Olympic marathon, length of your foot, length of a rowing boat, width of a mobile phone, length of a golf course, height of your bedroom door, width of a glove",
+   "number_ranges": "no numbers given; sizes run from a few cm to thousands of km",
+   "difficulty": "core",
+   "book_page": "93-94"
+  },
+  {
+   "type": "Draw squares and rectangles to size",
+   "description": "Use a ruler to draw a square with 6 cm sides, then draw two more squares and two rectangles of your own sizes and write the side lengths along the sides",
+   "number_ranges": "6 cm square; then the child chooses the sizes (whole cm expected)",
+   "difficulty": "core",
+   "book_page": "95"
+  },
+  {
+   "type": "Fixed-perimeter investigation",
+   "description": "On centimetre squared paper draw four different rectangles that each have a perimeter of 24 cm. Estimate each area, then count squares to find the actual area, and record length, width, perimeter, estimated area and actual area in a table",
+   "number_ranges": "perimeter 24 cm; sides 1-11 cm (length + width = 12); areas 11-36 square units",
+   "difficulty": "stretch",
+   "book_page": "96"
+  },
+  {
+   "type": "Fixed-area investigation",
+   "description": "On centimetre squared paper draw four different rectangles that each have an area of 20 square cm, and fill in length, width and perimeter (the area column already shows 20). Only three whole-cm shapes exist, so one has to be a turned copy",
+   "number_ranges": "area 20 sq cm: 1x20, 2x10, 4x5 (and turned versions); perimeters 18, 24 and 42 cm",
+   "difficulty": "stretch",
+   "book_page": "96"
+  },
+  {
+   "type": "Measure and round to the nearest cm",
+   "description": "Use a ruler to measure your finger, your pencil, a book and your shoe, rounding each up or down to the nearest cm. Then choose four more objects, measure and round them, and record the results",
+   "number_ranges": "roughly 5-30 cm, rounded to whole cm",
+   "difficulty": "core",
+   "book_page": "97"
+  },
+  {
+   "type": "Complete a square on a grid, then estimate and measure a side",
+   "description": "(a) Two parallel horizontal lines are drawn on a square grid: add two lines to make a square, then estimate and measure one side. (b) Only one slanted line is drawn: add three lines to make a tilted square, then estimate and measure one side with a ruler",
+   "number_ranges": "grid 7 by 6 squares; (a) side 4 grid squares; (b) side is the diagonal of a 2-by-2 block, about 2.8 grid squares (not a whole number)",
+   "difficulty": "stretch",
+   "book_page": "97"
+  },
+  {
+   "type": "Unit conversions",
+   "description": "Use the tip (100 cm = 1 m, 1000 m = 1 km) to convert metres to cm, cm to metres, and halves, quarters and three-quarters of a km to and from metres",
+   "number_ranges": "7 m to cm; 250 cm to m; 3 and a half m to cm; half km to m; 750 m to km; quarter km to m (answers are whole numbers or halves and quarters)",
+   "difficulty": "core",
+   "book_page": "98"
+  },
+  {
+   "type": "Which things are measured in km?",
+   "description": "From a 3-by-3 grid of 9 items, circle the ones you would measure in kilometres, then draw or write three more km-sized things",
+   "number_ranges": "no numbers; 3 km items (continents, marathon, long journey) mixed with m- and cm-sized items (door, football pitch, towel width, train, whale, giraffe)",
+   "difficulty": "core",
+   "book_page": "98"
+  },
+  {
+   "type": "Round given measurements",
+   "description": "Round a coffee table length to the nearest 10 cm and the nearest 100 cm, a bed length to the nearest 10 cm and the nearest metre, and a road-sign distance up to the next 10 km and down to a multiple of 5 km. (The instruction also mentions a 'tape' item that is not in the table.)",
+   "number_ranges": "108 cm, 275 cm (halfway case), 16 km; steps of 10 cm, 100 cm, 1 m, 5 km, 10 km",
+   "difficulty": "core",
+   "book_page": "99"
+  },
+  {
+   "type": "Route-finding problem (Think like a mathematician)",
+   "description": "Two snails live on a brick wall and can only travel along the edges of the bricks. Using the brick sizes, work out the shortest route from one snail to the other, then two other routes, and record what you find. Afterwards compare with a partner (did you get the same shortest route?) and think about how changing some brick side lengths would change the shortest route",
+   "number_ranges": "brick edges 30 cm and 15 cm; totals are sums of 30s and 15s; snails about 2 rows apart, so the shortest route is under 100 cm (about 60-90 cm); longer routes go over 100 cm; picture not to scale",
+   "difficulty": "challenge",
+   "book_page": "100-101"
+  }
+ ],
+ "worked_examples": [
+  "Worked example 1 (p.91), the only worked example in 6.1: estimate the length of a printed line before measuring it. The sample answer estimates 10 cm, measures 11 cm and judges the estimate quite close. Teaching point: an estimate only has to be near, but a measurement has to be exact",
+  "Not a worked example but a reference: the Tip box (p.98) gives the two conversion facts (100 cm = 1 m, 1000 m = 1 km) for use in Q8",
+  "Not a worked example but a reference: the unit introduction (p.89) explains the big ideas in one line each (km for long distances, perimeter as the distance around, area as the space inside the perimeter)"
+ ],
+ "misconceptions": [
+  "Starting a measurement at the end of the ruler or at 1 instead of at 0",
+  "Thinking an estimate has to be exactly right, or giving wild estimates because there is no feel for the size of 1 cm, 10 cm or 1 m",
+  "Mixing up the estimate and the measured (actual) length, or thinking rounding a measurement is the same as guessing",
+  "Expecting the number of steps to match the number of metres, without seeing that a step is a different and personal unit",
+  "Choosing the wrong unit or tool, e.g. km for a football pitch or train, or a ruler for a room or door",
+  "Using the wrong conversion number: 7 m = 70 cm (using 10 instead of 100), or 1 km = 100 m (mixing up the two facts)",
+  "Struggling with half and quarter conversions: writing 250 cm = 25 m, or not seeing that 750 m is three-quarters of a km",
+  "Rounding errors: 108 to the nearest 10 given as 100; 275 rounded down to 270 (not knowing the halfway convention); looking at the wrong digit when rounding to the nearest 100",
+  "Not realising that 'nearest 100 cm' and 'nearest metre' mean the same thing",
+  "Confusing 'round to the nearest' with 'round up' or 'round down' in one direction",
+  "Leaving off units, or giving a number in the wrong unit (writing 3 when 300 cm is meant)",
+  "Mixing up perimeter and area, or believing rectangles with the same perimeter must have the same area (and the reverse)",
+  "Not counting the 6x6 square as a rectangle with perimeter 24 cm; searching for a fourth truly different area-20 rectangle when only three whole-cm shapes exist",
+  "Counting grid dots or corner points instead of unit edges for perimeter; counting the same square twice or missing squares when finding area",
+  "Thinking the slanted side of a tilted square is a whole number of grid squares (it is longer than 2 squares but shorter than 3), or not recognising a tilted square as a square",
+  "In the snail problem: judging lengths from the picture (drawn about 3 to 1) instead of using the stated 30 cm by 15 cm, counting bricks instead of adding edge lengths, or mixing up the 30 cm and 15 cm edges",
+  "Specific to this child: m-to-cm conversion is really multiplying by 100; the area-20 rectangles need factor pairs (1x20, 2x10, 4x5); snail totals need repeated adding of 15s and 30s. A child weak at multiplication may get stuck here even when the measuring idea is understood"
+ ],
+ "prerequisites": [
+  "Reading a cm ruler from 0 and drawing straight lines of a given length (Stage 2)",
+  "Rounding to the nearest 10 and 100 (assumed knowledge here, not taught on these pages)",
+  "Place value to 1000 (hundreds, tens, ones), needed to round 108 and 275 and to make sense of 250 cm or 750 m",
+  "Halves and quarters of a quantity (half of 100, half and quarter of 1000, three-quarters of 1000)",
+  "Adding several 1- and 2-digit numbers (perimeters, snail routes); number bonds to 12 (perimeter 24 means length + width = 12)",
+  "Counting in 100s (or multiplying by 100) for m-to-cm conversion; counting in 15s and 30s for the snail routes",
+  "Multiplication facts and factor pairs of 20 for fixed-area rectangles. Counting squares row by row (arrays) bridges to this",
+  "Properties of squares and rectangles: 4 equal sides; opposite sides equal; right angles (Stage 2 2D shapes)"
+ ],
+ "interactive_ideas": [
+  "Virtual ruler: drag an on-screen ruler onto a drawn line or object and read the length to the nearest cm. Some rounds place the object starting at 0, some offset or on a broken ruler starting at 3 cm, to practise starting at zero. Lengths that end between marks practise rounding to the nearest cm",
+  "Estimate-then-reveal: the child sets a slider to a guess, then the true length animates in. A closeness meter praises being within 1-2 cm, reinforcing that estimates only need to be near while measurements must be exact (as in the book's worked example)",
+  "Draw-to-length: on a cm grid, click-drag to draw a line exactly 2 cm or 8 cm long, one between 5 and 6 cm, and one anywhere between 3 and 14 cm, with live length feedback",
+  "Unit and tool sorter: drag picture cards (glove, phone, saucepan, foot, seal, rowing boat, door, giraffe, train, whale, football pitch, golf course, marathon, journey, continents) into cm / m / km bins. A second mode matches items to a ruler, a metre stick or a map",
+  "Metre-stick builder for conversions without formal multiplication: fill a 1 m stick with 10 cm rods (10 rods = 100 cm), stack metre sticks to show 7 m = 700 cm by counting in 100s, and add a half-metre piece for 3 and a half m = 350 cm. A 1 km track split into halves and quarters shows 250, 500 and 750 m",
+  "Rounding number line: a length (108 cm, 275 cm, 16 km) appears as a marker between two tens or hundreds. The child rolls a ball to the nearer end, with a visible halfway hill so that exactly 5 rolls up. Modes: nearest 10 cm, nearest 100 cm / nearest metre (shown as the same), and one-direction 'round up to 10 km' / 'round down to 5 km' road-sign tasks",
+  "Rectangle builder on a cm grid: drag a corner to resize. An ant walks round counting edges for the perimeter, and squares fill in row by row for the area. Challenge 1: find all rectangles with perimeter 24 using length + width = 12 (number bonds, no multiplication) and see the areas change, with the square biggest. Challenge 2: find rectangles with area 20 by building rows of squares (2 rows of 10, 4 rows of 5), a gentle introduction to arrays. Highlight that 2x10 appears in both",
+  "Complete-the-square puzzle: one or two sides are given on a grid and the child clicks grid points to add the missing sides, including tilted squares. Then measure a slanted side with the virtual ruler to see that it is longer than 2 grid squares but shorter than 3",
+  "Snail brick-wall maze (original layout, drawn to a true 2 to 1 scale): click brick edges to plot a route between two snails. A running total adds 30s and 15s with a skip-counting strip beside it, and the goal is to beat your own shortest route. A 'what if' toggle changes brick sizes (e.g. 20 cm by 10 cm) to explore how the shortest route changes",
+  "Steps vs metres walker: characters with different step lengths (small child, adult, giant) walk across a 10 m playground, showing why the step count differs from 10 metres",
+  "Half-metre-to-metre hunt: a gallery of household objects with hidden sizes. The child sorts them into shorter than 50 cm, 50 cm to 1 m, and longer than 1 m, then reveals the true lengths and checks their estimates",
+  "End-of-section self-check modelled on the 'Look what I can do!' box: two tick statements (estimate, measure and round in cm, m and km; know how the units relate), each unlocked by a short quick-fire quiz"
+ ]
+}
+```
+
+## WORKBOOK 3 (pages 74-82), 6.1 Measurement, observed from photos:
+- p74 Q1: write something measured in km / m / cm; reminder 1 km = 1000 m, 1 m = 100 cm. Q1b: what could measure 1 km, 1 m, 1 cm.
+- p75 Q2: estimate then measure lines with a ruler (cm); draw lines 2 cm, 5 cm, 7 cm. Q3 ring the answer: half a km = 1000 m / 500 m / 10 m; quarter km = 25 m / 250 m / 750 m.
+- p76 Q3c: cm in 1 m = 10 / 100 / 1000 cm; Q3d: 3/4 km = 75 m / 450 m / 750 m, show working.
+- p76 Q4: find the length of objects to the nearest cm on ruler pieces that DO NOT start at 0 (ruler sections 71-80, 12-21, 19-28). Child must do end minus start.
+- p77 Q5: estimate distance bedroom to kitchen, house to shop; choose cm/m/km and explain. Q6: pencil against ruler, round to nearest cm ("about __ cm").
+- p78 Q7: estimate then measure height of pictures of children; draw a shorter person. Q8 ring: 3 and a half m = 300/350/35 cm; 5 and a quarter m = 550/575/525/500 cm; 500 cm = __ m; 250 cm = __ m; which is more: 3/4 m or 700 cm?
+- p79 Q9 (challenge): lengths of a key and paper clip on a ruler, nearest cm; measure 4 things at home with a printed 0-15 cm ruler, round to nearest cm.
+- p80-81 Q10: collect 4 objects estimated 20 cm, then 4 objects half that length (10 cm); Q11: objects between 1 m and 2 m (estimate vs actual table); is a place more or less than 1 km from your house.
+- p82 Q12: number sentences 3/4 m = __ cm, 10 m = __ cm, 250 m = __ km, 750 m = __ km; write three of your own.
