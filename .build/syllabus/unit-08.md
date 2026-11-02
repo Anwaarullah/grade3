@@ -178,6 +178,40 @@ Unit 8 has a single section, 8.1 Time. The unit opener also asks big-picture que
 }
 ```
 
+## Workbook (Workbook 3, printed pages 104-108)
+Corner page numbers checked. p.104 has key words and a worked example of digital to words.
+
+### 8.1 Time
+- **p.104 Q1 (Focus)**: write four digital times in words. a 6:01 = one minute past six; b 3:30 = half past three; c 12:14 = fourteen minutes past twelve; d 8:45 = quarter to nine (forty-five minutes past eight also accepted).
+- **p.105 Q2 (Focus)**: words to hh:mm. a half past eight = 08:30; b thirty-four minutes past two = 02:34; c four o'clock = 04:00; d forty-two minutes past six = 06:42.
+- **p.105 Q3 (Focus)**: analogue to digital. a minute hand on the 4, hour hand a third of the way from 1 to 2 = 1:20 (approx., could be 1:21); b hour hand just past 12, minute hand near the 1 = about 12:05 (approx. 12:04-12:05); c minute hand just above the 8, hour hand most of the way from 2 to 3 = about 2:39 (approx. 2:38-2:40).
+- **p.106 Q4 (Practice)**: draw both hands on blank clocks for 1:35, 6:54, 4:28, 10:44.
+- **p.106 Q5 (Practice)**: give three digital times that fall between 07:48 and 09:12 (e.g. 08:00, 08:30, 09:00); crosses two hours.
+- **p.106 Q6 (Practice)**: draw hands to match digital displays 10:27, 02:54, 07:19, 11:07.
+- **p.107 Q7 (Challenge)**: complete quarter-word/digit sentences. a 3:45 = quarter to four; b quarter to two = 1:45; c quarter to eleven = 10:45; d 10:15 = quarter past ten; e 1:45 = quarter to two.
+- **p.107 Q8 (Challenge)**: find three watch times whose digits rise by one left to right, and write each in words. Valid: 1:23 (23 past one), 2:34 (26 to three), 3:45 (quarter to four), 4:56 (4 to five), 12:34 (26 to one); 01:23 also works if the leading zero counts.
+- **p.107-108 Q9 (Challenge)**: four pairs of analogue clocks with the times printed underneath; write any time between them. (In a, the clock labelled 1:11 has its hour hand drawn nearer the 2; trust the printed label.) a 1:11-11:37 (e.g. 6:00); b 2:00-2:30 (e.g. 2:15); c 7:01-7:32 (e.g. 7:15); d 9:30-10:00 (e.g. 9:45).
+- **p.108 Q10 (Challenge)**: own getting-up time and bedtime, on an analogue and a digital clock (open).
+
+### Hidden prerequisites and traps
+- p.105 Q2b/d: "thirty-four/forty-two minutes past" uses past for minutes over 30. The textbook switches to "to" after :30, so warn the child that both forms are correct.
+- p.104 Q1 shows times without a leading zero (6:01, 12:14), but the digital boxes on p.105-108 have 4 digit places. Accept 08:30 or 8:30.
+- p.107 Q7b/c (words to digits for "quarter to") needs 60 - 15 = 45 and the hour before.
+- p.105 Q3b: 12:05 is the 12 to 1 rollover. Both hands are near 12, so expect 1:00 or 12:01.
+- p.107 Q8 needs consecutive-digit reasoning and "to" conversions (26 to 3): a heavy subtraction-from-60 load.
+- p.106 Q5 and p.107 Q9: "between" windows that cross an hour (07:48-09:12) or are huge (1:11-11:37); the textbook uses only 8-10 o'clock.
+- p.108 Q10: implies morning and evening (am/pm idea) on a 12-hour clock. Not taught.
+- Q4/Q6 hand drawing: the hour hand must sit partway (6:54 is almost at 7; 2:54 is almost at 3).
+- No 24-hour times, seconds, durations or calendar.
+
+### Activity refinements
+- **hour-hand-hint**: no direct question; nearest: Workbook p.105 Q3 (reading where the hour hand sits) and p.106 Q4 (placing the hour hand partway). Tip: "At 6:54 the short hand is nearly on 7."
+- **five-minute-ring**: Workbook p.105 Q3. Add 12:0x rollover clocks (12:05) to Level 2.
+- **past-or-to**: Workbook p.104 Q1, p.105 Q2, p.107 Q7. Accept "34 minutes past 2" as well as "to". Add a quarter-to sentence-completion item (quarter to eleven to 10:45). Level 3 bonus: the consecutive-digit time puzzle (p.107 Q8).
+- **clock-twins**: Workbook p.105 Q3 (analogue to digital); p.107 Q8 (digital to words).
+- **set-the-clock**: Workbook p.106 Q4, p.106 Q6, p.106 Q5, p.107-108 Q9, p.108 Q10. Practice range: 1:35, 6:54, 4:28, 10:44, 10:27, 02:54, 07:19, 11:07. Widen the "between" level to windows like 07:48-09:12, 2:00-2:30 and 9:30-10:00 (type a time), not only 8-10 o'clock. Routine cards: getting-up time and bedtime, with a morning/evening label. Parent tip: "Set his real wake-up and bedtime on a paper clock."
+- No new activity needed.
+
 ## Proposed activities
 
 Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estimate, analogue to the minute, digital, linking), so it gets five activities.
@@ -187,7 +221,7 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **icon**: 🕰️
 - **section**: 8.1
 - **summary**: Use the short hand alone to estimate the time, then place the missing minute hand.
-- **book**: Textbook p.126 Worked example 1, p.127 Q1
+- **book**: Textbook p.126 Worked example 1, p.127 Q1 · Workbook p.105 Q3, p.106 Q4 (hour hand placed partway)
 - **Learn screens**
   1. A clock with only the hour hand pointing exactly at 4. Bolt asks where the minute hand goes. The child drags a minute hand; it snaps to 12 and the clock says "4 o'clock".
   2. The hour hand slides slowly from 8 to 9 while a minute hand moves round with it. The child presses "stop" when the hour hand is halfway, and sees the minute hand is at 6 (half past).
@@ -208,14 +242,14 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **icon**: ⏱️
 - **section**: 8.1
 - **summary**: Read an analogue clock to the minute by counting in fives and then in ones.
-- **book**: Textbook p.125 Getting started, p.129 Q5, p.130 Check your progress Q1
+- **book**: Textbook p.125 Getting started, p.129 Q5, p.130 Check your progress Q1 · Workbook p.105 Q3
 - **Learn screens**
   1. An outer ring shows 5, 10, 15 ... 60 next to the clock numbers. The child clicks each number in order and hears the count in fives (a visual bridge for the 5 times table).
   2. The minute hand points between 4 and 5. The child counts 5, 10, 15, 20 on the ring, then clicks the small marks: 21, 22, 23. Bolt writes "23 minutes past".
   3. The hour hand: the child picks which number the short hand has just passed (not the one it is nearest to), and the full time appears in words and digits.
 - **Practice** (count 10)
   - Level 1: minute hand on a number (multiples of 5, 5-55 past), hour hand matching. Child types the minutes past.
-  - Level 2: minute hand between numbers, 1-29 minutes past (e.g. 6:18, 8:16, 11:25). Child types hour and minutes.
+  - Level 2: minute hand between numbers, 1-29 minutes past (e.g. 6:18, 8:16, 11:25, 1:20), including the 12 to 1 rollover (12:05 - both hands near 12). Child types hour and minutes.
   - Level 3: any minute 1-59; times after half past are read "past" here (e.g. 9:41, and 3:50 drawn so the hands could be swapped by mistake); the outer ring is hidden and appears only as a hint.
 - **Mistake tags**: Read the number not the minutes; Counted numbers in 1s not 5s; Read the hour it is nearly at; Swapped hour and minute hands; Miscounted the small marks
 - **Parent tips**
@@ -229,7 +263,7 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **icon**: ↩️
 - **section**: 8.1
 - **summary**: Change digital times into "past" and "to" words, and words back into digital times.
-- **book**: Textbook p.127 Q2, p.131 Check your progress Q2-Q3
+- **book**: Textbook p.127 Q2, p.131 Check your progress Q2-Q3 · Workbook p.104 Q1, p.105 Q2, p.107 Q7-Q8
 - **Learn screens**
   1. A digital display 03:15 next to a clock. Bolt splits it: hours before the colon, minutes after. The child drags "quarter past 3" onto it.
   2. The clock face is split into a right half (past) and a left half (to). The child moves the minute hand past the 6 and watches the label flip from "past" to "to".
@@ -238,8 +272,9 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **Practice** (count 10)
   - Level 1: digital to words for :05-:30 (e.g. 05:09, 03:13, 09:27). Child builds the phrase from tiles (number / minutes / past / hour).
   - Level 2: digital to words for :31-:59 (e.g. 01:52, 08:34, 02:38, 07:37). Child picks the number of minutes "to" and the next hour.
-  - Level 3: words to digital (e.g. 7 minutes past 5, 24 minutes to 3, 12 minutes to 11). Child types hh:mm on a digital keypad.
-- **Mistake tags**: Used minutes past for a 'to' time; Forgot to change the hour; Changed the hour the wrong way; Did not subtract from 60; Missing leading zero
+  - Level 3: words to digital (e.g. 7 minutes past 5, 24 minutes to 3, 12 minutes to 11, quarter to two, quarter to eleven). Child types hh:mm on a digital keypad. Bonus puzzle: find watch times whose digits go up by one (1:23, 2:34, 3:45, 4:56, 12:34) and say them in words.
+  - Note: the workbook (p.105 Q2) also uses 'minutes past' beyond 30 (thirty-four minutes past two). Accept both forms; Bolt can say "34 minutes past 2 is the same as 26 minutes to 3".
+- **Mistake tags**: Used minutes past for a 'to' time (only when 'to' was asked); Forgot to change the hour; Changed the hour the wrong way; Did not subtract from 60; Missing leading zero
 - **Parent tips**
   - Goal: Switch between digital times and spoken past/to times, both ways.
   - Say: "Is it before or after half past?" / "How many more minutes to get to 60?" / "If it's 'to 3', what hour is it really?"
@@ -251,7 +286,7 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **icon**: 🔗
 - **section**: 8.1
 - **summary**: Match analogue clocks, digital clocks and words that show the same time.
-- **book**: Textbook p.128 Q3, p.130 reflection, p.130-131 Check your progress
+- **book**: Textbook p.128 Q3, p.130 reflection, p.130-131 Check your progress · Workbook p.105 Q3, p.107 Q8
 - **Learn screens**
   1. One analogue clock and one digital display show 4:17. Bolt highlights the hour on both, then the minutes on both.
   2. Two analogue clocks, 4:45 and 4:48, side by side. The child zooms in and counts the small marks to tell them apart.
@@ -271,19 +306,19 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
 - **icon**: ⏰
 - **section**: 8.1
 - **summary**: Drag the hands to show a time, find times inside a time window, and move one hour on.
-- **book**: Textbook p.128 Q4, p.132 Check your progress Q4, p.129 Think like a mathematician (bonus)
+- **book**: Textbook p.128 Q4, p.132 Check your progress Q4, p.129 Think like a mathematician (bonus) · Workbook p.106 Q4-Q6, p.107-108 Q9, p.108 Q10
 - **Learn screens**
   1. The child drags the minute hand round once; the hour hand creeps from 7 to 8. Bolt points out that both hands always move together.
   2. Everyday routine: a picture card (breakfast, school bus, bedtime). The child sets the clock to the shown digital time, then presses "1 hour later" and predicts the new digital time.
   3. A day timeline with 8 o'clock to 10 o'clock shaded. The child drops four clocks inside or outside the band.
 - **Practice** (count 9)
   - Level 1: set o'clock, half past, quarter past/to times given in digital form.
-  - Level 2: set to-the-minute times (e.g. 06:20, 09:41, 10:48); then type the time 1 hour later.
-  - Level 3: "Make a time between 8 o'clock and 10 o'clock" (any valid answer accepted, with the hour hand in the right place), and sort clocks near the edges (7:55, 8:45, 9:59, 10:12) into inside/outside.
+  - Level 2: set to-the-minute times (e.g. 06:20, 09:41, 10:48, 1:35, 6:54, 4:28, 10:44, 02:54, 07:19, 11:07 - watch the hour hand nearly on the next number at :54); then type the time 1 hour later.
+  - Level 3: "Make a time between 8 o'clock and 10 o'clock" (any valid answer accepted, with the hour hand in the right place), and sort clocks near the edges (7:55, 8:45, 9:59, 10:12) into inside/outside. Then other windows from the workbook that cross an hour or are short: 07:48-09:12, 2:00-2:30, 7:01-7:32, 9:30-10:00 (type any time between).
 - **Mistake tags**: Hour hand left on the wrong number; Minute hand on the hour number; Changed minutes when adding 1 hour; Put a time just outside the window inside it
 - **Parent tips**
   - Goal: Show any time on an analogue clock, and reason about times before, after and between.
   - Say: "Put the long hand in first, then check where the short hand should be." / "One hour later, what changes and what stays the same?" / "Is 8:45 after 8 o'clock? Is it before 10?"
   - Watch for: the hour hand pointing exactly at the number for times like 8:45; adding 1 to the minutes instead of the hour.
-  - Away from screen: Make a "my day" list of 3 favourite times. He draws each on a paper clock and writes the digital time beside it.
+  - Away from screen: Set his real getting-up time and bedtime on a paper clock and talk about morning and evening (the workbook p.108 asks for both, but the textbook does not teach am/pm). Make a "my day" list of 3 favourite times. He draws each on a paper clock and writes the digital time beside it.
 - **Bonus screen (optional, challenge)**: Broken stopwatch. A single seven-segment digit; the child clicks bars on and off to make digits and counts the bars. Find every digit that uses exactly 5 bars (2, 3, 5), and the digits that use as many bars as their own value (4 and 5).
