@@ -95,7 +95,9 @@
    * ------------------------------------------------------------------ */
   var deck = null;
   function buildDeck() {
-    var sides = U.shuffle([2, 3, 4, 5, 6]);
+    // 4 is left out: a 4 cm square has 16 squares inside AND a 16 cm perimeter, so
+    // counting the squares by mistake would still give the right answer.
+    var sides = U.shuffle([2, 3, 5, 6]);
     var l1 = U.shuffle([{ type: 'sqP', n: sides[0] }, { type: 'sqP', n: sides[1] }, { type: 'triP' }]);
     var ps = U.shuffle([8, 12, 16, 20, 24]);
     var l2 = U.shuffle([{ type: 'sqSide', p: ps[0] }, { type: 'sqSide', p: ps[1] }, { type: 'grow' }]);

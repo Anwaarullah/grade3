@@ -138,7 +138,8 @@
     fig.label = function (i, text, cls, off) {
       var mid = fig.mid(i);
       var n = fig.normal(i);
-      off = off || 26 + 18 * Math.abs(n[0]);
+      // On a grid there is only one square of margin, so keep labels closer.
+      off = off || (opts.grid ? 18 + 8 * Math.abs(n[0]) : 26 + 18 * Math.abs(n[0]));
       var t = svg('text', { x: mid[0] + n[0] * off, y: mid[1] + n[1] * off + 7, 'text-anchor': 'middle', class: 'rp-label ' + (cls || '') }, text);
       labels.appendChild(t);
       return t;
@@ -241,17 +242,25 @@
     { name: 'sandpit', fill: 'rp-fill-sand' },
   ];
 
+  // Shapes where the squares inside equal the perimeter (e.g. 6 by 3: 18 and 18) are
+  // skipped: counting the squares by mistake would give the right answer.
   function gridRect(unit) {
-    var w = U.rand(3, 6);
-    var h = U.rand(2, 4);
-    if (w === h) w++;
+    var w, h;
+    do {
+      w = U.rand(3, 6);
+      h = U.rand(2, 4);
+      if (w === h) w++;
+    } while (w * h === 2 * (w + h));
     return { kind: 'grid', pts: rectPts(w, h), unit: unit, area: w * h, edgeSquares: 2 * w + 2 * h - 4, key: 'r' + w + 'x' + h };
   }
   function gridL(unit) {
-    var w = U.rand(4, 6);
-    var h = U.rand(3, 4);
-    var cw = U.rand(1, w - 2);
-    var ch = U.rand(1, h - 2);
+    var w, h, cw, ch;
+    do {
+      w = U.rand(4, 6);
+      h = U.rand(3, 4);
+      cw = U.rand(1, w - 2);
+      ch = U.rand(1, h - 2);
+    } while (w * h - cw * ch === 2 * (w + h));
     return { kind: 'grid', pts: lPts(w, h, cw, ch), unit: unit, area: w * h - cw * ch, key: 'L' + w + h + cw + ch };
   }
 
@@ -324,6 +333,10 @@
     var c = U.pick([gridRect('cm'), gridL('cm')]);
     var tries = 0;
     while ((c.key === a.key || c.key === b.key) && tries++ < 30) c = U.pick([gridRect('cm'), gridL('cm')]);
+    var places = U.shuffle(PLACES);
+    a.place = places[0];
+    b.place = places[1];
+    c.place = places[2];
     q.push(a, b, c);
     var l2 = U.shuffle(['triangle', 'pentagon', 'eqTriangle', 'square', 'hexagon']).slice(0, 2);
     U.shuffle(['rectangle'].concat(l2)).forEach(function (k) {
@@ -521,7 +534,7 @@
         api.say('Only two sides have numbers. Opposite sides of a rectangle are the same length. Click each ? to fill it in.', 'think');
         api.lockNext();
         stage.appendChild(MQ.ui.lesson('Missing labels', 'Click each <b>?</b> side.'));
-        var fig = makeFigure(rectPts(4, 3), { maxW: 300, maxH: 190, maxScale: 64, fill: 'rp-fill-rug', margin: 72, marginY: 44 });
+        var fig = makeFigure(rectPts(4, 3), { maxW: 300, maxH: 190, maxScale: 64, fill: 'rp-fill-rug', margin: 72, marginY: 58 });
         stage.appendChild(fig.svg);
         var sumBox = el('div', { class: 'rp-sum' });
         stage.appendChild(sumBox);
@@ -666,6 +679,7 @@
           input.good();
           input.disable();
           MQ.clear(sumBox);
+          api.feedback('Watch: we walk all the way round and add every side.', 'info');
           var parts = [];
           var shown = {};
           if (q.labels) q.labels.forEach(function (t, i) { if (t) shown[i] = true; });
