@@ -201,12 +201,123 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 - p.231 Bus 2 overtakes Bus 1 (arrives at school 8:19 vs 8:22).
 - p.234 CYP Q1b: 25 Jan to 25 Feb is 30 days 'between' by the book's Tip, 31 days as a difference.
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3, Unit 14 "Time (2)", printed pages 202-217 (scan files w202-w217; the filename number matches the printed corner number on every page, checked). 14.1 runs p202-209 (top half); 14.2 starts lower on p209 and runs to p217. All wording below is paraphrased.
+
+Calendar note: every printed month calendar matches the real 2026 calendar (April 1 Wed, May 1 Fri, June 1 Mon, Aug 1 Sat, Nov 1 Sun, Dec 1 Tue) except the January on p207 (starts Thursday = January 2026, so it does NOT follow on from the printed December 2026, which would need January to start on a Friday). March 1996 (1st = Friday) and April 1999 (1st = Thursday) on p205 are correct real calendars.
+
+### 14.1 Time (Exercise 14.1, p202-209)
+
+Key words box (p202): time, time interval. Focus = Q1-3, Practice = Q4-6, Challenge = Q7-9.
+
+- **p202 Q1a-b (Focus)** - Estimate, then measure (with a timer), how many claps and then how many foot stamps the child can do in one minute. Answers: personal; a 7-8 year old typically manages roughly 100-200 claps and 80-150 stamps. Check the measure is close-ish to the estimate and that the second estimate improves after the first measure.
+- **p202 Q1c (Focus)** - List three activities that last longer than one minute. Open answer (e.g. brushing teeth, eating lunch, walking to school).
+- **p202 Q2a (Focus)** - Sleep 8 hours each night: how many hours of sleep in one week? Answer: 8 x 7 = **56 hours**. MULTIPLICATION item - for this learner, do it as repeated addition 8+8 = 16, 32 (two more nights = 4 nights), 48 (6 nights), 56 (7 nights), or doubling.
+- **p202 Q2b (Focus)** - Make up two questions (with answers) about things that take hours. Open. Note: the printed question has a doubled word ("that that") - typo only.
+- **p203 Q3 (Focus)** - Three calendars printed: April (1st = Wednesday, 30 days), May (1st = Friday, 31 days), June (1st = Monday, 30 days).
+  - **Q3a** Holiday of two weeks, leaving 15 May; date home? 15 + 14 = **29 May** (Friday, same column two rows down).
+  - **Q3b** Schools close 14 April, return 20 days later; date? 16 days take you to 30 April, 4 more -> **4 May** (Monday). Crosses a month end (30-day April).
+- **p204 Q3c (Focus)** - Birthday is four weeks after 3 May; date? 3 + 28 = **31 May** (Sunday; four rows straight down).
+- **p204 Q3d (Focus)** - Dentist was booked for 24 June, moved two weeks earlier; date? 24 - 14 = **10 June** (Wednesday).
+- **p204 Q4a (Practice)** - Sort 8 activities into: 1 hour / 1 minute / less than 1 minute / more than 1 minute. Expected (some are judgement calls): one clap = less than 1 minute; walk round the classroom = less than 1 minute or about 1 minute (depends on room - accept either with a reason); stamp your foot = less than 1 minute; blink = less than 1 minute; maths lesson = 1 hour; travel to school = more than 1 minute (accept 1 hour if the journey is long); get dressed = more than 1 minute; eat breakfast = more than 1 minute. Note "1 hour" is also technically "more than 1 minute" - the child should pick the closest box.
+- **p204 Q4b (Practice)** - Name something that takes longer than an hour. Open (e.g. a school day, a long car trip, a night's sleep).
+- **p205 Q5 (Practice)** - "I" was born in April 1999, sister in March 1996; calendars March 1996 and April 1999 printed. Birthdays are both on the 26th (sister 26 March 1996 = Tuesday; "me" 26 April 1999 = Monday).
+  - **Q5a** How many days apart are the birthdays? AMBIGUOUS. Intended answer is almost certainly the day count from 26 March to 26 April ignoring the years = **31 days** (March has 31 days; count 5 left in March + 26 in April). Literal answer with the years: 3 years and 1 month apart (1126 days) - far beyond Grade 3. Accept 31 days; mention "one month" as equivalent.
+  - **Q5b** Brother born in 2007, nine days after "my" birthday (26 April); which day? 26 April + 9 -> 4 days to 30 April, 5 more -> **5 May 2007**. No May 2007 calendar is printed, so the weekday cannot be read from the page (real weekday: Saturday). Accept "5 May".
+  - **Q5c** How much older is the sister than the brother? Sister 26 March 1996, brother 5 May 2007 -> **11 years** (exactly 11 years, 1 month and 9 days; 11 years 40 days). Expect "11 years" (2007 - 1996). Subtracting years across 2000 is a place-value trap (2007 - 1996).
+- **p206 Q6 (Practice)** - June calendar (1st = Monday, 30 days).
+  - **Q6a** A bag of bird food lasts 6 days, opened Thursday 4th; when is the next bag opened? 4 + 6 = **Wednesday 10 June**. Trap: answering 9th (counting the 4th as day 1 and stopping on day 6).
+  - **Q6b** Zoo planned for the 30th, went two weeks earlier: 30 - 14 = **Tuesday 16 June**.
+- **p206 Q7a (Challenge)** - Choose minutes / hours / days / weeks for: shaking hands with a friend -> **minutes** (really a few seconds; seconds is not offered, so "minutes" is the smallest choice); eating breakfast -> **minutes**; walking round the outside of the school building -> **minutes**; grass growing 5 cm -> **weeks** (accept days with a reason).
+- **p207 Q7b (Challenge)** - Give one more example for each unit: minutes, hours, days, weeks. Open.
+- **p207-208 Q8 (Challenge)** - Calendars November (1st = Sunday, 30 days), December (1st = Tuesday, 31 days), January (printed 1st = Thursday - see misprint note).
+  - **Q8a** (p207) Find two days-and-dates 17 days apart. Open; 17 = 2 weeks + 3 days, so the weekday moves on by 3. Examples: Monday 2 Nov -> Thursday 19 Nov; Saturday 28 Nov -> Tuesday 15 Dec; Monday 5 Jan -> Thursday 22 Jan (on the printed January).
+  - **Q8b** (p208) Three boys left camping on 9, 12 and 27 November and all came home 6 December; how long was each away? Using "home date minus leave date" (nights away): Marsile 21 + 6 = **27 days**, Mustafa 18 + 6 = **24 days**, Majak 3 + 6 = **9 days**. Variants a teacher may also accept: counting both end days 28 / 25 / 10; using the textbook "between" tip 26 / 23 / 8. Recommend 27 / 24 / 9 as the key, and keep one convention throughout.
+  - **Q8c** (p208) Mustafa goes again six weeks after coming home on 6 December and stays 11 days; when does he leave and come home? 6 Dec + 42 days -> 25 days to 31 Dec, 17 more -> **leaves 17 January**; +11 -> **home 28 January**. Weekday conflict: following the printed December (6 Dec = Sunday) six weeks later is a **Sunday**; the printed January shows 17 Jan as Saturday and 28 Jan as Wednesday (real 2027: Sunday 17, Thursday 28). Accept the dates; accept either weekday reading.
+- **p208 Q9a (Challenge)** - August calendar (1st = Saturday, 31 days). Anna was away 13 days: write two possible leave/return date pairs. Open; return date = leave date + 13, e.g. **3 Aug -> 16 Aug**, **10 Aug -> 23 Aug**, 18 Aug -> 31 Aug (latest possible start inside August is the 18th). With "counting both ends" a child might give 3 -> 15; accept if explained.
+- **p209 Q9b (Challenge)** - May calendar (1st = Friday). Javed away 17 days: two pairs. e.g. **1 May -> 18 May**, **4 May -> 21 May**, 14 May -> 31 May (latest start the 14th).
+
+### 14.2 Timetables (Exercise 14.2, p209-217)
+
+Key word box (p209): timetable. Focus = Q1-3, Practice = Q4-6, Challenge = Q7-9.
+
+- **p209 Worked example 1** - One-row "day at the seaside" timetable: Play games 11 a.m.-12 p.m.; Eat lunch 12-1 p.m.; Walk 1.30-2 p.m.; Swim 2.15-3 p.m. Questions: is the walk morning or afternoon; when does lunch end; what is happening at 3.00 p.m. **MISPRINT: the answer box does not match the table** - it says the walk is 1.30-2.30, lunch ends 1.15 p.m., swimming is 2.45-3.30. Correct answers from the printed table: a **afternoon**; b lunch ends **1 p.m.**; c at 3 p.m. the swim is **just finishing** (swim 2.15-3) - "swimming" only works if the end time counts. Do not reuse the book's answer box.
+- **p210 Q1 (Focus)** - Iqra's seaside timetable: Arrive 10.15 a.m.; Play games 11.15 a.m.-12 p.m.; Eat lunch 12.15-1 p.m.; Walk 1.30-2 p.m.; Swim 2-3 p.m.; Leave 3.15 p.m.
+  - **Q1a** arrived **10.15 a.m.**, left **3.15 p.m.**
+  - **Q1b** at 12.30 p.m. she was **eating lunch**.
+  - **Q1c** games finished at **12 p.m. (midday)**.
+  - **Q1d** Mum buys ice creams at 2.20 p.m. - why a bad idea? Iqra is **swimming** (2-3 p.m.), so the ice cream would melt / she can't eat it in the water. Requires placing 2.20 inside a 2-3 interval.
+  - Note: gaps in the day (10.15-11.15, 12-12.15, 1-1.30) are unlabelled.
+- **p211 Q2 (Focus)** - Five short flights (take-off / landing): A 11:05/11:55; B 9:20/9:58; C 2:06/2:42; D 1:03/1:47; E 6:12/6:52. No a.m./p.m.
+  - **Q2a** Plane lands at 1.47 -> **flight D** (question uses "1.47", table "1:47").
+  - **Q2b** Arrives at airport 2:10, has just missed the flight -> **flight C** (took off 2:06).
+  - **Q2c** Arrives 1:30, next flight? -> **flight C at 2:06**. Assumes 1:30 is afternoon and that 6:12 / 9:20 / 11:05 are morning (or 6:12 is evening and later than 2:06 - either way C is next). Trap: choosing D (1:03 has already gone) or picking by landing time.
+  - Flight lengths (not asked, useful extension): A 50 min, B 38 min, C 36 min, D 44 min, E 40 min.
+- **p212 Q3 (Focus)** - School timetable (time column then subject): 9:00-9:15 spelling; 9:15-10:00 writing; 10:15-11:00 maths; 11:00-11:20 morning break; 11:20-11:45 reading; 12:00-12:45 science; 12:45-1:00 break; 1:00-1.30 lunch; 1:30-2:00 music; 2:00-3:00 art.
+  - **Q3a** music starts **1:30**, finishes **2:00**.
+  - **Q3b** maths starts **10:15**, finishes **11:00**.
+  - **Q3c** need to be at school by **9:00** (first lesson).
+  - **Q3d** favourite lesson and start time - open, check start time matches the row.
+  - Notes: unexplained gaps 10:00-10:15 and 11:45-12:00; "1.30" printed with a dot in one cell; no a.m./p.m.
+- **p213 Q4 (Practice)** - Morning buses, train station -> bus station. Columns (3 buses): train station 9:06 / 10:05 / 12:00; shopping centre 9:21 / 10:23 / 12:18; school 9:35 / - / 12:32; park 9:48 / 10:40 / -; bus station 10:00 / 10:59 / 12:50.
+  - **Q4a** Missed the 9:21 from the shopping centre to school; next bus she can catch? The 10:23 does NOT stop at school, so the answer is the **12:18** (reaching school 12:32). Main trap: answering 10:23.
+  - **Q4b** Last bus from the train station to the park and its arrival time: the 12:00 skips the park, so **10:05, arriving 10:40**.
+  - **Q4c** Write your own question with its answer. Open.
+  - Note: called "morning" buses but the last runs at 12:00-12:50.
+- **p214 Q5 (Practice)** - Elmswell -> Norton by three transports (columns Elmswell / Nacton / Daisy Green / Norton): bus 8:00 / 8:14 / 8:25 / 8:37; minibus 8:00 / 8:12 / 8:21 / 8:30; train 8:07 / - / 8:19 / 8:28. Here each ROW is one vehicle (rotated compared with Q4).
+  - **Q5a** Must be at Norton BEFORE 8:30 -> **train, arriving 8:28**. Trap: minibus arrives exactly 8:30, which is not before 8:30; also the train leaves latest (8:07) yet arrives first.
+  - **Q5b** Missed the 8:12 minibus at Nacton to Daisy Green; alternative? The train does not stop at Nacton, so **the bus (8:14 from Nacton), arriving Daisy Green 8:25**.
+- **p214-215 Q6 (Practice)** - A14 bus, bus station -> train station; 6 buses (columns). Bus station 6:05 / 7.10 / 9:00 / 10:10 / 12:05 / 1:05; High Road 6:15 / 7:18 / 9:15 / 10:30 / 12:20 / 1:20; shopping centre 6:34 / 7:36 / 9:30 / 10:45 / 12:34 / 1:34; village hall 6:48 / 7:50 / 9:40 / - / 12:50 / 1:50; train station 7:00 / 8:00 / 9:59 / - / - / 2:00. ("7.10" is printed with a dot.)
+  - **Q6a** first bus leaves the bus station at **6:05**.
+  - **Q6b** it reaches the village hall at **6:48**.
+  - **Q6c** (p215) to reach the village hall before 8:00, the two buses from High Road are **6:15** (arr. 6:48) and **7:18** (arr. 7:50).
+  - **Q6d** (p215) how many A14 buses stop at the village hall? **5** (all except the 10:10). Trap: counting the "-" or counting 6.
+- **p215 Q7 (Challenge)** - B26 route timetable with the bus numbers washed off the top row. Columns: (1) 9:00, 9:10, 9:25, 9:50, 9:55 (stops everywhere); (2) 11:05, 11:15 at High Road, then blank cells; (3) 2:00, 2:05, 2:10, 2:15, 2:20; (4) 4:30, blank, 4:55 at shopping centre, blank, blank; (5) 6:05, 6:10, 6:25, 6:35, 6:45. Clues: 150A stops at only one place after the bus station; 90E reaches the village hall at twenty-five to seven; 380 is the first bus of the morning; 222 gets Mia to the train station in time for a 2:30 train; 3C is the left-over bus.
+  - Answers: column 1 = **380** (9:00); column 3 = **222** (arrives 2:20, before 2:30); column 5 = **90E** (6:35 = twenty-five to seven); columns 2 and 4 = **150A and 3C**.
+  - **AMBIGUITY**: columns 2 and 4 BOTH stop at exactly one place after the bus station (High Road only / shopping centre only), so the 150A clue does not decide between them. Accept 150A in either column with 3C in the other. Only part "a" is printed for Q7.
+  - Blank cells here mean "does not stop" (other tables use "-").
+- **p216 Q8 (Challenge)** - Bus timetable, 6 stops x 5 buses. Oakham 6:00 / 6:30 / 7:10 / 7:13 / 8:12; Beedwell 6:10 / 6:40 / - / 7:29 / 8:28; Stumpy Well 6:14 / 6:44 / 7:18 / 7:34 / 8:31; Ironside 6:23 / 6:50 / 7:23 / - / -; West Hall 6:28 / 6:55 / 7:28 / 7:51 / 8:45; Matchwell 6:35 / 7:00 / 7:43 / 7:59 / 9:00.
+  - **Q8a** Oakham to Ironside on the 7:13? **No** - that bus does not stop at Ironside (dash). (The 7:10 does.)
+  - **Q8b** Oakham to West Hall, arrive by 7:30; best bus? **The 7:10** (arrives West Hall 7:28) - the latest one that still makes it. 6:00 and 6:30 also arrive in time but are much earlier; "best" = latest that is on time. The 7:13 arrives 7:51 (too late).
+  - **Q8c** The 6:40 from Beedwell is full; can you reach Matchwell by 8:00? **Yes** - the 7:10 skips Beedwell, so take the **7:29 from Beedwell, arriving Matchwell 7:59**. Traps: choosing the 7:10 bus (doesn't stop at Beedwell) or saying no because 7:59 is "nearly 8".
+  - Durations hidden here: 7:13 bus takes 46 min Oakham-Matchwell vs 33 min for the 7:10 - nice discussion, not asked.
+- **p217 Q9 (Challenge)** - After-school activity timetable for Monday-Thursday. Mon: 3:00-4:00 cycling, 3:15-4:00 gardening. Tue: 2:00-3:00 jujitsu, 3:00-4:00 drama, 3:00-4:00 singing, 4:15-5:00 arts & crafts. Wed: 2:00-3:00 gardening, 3:00-4:00 football, 4:00-5:00 computer studies. Thu: 3:00-4:00 cooking, 3:00-3:45 French, 3:00-4:00 arts & crafts, 4:00-5:00 dodgeball. Li-Ming wants arts & crafts, cooking, gardening and cycling - list days and times.
+  - Answer (only clash-free plan): **Monday 3:00-4:00 cycling; Tuesday 4:15-5:00 arts & crafts; Wednesday 2:00-3:00 gardening; Thursday 3:00-4:00 cooking.** Reasoning: cycling is only on Monday 3:00-4:00, which overlaps Monday gardening (3:15-4:00) so gardening moves to Wednesday; cooking is only Thursday 3:00-4:00, which clashes with Thursday arts & crafts, so arts & crafts goes to Tuesday.
+  - Requires spotting overlapping time intervals - not taught in the textbook.
+
+### Hidden prerequisites and traps
+
+- **Units of time without seconds**: p206 Q7a forces "minutes" for a handshake (really seconds) - seconds are not offered and not taught; tell the child "pick the smallest unit on the list".
+- **Multiplication by 7**: p202 Q2a (8 x 7 = 56) and weeks-to-days (2 weeks = 14, 4 weeks = 28, 6 weeks = 42) throughout p203-208. This learner should use repeated addition / "one row down = 7" on a calendar rather than the table.
+- **Counting on across month ends without a calendar**: p205 Q5b (April has 30 days, no May 1999/2007 calendar printed) and p208 Q8c (+42 days across December's 31 days). Need month-length knowledge (30/31).
+- **"How long away" convention**: p208 Q8b and Q9a-b use date difference (return - leave), whereas the textbook Tip says "between" excludes both ends. These give different numbers (27 vs 26 vs 28). Pick one rule for the child: "how long away = count the hops from leave day to home day".
+- **Days apart across years**: p205 Q5a literally spans 3 years; intended reading ignores the years (31 days). Q5c needs 2007 - 1996 = 11 across the year 2000 (place value / bridging a thousand).
+- **Leap years**: not needed (1996 is a leap year but no question crosses February).
+- **Weekday shift**: p207 Q8a - "17 days apart" means weekday moves 3 on; the textbook never teaches that a 7-day jump keeps the same weekday explicitly in this form.
+- **"Before" vs "at"**: p214 Q5a - arriving at 8:30 is not "before 8:30" (strict inequality on times).
+- **Interval containment / overlap**: p210 Q1b, Q1d (is 12.30 inside 12.15-1; is 2.20 inside 2-3), p209 WE1c (is 3.00 inside 2.15-3, the end point), p217 Q9 (two intervals that overlap clash). Not taught in the textbook.
+- **"o'clock language" for times**: p215 Q7 "twenty-five to seven" = 6:35 (Unit 8 skill, "to the hour" in 5-minute steps).
+- **a.m./p.m. inference**: p211 flights, p212 school timetable, p213-216 bus tables have no a.m./p.m.; the child must infer that 1:05 comes after 12:05 (p214), and 2:00 after 11:05 (p215). 12 p.m. = midday (p210 Q1c). No 24-hour clock appears anywhere.
+- **Tables in both orientations**: p213/p214 Q6/p215/p216 have one vehicle per column; p211 and p214 Q5 have one vehicle per row.
+- **Skipped stops shown three ways**: "-" (p213, p214, p216), and **blank cells** (p215 Q7) meaning no stop.
+- **"Best" bus = latest that still arrives on time** (p216 Q8b) - a judgement not taught.
+- **Elapsed time in minutes**: not explicitly asked anywhere in the workbook, but the flight table (p211) and Q8c invite it; the textbook doesn't teach it either.
+- **Misprints / inconsistencies**:
+  - p209 Worked example 1: answer box times (walk 1.30-2.30, lunch ends 1.15, swim 2.45-3.30) contradict the table (walk 1.30-2, lunch 12-1, swim 2.15-3).
+  - p207 January calendar starts on Thursday but should start on Friday after the printed December (Dec 1 = Tuesday); affects weekdays in p208 Q8c.
+  - p215 Q7 clue for 150A fits two columns.
+  - p202 Q2b doubled word; p211 Q2a "1.47" vs table "1:47"; p212 "1.30"; p214 "7.10" - mixed dot/colon notation.
+  - p213 Q4 "morning" buses include 12:00-12:50.
+
 ## Proposed activities
+
+Workbook pages are added to each `book` field; "Workbook additions" lists extra question types, mistake tags and tips taken from the workbook. Activities use their own consistent calendars and timetables (the workbook has a wrong-weekday January on p.207, a worked example whose answers contradict its table on p.209, and a clue that fits two columns on p.215).
 
 ### 1. `clock-to-the-minute` - Clock to the Minute ⏰
 - **section:** Unit 14 opener (revision for 14.1-14.2)
 - **summary:** Read and set analogue clocks to the nearest minute and match them to digital times.
-- **book:** Textbook p.223-224 (Getting started Q1-3)
+- **book:** Textbook p.223-224 (Getting started Q1-3) · Workbook: no clock-reading items in Unit 14 (spoken times on p.210 and p.215)
 - **Learn screens:**
   1. A kitchen clock. The child drags the minute hand round from 12; the minutes count in 5s on the numbers (5, 10, 15 ...) and in 1s on the small marks between, while a digital display updates.
   2. Hour hand creep: as the minute hand goes round, the hour hand slides from 2 towards 3. Bolt points out that at 2:35 it is past halfway but it is still "2-something".
@@ -216,6 +327,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: read clocks at any minute (e.g. 11:17, 1:34) and type h:mm.
   - Level 3: set hands for a given digital time (book: 5:55, 1:34, 6:17, 9:12) including near-the-hour times.
 - **Mistake tags:** Read the minute number as the minutes (1 = 1 min); Used the next hour too early; Hands swapped; Counted 1s instead of 5s on the numbers.
+- **Workbook additions:** add a level 2 item that turns spoken times into digits ("twenty-five to seven" = 6:35, "quarter past ten" = 10:15), used by the workbook's bus-clue puzzle. Extra mistake tag: Read a dot time (7.10) as a different time. Parent tip: "7.10 and 7:10 mean the same time."
 - **Parent tips:**
   - Goal: Read and set a clock to the exact minute and write the time in digital form.
   - Say: "Count the big numbers in 5s, then the little marks in 1s." / "Which hour has the short hand just passed?" / "Is it nearly the next hour?"
@@ -226,7 +338,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ### 2. `minute-challenge` - One-Minute Challenge ⏱️
 - **section:** 14.1
 - **summary:** Choose the right unit of time for activities and estimate what you can do in one minute.
-- **book:** Textbook p.225 (Ex 14.1 Q1), p.229-230 (Q7 and Think like a mathematician)
+- **book:** Textbook p.225 (Ex 14.1 Q1), p.229-230 (Q7 and Think like a mathematician) · Workbook p.202 Q1-2, p.204 Q4, p.206-207 Q7
 - **Learn screens:**
   1. Unit sorter: picture cards (brushing teeth, a school term, a birthday party, a night's sleep, a summer holiday, growing up) are dragged into minutes / hours / days / weeks / months / years boxes.
   2. One minute: the child guesses how many times they can click a button (or clap with the parent counting) in 60 seconds, then a timer runs and the real count shows next to the guess.
@@ -236,6 +348,13 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: choose the more sensible duration (e.g. a film: 2 minutes or 2 hours?).
   - Level 3: "I take 50 steps in a minute - about how many in 2 minutes? in 10 minutes?" using bars of 50 (repeated addition, x 2 and x 10 only).
 - **Mistake tags:** Picked a unit that is far too big or too small; Added instead of doubling; Thought time units are all the same size.
+- **Workbook additions:**
+  - Estimate then measure claps AND foot stamps in one minute; store estimate vs measured.
+  - Sort activities into less than 1 minute / about 1 minute / more than 1 minute / about 1 hour (clap, blink, stamp, get dressed, eat breakfast, a lesson, travel to school); accept reasoned judgement for the in-between ones.
+  - Minutes / hours / days / weeks including slow things (grass growing 5 cm -> weeks). Seconds are not offered, so a handshake is "minutes" - tell him to pick the smallest unit on the list.
+  - 8 hours of sleep a night for a week: 7 bars of 8 built by repeated addition (8, 16, 24 ... 56) - keeps x 7 out of his head.
+  - Extra mistake tags: Unit far too big or too small; Counted 6 nights for a week.
+  - Extra parent tip: "If the list has no seconds, choose the smallest unit."
 - **Parent tips:**
   - Goal: Pick sensible units of time and get a feel for how long a minute is.
   - Say: "Would that take minutes or hours?" / "Let's guess first, then time it." / "Two minutes is one minute and another minute."
@@ -245,7 +364,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ### 3. `calendar-hops` - Calendar Hops 📅
 - **section:** 14.1
 - **summary:** Count days and weeks forwards and backwards on a calendar, including "between" two dates.
-- **book:** Textbook p.226-228 (Ex 14.1 Q2-5), Check your progress Q1 p.234
+- **book:** Textbook p.226-228 (Ex 14.1 Q2-5), Check your progress Q1 p.234 · Workbook p.203-204 Q3, p.206 Q6, p.207-209 Q8-9
 - **Learn screens:**
   1. A month calendar (original dates). A counter sits on the 4th; the child clicks "one week later" and it drops one row to the 11th. Bolt: a week is one row down - 7 days.
   2. Crossing a month: from 25 January the counter hops a week and the page flips to February; the child sees January has 31 days.
@@ -256,6 +375,14 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: two or three months on screen (31- and 28-day months); 3 weeks after, 6 weeks before, days between (book: 22 Jan-18 Feb = 26; 6 weeks before 17 March = 3 Feb).
   - Level 3: multi-step stories (pack, travel in 3 days, stay 9 days -> what day and date home?; delayed by a week then stay 5 days); or months/weeks/days between two dates.
 - **Mistake tags:** Counted the start or end date for 'between'; Forgot the month length; Added days instead of weeks; Checked out a day late or early.
+- **Workbook additions:**
+  - "N days later" across a 30-day month (14 April + 20 days = 4 May); "lasts 6 days, opened Thursday 4th - when is the next one opened?" (Wednesday 10th); two weeks earlier than the 24th / 30th.
+  - "How long was each person away?" - three leave dates, one return date (9, 12, 27 Nov -> 6 Dec = 27, 24, 9 days).
+  - Two-step: 6 weeks after 6 December, then stay 11 days (17 Jan, home 28 Jan) - on the app's own consistent calendars.
+  - Open: "find two dates 17 days apart", "away 13 days - give two leave/return pairs", auto-checked as return = leave + N.
+  - One rule per question type, shown on screen: "how long away" = count the hops from leave day to home day; the textbook "days between" (both ends left out) stays a separate, clearly labelled type.
+  - Extra mistake tags: Counted the start day as day 1 (one day short); Forgot April has 30 days; Weekday wrong after 17 days (2 weeks + 3 days).
+  - Extra parent tip: "Finger on the start day - the first hop lands on day 1."
 - **Parent tips:**
   - Goal: Use a calendar to count on and back in days and weeks and to find the number of days between two dates.
   - Say: "One row down is one week - 7 days." / "Do we count the first day? The question says between." / "What's the last day of this month?"
@@ -266,7 +393,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ### 4. `birthdays-and-years` - Birthdays and Years 🎂
 - **section:** 14.1
 - **summary:** Work out ages, birth years and waiting times on a timeline of years.
-- **book:** Textbook p.226-228 (Ex 14.1 Q3c-d, Q4b, Q6)
+- **book:** Textbook p.226-228 (Ex 14.1 Q3c-d, Q4b, Q6) · Workbook p.205 Q5
 - **Learn screens:**
   1. A timeline of years 2010-2030. A child figure is placed at their birth year; each click moves to the next birthday, and the age badge goes up by 1.
   2. Counting back: "13 in 2023" - the child drags the figure back 13 jumps (10 then 3) to find 2010.
@@ -276,6 +403,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: age in a given later year (book: born 2003, age in 2018 = 15); birth year from an age (13 in 2023 -> 2010); days apart for two birthdays in the same month (11th and 18th).
   - Level 3: two-step: "13 in 2023, how old in 2030?"; two children waiting for an age limit; who is older and by how many days.
 - **Mistake tags:** Added instead of subtracting years; Off by one year; Answered for only one child.
+- **Workbook additions:** birthdays on the 26th of March and April -> 31 days apart (hide the years to remove the workbook's ambiguity); a sibling born 9 days after 26 April (5 May, crossing the month end with no second calendar); "how much older?" with birth years 1996 and 2007 -> 11 years. Extra mistake tag: Subtracted years wrongly across 2000. Parent tip: "1996 to 2000 is 4, 2000 to 2007 is 7, so 11."
 - **Parent tips:**
   - Goal: Count forwards and back in years to find ages and birth years.
   - Say: "Each birthday adds one year." / "Jump 10 years first, then the rest." / "Who has to wait longer?"
@@ -286,7 +414,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ### 5. `my-day-timetable` - My Day Timetable 🗓️
 - **section:** 14.2
 - **summary:** Read a school or holiday-camp timetable and build your own day with start and end times.
-- **book:** Textbook p.230-231 (Worked example 1), p.233 (Think like a mathematician), Check your progress Q2 p.234
+- **book:** Textbook p.230-231 (Worked example 1), p.233 (Think like a mathematician), Check your progress Q2 p.234 · Workbook p.209 (worked example - use the table, not its misprinted answers), p.210 Q1, p.212 Q3, p.217 Q9
 - **Learn screens:**
   1. A one-row school timetable (original lessons and times). The child clicks a lesson; Bolt reads "starts at ..., ends at ..."; a pair of clocks shows the two times.
   2. A week grid (days across, hours down) for a holiday camp. Click a day to light its column, click a time to light its row, and their meeting cell shows the activity.
@@ -296,6 +424,12 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: week grid questions: "Which day has a late lunch?", "What day is singing?", "What time does singing start?".
   - Level 3: "Which day do you not need a tennis racquet?" (find the day without tennis); "How long is Games?" (count on from start to end, 15-75 minutes).
 - **Mistake tags:** Gave the end time for the start; Gave a time when a day was asked; Read the wrong row; Mixed up a.m. and p.m.
+- **Workbook additions:**
+  - "What was she doing at 12.30 / 2.20?" - find the activity whose start-end interval contains the time, plus "why is buying an ice cream at 2.20 a bad idea?" (she is swimming 2-3).
+  - "When must you arrive?" = start of the first lesson (9:00); gaps between lessons are not lessons.
+  - Challenge planner: a Monday-Thursday after-school club grid; the child places four wanted clubs and any overlap flashes red (only clash-free plan: Mon 3-4 cycling, Tue 4.15-5 arts and crafts, Wed 2-3 gardening, Thu 3-4 cooking).
+  - Extra mistake tags: Counted the end time as inside the activity; Chose two clubs that overlap.
+  - Extra parent tip: "Is 12.30 after the start and before the end?"
 - **Parent tips:**
   - Goal: Find information in a daily or weekly timetable and make one for his own day.
   - Say: "Find the lesson first, then read across to the time." / "Is the question asking for a day or a time?" / "What would your perfect day look like?"
@@ -306,7 +440,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ### 6. `bus-stop-timetable` - Bus Stop Timetable 🚌
 - **section:** 14.2
 - **summary:** Read bus and train timetables to find arrival times, skipped stops and the right bus to arrive on time.
-- **book:** Textbook p.230-232 (Worked example 1, Ex 14.2 Q1-2), Check your progress Q3 p.235
+- **book:** Textbook p.230-232 (Worked example 1, Ex 14.2 Q1-2), Check your progress Q3 p.235 · Workbook p.211 Q2, p.213 Q4, p.214-215 Q5-7, p.216 Q8
 - **Learn screens:**
   1. A street map with 4 stops and a small timetable (original times). The child clicks "Bus 2"; its column lights up and a bus icon moves stop to stop as each time highlights.
   2. Rows and columns: clicking a stop name lights its row - every bus that calls there. Bolt explains '-' means the bus does not stop.
@@ -316,6 +450,16 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   - Level 2: "I get the 8:15 from Orange Street - when do I reach school?"; "Which trains do not stop at Downton?" (click all); "Earliest train from A?" with 4-5 stops x 4-6 vehicles (times 7:30-10:00 and early afternoon).
   - Level 3: "Which buses get me to school by 8:30?" (select all that work); "I missed the 7:47 - when is the next train that stops here?" (skip-stop trap); "Which train leaves Blue City to reach Central Town at 11:38?".
 - **Mistake tags:** Read across a row instead of down a column; Treated '-' as a time; Picked a bus that skips the stop; Thought the first bus to leave arrives first.
+- **Workbook additions:**
+  - Tables in both orientations (one vehicle per column, or per row as in the flight table) and skipped stops shown as "-" or as a blank cell.
+  - "Missed the bus - which is the next one that actually stops here?" where the next column has a dash (answer is the one after).
+  - "Last bus that goes to X"; "how many buses stop at X?" (count the non-dash cells).
+  - "Arrive BEFORE 8:30" where one option arrives at exactly 8:30 (not before).
+  - "Best bus" = the latest one that still arrives on time.
+  - Flights with no a.m./p.m.: "lands at 1:47 - which flight?", "just missed it at 2:10", "arrive 1:30 - next flight?".
+  - Challenge: label washed-out bus columns from clues (one clue uses "twenty-five to seven"); make the app's clues uniquely solvable.
+  - Extra mistake tags: Arrived exactly on the deadline and called it before; Picked the earliest bus, not the latest on-time one; Thought 1:05 is earlier than 12:05.
+  - Extra parent tips: "Before 8:30 means 8:29 or earlier." / "The best bus lets you leave as late as possible and still be on time."
 - **Parent tips:**
   - Goal: Read a timetable by following one bus or train down its column and use it to plan a journey.
   - Say: "Put your finger on your bus, then slide down to your stop." / "What does the dash mean?" / "Will it get there before the bell?"

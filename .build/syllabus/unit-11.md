@@ -269,14 +269,151 @@ Source: Learner's Book 3, printed pages 168-182 (scan images 170-184).
 - p.180 Q6 picture shows 10 children on one bench and two empty benches; the question asks about 37 children, not the 10 pictured.
 - p.182 is mostly a decorative dice photo below Check your progress Q4.
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3, Unit 11, printed pages 152-164 (scan files w152-w164; filename number = printed page number, checked in every page corner). p.165 is the start of Unit 12 (checked), so the unit ends on p.164. All answers below were computed and double-checked (a script counted the multiplication square and the 120 triples). Everything is paraphrased.
+
+Section page map (different from the brief): Exercise 11.1 = p.152-155 (Q11 sits at the top of p.155). Exercise 11.2 = p.155-159 (11.2 starts lower down p.155; Q12 is at the top of p.159). Exercise 11.3 = p.159-164 (starts lower down p.159). Each exercise is split into Focus / Practice / Challenge.
+
+### 11.1 Revisiting multiplication and division (WB p.152-155)
+
+Key-word box (p.152): commutative, diagonal line, extend, product.
+
+- **p.152 Q1 (Focus)**: fill three rows of a multiplication grid (columns 1-10). The rows are for 2, 4 and 8, and the child is prompted to use one row to get the next one (doubling).
+  - 2 row: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+  - 4 row: 4, 8, 12, 16, 20, 24, 28, 32, 36, 40
+  - 8 row: 8, 16, 24, 32, 40, 48, 56, 64, 72, 80
+- **p.152 Q2 (Focus)**: use the Q1 grid to find the numbers in the fact family for 32, then write it out (three writing lines). Answer: 4 x 8 = 32, 8 x 4 = 32, 32 / 4 = 8, 32 / 8 = 4. (32 is in the 4 row under 8 and in the 8 row under 4.)
+- **p.153 Q3 (Focus)**: continue each sequence for 3 more terms and name the term-to-term rule.
+  - a 8, 12, 16, 20 -> 24, 28, 32; rule: add 4
+  - b 26, 31, 36, 41 -> 46, 51, 56; rule: add 5
+  - c 27, 24, 21, 18 -> 15, 12, 9; rule: subtract 3
+- **p.153 Q4 (Practice)**: same as Q1, but the rows are 3, 6 and 9 (columns 1-10). Double the 3 row to get the 6 row; 3 row + 6 row = 9 row.
+  - 3 row: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30
+  - 6 row: 6, 12, 18, 24, 30, 36, 42, 48, 54, 60
+  - 9 row: 9, 18, 27, 36, 45, 54, 63, 72, 81, 90
+- **p.153 Q5 (Practice)**: find the product 24 in the Q4 grid. It appears twice: row 3 / column 8 and row 6 / column 4. Read the row and column for each to write four divisions: 24 / 3 = 8, 24 / 8 = 3, 24 / 6 = 4, 24 / 4 = 6.
+- **p.154 Q6 (Practice, reasoning icon)**: which numbers appear exactly four times in the full 10 x 10 square, and why so often? Computed answer: **6, 8, 10, 12, 18, 20, 24, 30, 40, which is NINE numbers**. The book says "eight", so either the question or its answer key leaves one out (see Traps). Why: each one has two different factor pairs inside 1-10, and each pair shows up twice because of the turn-around (e.g. 24 = 3 x 8 = 8 x 3 = 4 x 6 = 6 x 4).
+- **p.154 Q7 (Practice)**: pick any number that appears exactly twice in the square and write its fact family. Open answer. Valid choices: 2, 3, 5, 7, 14, 15, 21, 27, 28, 32, 35, 42, 45, 48, 50, 54, 56, 60, 63, 70, 72, 80, 90. Example: 15 -> 3 x 5 = 15, 5 x 3 = 15, 15 / 3 = 5, 15 / 5 = 3. (The easy choices 2, 3, 5 and 7 only give x1 facts. Steer the child to 15, 14, 21 or 35.)
+- **p.154 Q8 (Challenge)**: which numbers appear exactly three times? Explain. Answer: 4, 9, 16, 36. These are square numbers (on the diagonal, which counts once) that also have one other factor pair, which counts twice: 4 = 2x2, 1x4, 4x1; 9 = 3x3, 1x9, 9x1; 16 = 4x4, 2x8, 8x2; 36 = 6x6, 4x9, 9x4.
+- **p.154 Q9 (Challenge, reasoning)**: a child in the book asks why the square has no zero row or column; explain it to him. Expected idea: any number times 0 is 0, so that row and column would be all zeros. It would add no facts you need to look up.
+- **p.154 Q10 (Challenge)**: a child in the book wants a sequence with the rule "subtract 9". Where on the square should she start? Expected: the 9 row or 9 column (the 9 times table). Start at 90 and read backwards: 90, 81, 72, 63 ...
+- **p.155 Q11 (Challenge, reasoning)**: 17 and 29 are both in a sequence. What could the sequence and its rule be? Open. The gap is 12, so any step that divides 12 works: +1, +2, +3, +4, +6 or +12. Examples: 17, 20, 23, 26, 29 (add 3); 17, 21, 25, 29 (add 4); 17, 23, 29 (add 6). A decreasing sequence (29, 25, 21, 17 = subtract 4) is also valid. One writing line only.
+
+### 11.2 Playing with multiplication and division (WB p.155-159)
+
+Key-word box (p.155): distributive, quotient, remainder, simplify. The tip box reminds the child that multiplication is commutative, so the numbers can be multiplied in any order.
+
+- **p.155 Q1 (Focus)**: multiply three numbers in a helpful order.
+  - a 2 x 3 x 5 = 30 (2 x 5 = 10 first)
+  - b 4 x 5 x 6 = 120 (4 x 5 = 20, then 20 x 6)
+  - c 5 x 5 x 4 = 100 (5 x 4 = 20, then x 5)
+  - d 9 x 3 x 2 = 54 (3 x 2 = 6, then 9 x 6; or 9 x 2 = 18, then x 3)
+  - Note: b and c reach 120 and 100, which is above the textbook's 48-90.
+- **p.155 Q2 (Focus)**: fill a split diagram (arrows into two parts, then add the parts at the bottom).
+  - 14 x 5: 10 x 5 = 50, 4 x 5 = 20, total 70
+  - 18 x 3: the child writes the split numbers in the boxes too. Expected 10 x 3 = 30, 8 x 3 = 24, total 54. (A 9 + 9 split also works: 27 + 27 = 54.)
+- **p.156 Q3 (Focus)**: divide 20 by 2, 3, 4 and 5, including any remainders; counters are suggested.
+  - a 20 / 2 = 10; b 20 / 3 = 6 r2; c 20 / 4 = 5; d 20 / 5 = 4
+- **p.156 Q4 (Practice, reasoning)**: a) choose three single-digit numbers that make an easy product and find it (e.g. 2 x 5 x 3 = 30). b) Choose three that make a hard product, find it, and say why it is hard (e.g. 7 x 8 x 9 = 504: no 2 x 5 or 10 pairs, and the first product is past the 10 x 10 facts). Open. Watch out: a "hard" choice can need 3-digit x 1-digit work that the child cannot do yet.
+- **p.156-157 Q5 (Practice)**: find each product by splitting or another method.
+  - a 11 x 5 = 55; b 19 x 2 = 38; c 13 x 3 = 39; d 15 x 4 = 60
+  - Q5a-b are on p.156 and Q5c-d are at the top of p.157.
+- **p.157 Q6 (Practice, reasoning)**: 25 / box = triangle r1. Find at least three pairs of missing numbers. The divisor must divide 24 and be at least 2: 25 / 2 = 12 r1, 25 / 3 = 8 r1, 25 / 4 = 6 r1, 25 / 6 = 4 r1, 25 / 8 = 3 r1, 25 / 12 = 2 r1, 25 / 24 = 1 r1. The easiest three for this child are 2, 3 and 4.
+- **p.157 Q7 (Practice)**: 50 sweets shared equally by 6 children. How many each? Write the division. Answer: 50 / 6 = 8 r2, so 8 each with 2 left over. **The divisor is 6, outside the textbook's 2-5.**
+- **p.157 Q8 (Challenge, reasoning)**: three different whole numbers from 2 to 10 multiply to 120. Find two solutions. All solutions: 2 x 6 x 10, 3 x 4 x 10, 3 x 5 x 8, 4 x 5 x 6.
+- **p.158 Q9 (Challenge)**: fill a 3 x 3 grid of 13, 16 and 19 (across) times 3, 4 and 5 (down), using any method.
+  - x3: 39, 48, 57
+  - x4: 52, 64, 76
+  - x5: 65, 80, 95
+- **p.158 Q10 (Challenge)**: a school orders 60 glue sticks to share between 5 classes, and 3 free ones arrive as well. Write the division. Answer: 63 / 5 = 12 r3 (12 per class, 3 left over). It is a two-step problem: add the 3 first. The picture shows packs labelled "10 glue sticks", which may tempt the child to count packs instead.
+- **p.158 Q11 (Challenge, reasoning)**: a division has remainder 8. What does that tell you? Expected: the divisor must be at least 9 (a remainder is always smaller than the divisor), and the number does not divide exactly. Example: 26 / 9 = 2 r8 or 18 / 10 = 1 r8.
+- **p.159 Q12 (Challenge)**: find the missing dividend (inverse: quotient x divisor + remainder).
+  - a ? / 2 = 7 r1 -> 15
+  - b ? / 3 = 4 r2 -> 14
+  - c ? / 4 = 7 r2 -> 30
+  - d ? / 3 = 9 r1 -> 28
+  - e ? / 10 = 7 r6 -> 76
+  - f ? / 9 = 4 r3 -> 39
+  - Note: e and f divide by 10 and 9.
+
+### 11.3 Extending multiplication and division (WB p.159-164)
+
+Key-word box (p.159): approach, interpret.
+
+- **p.159 Q1 (Focus)**: estimate 27 x 5, then record it in a grid (a blank x-shaped frame the child sets up) and find the product. Estimate: 30 x 5 = 150. Grid: x | 20 | 7, with row 5 giving 100 and 35; 100 + 35 = 135. The child has to draw the grid headings, which is less support than the textbook's 23 x 4.
+- **p.160 Q2 (Focus)**: 86 / 4 with an estimate already given (80 / 4 = 20, so the answer is a bit more than 20). The working is started for the child in a **repeated-subtraction (chunking) layout**: 86 - 40 (10 groups of 4) = 46. The child finishes it: 46 - 40 = 6 (another 10 groups), 6 - 4 = 2 (1 group). Answer 86 / 4 = 21 r2. **The textbook does not teach this recording method** (see Traps).
+- **p.160 Q3 (Focus)**: a bike maker has 19 wheels. How many bicycles? 19 / 2 = 9 r1, so **9 bicycles** (round down; 1 wheel is spare). The question does not say 2 wheels per bike, so the child has to know it.
+- **p.160 Q4 (Focus)**: 3 children fit at a small table. Tables for 37 children? Show the method. 37 / 3 = 12 r1, so **13 tables** (round up).
+- **p.161 Q5 (Practice)**: estimate, then multiply.
+  - a 46 x 5: estimate 50 x 5 = 250; 200 + 30 = 230
+  - b 89 x 2: estimate 90 x 2 = 180; 160 + 18 = 178
+  - c 67 x 3: estimate 70 x 3 = 210; 180 + 21 = 201
+  - d 78 x 4: estimate 80 x 4 = 320; 280 + 32 = 312
+- **p.161-162 Q6 (Practice)**: estimate, then divide (with remainders).
+  - a 53 / 2: estimate 50 / 2 = 25; 26 r1
+  - b 91 / 4: estimate 80 / 4 = 20 (or 100 / 4 = 25); 22 r3
+  - c 97 / 3: estimate 90 / 3 = 30; 32 r1
+  - d 74 / 5: estimate 70 / 5 = 14 (or 75 / 5 = 15); 14 r4
+  - Q6a-b are on p.161 and Q6c-d are on p.162 with answer boxes.
+- **p.162 Q7 (Practice)**: three-legged stools from 35 legs. 35 / 3 = 11 r2, so **11 stools** (round down; 2 legs spare).
+- **p.162 Q8 (Practice)**: a taxi carries 4 passengers plus the driver. 10 people need taxis. 10 / 4 = 2 r2, so **3 taxis** (round up). Distractor: the driver is mentioned, which tempts 10 / 5 = 2 taxis.
+- **p.163 Q9 (Challenge, reasoning)**: a number board holds 68, 37, 86, 93, 45, 69, 74, 96 and 39. Choose numbers to multiply by 2, 3, 4 or 5 to get the smallest and the greatest product, estimating first, and explain how you know.
+  - Smallest: 37 x 2 = 74 (estimate 40 x 2 = 80)
+  - Greatest: 96 x 5 = 480 (estimate 100 x 5 = 500)
+  - Reason: smallest number x smallest multiplier, and largest x largest.
+- **p.163 Q10 (Challenge)**: pick one number from the Q9 board and divide it by each of 2, 3, 4 and 5, estimating first. Open. Answers for every number on the board:
+  - 68: 34, 22 r2, 17, 13 r3
+  - 37: 18 r1, 12 r1, 9 r1, 7 r2
+  - 86: 43, 28 r2, 21 r2, 17 r1
+  - 93: 46 r1, 31, 23 r1, 18 r3
+  - 45: 22 r1, 15, 11 r1, 9
+  - 69: 34 r1, 23, 17 r1, 13 r4
+  - 74: 37, 24 r2, 18 r2, 14 r4
+  - 96: 48, 32, 24, 19 r1
+  - 39: 19 r1, 13, 9 r3, 7 r4
+- **p.164 Q11 (Challenge)**: $25 to spend, and games cost $4 each. How many games, and how much change? 25 / 4 = 6 r1, so 6 games ($24) and **$1 change**. (Checked: 6 x 4 = 24, 25 - 24 = 1.) **Money in dollars.**
+- **p.164 Q12 (Challenge)**: how many 3 cm pieces can be cut from 1 metre of ribbon, and how long is the leftover piece? First convert 1 m = 100 cm. 100 / 3 = 33 r1, so **33 pieces and 1 cm left**. This uses a measures conversion and a dividend of 100.
+- **p.164 Q13 (Challenge, reasoning)**: "I think of a number, multiply by 3, add 2, and get 83." Answer: undo the steps: 83 - 2 = 81, 81 / 3 = 27. (Check: 27 x 3 = 81, 81 + 2 = 83.)
+
+Workbook layout notes: there is no Check your progress and no worked example in the workbook. Most questions are blank-space "show your method" items. Reasoning icons (the pointer symbol) appear on 11.1 Q6, Q9 and Q11; 11.2 Q4, Q6, Q8 and Q11; and 11.3 Q9 and Q13.
+
+### Hidden prerequisites and traps
+
+1. **Chunking (repeated subtraction of groups) for division (WB p.160 Q2)**: the workbook models 86 / 4 as "take away 10 groups of 4" in a vertical subtraction layout. The textbook (p.176-182) teaches division by sharing, grouping and estimating only. It shows no written division method, and this layout is never taught. Needed skills: subtracting 40 from a 2-digit number, keeping count of the groups taken (10 + 10 + 1 = 21), and stopping when what is left is smaller than the divisor.
+2. **Bigger numbers than the textbook**:
+   - x: three-number products up to 120 (p.155 Q1b) and 3-digit products up to 312 (78 x 4) and 480 (96 x 5, p.163). The textbook's largest is 380.
+   - /: dividends up to 97 (p.162) and 100 (ribbon, p.164).
+   - 3-digit totals need adding a 3-digit and a 2-digit number (200 + 30, 280 + 32, 180 + 21).
+3. **Divisors outside 2-5**: / 6 (p.157 Q7, 50 sweets), / 9 and / 10 (p.159 Q12e-f), and divisors 6, 8, 12 and 24 in the open p.157 Q6. The textbook keeps division to 2, 3, 4, 5 and the 10-per-bench story.
+4. **Missing-dividend division (inverse with a remainder)**: p.159 Q12 needs quotient x divisor + remainder. The textbook never asks for the dividend.
+5. **Unknown-divisor puzzle with symbols** (box and triangle, p.157 Q6) and the "remainder 8 means the divisor is at least 9" reasoning (p.158 Q11). The textbook only says the remainder must be smaller than the divisor through misconceptions; it has no direct question.
+6. **Two-step word problems**: 60 + 3 glue sticks, then / 5 (p.158 Q10), and "x 3 then + 2 = 83", solved by inverse operations (p.164 Q13). The textbook's word problems are all one step.
+7. **Round down vs round up**: the workbook adds **round-down** contexts (bikes 19 / 2 -> 9, stools 35 / 3 -> 11, games 25 / 4 -> 6). The textbook mostly shows round-up (tubes, benches) and "left over" (marbles). Implied knowledge: a bike has 2 wheels, a stool has 3 legs (stated), and the driver does not count as a passenger (taxi).
+8. **Money and measures**: dollars and change (p.164 Q11) and 1 m = 100 cm (p.164 Q12). Neither appears in textbook Unit 11.
+9. **Multiplication square counting tasks**: numbers appearing 4, 3 or 2 times (p.154 Q6-8) and why there is no zero row (Q9). The textbook only asks which numbers appear once.
+10. **Rows built by doubling**: the 2 -> 4 -> 8 and 3 -> 6 -> 9 rows (p.152-153). This depends on doubling 2-digit numbers (e.g. 36 -> 72) and on adding rows (3 row + 6 row = 9 row). The textbook square is a fill-six-cells exercise.
+11. **Grid with blank headings**: the 27 x 5 frame on p.159 makes the child write 20 and 7 and the 5 into the headings. The textbook gives a pre-labelled grid for 23 x 4.
+12. **Possible misprint / ambiguity (p.154 Q6)**: the question asks for "eight" numbers that appear four times, but a full 10 x 10 square (1 to 10) has **nine**: 6, 8, 10, 12, 18, 20, 24, 30, 40. Accept any eight of them, or all nine, and do not mark a child wrong for finding a ninth. Do not copy the "eight" into an activity.
+13. **Open questions with risky self-chosen numbers**: p.156 Q4b ("make a hard one") can produce 3-digit x 1-digit work, e.g. 7 x 8 x 9 = 504. An activity should give a menu of numbers rather than a free choice.
+14. **Picture distractors**: glue-stick packs labelled 10 (p.158); the taxi picture shows people waving, and 5 seats including the driver (p.162). The wheel picture (p.160) shows a pile of overlapping wheels that is hard to count, but the number 19 is given in the text, so the picture should be ignored.
+15. **Unreadable / ambiguous items**:
+    - Every page was clear and needed no zoom (only p.165 was cropped, to confirm Unit 12 starts there).
+    - The p.155 Q2 18 x 3 split boxes are blank, so the split is the child's choice.
+    - The p.159 Q1 grid frame is blank.
+    - p.163 Q10 says to divide one chosen number "by 2, 3, 4 and 5". This is read as all four divisors; it could also mean "one of them".
+
 ## Proposed activities
 
+Workbook pages are added to each `book` field; "Workbook additions" lists extra question types, mistake tags and tips taken from the workbook.
+
 Ordering follows the book. Because this is the child's weakest area, every activity starts from a picture (equal groups or an array) and only then shows the number sentence. Multipliers are kept to 2, 3, 4, 5 and 10 at level 1 and 2.
+
 
 ### 1. `times-square-explorer` - Times Square Explorer 🔢
 - **section:** 11.1
 - **summary:** Build and read a 10 x 10 multiplication square, with every product shown as an array of dots.
-- **book:** Textbook p.168-171 (Getting started Q1-3, Ex 11.1 Q1-4, Think like a mathematician p.171)
+- **book:** Textbook p.168-171 (Getting started Q1-3, Ex 11.1 Q1-4, Think like a mathematician p.171) · Workbook p.152-154 (Ex 11.1 Q1-2, Q4-9)
 - **Learn screens:**
   1. A shop shelf of soup tins in 3 rows of 8. Bolt asks how many. The child clicks "count in rows": each row lights up and a running total jumps 8, 16, 24. Then the shelf turns into a 3 x 8 dot array and the sentence 3 x 8 = 24 appears.
   2. A 10 x 10 grid with row and column headings. Hovering any cell lights its row and column and draws that small array in a side panel. The child clicks 3 cells Bolt names (e.g. 4 x 2, 6 x 3, 9 x 4) and types the products.
@@ -287,6 +424,13 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2 (Q4-6): blank cell anywhere in the 2x, 3x, 4x, 5x, 10x rows/columns (and their turn-arounds); the array appears only after a wrong try.
   - Level 3 (Q7-9): given a product cell (e.g. 28, 36, 48, 72), drag numbers into a 4-sentence fact family (two x, two /).
 - **Mistake tags:** Read the wrong row or column; Added instead of multiplied; Division numbers in the wrong order; Fact family missing the divisions.
+- **Workbook additions:**
+  - Doubling rows: fill a whole row of the square from the row above with a "double it" arrow: 2 -> 4 -> 8, 3 -> 6, and the 9 row as 3 row + 6 row.
+  - A product that appears in two places (24 in the 3/6/9 grid): find both and write all four divisions.
+  - "How many times does it appear?": click every cell holding a target (6, 12, 24 appear 4 times; 4, 9, 16, 36 appear 3 times; 15, 21 twice) and light up the factor pairs. There are nine numbers that appear four times - never say "eight" (workbook misprint).
+  - One "why is there no 0 row?" card that fills a 0 row with zeros.
+  - Extra mistake tags: Doubled wrongly; Missed a repeat of the number; Fact family used only 1x facts.
+  - Extra parent tip: "Know the 4 row? Double each number to get the 8 row."
 - **Parent tips:**
   - Goal: Find and read multiplication and division facts in a multiplication square, and see that 3 x 8 and 8 x 3 are the same.
   - Say: "Put one finger on the row and one on the column, then slide them together." / "Can you turn it round - what is 8 times 3?" / "If 3 groups of 8 make 24, how many groups of 8 are in 24?"
@@ -296,7 +440,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
 ### 2. `sequence-hops` - Sequence Hops 🏀
 - **section:** 11.1
 - **summary:** Find the jump size in a sequence and keep jumping past 100.
-- **book:** Textbook p.172 (Ex 11.1 Q5-6)
+- **book:** Textbook p.172 (Ex 11.1 Q5-6) · Workbook p.153 Q3, p.154 Q10, p.155 Q11
 - **Learn screens:**
   1. A number track with four marked numbers (18, 27, 36, 45). Bolt asks how far each jump is; the child drags a "jump" arc from 18 to 27 and the label +9 appears. The rule is named: "add 9 each time".
   2. The child clicks three more times; a ball bounces 54, 63, 72. A tens/ones strip under each jump shows how adding 9 is "add 10, take 1".
@@ -306,6 +450,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2: steps +3, +4, +8 or +9, start 10-100, three terms; then pick the rule from 3 choices.
   - Level 3: steps -8 or -9 starting 100-140, or "start at N, rule subtract 8" generating five terms across 100.
 - **Mistake tags:** Wrong step size; Slip when crossing 100; Added when the rule was subtract; Rule named as a table instead of a step.
+- **Workbook additions:** use the workbook's easier sets at level 1 (+4 from 8, +5 from 26, -3 from 27, all below 60). Add "two numbers are in a sequence - what could the rule be?" (17 and 29: the gap of 12 allows steps of 1, 2, 3, 4, 6 or 12; any rule landing on both is right) and "where on the square would a subtract-9 sequence start?" (the 9 row, from 90). Extra mistake tag: Step does not land on the second number. Parent tip: "Find the gap first, then which jumps fit into it exactly."
 - **Parent tips:**
   - Goal: Spot the term-to-term rule and use it to continue a sequence, even past 100.
   - Say: "How far is it from this number to the next?" / "Is it getting bigger or smaller?" / "Adding 9 is like adding 10 and taking 1 away."
@@ -315,7 +460,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
 ### 3. `split-and-multiply` - Split and Multiply ✂️
 - **section:** 11.2
 - **summary:** Multiply three numbers in any order, and multiply teen numbers by 2-5 by splitting the array.
-- **book:** Textbook p.173-175 (Ex 11.2 Q1-3, Worked example 1)
+- **book:** Textbook p.173-175 (Ex 11.2 Q1-3, Worked example 1) · Workbook p.155-158 (Ex 11.2 Q1-2, Q4-5, Q8-9)
 - **Learn screens:**
   1. Any order: three tiles 5, 4, 3. The child drags 5 and 4 together first; a 4 x 5 tray of pencils appears (20), then 3 trays of 20 = 60. Then reorder to 4 x 3 first: still 60. Bolt: "Pick the easiest pair first."
   2. A 4 x 16 array of stickers (4 rows of 16). Bolt says 16 is too big; the child drags a scissors line to cut it after 10. Two arrays appear: 4 x 10 = 40 and 4 x 6 = 24, joined as 40 + 24 = 64.
@@ -326,6 +471,12 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2: teen number 11-19 x 4 or x 5; the child drags the cut line, then fills.
   - Level 3: three-number products (single digits 2-8, total up to 120) - drag the tiles into an easy order, then type the product; or a teen x 2-5 with no picture until a wrong try.
 - **Mistake tags:** Only multiplied the tens part; Added the numbers instead of multiplying; Split total added wrongly; Multiplied the ones by the wrong number.
+- **Workbook additions:**
+  - Three-number products up to 120 (2x3x5, 4x5x6, 5x5x4, 9x3x2); "easy or hard?" sort from a menu of triples (no free choice - 7x8x9 = 504 is beyond him).
+  - Split diagram where the child chooses the split for 18 x 3 (10 + 8 or 9 + 9); extra items 11x5, 19x2, 13x3, 15x4.
+  - Level 3 mini-grid: 13, 16, 19 across x 3, 4, 5 down (products 39-95); bonus puzzle: three different numbers 2-10 that multiply to 120 (2x6x10, 3x4x10, 3x5x8, 4x5x6).
+  - Extra mistake tags: Split doesn't add back to the number; 3-digit product written wrongly (1020 for 120).
+  - Extra parent tip: "Look for a pair that makes 10 or 20 first (2 and 5, 4 and 5)."
 - **Parent tips:**
   - Goal: Break a bigger multiplication into two facts he already knows, and use any order for three numbers.
   - Say: "Which part is easy - the 10 or the 6?" / "Now add the two pieces together." / "Which two numbers would you multiply first?"
@@ -335,7 +486,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
 ### 4. `share-and-leftovers` - Share and Leftovers 🍬
 - **section:** 11.2
 - **summary:** Share things equally between plates and record what is left over as a remainder.
-- **book:** Textbook p.175-176 (Ex 11.2 Q4-5, Think like a mathematician)
+- **book:** Textbook p.175-176 (Ex 11.2 Q4-5, Think like a mathematician) · Workbook p.156-159 (Ex 11.2 Q3, Q6-7, Q10-12)
 - **Learn screens:**
   1. 12 sweets and 4 plates. The child clicks "deal" (one sweet to each plate per click). Every plate gets 3 and none is left: 12 / 4 = 3.
   2. Now 14 sweets. After dealing, 2 sweets cannot go round. They drop into a "left over" jar. Sentence: 14 / 4 = 3 r2. Bolt explains r means remainder.
@@ -346,6 +497,14 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2: dividend 10-35, divisor 3 or 4; plates shown but dealing optional; answer as "__ r __".
   - Level 3: dividend 25-53, divisor 2-5 (book: 25/2, 53/5, 46/3, 30/4); first choose an estimate from 3 options, then type.
 - **Mistake tags:** Remainder too big; Forgot the remainder; Remainder written as the answer; Used the wrong table.
+- **Workbook additions:**
+  - Open level 1 with one number shared four ways: 20 / 2, 20 / 3 (6 r2), 20 / 4, 20 / 5 - the remainder appears and disappears.
+  - Divisor 6 (50 sweets for 6 children = 8 r2) - beyond the textbook's 2-5; the plates engine just needs 6 plates.
+  - Missing starting number: plates already filled plus the leftover jar, e.g. ? / 2 = 7 r1 -> 15, ? / 4 = 7 r2 -> 30, ? / 10 = 7 r6 -> 76, ? / 9 = 4 r3 -> 39.
+  - Which divisors leave 1 from 25? (2, 3, 4, 6, 8); "remainder 8 - what could the divisor be?" (9 or more).
+  - Two-step story: 60 glue sticks + 3 free, shared by 5 classes -> 63 / 5 = 12 r3.
+  - Extra mistake tags: Forgot to add the leftovers back; Did only the first step; Divisor not bigger than the remainder.
+  - Extra parent tip: "Starting number = plates x sweets on each plate, then add the leftovers."
 - **Parent tips:**
   - Goal: Divide by sharing equally and write any left-over amount as a remainder (for example 30 / 4 = 7 r2).
   - Say: "Does everyone get the same?" / "Could we give one more to each plate?" / "Check: 4 lots of 7, add the 2 left over - is it 30?"
@@ -355,7 +514,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
 ### 5. `grid-method-builder` - Grid Method Builder 🧱
 - **section:** 11.3
 - **summary:** Estimate, then multiply a 2-digit number by 2-5 by building it from tens and ones in rows.
-- **book:** Textbook p.177-178 (Worked example 2, Ex 11.3 Q1-2), Check your progress Q1 p.181
+- **book:** Textbook p.177-178 (Worked example 2, Ex 11.3 Q1-2), Check your progress Q1 p.181 · Workbook p.159 Q1, p.161 Q5, p.163 Q9
 - **Learn screens:**
   1. Estimate first: 27 x 4. A number line from 20 to 30; the child drags 27 to the nearer ten (30). Bolt shows 3 x 4 = 12, so 30 x 4 = 120 using a ten-strip picture ("3 tens, 4 times = 12 tens").
   2. Build: the child drags two ten-strips and seven ones squares into a row, then clicks "copy row" until there are 4 rows.
@@ -366,16 +525,37 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2: 20-49 x 4 or x 5 (book: 23 x 4, 35 x 4); estimate (choose nearest ten), then fill the grid; picture appears after a wrong try.
   - Level 3: 50-99 x 2-5 (book: 58 x 3, 94 x 2, 76 x 5; dice numbers 11-66 x 3); estimate, grid, total; check the answer is near the estimate.
 - **Mistake tags:** Lost the zero (20 x 4 = 8); Added the parts wrongly; Rounded the wrong way for the estimate; Multiplied only the tens.
+- **Workbook additions:** 27 x 5 = 135 (estimate 150) with a blank grid where the child types the headings 20, 7 and 5; level 3 items 46x5 = 230, 89x2 = 178, 67x3 = 201, 78x4 = 312; a "smallest and greatest product" board (68, 37, 86, 93, 45, 69, 74, 96, 39 x 2-5 -> 37x2 = 74 and 96x5 = 480). Extra mistake tags: 3-digit total added wrongly (180 + 21); Estimate rounded the wrong way. Parent tip: "Over 100? Line up hundreds, tens and ones before adding the boxes."
 - **Parent tips:**
   - Goal: Estimate by rounding to the nearest ten, then multiply tens and ones separately and add.
   - Say: "Which ten is it closest to?" / "2 tens times 4 is how many tens?" / "Is your answer near your estimate?"
   - Watch for: 20 x 4 = 8; forgetting to add the two boxes.
   - Away from screen: with ten-value and one-value coins, make 4 piles of 23 and count the tens first, then the ones.
 
-### 6. `remainder-decisions` - Remainder Decisions 🎾
+### 6. `chunk-and-divide` - Chunk and Divide 📦
+- **section:** 11.3 (workbook-led)
+- **summary:** Divide a 2-digit number by taking away groups of 10 lots, then single lots, and counting the groups.
+- **book:** Workbook p.160 Q2 (86 / 4 started for the child), p.161-162 Q6, p.163 Q10. The textbook never teaches this recording.
+- **Learn screens:**
+  1. 86 crayons in a tray and the estimate: 80 / 4 = 20, so the answer is a bit more than 20.
+  2. The child clicks "take 10 groups of 4": 40 crayons slide into 10 boxes of 4, a tally shows 10 groups, the tray shows 46. The written layout (86 - 40 = 46, "10 groups") builds alongside.
+  3. Again: 6 left, tally 20. Then "take 1 group of 4": 2 left, tally 21.
+  4. 2 is smaller than 4, so stop: 86 / 4 = 21 r2, close to the estimate of 20.
+- **Practice (count 8):**
+  - Level 1: dividends 20-60, divisor 2 or 5, with "10 groups" and "1 group" buttons; tally shown.
+  - Level 2: dividends 40-99, divisor 3 or 4, adding a "5 groups" button.
+  - Level 3: workbook items 53/2, 91/4, 97/3, 74/5 and 86/4, typing each subtraction line and the group count.
+- **Mistake tags:** Lost count of the groups; Subtraction slip; Stopped too early; Remainder not smaller than the divisor.
+- **Parent tips:**
+  - Goal: Divide by taking away big chunks of groups (10 at a time), then single groups, and counting how many groups were taken.
+  - Say: "Can we take away 10 groups of 4 again?" / "How many groups have we taken altogether?" / "Is what's left smaller than 4? Then it's the remainder."
+  - Watch for: forgetting to add the group counts (10 + 10 + 1); subtracting 4 instead of 40 for "10 groups".
+  - Away from screen: count out 46 pasta pieces and remove handfuls of 4, keeping a tally.
+
+### 7. `remainder-decisions` - Remainder Decisions 🎾
 - **section:** 11.3
 - **summary:** Solve division stories and decide whether the remainder means "one more", "left over" or doesn't matter.
-- **book:** Textbook p.179-182 (Ex 11.3 Q3-7, Think like a mathematician p.179, Check your progress Q2-4)
+- **book:** Textbook p.179-182 (Ex 11.3 Q3-7, Think like a mathematician p.179, Check your progress Q2-4) · Workbook p.160-164 (Ex 11.3 Q3-4, Q6-8, Q10-13)
 - **Learn screens:**
   1. Tennis balls: 18 balls roll into tubes that hold 4. The child clicks to fill tubes. 4 tubes are full and 2 balls are left - Bolt asks "Can we leave 2 balls on the floor?" The child adds a 5th tube. Message: sometimes we need one more.
   2. Marbles: 13 marbles shared by 4 children. Each gets 3 and 1 is left over. Bolt asks "Do we buy another child?" - no, the 1 marble stays in the bag.
@@ -386,6 +566,13 @@ Ordering follows the book. Because this is the child's weakest area, every activ
   - Level 2: dividends 30-50 (book: 46 balls in 4s, 36 marbles for 5, 37 children on benches of 10); type the answer, then pick "round up" or "left over".
   - Level 3: dividends 29-87 / 2-5 from a spinner board (book numbers 87, 43, 29, 49, 59, 73, 61, 38, 65), estimate then answer with remainder; or "which is greater, 72 / 4 or 72 / 3?"; or choose the story that matches 31 / 4 = 7 r3.
 - **Mistake tags:** Forgot to round up; Rounded up when not needed; Remainder too big; Thinks bigger divisor gives bigger answer.
+- **Workbook additions:**
+  - Round-down stories the textbook barely has: 19 wheels -> 9 bikes (child must know 2 wheels per bike); 35 legs -> 11 three-legged stools; $25 at $4 a game -> 6 games and $1 change; 1 m of ribbon in 3 cm pieces -> 100 / 3 = 33 pieces, 1 cm left (needs 1 m = 100 cm).
+  - Round-up stories: 37 children, 3 per table -> 13 tables; 10 people, 4 passengers per taxi plus the driver -> 3 taxis.
+  - The decision becomes three-way: "need one more", "leftover is spare", "leftover is change".
+  - Level 3 bare divisions with estimates: 53/2 = 26 r1, 91/4 = 22 r3, 97/3 = 32 r1, 74/5 = 14 r4; "undo it" bonus: x 3 then + 2 gives 83 -> 27.
+  - Extra mistake tags: Counted the driver as a passenger; Forgot 1 m = 100 cm; Rounded up when the leftover is spare; Change worked out wrongly.
+  - Extra parent tip: "Can the leftover still be used, is it wasted, or does it need one more?"
 - **Parent tips:**
   - Goal: Understand that a remainder means something real in a story and decide what to do with it.
   - Say: "What happens to the ones left over?" / "Does everyone need a seat?" / "If we share between fewer people, does each get more or less?"
