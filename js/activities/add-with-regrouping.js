@@ -575,7 +575,9 @@
       var cw = columnWork(q.n, q.m);
       cw.update({ carry: true, ans: 3 });
       var a = dig(q.n);
-      stage.appendChild(el('div', { class: P + 'reveal' }, cw.el, el('div', { class: P + 'readout' }, a.o + ' + ' + q.m + ' = ' + (a.o + q.m) + ' ones → 1 ten and ' + (a.o + q.m - 10) + ' ones. ' + q.n + ' + ' + q.m + ' = ' + q.ans)));
+      var line = a.o + ' + ' + q.m + ' = ' + (a.o + q.m) + ' ones → 1 ten and ' + (a.o + q.m - 10) + ' ones. ' + q.n + ' + ' + q.m + ' = ' + q.ans + '.';
+      stage.appendChild(el('div', { class: P + 'reveal' }, cw.el, el('div', { class: P + 'readout' }, line)));
+      api.feedback(line, 'info');
     });
   }
 
@@ -622,7 +624,9 @@
       inp.disable();
       var cw = columnWork(q.n, q.m);
       cw.update({ carry: true, ans: 3 });
-      stage.appendChild(el('div', { class: P + 'reveal' }, cw.el, el('div', { class: P + 'readout' }, 'Estimate: ' + r10(q.n) + ' + ' + r10(q.m) + ' = ' + q.est + '. Exact: ' + q.ans + '. Close ✓')));
+      var line = 'Estimate: ' + r10(q.n) + ' + ' + r10(q.m) + ' = ' + q.est + '. Exact: ' + q.n + ' + ' + q.m + ' = ' + q.ans + '. Close ✓';
+      stage.appendChild(el('div', { class: P + 'reveal' }, cw.el, el('div', { class: P + 'readout' }, line)));
+      api.feedback(line, 'info');
     });
   }
 
@@ -661,7 +665,9 @@
         parts.push(cw.el);
       }
       var a = dig(q.n), os = a.o + d.o;
-      parts.push(el('div', { class: P + 'readout' }, (os >= 10 ? 'Ones: ' + a.o + ' + ' + d.o + ' = ' + os + ' → swap 10 ones for a ten. ' : 'Ones: ' + a.o + ' + ' + d.o + ' = ' + os + ', no swap needed. ') + 'Estimate ' + q.est + ', answer ' + q.ans + '.'));
+      var line = (os >= 10 ? 'Ones: ' + a.o + ' + ' + d.o + ' = ' + os + ' → swap 10 ones for a ten. ' : 'Ones: ' + a.o + ' + ' + d.o + ' = ' + os + ', no swap needed. ') + 'Estimate ' + q.est + ', answer ' + q.n + ' + ' + q.m + ' = ' + q.ans + '.';
+      parts.push(el('div', { class: P + 'readout' }, line));
+      api.feedback(line, 'info');
       stage.appendChild(el('div', { class: P + 'reveal' }, parts));
     });
   }
@@ -720,6 +726,14 @@
         return cw.el;
       });
       stage.appendChild(el('div', { class: P + 'reveal ' + P + 'reveal-3' }, works));
+      api.feedback(
+        q.ins
+          .map(function (v, k) {
+            return v + ' + ' + q.k + ' = ' + q.outs[k];
+          })
+          .join(', ') + '. Ones first, swap 10 ones for a ten when needed.',
+        'info'
+      );
     });
   }
 

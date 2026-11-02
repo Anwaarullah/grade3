@@ -97,7 +97,11 @@
     }
     return { bad: true };
   }
-  /** Hops for counting up from a to b: to the next 10c, the next dollar, then whole dollars, tens, ones. */
+  /**
+   * Hops for counting up from a to b, the way a child would: to the next 10c, to the next
+   * dollar, to the next $10 (when $10 or more is still to go), then whole tens of dollars,
+   * then dollars, then tens of cents, then cents. The hops always add up to b - a exactly.
+   */
   function countUpHops(a, b) {
     var hops = [];
     var at = a;
@@ -109,10 +113,15 @@
     }
     to(Math.ceil(at / 10) * 10);
     if (b - at >= 100) to(Math.ceil(at / 100) * 100);
+    if (b - at >= 1000) to(Math.ceil(at / 1000) * 1000);
+    to(Math.floor(b / 1000) * 1000);
     to(Math.floor(b / 100) * 100);
     to(Math.floor(b / 10) * 10);
     to(b);
     return hops;
+  }
+  function hopAmt(d) {
+    return d < 100 ? d + 'c' : money(d);
   }
 
   /* ---------------- drawings ---------------- */
@@ -135,30 +144,30 @@
     else if (id === 'pen')
       parts = [S('rect', { x: 6, y: 16, width: 56, height: 8, rx: 3, fill: '#3a86ff' }), S('rect', { x: 6, y: 13, width: 20, height: 14, rx: 4, fill: '#1d4f8a' }), S('rect', { x: 12, y: 10, width: 16, height: 3, rx: 1.5, fill: '#1d4f8a' }), S('polygon', { points: '62,16.5 74,20 62,23.5', fill: '#c9d1da' })];
     else parts = [S('rect', { x: 6, y: 11, width: 50, height: 18, rx: 5, fill: '#ffe066', stroke: '#c9a400', 'stroke-width': 1.5 }), S('polygon', { points: '56,14 70,17 70,23 56,26', fill: '#ffd43b', stroke: '#c9a400', 'stroke-width': 1.5 })];
-    return S.apply(null, ['svg', { viewBox: '0 0 80 40', width: 80, height: 40, class: 'sc-icon', 'aria-hidden': 'true' }].concat(parts));
+    return S.apply(null, ['svg', { viewBox: '0 0 80 40', width: 80, height: 40, class: 'shp-icon', 'aria-hidden': 'true' }].concat(parts));
   }
   function itemCard(it, button) {
-    return el(button ? 'button' : 'div', { class: 'sc-item', type: button ? 'button' : null, 'data-id': it.id }, itemIcon(it.id), el('span', { class: 'sc-item-name' }, it.name), el('span', { class: 'sc-tag' }, it.price + 'c'));
+    return el(button ? 'button' : 'div', { class: 'shp-item', type: button ? 'button' : null, 'data-id': it.id }, itemIcon(it.id), el('span', { class: 'shp-item-name' }, it.name), el('span', { class: 'shp-tag' }, it.price + 'c'));
   }
   function drinkCard(d, button) {
-    return el(button ? 'button' : 'div', { class: 'sc-item sc-drink', type: button ? 'button' : null, 'data-id': d.id }, el('span', { class: 'sc-emoji' }, d.icon), el('span', { class: 'sc-item-name' }, d.name), el('span', { class: 'sc-tag' }, money(d.price)));
+    return el(button ? 'button' : 'div', { class: 'shp-item shp-drink', type: button ? 'button' : null, 'data-id': d.id }, el('span', { class: 'shp-emoji' }, d.icon), el('span', { class: 'shp-item-name' }, d.name), el('span', { class: 'shp-tag' }, money(d.price)));
   }
   function noteSvg(v, w) {
     var col = v >= 100 ? ['#e3f2dc', '#2f6b2f'] : null;
     if (col) {
       return S(
         'svg',
-        { viewBox: '0 0 100 52', width: w, height: Math.round((w * 52) / 100), class: 'sc-svg', 'aria-hidden': 'true' },
+        { viewBox: '0 0 100 52', width: w, height: Math.round((w * 52) / 100), class: 'shp-svg', 'aria-hidden': 'true' },
         S('rect', { x: 1, y: 1, width: 98, height: 50, rx: 6, fill: col[0], stroke: col[1], 'stroke-width': 2 }),
         S('ellipse', { cx: 50, cy: 26, rx: 25, ry: 16, fill: '#fff' }),
-        S('text', { x: 50, y: 34, 'text-anchor': 'middle', class: 'sc-note-t', fill: col[1] }, '$' + v / 100)
+        S('text', { x: 50, y: 34, 'text-anchor': 'middle', class: 'shp-note-t', fill: col[1] }, '$' + v / 100)
       );
     }
     return S(
       'svg',
-      { viewBox: '0 0 44 44', width: w, height: w, class: 'sc-svg', 'aria-hidden': 'true' },
+      { viewBox: '0 0 44 44', width: w, height: w, class: 'shp-svg', 'aria-hidden': 'true' },
       S('circle', { cx: 22, cy: 22, r: 20, fill: '#e6ebf1', stroke: '#7d8a99', 'stroke-width': 2 }),
-      S('text', { x: 22, y: 27, 'text-anchor': 'middle', class: 'sc-coin-t' }, v + 'c')
+      S('text', { x: 22, y: 27, 'text-anchor': 'middle', class: 'shp-coin-t' }, v + 'c')
     );
   }
 
@@ -168,45 +177,41 @@
     var W = 680;
     var X0 = 50;
     var avail = W - 2 * X0;
-    var minW = 110;
     var n = hops.length;
+    var minW = Math.min(110, avail / n);
     var spare = Math.max(0, avail - minW * n);
     var xs = [X0];
     hops.forEach(function (h) {
       xs.push(xs[xs.length - 1] + minW + (spare * (h[1] - h[0])) / (b - a));
     });
     var LY = 96;
-    var root = S('svg', { viewBox: '0 0 ' + W + ' 140', width: W, height: 140, class: 'sc-line' });
-    root.appendChild(S('line', { x1: X0 - 20, y1: LY, x2: xs[n] + 20, y2: LY, class: 'sc-axis' }));
+    var root = S('svg', { viewBox: '0 0 ' + W + ' 140', width: W, height: 140, class: 'shp-line' });
+    root.appendChild(S('line', { x1: X0 - 20, y1: LY, x2: xs[n] + 20, y2: LY, class: 'shp-axis' }));
     function tick(x, v, start) {
-      root.appendChild(S('line', { x1: x, y1: LY - 8, x2: x, y2: LY + 8, class: 'sc-tick' }));
-      root.appendChild(S('text', { x: x, y: LY + 30, 'text-anchor': 'middle', class: 'sc-tick-t' + (start ? ' sc-start' : '') }, amt(v, centsMode)));
+      root.appendChild(S('line', { x1: x, y1: LY - 8, x2: x, y2: LY + 8, class: 'shp-tick' }));
+      root.appendChild(S('text', { x: x, y: LY + 30, 'text-anchor': 'middle', class: 'shp-tick-t' + (start ? ' shp-start' : '') }, amt(v, centsMode)));
     }
     tick(xs[0], a, true);
     hops.forEach(function (h, i) {
       var x1 = xs[i];
       var x2 = xs[i + 1];
       var mid = (x1 + x2) / 2;
-      root.appendChild(S('path', { d: 'M' + x1 + ',' + LY + ' Q' + mid + ',' + (LY - 90) + ' ' + x2 + ',' + LY, class: 'sc-hop' }));
+      root.appendChild(S('path', { d: 'M' + x1 + ',' + LY + ' Q' + mid + ',' + (LY - 90) + ' ' + x2 + ',' + LY, class: 'shp-hop' }));
       var d = h[1] - h[0];
-      root.appendChild(S('text', { x: mid, y: LY - 52, 'text-anchor': 'middle', class: 'sc-hop-t' }, '+' + (d < 100 ? d + 'c' : money(d))));
+      root.appendChild(S('text', { x: mid, y: LY - 52, 'text-anchor': 'middle', class: 'shp-hop-t' }, '+' + hopAmt(d)));
       tick(x2, h[1], false);
     });
     var parts = hops.map(function (h) {
       return h[1] - h[0];
     });
-    var line = el('div', { class: 'sc-line-wrap' }, root);
+    var line = el('div', { class: 'shp-line-wrap' }, root);
     var words = el(
       'div',
-      { class: 'sc-sumline' },
-      parts
-        .map(function (p) {
-          return p < 100 ? p + 'c' : money(p);
-        })
-        .join(' + ') + ' = ',
+      { class: 'shp-sumline' },
+      parts.map(hopAmt).join(' + ') + ' = ',
       el('b', null, amt(b - a, centsMode && b - a < 100))
     );
-    return el('div', { class: 'sc-countup' }, line, words);
+    return el('div', { class: 'shp-countup' }, line, words);
   }
 
   /** "18c + 26c = 44c" as chips. */
@@ -225,41 +230,49 @@
   function barModel(whole, parts) {
     var total = whole.value != null ? whole.value : sum(parts.map(function (p) { return p.value || 0; }));
     function txt(p) {
-      return el('span', { class: 'sc-bar-txt' }, el('small', null, p.label), p.value == null ? el('b', { class: 'sc-q' }, '?') : el('b', null, money(p.value)));
+      return el('span', { class: 'shp-bar-txt' }, el('small', null, p.label), p.value == null ? el('b', { class: 'shp-q' }, '?') : el('b', null, money(p.value)));
     }
-    var top = el('div', { class: 'sc-bar sc-bar-whole' }, txt(whole));
-    var bottom = el('div', { class: 'sc-bar sc-bar-parts' });
+    var top = el('div', { class: 'shp-bar shp-bar-whole' }, txt(whole));
+    var bottom = el('div', { class: 'shp-bar shp-bar-parts' });
     var segs = parts.map(function (p, i) {
       var share = p.value != null ? p.value / total : 1 - parts.reduce(function (a, q) { return a + (q.value != null ? q.value / total : 0); }, 0);
       share = Math.max(0.28, Math.min(0.72, share));
-      var s = el('div', { class: 'sc-seg sc-seg-' + i, style: { flex: share + ' 1 0' } }, txt(p));
+      var s = el('div', { class: 'shp-seg shp-seg-' + i, style: { flex: share + ' 1 0' } }, txt(p));
       bottom.appendChild(s);
       return s;
     });
-    var box = el('div', { class: 'sc-barbox' }, top, bottom);
+    var box = el('div', { class: 'shp-barbox' }, top, bottom);
     box.fill = function (i, value) {
       var p = parts[i] || whole;
       p.value = value;
       var target = i === -1 ? top : segs[i];
       MQ.clear(target);
       target.appendChild(txt(p));
-      target.classList.add('sc-filled');
+      target.classList.add('shp-filled');
     };
     return box;
   }
 
   /** A row of money answer fields plus one Check button. fields: [{label, centsMode}] */
   function answerRows(fields, onCheck) {
-    var wrap = el('div', { class: 'sc-answers' });
+    var wrap = el('div', { class: 'shp-answers' });
     var inputs = fields.map(function (f) {
-      var input = el('input', { class: 'num-input sc-in', type: 'text', inputmode: 'decimal', autocomplete: 'off', 'aria-label': f.label, placeholder: f.centsMode ? '?' : '0.00' });
+      var input = el('input', { class: 'num-input shp-in', type: 'text', inputmode: 'decimal', autocomplete: 'off', 'aria-label': f.label, placeholder: f.centsMode ? '?' : '0.00' });
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
           e.preventDefault();
+          // Enter in an earlier box moves on to the next empty box instead of checking.
+          var k = inputs.indexOf(input);
+          for (var j = k + 1; j < inputs.length; j++) {
+            if (!inputs[j].value.trim()) {
+              focusBox(j);
+              return;
+            }
+          }
           go();
         }
       });
-      wrap.appendChild(el('label', { class: 'sc-field' }, el('span', { class: 'sc-field-l' }, f.label), f.centsMode ? null : el('span', { class: 'num-prefix' }, '$'), input, f.centsMode ? el('span', { class: 'num-unit' }, 'c') : null));
+      wrap.appendChild(el('label', { class: 'shp-field' }, el('span', { class: 'shp-field-l' }, f.label), f.centsMode ? null : el('span', { class: 'num-prefix' }, '$'), input, f.centsMode ? el('span', { class: 'num-unit' }, 'c') : null));
       return input;
     });
     var btn = el('button', { class: 'btn btn-check', type: 'button' }, 'Check');
@@ -291,12 +304,16 @@
       });
       btn.disabled = true;
     };
-    wrap.focus = function () {
+    function focusBox(j) {
       try {
-        inputs[0].focus({ preventScroll: true });
+        inputs[j].focus({ preventScroll: true });
       } catch (e) {
-        inputs[0].focus();
+        inputs[j].focus();
       }
+    }
+    wrap.focusBox = focusBox;
+    wrap.focus = function () {
+      focusBox(0);
     };
     return wrap;
   }
@@ -310,42 +327,46 @@
     for (var i = 0; i < dollars; i++) source.push(100);
     var piles = [[], []];
     var finished = false;
-    var srcEl = el('div', { class: 'sc-src' });
+    var srcEl = el('div', { class: 'shp-src' });
     var pileEls = [0, 1].map(function (k) {
-      var items = el('div', { class: 'sc-pile-items' });
-      var tot = el('div', { class: 'sc-pile-tot' }, '$0.00');
-      var p = el('div', { class: 'sc-pile' }, el('div', { class: 'sc-pile-h' }, 'Pile ' + (k + 1)), items, tot);
+      var items = el('div', { class: 'shp-pile-items' });
+      var tot = el('div', { class: 'shp-pile-tot' }, '$0.00');
+      var p = el('div', { class: 'shp-pile' }, el('div', { class: 'shp-pile-h' }, 'Pile ' + (k + 1)), items, tot);
       p.items = items;
       p.tot = tot;
       return p;
     });
-    var swapBtn = el('button', { class: 'btn btn-ghost sc-swap', type: 'button', hidden: true }, 'Change $1 into ten 10c coins');
-    var dealBtn = el('button', { class: 'btn sc-deal', type: 'button' }, 'Share one ▶');
-    var box = el('div', { class: 'sc-share' }, el('div', { class: 'sc-src-wrap' }, srcEl, el('div', { class: 'sc-share-btns' }, dealBtn, swapBtn)), el('div', { class: 'sc-piles' }, pileEls[0], pileEls[1]));
+    var swapBtn = el('button', { class: 'btn btn-ghost shp-swap', type: 'button', hidden: true }, 'Change $1 into ten 10c coins');
+    var dealBtn = el('button', { class: 'btn shp-deal', type: 'button' }, 'Share one ▶');
+    var box = el('div', { class: 'shp-share' }, el('div', { class: 'shp-src-wrap' }, srcEl, el('div', { class: 'shp-share-btns' }, dealBtn, swapBtn)), el('div', { class: 'shp-piles' }, pileEls[0], pileEls[1]));
     function draw() {
       MQ.clear(srcEl);
-      if (!source.length) srcEl.appendChild(el('span', { class: 'sc-small' }, 'All shared!'));
+      if (!source.length) srcEl.appendChild(el('span', { class: 'shp-small' }, 'All shared!'));
       source.forEach(function (v) {
-        var b = el('button', { class: 'sc-money', type: 'button', 'data-v': v, 'aria-label': v >= 100 ? '$1' : v + 'c' }, noteSvg(v, v >= 100 ? 64 : 34));
+        var b = el('button', { class: 'shp-money', type: 'button', 'data-v': v, 'aria-label': v >= 100 ? '$1' : v + 'c' }, noteSvg(v, v >= 100 ? 64 : 34));
         b.addEventListener('click', deal);
         srcEl.appendChild(b);
       });
       pileEls.forEach(function (p, k) {
         MQ.clear(p.items);
         piles[k].forEach(function (v) {
-          p.items.appendChild(el('span', { class: 'sc-money' }, noteSvg(v, v >= 100 ? 52 : 28)));
+          p.items.appendChild(el('span', { class: 'shp-money' }, noteSvg(v, v >= 100 ? 52 : 28)));
         });
         p.tot.textContent = money(sum(piles[k]));
       });
-      var oneLeft = source.length === 1 && source[0] === 100;
-      swapBtn.hidden = !oneLeft;
-      dealBtn.disabled = !source.length || oneLeft;
+      var stuck = mustSwap();
+      swapBtn.hidden = !stuck;
+      dealBtn.disabled = !source.length || stuck;
+    }
+    /** Exactly one $1 left and the piles are equal: it can't go to either pile, so change it. */
+    function mustSwap() {
+      return source.length === 1 && source[0] === 100 && sum(piles[0]) === sum(piles[1]);
     }
     function deal() {
       if (finished || !source.length) return;
-      if (source.length === 1 && source[0] === 100) {
+      if (mustSwap()) {
         api.feedback('Only one $1 left. We can\'t tear it! Change it into coins.', 'info');
-        swapBtn.classList.add('sc-pulse');
+        swapBtn.classList.add('shp-pulse');
         return;
       }
       var v = source.shift();
@@ -360,7 +381,7 @@
       }
     }
     function swap() {
-      if (!(source.length === 1 && source[0] === 100)) return;
+      if (!mustSwap()) return;
       source = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
       api.sound('click');
       draw();
@@ -370,7 +391,7 @@
     draw();
     box.dealAll = function () {
       while (source.length) {
-        if (source.length === 1 && source[0] === 100) swap();
+        if (mustSwap()) swap();
         deal();
       }
     };
@@ -382,9 +403,9 @@
     api.say('Welcome to the school shop! Click two things to put in your basket.');
     api.lockNext();
     stage.appendChild(MQ.ui.lesson('Adding prices', 'The till adds the prices together.'));
-    var shelf = el('div', { class: 'sc-shelf' });
-    var basket = el('div', { class: 'sc-basket' }, el('span', { class: 'sc-small' }, '🧺 Basket'));
-    var till = el('div', { class: 'sc-till' });
+    var shelf = el('div', { class: 'shp-shelf' });
+    var basket = el('div', { class: 'shp-basket' }, el('span', { class: 'shp-small' }, '🧺 Basket'));
+    var till = el('div', { class: 'shp-till' });
     var picked = [];
     ITEMS.forEach(function (it) {
       var c = itemCard(it, true);
@@ -392,7 +413,7 @@
         if (picked.length >= 2 || c.disabled) return;
         picked.push(it);
         c.disabled = true;
-        c.classList.add('sc-picked');
+        c.classList.add('shp-picked');
         basket.appendChild(itemCard(it, false));
         api.sound('pop');
         if (picked.length === 2) {
@@ -414,7 +435,7 @@
     api.say('A pencil and an eraser cost 44c. You pay 50c. Count up to find the change.');
     api.lockNext();
     stage.appendChild(MQ.ui.lesson('Change: count up', 'From the price, count up to the money you paid.'));
-    stage.appendChild(el('div', { class: 'sc-row' }, itemCard(ITEMS[0]), itemCard(ITEMS[1]), el('span', { class: 'sc-big' }, '= 44c'), el('span', { class: 'sc-paid' }, 'Paid ', noteSvg(50, 46))));
+    stage.appendChild(el('div', { class: 'shp-row' }, itemCard(ITEMS[0]), itemCard(ITEMS[1]), el('span', { class: 'shp-big' }, '= 44c'), el('span', { class: 'shp-paid' }, 'Paid ', noteSvg(50, 46))));
     var A = 44;
     var B = 50;
     var W = 640;
@@ -424,23 +445,23 @@
       return X0 + (v - A + 1) * K;
     }
     var LY = 90;
-    var root = S('svg', { viewBox: '0 0 ' + W + ' 130', width: W, height: 130, class: 'sc-line' });
-    root.appendChild(S('line', { x1: X0, y1: LY, x2: W - X0, y2: LY, class: 'sc-axis' }));
+    var root = S('svg', { viewBox: '0 0 ' + W + ' 130', width: W, height: 130, class: 'shp-line' });
+    root.appendChild(S('line', { x1: X0, y1: LY, x2: W - X0, y2: LY, class: 'shp-axis' }));
     for (var v = A; v <= B; v++) {
-      root.appendChild(S('line', { x1: X(v), y1: LY - 8, x2: X(v), y2: LY + 8, class: 'sc-tick' }));
-      root.appendChild(S('text', { x: X(v), y: LY + 30, 'text-anchor': 'middle', class: 'sc-tick-t' + (v === A || v === B ? ' sc-start' : '') }, v + 'c'));
+      root.appendChild(S('line', { x1: X(v), y1: LY - 8, x2: X(v), y2: LY + 8, class: 'shp-tick' }));
+      root.appendChild(S('text', { x: X(v), y: LY + 30, 'text-anchor': 'middle', class: 'shp-tick-t' + (v === A || v === B ? ' shp-start' : '') }, v + 'c'));
     }
     var hops = S('g');
     root.appendChild(hops);
-    stage.appendChild(el('div', { class: 'sc-line-wrap' }, root));
-    var counter = el('div', { class: 'sc-big' }, 'Change: 0c');
+    stage.appendChild(el('div', { class: 'shp-line-wrap' }, root));
+    var counter = el('div', { class: 'shp-big' }, 'Change: 0c');
     var btn = el('button', { class: 'btn', type: 'button' }, 'Jump +1c');
-    stage.appendChild(el('div', { class: 'sc-row' }, btn, counter));
+    stage.appendChild(el('div', { class: 'shp-row' }, btn, counter));
     var at = A;
     btn.addEventListener('click', function () {
       if (at >= B) return;
       var mid = (X(at) + X(at + 1)) / 2;
-      hops.appendChild(S('path', { d: 'M' + X(at) + ',' + LY + ' Q' + mid + ',' + (LY - 60) + ' ' + X(at + 1) + ',' + LY, class: 'sc-hop' }));
+      hops.appendChild(S('path', { d: 'M' + X(at) + ',' + LY + ' Q' + mid + ',' + (LY - 60) + ' ' + X(at + 1) + ',' + LY, class: 'shp-hop' }));
       at++;
       api.sound('pop');
       counter.textContent = 'Change: ' + (at - A) + 'c';
@@ -459,25 +480,31 @@
     stage.appendChild(MQ.ui.lesson('Find the missing price', 'Money paid = cost + change.'));
     var bar = barModel({ label: 'Paid', value: 5000 }, [{ label: 'Cost', value: null }, { label: 'Change', value: 1700 }]);
     stage.appendChild(bar);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
+    var wrong = 0;
+    function finish(right) {
+      rows.set([3300]);
+      rows.lock();
+      bar.fill(0, 3300);
+      show.appendChild(countUpLine(1700, 5000, false));
+      if (right) {
+        api.say('Yes! Count up from $17 to $50: $3, then $30. The trainers cost $33.00.', 'cheer');
+        api.feedback('$50.00 − $17.00 = $33.00', 'good');
+      } else {
+        api.say('Let\'s count up together: $17 to $20 is $3, then $20 to $50 is $30. $3 + $30 = $33.', 'think');
+        api.feedback('Count up: $3.00 + $30.00 = $33.00, so the trainers cost $33.00.', 'info');
+      }
+      api.unlockNext();
+    }
     var rows = answerRows([{ label: 'Cost' }], function (ps) {
       var p = ps[0];
       if (p.empty || p.bad) return api.feedback('Type an amount, like 25 or 25.00', 'info');
-      if (p.value === 3300) {
-        rows.set([3300]);
-        rows.lock();
-        bar.fill(0, 3300);
-        show.appendChild(countUpLine(1700, 5000, false));
-        api.say('Yes! Count up from $17 to $50: $3, then $30. The trainers cost $33.00.', 'cheer');
-        api.feedback('$50.00 − $17.00 = $33.00', 'good');
-        api.unlockNext();
-      } else if (p.value === 6700) {
-        rows.mark(0, false);
-        api.feedback('That adds them. The cost is a part of the $50, so it must be less than $50.', 'try');
-      } else {
-        rows.mark(0, false);
-        api.feedback('Count up from $17 to $50. $17 → $20 → $50.', 'try');
-      }
+      if (p.value === 3300) return finish(true);
+      wrong++;
+      if (wrong >= 2) return finish(false);
+      rows.mark(0, false);
+      if (p.value === 6700) api.feedback('That adds them. The cost is a part of the $50, so it must be less than $50.', 'try');
+      else api.feedback('Count up from $17 to $50. $17 → $20 → $50.', 'try');
     });
     stage.appendChild(rows);
     stage.appendChild(show);
@@ -592,7 +619,7 @@
       names = its.map(function (x) { return x.name; });
       api.say('Find what you spend, then the change.', 'think');
       stage.appendChild(MQ.ui.prompt('You buy ' + (names[0] === names[1] ? 'two ' + names[0] + 's' : an(names[0]) + ' and ' + an(names[1])) + '. You pay <b>' + q.paid + 'c</b>.'));
-      stage.appendChild(el('div', { class: 'sc-row' }, its.map(function (x) { return itemCard(x); }), el('span', { class: 'sc-paid' }, 'Paid ', el('b', null, q.paid + 'c'))));
+      stage.appendChild(el('div', { class: 'shp-row' }, its.map(function (x) { return itemCard(x); }), el('span', { class: 'shp-paid' }, 'Paid ', el('b', null, q.paid + 'c'))));
     } else {
       var ds = q.drinks.map(function (id) {
         return DRINKS.filter(function (x) { return x.id === id; })[0];
@@ -600,9 +627,9 @@
       names = ds.map(function (x) { return x.name; });
       api.say('Add the drinks, then find the change.', 'think');
       stage.appendChild(MQ.ui.prompt('Buy ' + names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] + '. Pay with <b>' + money(q.paid) + '</b>.'));
-      stage.appendChild(el('div', { class: 'sc-row' }, ds.map(function (x) { return drinkCard(x); }), el('span', { class: 'sc-paid' }, 'Paid ', noteSvg(q.paid, 70))));
+      stage.appendChild(el('div', { class: 'shp-row' }, ds.map(function (x) { return drinkCard(x); }), el('span', { class: 'shp-paid' }, 'Paid ', noteSvg(q.paid, 70))));
     }
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     var rows = answerRows([{ label: 'Spent', centsMode: cm }, { label: 'Change', centsMode: cm }], function (ps) {
       if (ps[0].empty) return api.feedback('First find what you spend: add the prices.', 'info');
       if (ps.some(function (p) { return p.form === 'd1'; })) return api.feedback('Cents take two places after the point, like 2.65 or 2.05.', 'info');
@@ -618,8 +645,8 @@
       }
       rows.mark(0, true);
       if (ps[1].empty) {
-        rows.mark(1, false);
-        api.check(false, 'Good adding! Now the change: count up from ' + amt(q.total, cm) + ' to ' + amt(q.paid, cm) + '.', 'Found the total but not the change');
+        rows.focusBox(1);
+        api.feedback('Good adding! Now the change: count up from ' + amt(q.total, cm) + ' to ' + amt(q.paid, cm) + '.', 'info');
         return;
       }
       if (ps[1].bad) return api.feedback('Type the change.', 'info');
@@ -649,7 +676,7 @@
   function renderChoose(stage, api, q) {
     api.say('Pick two different drinks. Don\'t spend more than you have!', 'think');
     stage.appendChild(MQ.ui.prompt('You have <b>' + money(q.budget) + '</b>. Pick two different drinks you can buy. Then find your change.'));
-    var menu = el('div', { class: 'sc-shelf' });
+    var menu = el('div', { class: 'shp-shelf' });
     var chosen = [];
     var locked = false;
     var cards = DRINKS.map(function (d) {
@@ -668,17 +695,17 @@
       menu.appendChild(c);
       return c;
     });
-    var sel = el('div', { class: 'sc-sel' });
+    var sel = el('div', { class: 'shp-sel' });
     function drawSel() {
       cards.forEach(function (c, k) {
-        c.classList.toggle('sc-picked', chosen.indexOf(DRINKS[k]) >= 0);
+        c.classList.toggle('shp-picked', chosen.indexOf(DRINKS[k]) >= 0);
       });
       sel.textContent = chosen.length ? 'You picked: ' + chosen.map(function (d) { return d.name + ' ' + money(d.price); }).join(' + ') : 'Click two drinks.';
     }
     drawSel();
     stage.appendChild(menu);
     stage.appendChild(sel);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     var rows = answerRows([{ label: 'Change' }], function (ps) {
       if (chosen.length !== 2) return api.feedback('Pick two drinks first.', 'info');
       var p = ps[0];
@@ -729,7 +756,7 @@
     stage.appendChild(MQ.ui.prompt(q.who + ' paid <b>' + money(q.paid) + '</b> for ' + q.thing + ' and got <b>' + money(q.change) + '</b> change. What did it cost?'));
     var bar = barModel({ label: 'Paid', value: q.paid }, [{ label: 'Cost', value: null }, { label: 'Change', value: q.change }]);
     stage.appendChild(bar);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     var rows = answerRows([{ label: 'Cost' }], function (ps) {
       var p = ps[0];
       if (p.empty || p.bad) return api.feedback('Type the cost, like 5.30', 'info');
@@ -776,7 +803,7 @@
     stage.appendChild(MQ.ui.prompt(q.who + ' bought two ' + q.thing.many + ' ' + q.thing.icon + q.thing.icon + ' for <b>' + money(q.total) + '</b>. What does one cost?'));
     var w = shareWidget(api, d, null);
     stage.appendChild(w);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     var rows = answerRows([{ label: 'One costs' }], function (ps) {
       var p = ps[0];
       if (p.empty || p.bad) return api.feedback('Type the price of one, like 3.50', 'info');
@@ -811,7 +838,7 @@
     stage.appendChild(MQ.ui.prompt(q.who + ' spent <b>' + money(q.spent) + '</b> and had <b>' + money(q.left) + '</b> left. How much money was there at the start?'));
     var bar = barModel({ label: 'At the start', value: null }, [{ label: 'Spent', value: q.spent }, { label: 'Left', value: q.left }]);
     stage.appendChild(bar);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     var rows = answerRows([{ label: 'At the start' }], function (ps) {
       var p = ps[0];
       if (p.empty || p.bad) return api.feedback('Type an amount, like 66.00', 'info');
@@ -844,7 +871,7 @@
   function renderWhich(stage, api, q) {
     api.say('First find what was spent. Then find two things that cost that much.', 'think');
     stage.appendChild(MQ.ui.prompt(q.who + ' had <b>' + q.had + 'c</b>, bought two different things and got <b>' + q.change + 'c</b> change. Which two? Find <b>both</b> answers.'));
-    var shelf = el('div', { class: 'sc-shelf' });
+    var shelf = el('div', { class: 'shp-shelf' });
     var chosen = [];
     var found = [];
     var locked = false;
@@ -864,15 +891,15 @@
       shelf.appendChild(c);
       return c;
     });
-    var board = el('div', { class: 'sc-board' });
+    var board = el('div', { class: 'shp-board' });
     function draw() {
       cards.forEach(function (c, k) {
-        c.classList.toggle('sc-picked', chosen.indexOf(ITEMS[k]) >= 0);
+        c.classList.toggle('shp-picked', chosen.indexOf(ITEMS[k]) >= 0);
       });
       MQ.clear(board);
       for (var k = 0; k < 2; k++) {
         var f = found[k];
-        board.appendChild(el('div', { class: 'sc-slot' + (f ? ' sc-slot-ok' : '') }, f ? f[0].name + ' + ' + f[1].name + ' = 63c ✓' : 'Answer ' + (k + 1) + ': ?'));
+        board.appendChild(el('div', { class: 'shp-slot' + (f ? ' shp-slot-ok' : '') }, f ? f[0].name + ' + ' + f[1].name + ' = 63c ✓' : 'Answer ' + (k + 1) + ': ?'));
       }
     }
     draw();
@@ -880,7 +907,7 @@
     var btn = el('button', { class: 'btn btn-check', type: 'button' }, 'Check these two');
     stage.appendChild(btn);
     stage.appendChild(board);
-    var show = el('div', { class: 'sc-show' });
+    var show = el('div', { class: 'shp-show' });
     stage.appendChild(show);
     function pairKey(p) {
       return [p[0].id, p[1].id].sort().join('+');
@@ -894,7 +921,7 @@
         return;
       }
       if (found.some(function (f) { return pairKey(f) === pairKey(chosen); })) {
-        api.check(false, 'You found that one already! Look for a different pair.', 'Missed a second answer');
+        api.feedback('You found that one already! Look for a different pair.', 'info');
         return;
       }
       found.push(chosen.slice());
@@ -948,71 +975,71 @@
   MQ.activities['shop-and-change']._test = { buildDeck: buildDeck, parseMoney: parseMoney, countUpHops: countUpHops, ITEMS: ITEMS, DRINKS: DRINKS };
 
   var css = [
-    '.sc-shelf{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:100%}',
-    '.sc-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border:3px solid var(--line);border-radius:14px;padding:6px 10px;min-width:104px;font-family:inherit;color:var(--ink)}',
-    'button.sc-item{cursor:pointer}',
-    'button.sc-item:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}',
-    '.sc-item.sc-picked{border-color:var(--good);background:var(--good-bg)}',
-    '.sc-item:disabled{opacity:.6;cursor:default}',
-    '.sc-item.sc-picked:disabled{opacity:1}',
-    '.sc-icon{display:block}',
-    '.sc-emoji{font-size:2rem;line-height:1.2}',
-    '.sc-item-name{font-weight:800;font-size:1rem}',
-    '.sc-tag{background:#fff3cd;border:2px solid var(--gold);border-radius:8px;padding:0 8px;font-weight:800}',
-    '.sc-basket{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;min-height:70px;min-width:280px;padding:6px 14px;border:3px dashed #e8c48f;border-radius:18px;background:#fff8ec}',
-    '.sc-basket .sc-item{min-width:90px;padding:4px 8px}',
-    '.sc-till{min-height:10px}',
-    '.sc-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}',
-    '.sc-big{font-size:1.6rem;font-weight:800}',
-    '.sc-paid{display:inline-flex;align-items:center;gap:6px;font-size:1.3rem;font-weight:800;background:var(--info-bg);border-radius:12px;padding:6px 12px}',
-    '.sc-svg{display:block}',
-    '.sc-note-t{font-size:22px;font-weight:800;font-family:var(--font)}',
-    '.sc-coin-t{font-size:13px;font-weight:800;font-family:var(--font);fill:#2f3b4a}',
-    '.sc-line-wrap{width:100%;display:flex;justify-content:center}',
-    '.sc-line{max-width:100%;height:auto}',
-    '.sc-axis{stroke:var(--ink);stroke-width:3}',
-    '.sc-tick{stroke:var(--ink);stroke-width:2}',
-    '.sc-tick-t{font-size:16px;font-weight:700;fill:var(--ink-soft);font-family:var(--font)}',
-    '.sc-start{fill:var(--ink);font-weight:800}',
-    '.sc-hop{fill:none;stroke:#e07a1f;stroke-width:3}',
-    '.sc-hop-t{font-size:17px;font-weight:800;fill:#b4540a;font-family:var(--font)}',
-    '.sc-countup{display:flex;flex-direction:column;align-items:center;width:100%}',
-    '.sc-sumline{font-size:1.25rem;font-weight:800}',
-    '.sc-sumline b{color:#0b6e66}',
-    '.sc-show{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}',
-    '.sc-answers{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}',
-    '.sc-field{display:flex;align-items:center;gap:6px}',
-    '.sc-field-l{font-weight:800;font-size:1.15rem}',
-    '.sc-in{width:130px}',
-    '.sc-barbox{width:100%;max-width:620px;display:flex;flex-direction:column;gap:4px}',
-    '.sc-bar{display:flex;border-radius:10px;min-height:58px}',
-    '.sc-bar-whole{background:#d9eafb;border:3px solid #1d4f8a;justify-content:center;align-items:center}',
-    '.sc-bar-parts{gap:4px}',
-    '.sc-seg{display:flex;justify-content:center;align-items:center;border-radius:10px;border:3px solid #b4540a;background:#fde9c6;min-width:0}',
-    '.sc-seg-1{background:#e3f2dc;border-color:#2f6b2f}',
-    '.sc-filled{box-shadow:0 0 0 4px var(--good-bg)}',
-    '.sc-bar-txt{display:flex;flex-direction:column;align-items:center;line-height:1.1;font-size:1.25rem}',
-    '.sc-bar-txt small{font-size:.85rem;font-weight:800;color:var(--ink-soft)}',
-    '.sc-q{color:var(--try);font-size:1.5rem}',
-    '.sc-share{display:flex;flex-direction:column;gap:10px;align-items:center;width:100%}',
-    '.sc-src-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}',
-    '.sc-src{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:40px;max-width:640px}',
-    '.sc-share-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}',
-    '.sc-money{background:none;border:0;padding:1px;line-height:0;cursor:pointer;font-family:inherit}',
-    'span.sc-money{cursor:default}',
-    '.sc-piles{display:flex;gap:14px;justify-content:center;width:100%;flex-wrap:wrap}',
-    '.sc-pile{flex:1 1 220px;max-width:320px;border:3px solid var(--line);border-radius:50% / 30%;background:#fbfcff;padding:8px 16px;display:flex;flex-direction:column;align-items:center;min-height:120px}',
-    '.sc-pile-h{font-weight:800;color:var(--ink-soft)}',
-    '.sc-pile-items{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;flex:1;align-items:center}',
-    '.sc-pile-tot{font-size:1.4rem;font-weight:800;color:#0b6e66}',
-    '.sc-pulse{animation:scPulse 1s ease 2}',
-    '@keyframes scPulse{50%{transform:scale(1.08)}}',
-    '.sc-small{font-size:.9rem;color:var(--ink-soft);font-weight:700}',
-    '.sc-sel{font-weight:800;font-size:1.1rem;min-height:1.5em;text-align:center}',
-    '.sc-board{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}',
-    '.sc-slot{border:3px dashed var(--line);border-radius:12px;padding:6px 14px;font-weight:800;min-width:200px;text-align:center}',
-    '.sc-slot-ok{border-style:solid;border-color:var(--good);background:var(--good-bg);color:var(--good)}',
-    '@media (max-width:700px){.sc-item{min-width:88px;padding:4px 6px}.sc-icon{width:64px;height:32px}}',
+    '.shp-shelf{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:100%}',
+    '.shp-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border:3px solid var(--line);border-radius:14px;padding:6px 10px;min-width:104px;font-family:inherit;color:var(--ink)}',
+    'button.shp-item{cursor:pointer}',
+    'button.shp-item:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}',
+    '.shp-item.shp-picked{border-color:var(--good);background:var(--good-bg)}',
+    '.shp-item:disabled{opacity:.6;cursor:default}',
+    '.shp-item.shp-picked:disabled{opacity:1}',
+    '.shp-icon{display:block}',
+    '.shp-emoji{font-size:2rem;line-height:1.2}',
+    '.shp-item-name{font-weight:800;font-size:1rem}',
+    '.shp-tag{background:#fff3cd;border:2px solid var(--gold);border-radius:8px;padding:0 8px;font-weight:800}',
+    '.shp-basket{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;min-height:70px;min-width:280px;padding:6px 14px;border:3px dashed #e8c48f;border-radius:18px;background:#fff8ec}',
+    '.shp-basket .shp-item{min-width:90px;padding:4px 8px}',
+    '.shp-till{min-height:10px}',
+    '.shp-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}',
+    '.shp-big{font-size:1.6rem;font-weight:800}',
+    '.shp-paid{display:inline-flex;align-items:center;gap:6px;font-size:1.3rem;font-weight:800;background:var(--info-bg);border-radius:12px;padding:6px 12px}',
+    '.shp-svg{display:block}',
+    '.shp-note-t{font-size:22px;font-weight:800;font-family:var(--font)}',
+    '.shp-coin-t{font-size:13px;font-weight:800;font-family:var(--font);fill:#2f3b4a}',
+    '.shp-line-wrap{width:100%;display:flex;justify-content:center}',
+    '.shp-line{max-width:100%;height:auto}',
+    '.shp-axis{stroke:var(--ink);stroke-width:3}',
+    '.shp-tick{stroke:var(--ink);stroke-width:2}',
+    '.shp-tick-t{font-size:16px;font-weight:700;fill:var(--ink-soft);font-family:var(--font)}',
+    '.shp-start{fill:var(--ink);font-weight:800}',
+    '.shp-hop{fill:none;stroke:#e07a1f;stroke-width:3}',
+    '.shp-hop-t{font-size:17px;font-weight:800;fill:#b4540a;font-family:var(--font)}',
+    '.shp-countup{display:flex;flex-direction:column;align-items:center;width:100%}',
+    '.shp-sumline{font-size:1.25rem;font-weight:800}',
+    '.shp-sumline b{color:#0b6e66}',
+    '.shp-show{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}',
+    '.shp-answers{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}',
+    '.shp-field{display:flex;align-items:center;gap:6px}',
+    '.shp-field-l{font-weight:800;font-size:1.15rem}',
+    '.shp-in{width:130px}',
+    '.shp-barbox{width:100%;max-width:620px;display:flex;flex-direction:column;gap:4px}',
+    '.shp-bar{display:flex;border-radius:10px;min-height:58px}',
+    '.shp-bar-whole{background:#d9eafb;border:3px solid #1d4f8a;justify-content:center;align-items:center}',
+    '.shp-bar-parts{gap:4px}',
+    '.shp-seg{display:flex;justify-content:center;align-items:center;border-radius:10px;border:3px solid #b4540a;background:#fde9c6;min-width:0}',
+    '.shp-seg-1{background:#e3f2dc;border-color:#2f6b2f}',
+    '.shp-filled{box-shadow:0 0 0 4px var(--good-bg)}',
+    '.shp-bar-txt{display:flex;flex-direction:column;align-items:center;line-height:1.1;font-size:1.25rem}',
+    '.shp-bar-txt small{font-size:.85rem;font-weight:800;color:var(--ink-soft)}',
+    '.shp-q{color:var(--try);font-size:1.5rem}',
+    '.shp-share{display:flex;flex-direction:column;gap:10px;align-items:center;width:100%}',
+    '.shp-src-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}',
+    '.shp-src{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:40px;max-width:640px}',
+    '.shp-share-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}',
+    '.shp-money{background:none;border:0;padding:1px;line-height:0;cursor:pointer;font-family:inherit}',
+    'span.shp-money{cursor:default}',
+    '.shp-piles{display:flex;gap:14px;justify-content:center;width:100%;flex-wrap:wrap}',
+    '.shp-pile{flex:1 1 220px;max-width:320px;border:3px solid var(--line);border-radius:50% / 30%;background:#fbfcff;padding:8px 16px;display:flex;flex-direction:column;align-items:center;min-height:120px}',
+    '.shp-pile-h{font-weight:800;color:var(--ink-soft)}',
+    '.shp-pile-items{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;flex:1;align-items:center}',
+    '.shp-pile-tot{font-size:1.4rem;font-weight:800;color:#0b6e66}',
+    '.shp-pulse{animation:shpPulse 1s ease 2}',
+    '@keyframes shpPulse{50%{transform:scale(1.08)}}',
+    '.shp-small{font-size:.9rem;color:var(--ink-soft);font-weight:700}',
+    '.shp-sel{font-weight:800;font-size:1.1rem;min-height:1.5em;text-align:center}',
+    '.shp-board{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}',
+    '.shp-slot{border:3px dashed var(--line);border-radius:12px;padding:6px 14px;font-weight:800;min-width:200px;text-align:center}',
+    '.shp-slot-ok{border-style:solid;border-color:var(--good);background:var(--good-bg);color:var(--good)}',
+    '@media (max-width:700px){.shp-item{min-width:88px;padding:4px 6px}.shp-icon{width:64px;height:32px}}',
   ].join('\n');
   document.head.appendChild(el('style', { 'data-activity': 'shop-and-change' }, css));
 })();

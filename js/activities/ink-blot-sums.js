@@ -367,7 +367,7 @@
   }
 
   function learnBoard(stage, api) {
-    api.say('One answer is not the end! Find two more and pin them on the board.');
+    api.say('There is more than one answer! Find two answers and pin them on the board.');
     api.lockNext();
     var sols = solve(K);
     stage.appendChild(MQ.ui.lesson('How many answers?', 'Two hidden digits that add to <b>11</b>.'));
@@ -462,7 +462,8 @@
       var hint = eqText(q, v).replace(' = ' + q.r, '') + ' makes ' + value(q, v[0]) + ', not ' + q.r + '. ';
       hint += q.op === '+' ? 'The ones must make ' + (10 + (q.r % 10)) + ': ? + ' + q.bVis + ' = ' + (10 + (q.r % 10)) + '.' : 'Open a ten: 1? − ' + q.bVis + ' must end in ' + (q.r % 10) + '.';
       if (api.tries() >= 1) hint = seenText(q);
-      api.check(false, hint, value(q, v[0]) === q.r + (q.op === '+' ? 10 : -10) || value(q, v[0]) === q.r - (q.op === '+' ? 10 : -10) ? 'Forgot the regrouped ten' : 'Ones make the wrong total');
+      // One blot: any wrong digit gives the wrong ones total (it can never be off by exactly a ten).
+      api.check(false, hint, 'Ones make the wrong total');
     });
     api.onReveal(function () {
       locked = true;
@@ -470,6 +471,7 @@
       pz.set(q.sols[0]);
       var base = q.op === '+' ? q.a * 10 + q.bVis : q.a * 10 - q.bVis;
       stage.appendChild(el('div', { class: P + 'work' }, el('div', null, q.a + '0 ' + q.op + ' ' + q.bVis + ' = ' + base), el('div', null, q.r + ' − ' + base + ' = ' + q.sols[0][0]), el('div', { class: P + 'work-ans' }, eqText(q, q.sols[0]))));
+      api.feedback(q.a + '0 ' + q.op + ' ' + q.bVis + ' = ' + base + ', and ' + q.r + ' − ' + base + ' = ' + q.sols[0][0] + '. So ' + eqText(q, q.sols[0]) + '.', 'info');
     });
   }
 

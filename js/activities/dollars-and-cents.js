@@ -179,8 +179,13 @@
     return el('div', { class: 'dc-join-line' }, el('span', { class: 'dc-dol' }, '$' + d), ' and ', el('span', { class: 'dc-cen' }, r + 'c'), ' = ', el('b', null, money(c)));
   }
 
-  /** Drag an HTML element onto target elements (mouse or touch). Click also works. */
+  /**
+   * Drag an HTML element onto target elements (mouse or touch). Click also works.
+   * With opts.delegate (a selector), src is a container bound once: any matching child can be
+   * dragged or clicked, and onDrop(target, item) / onClick(item) receive that child.
+   */
   function htmlDrag(api, src, opts) {
+    var cur = src;
     var start = null;
     var ghost = null;
     var offX = 0;
@@ -212,6 +217,11 @@
     function down(e) {
       if (e.button) return;
       if (opts.enabled && !opts.enabled()) return;
+      if (opts.delegate) {
+        var it = e.target.closest ? e.target.closest(opts.delegate) : null;
+        if (!it || !src.contains(it)) return;
+        cur = it;
+      }
       e.preventDefault();
       start = { x: e.clientX, y: e.clientY };
       dragged = false;
@@ -225,15 +235,15 @@
       var dy = e.clientY - start.y;
       if (!ghost) {
         if (dx * dx + dy * dy < 36) return;
-        var r = src.getBoundingClientRect();
+        var r = cur.getBoundingClientRect();
         offX = start.x - r.left;
         offY = start.y - r.top;
-        ghost = src.cloneNode(true);
+        ghost = cur.cloneNode(true);
         ghost.classList.add('dc-ghost');
         ghost.style.width = r.width + 'px';
         ghost.style.height = r.height + 'px';
         document.body.appendChild(ghost);
-        src.classList.add('dc-lifted');
+        cur.classList.add('dc-lifted');
       }
       ghost.style.left = e.clientX - offX + 'px';
       ghost.style.top = e.clientY - offY + 'px';
@@ -245,28 +255,33 @@
       unbind();
       var wasDrag = !!ghost;
       dropGhost();
-      src.classList.remove('dc-lifted');
+      cur.classList.remove('dc-lifted');
       start = null;
       if (!wasDrag) return; // a plain click is handled by the click listener
       dragged = true;
       var t = hit(e.clientX, e.clientY);
-      if (t && opts.onDrop) opts.onDrop(t);
+      if (t && opts.onDrop) opts.onDrop(t, cur);
     }
     function cancel() {
       unbind();
       dropGhost();
-      src.classList.remove('dc-lifted');
+      cur.classList.remove('dc-lifted');
       start = null;
     }
-    function click() {
+    function click(e) {
       if (dragged) {
         dragged = false;
         return;
       }
       if (opts.enabled && !opts.enabled()) return;
-      if (opts.onClick) opts.onClick();
+      var item = src;
+      if (opts.delegate) {
+        item = e.target.closest ? e.target.closest(opts.delegate) : null;
+        if (!item || !src.contains(item)) return;
+      }
+      if (opts.onClick) opts.onClick(item);
     }
-    src.style.touchAction = 'none';
+    if (!opts.delegate) src.style.touchAction = 'none';
     src.addEventListener('pointerdown', down);
     src.addEventListener('click', click);
     api.cleanup(function () {
@@ -287,9 +302,10 @@
       var p = parseMoney(input.value);
       if (p.empty || p.bad) {
         input.classList.add('shake');
-        setTimeout(function () {
-          input.classList.remove('shake');
-        }, 400);
+        if (opts.api)
+          opts.api.later(function () {
+            input.classList.remove('shake');
+          }, 400);
         if (opts.api) opts.api.feedback('Type an amount like 4.25', 'info');
         input.focus();
         return;
@@ -522,9 +538,13 @@
     }
     var root = S('svg', { viewBox: '0 0 ' + W + ' 175', width: W, height: 175, class: 'dc-line' });
     root.appendChild(S('line', { x1: X(0), y1: LY, x2: X(100), y2: LY, class: 'dc-axis' }));
+    var tickT = {};
     for (var t = 0; t <= 100; t += 5) {
       root.appendChild(S('line', { x1: X(t), y1: LY - (t % 25 ? 5 : 9), x2: X(t), y2: LY + (t % 25 ? 5 : 9), class: 'dc-tick' }));
-      if (t % 25 === 0) root.appendChild(S('text', { x: X(t), y: LY + 28, 'text-anchor': 'middle', class: 'dc-tick-t' }, t + 'c'));
+      if (t % 25 === 0) {
+        tickT[t] = S('text', { x: X(t), y: LY + 28, 'text-anchor': 'middle', class: 'dc-tick-t' }, t + 'c');
+        root.appendChild(tickT[t]);
+      }
     }
     var hopLayer = S('g');
     root.appendChild(hopLayer);
@@ -551,7 +571,10 @@
         hopLayer.appendChild(S('path', { d: 'M' + X(from) + ',' + LY + ' Q' + mid + ',' + (LY - h * 2) + ' ' + X(at) + ',' + LY, class: 'dc-hop' }));
         hopLayer.appendChild(S('text', { x: v < 5 ? X(at) + 14 : mid, y: v < 5 ? LY - 30 : LY - h - 6, 'text-anchor': 'middle', class: 'dc-hop-t' }, '+' + v + 'c'));
         hopLayer.appendChild(S('circle', { cx: X(at), cy: LY, r: 6, class: 'dc-dot' }));
-        hopLayer.appendChild(S('text', { x: X(at), y: v < 5 ? LY + 52 : LY - 14 - (v < 5 ? 0 : 0), 'text-anchor': 'middle', class: 'dc-land-t' }, String(at)));
+        // Landing number: light up the tick label when we land on one; otherwise write it below the
+        // tick labels so it never sits on the hops.
+        if (tickT[at]) tickT[at].setAttribute('class', 'dc-tick-t dc-land-t');
+        else hopLayer.appendChild(S('text', { x: X(at), y: LY + 52, 'text-anchor': 'middle', class: 'dc-land-t' }, at + 'c'));
         total.textContent = at + 'c';
         if (n === coins.length) {
           api.say('25, 50, 75, then 76. Three 25c coins are 75c, not 3c!', 'cheer');
@@ -627,16 +650,24 @@
     var d = Math.floor(q.c / 100);
     var r = q.c % 100;
     api.say('How many dollars and how many cents?', 'think');
+    // Distractors in order of preference; the first two that differ from the answer (and each other) are used.
+    var cands = [];
+    if (r > 0) cands.push({ label: words(r * 100 + d), hint: 'The number before the point is the dollars.', hint2: 'Before the point: ' + d + '. So it is ' + d + (d === 1 ? ' dollar.' : ' dollars.'), tag: 'Mixed up dollars and cents' });
+    if (r % 10 === 0) cands.push({ label: words(d * 100 + r / 10), hint: 'Look at both digits after the point: .' + pad2(r) + '.', hint2: '.' + pad2(r) + ' is ' + r + ' cents, not ' + r / 10 + '.', tag: 'Read .30 as 3 cents' });
+    else {
+      var swapped = (r % 10) * 10 + Math.floor(r / 10);
+      cands.push({ label: words(d * 100 + swapped), hint: 'Read the two cent digits in order.', hint2: 'After the point it says ' + pad2(r) + ', so ' + r + ' cents.', tag: 'Mixed up dollars and cents' });
+      cands.push({ label: words(d * 100 + (r % 10)), hint: 'Look at both digits after the point: .' + pad2(r) + '.', hint2: '.' + pad2(r) + ' is ' + r + ' cents, not ' + (r % 10) + '.', tag: 'Mixed up dollars and cents' });
+    }
+    cands.push({ label: words((d * 10 + Math.floor(r / 10)) * 100 + (r % 10)), hint: 'Only the number before the point is dollars.', hint2: 'Before the point: ' + d + '. After it: ' + pad2(r) + ' cents.', tag: 'Mixed up dollars and cents' });
+    cands.push({ label: words(r), hint: 'There are dollars too! The number before the point is the dollars.', hint2: 'Before the point: ' + d + ' dollars. After it: ' + r + ' cents.', tag: 'Mixed up dollars and cents' });
     var opts = [{ label: words(q.c) }];
-    opts.push({ label: r + ' dollars ' + d + ' cents', hint: 'The number before the point is the dollars.', hint2: 'Before the point: ' + d + '. So it is ' + d + ' dollars.', tag: 'Mixed up dollars and cents' });
-    if (r % 10 === 0) opts.push({ label: d + ' dollars ' + r / 10 + ' cents', hint: 'Look at both digits after the point: .' + pad2(r) + '.', hint2: '.' + pad2(r) + ' is ' + r + ' cents, not ' + r / 10 + '.', tag: 'Read .30 as 3 cents' });
-    else opts.push({ label: d + ' dollars ' + (r % 10) * 10 + (Math.floor(r / 10)) + ' cents', hint: 'Read the two cent digits in order.', hint2: 'After the point it says ' + pad2(r) + ', so ' + r + ' cents.', tag: 'Mixed up dollars and cents' });
-    // make sure labels are different
     var seen = {};
-    opts = opts.filter(function (o) {
-      if (seen[o.label]) return false;
+    seen[opts[0].label] = true;
+    cands.forEach(function (o) {
+      if (opts.length >= 3 || seen[o.label]) return;
       seen[o.label] = true;
-      return true;
+      opts.push(o);
     });
     choiceQ(stage, api, q, 'What does <b>' + money(q.c) + '</b> mean?', U.shuffle(opts), words(q.c), money(q.c) + ' is ' + words(q.c) + '.');
   }
@@ -713,6 +744,11 @@
     var noteSum = sum(q.items) - sum(coinsOnly);
     var box = moneyInput(
       function (p) {
+        if (p.cent && !p.dollar && (p.form === 'dd' || p.form === 'd1' || p.value >= 100)) {
+          box.bad();
+          api.feedback('With a $ amount we don\'t write c. Type it like ' + money(q.c).slice(1) + '.', 'info');
+          return;
+        }
         if (p.form === 'd1') {
           api.feedback('Cents take two places after the point, like 4.05 or 4.50.', 'info');
           return;
@@ -763,26 +799,33 @@
     tray.appendChild(trayItems);
     var inTray = [];
     var locked = false;
+    // One delegated drag/click binding for every token in the tray (tokens are redrawn often).
+    function trayIndex(item) {
+      return parseInt(item.getAttribute('data-i'), 10);
+    }
+    htmlDrag(api, trayItems, {
+      delegate: '.dc-in-tray',
+      targets: function () {
+        return [bank];
+      },
+      enabled: function () {
+        return !locked;
+      },
+      onDrop: function (t, item) {
+        remove(trayIndex(item));
+      },
+      onClick: function (item) {
+        remove(trayIndex(item));
+      },
+    });
     function draw() {
       MQ.clear(trayItems);
       if (!inTray.length) trayItems.appendChild(el('span', { class: 'dc-small dc-ph' }, 'Drag notes and coins here'));
       inTray = sortDesc(inTray);
       inTray.forEach(function (v, i) {
         var t = token(v, { button: true, scale: 0.72, cls: 'dc-in-tray' });
-        htmlDrag(api, t, {
-          targets: function () {
-            return [bank];
-          },
-          enabled: function () {
-            return !locked;
-          },
-          onDrop: function () {
-            remove(i);
-          },
-          onClick: function () {
-            remove(i);
-          },
-        });
+        t.setAttribute('data-i', String(i));
+        t.style.touchAction = 'none';
         trayItems.appendChild(t);
       });
       trayTotal.textContent = money(sum(inTray));

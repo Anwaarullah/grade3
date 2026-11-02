@@ -560,7 +560,9 @@
     cw.update({ open: true, ans: 3 });
     var a = dig(q.n), b = dig(q.m);
     var txt = needsSwap(q.n, q.m) ? 'Only ' + a.o + ' ones, so open a ten: ' + (10 + a.o) + ' − ' + b.o + ' = ' + (10 + a.o - b.o) + '. ' : 'Enough ones: ' + a.o + ' − ' + b.o + ' = ' + (a.o - b.o) + '. ';
-    stage.appendChild(el('div', { class: P + 'reveal' }, extra || null, cw.el, el('div', { class: P + 'readout' }, txt + q.n + ' − ' + q.m + ' = ' + q.ans)));
+    var line = txt + q.n + ' − ' + q.m + ' = ' + q.ans + '.';
+    stage.appendChild(el('div', { class: P + 'reveal' }, extra || null, cw.el, el('div', { class: P + 'readout' }, line)));
+    return line;
   }
 
   function renderMat(stage, api, q) {
@@ -571,7 +573,9 @@
     var mat = blockMat({
       maxFlats: dig(q.n).h,
       onBlock: function (kind) {
-        if (kind === 't' && step2) openTen(true);
+        if (kind !== 't' || !step2 || done) return;
+        if (q.swap) openTen(true);
+        else api.feedback('We have enough ones, so there is no need to open a ten.', 'info');
       },
     });
     mat.render(st);
@@ -584,6 +588,7 @@
       if (sound) api.sound('pop');
     }
     var step2 = false;
+    var done = false;
     var area = el('div', { class: P + 'stepbox' });
     stage.appendChild(area);
     area.appendChild(el('div', { class: P + 'q' }, 'Enough ones to take away ' + q.m + '?'));
@@ -594,7 +599,7 @@
         ch.mark(v, 'good');
         ch.disable();
         api.sound('correct');
-        goStep2();
+        goStep2(false);
       } else {
         ch.mark(v, 'bad');
         var a = q.n % 10;
@@ -603,27 +608,31 @@
       }
     }, { columns: 2 });
     area.appendChild(ch);
-    function goStep2() {
+    function goStep2(revealing) {
       if (step2) return;
       step2 = true;
-      if (q.swap) {
-        mat.svg.classList.add(P + 'can-open');
-        api.feedback('Right! Click a ten-stick to open it, then take ' + q.m + ' away.', 'info');
-      } else api.feedback('Right! Take ' + q.m + ' ones away.', 'info');
-      inp = answerRow(q, api);
+      if (q.swap && !revealing) mat.svg.classList.add(P + 'can-open');
+      if (!revealing) {
+        if (q.swap) api.feedback('Right! Click a ten-stick to open it, then work out the answer.', 'info');
+        else api.feedback('Right! Take ' + q.m + ' ones away from ' + (q.n % 10) + ' ones, then work out the answer.', 'info');
+      }
+      inp = answerRow(q, api, function () {
+        done = true;
+      });
       area.appendChild(inp.el);
       inp.focus();
     }
     api.onReveal(function () {
       ch.mark(q.swap ? 'no' : 'yes', 'good');
       ch.disable();
-      goStep2();
+      done = true;
+      goStep2(true);
       mat.svg.classList.remove(P + 'can-open');
       mat.render(finalState(q.n, q.m));
       inp.setValue(q.ans);
       inp.good();
       inp.disable();
-      revealWork(stage, q);
+      api.feedback(revealWork(stage, q), 'info');
     });
   }
 
@@ -668,7 +677,7 @@
       inp.setValue(q.ans);
       inp.good();
       inp.disable();
-      revealWork(stage, q, el('div', { class: P + 'readout' }, 'Estimate: ' + r10(q.n) + ' − ' + r10(q.m) + ' = ' + q.est));
+      api.feedback(revealWork(stage, q, el('div', { class: P + 'readout' }, 'Estimate: ' + r10(q.n) + ' − ' + r10(q.m) + ' = ' + q.est)), 'info');
     });
   }
 
@@ -685,7 +694,7 @@
       inp.setValue(q.ans);
       inp.good();
       inp.disable();
-      revealWork(stage, q, el('div', { class: P + 'readout' }, 'Estimate: ' + r10(q.n) + ' − ' + r10(q.m) + ' = ' + q.est));
+      api.feedback(revealWork(stage, q, el('div', { class: P + 'readout' }, 'Estimate: ' + r10(q.n) + ' − ' + r10(q.m) + ' = ' + q.est)), 'info');
     });
   }
 
@@ -731,7 +740,9 @@
       inp.setValue(q.ans);
       inp.good();
       inp.disable();
-      stage.appendChild(el('div', { class: P + 'readout' }, q.jumps.join(' + ') + ' = ' + q.ans + '. So ' + q.n + ' − ' + q.m + ' = ' + q.ans + '.'));
+      var line = q.jumps.join(' + ') + ' = ' + q.ans + '. So ' + q.n + ' − ' + q.m + ' = ' + q.ans + '.';
+      stage.appendChild(el('div', { class: P + 'readout' }, line));
+      api.feedback(line, 'info');
     });
   }
 
@@ -819,7 +830,7 @@
       inp.setValue(n - m);
       inp.good();
       inp.disable();
-      revealWork(stage, { n: n, m: m, ans: n - m });
+      api.feedback(revealWork(stage, { n: n, m: m, ans: n - m }), 'info');
     });
   }
 
