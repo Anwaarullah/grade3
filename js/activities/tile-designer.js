@@ -580,6 +580,10 @@
     checkBtn.addEventListener('click', function () {
       if (step !== 1 || api.isAnswered()) return;
       var c = t.count();
+      if (c === 0) {
+        api.feedback('Click some pieces to shade them first, then press Check.', 'info');
+        return;
+      }
       if (c === k && !sameAsBolt()) {
         if (q.thenNot) {
           step = 2;
