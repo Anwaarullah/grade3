@@ -142,7 +142,7 @@
         title: 'Sale Price Shop',
         icon: '🏷️',
         summary: 'Prices are cut by ¼ or ⅒. Split the coins into piles to find the new price.',
-        book: 'Textbook p.195–196 Worked example 1, Q7 · Workbook p.177 Q7, p.178 Q10',
+        book: 'Textbook p.195–196 Worked example 1, Q7 · Workbook p.177 Q7',
         tips: {
           goal: 'Know that "reduced by ¼" means find a quarter of the price and take it away from the price.',
           say: [
