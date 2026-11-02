@@ -928,9 +928,13 @@
       });
     });
     api.later(function () {
-      if (view.blanks[0]) {
+      // start next to the given number: first blank in working order
+      var first = view.order.filter(function (x) {
+        return !x.given && x.input;
+      })[0] || view.blanks[0];
+      if (first) {
         try {
-          view.blanks[0].input.focus({ preventScroll: true });
+          first.input.focus({ preventScroll: true });
         } catch (e) {}
       }
     }, 60);

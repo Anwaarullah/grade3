@@ -1119,8 +1119,10 @@
       var dd = +b.getAttribute('data-d');
       sel[dd] = !sel[dd];
       MQ.sound('click');
-      stmt.box.textContent = sel[dd] ? String(dd) : '';
-      stmt.box.classList.toggle('co-mbox-full', !!sel[dd]);
+      var first = -1;
+      for (var k = 0; k <= 9; k++) if (sel[k]) { first = k; break; }
+      stmt.box.textContent = first === -1 ? '' : String(first);
+      stmt.box.classList.toggle('co-mbox-full', first !== -1);
       paint(null);
     });
 
@@ -1191,7 +1193,7 @@
         var lead0 = q.p === 'h' && dd === 0;
         var bn = boxNum(q, dd);
         var txt = lead0 ? '0' + String(q.bd.t) + q.bd.o : String(bn);
-        g.appendChild(el('div', { class: 'co-try ' + (okD ? 'co-try-ok' : 'co-try-no') }, el('span', { class: 'co-try-n' }, txt), el('span', { class: 'co-try-why' }, lead0 ? '✗ not 3-digit' : okD ? '✓ ' + q.sym + ' ' + q.k : bn === q.k ? '✗ equal' : '✗')));
+        g.appendChild(el('div', { class: 'co-try ' + (okD ? 'co-try-ok' : 'co-try-no') }, el('span', { class: 'co-try-n' }, txt), el('span', { class: 'co-try-why' }, lead0 ? '✗ not 3-digit' : okD ? '✓ ' + stmtText(q, dd) : bn === q.k ? '✗ equal' : '✗')));
       }
       work.appendChild(el('div', { class: 'co-strip-cap' }, 'Try every digit in the box and compare with ' + q.k + ':'));
       work.appendChild(g);

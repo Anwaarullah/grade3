@@ -768,7 +768,7 @@
       out.push({ type: 'cards', n: n });
     });
     // Level 3: find every number a six-card tray makes; type the digits for a name
-    var tr = makeTray(Math.random() < 0.6 ? 4 : 2);
+    var tr = makeTray(4); // two -ty cards, as on p.15 (a teen card would allow 4-card names)
     var l3 = [{ type: 'find', tray: tr.tray, all: tr.all }];
     var r = Math.random();
     l3.push({

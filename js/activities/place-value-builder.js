@@ -108,6 +108,15 @@
    * A loose base-ten picture (like a book picture): hundred squares, then ten sticks,
    * then single cubes. Returns { el, svg, pieces, labels(kind, api, ms), labelAll(api, ms) }.
    */
+  /** Mistake tag for a place mix-up between places a and b ('h', 't', 'o'). */
+  function placeTag(a, b) {
+    return (a === 't' && b === 'o') || (a === 'o' && b === 't') ? 'Mixed up tens and ones' : 'Mixed up the places';
+  }
+  function valuePlace(n, digit) {
+    for (var i = 0; i < KINDS.length; i++) if (n === digit * PLACE[KINDS[i]].val) return KINDS[i];
+    return null;
+  }
+
   function loosePic(c, u, opts) {
     opts = opts || {};
     u = u || 7;
@@ -118,9 +127,10 @@
     var bodyH = 10 * u;
     var fstep = 10 * u + 8;
     if (c.h) {
-      var perRow = Math.min(c.h, 5);
-      for (var i = 0; i < c.h; i++) pieces.push({ kind: 'h', x: x + (i % 5) * fstep, y: top + Math.floor(i / 5) * fstep, w: 10 * u, h: 10 * u });
-      bodyH = Math.max(bodyH, Math.ceil(c.h / 5) * fstep - 8);
+      var hRow = opts.hRow || 5; // hundred squares per row
+      var perRow = Math.min(c.h, hRow);
+      for (var i = 0; i < c.h; i++) pieces.push({ kind: 'h', x: x + (i % hRow) * fstep, y: top + Math.floor(i / hRow) * fstep, w: 10 * u, h: 10 * u });
+      bodyH = Math.max(bodyH, Math.ceil(c.h / hRow) * fstep - 8);
       x += perRow * fstep - 8 + gap;
     }
     if (c.t) {
@@ -902,7 +912,7 @@
       }
     });
     stage.appendChild(el('div', { class: 'pv-cardbox' }, cards.el, info));
-    var blocks = loosePic(c, 6);
+    var blocks = loosePic(c, 9, { hRow: 3 });
     var ab = abacus(api, { counts: c });
     ab.values();
     stage.appendChild(
@@ -999,7 +1009,7 @@
     var c = digitsOf(q.n);
     api.say('What number do these blocks show?', 'think');
     wrap.appendChild(MQ.ui.prompt('What number is this?'));
-    var pic = loosePic(c, 7, { className: 'pv-readpic' });
+    var pic = loosePic(c, 10, { className: 'pv-readpic', hRow: 3 });
     wrap.appendChild(el('div', { class: 'pv-picbox' }, pic.el));
     var work = el('div', { class: 'pv-work' });
     var inp = MQ.ui.numberInput({
@@ -1131,7 +1141,7 @@
         } else if (KINDS.some(function (k) {
           return k !== b && n === d[b] * PLACE[k].val;
         })) {
-          api.check(false, 'Which place is the missing digit in? It is the ' + PLACE[b].name + ' digit, ' + d[b] + '.', 'Mixed up tens and ones');
+          api.check(false, 'Which place is the missing digit in? It is the ' + PLACE[b].name + ' digit, ' + d[b] + '.', placeTag(b, valuePlace(n, d[b])));
         } else {
           api.check(false, strong ? q.n + ' is ' + countWord(d.h, 'h') + ', ' + countWord(d.t, 't') + ' and ' + countWord(d.o, 'o') + '. Which one is missing?' : 'Read ' + q.n + ' aloud. Which part is not there yet?', b === 'o' ? 'Mixed up tens and ones' : 'Gave the digit not its value');
         }
@@ -1184,7 +1194,7 @@
         showStep2();
       } else {
         ch.mark(v, 'bad');
-        api.check(false, api.tries() >= 1 ? 'Places from the right: ones, tens, hundreds. The ' + d[k] + ' is ' + (k === 'o' ? 'last' : k === 't' ? 'in the middle' : 'first') + '.' : 'Say ' + q.n + ' aloud. Where is the ' + d[k] + '? First, middle or last?', 'Mixed up tens and ones');
+        api.check(false, api.tries() >= 1 ? 'Places from the right: ones, tens, hundreds. The ' + d[k] + ' is ' + (k === 'o' ? 'last' : k === 't' ? 'in the middle' : 'first') + '.' : 'Say ' + q.n + ' aloud. Where is the ' + d[k] + '? First, middle or last?', placeTag(k, v));
       }
     }, { columns: 3 });
     wrap.appendChild(ch);
@@ -1208,7 +1218,7 @@
           } else if (KINDS.some(function (kk) {
             return kk !== k && n === d[k] * PLACE[kk].val;
           })) {
-            api.check(false, 'That is the value in a different place. It is ' + countWord(d[k], k) + '.', 'Mixed up tens and ones');
+            api.check(false, 'That is the value in a different place. It is ' + countWord(d[k], k) + '.', placeTag(k, valuePlace(n, d[k])));
           } else {
             api.check(false, k === 'o' ? 'A ones digit is worth just itself: ' + d[k] + ' ones.' : strong ? 'Count in ' + PLACE[k].val + 's: ' + steps(d[k], k) + '.' : 'How many ' + PLACE[k].name + '? Count them in ' + PLACE[k].val + 's.', 'Wrote a label instead of a value');
           }
