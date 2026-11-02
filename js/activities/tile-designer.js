@@ -186,7 +186,7 @@
     }
     add(k, n, null);
     add(n - k, n, 'Named the other part (shaded and not shaded mixed up)');
-    add(k, n - k, 'Wrote shaded over not-shaded');
+    add(k, n - k, 'Bottom number was the other part, not all the pieces');
     add(n, k, 'Swapped the top and bottom numbers');
     add(k + 1, n, 'Miscounted the pieces');
     add(k, n + 1, 'Miscounted the pieces');
@@ -513,7 +513,7 @@
         var hint;
         if (api.tries() >= 1) hint = 'Count all the pieces: there are ' + n + '. Now count the ' + (q.ask === 'shaded' ? 'coloured' : 'white') + ' ones. Put that number on top.';
         else if (o.mistake && o.mistake.indexOf('other part') !== -1) hint = q.ask === 'shaded' ? 'That is the white part. Count the coloured pieces.' : 'That is the coloured part. Count the white pieces.';
-        else if (o.mistake && o.mistake.indexOf('not-shaded') !== -1) hint = 'The bottom number counts ALL the pieces, coloured and white.';
+        else if (o.mistake && o.mistake.indexOf('other part, not all') !== -1) hint = 'The bottom number counts ALL the pieces, coloured and white.';
         else if (o.mistake && o.mistake.indexOf('Swapped') !== -1) hint = 'The number of pieces in the whole tile goes on the bottom.';
         else hint = 'Count the pieces again, touching each one.';
         api.check(false, hint, o.mistake || 'Miscounted the pieces');
@@ -729,6 +729,11 @@
         var q = deck[api.index];
         stage.setAttribute('data-td-type', q.type);
         stage.removeAttribute('data-bolt');
+        api.cleanup(function () {
+          ['data-td-type', 'data-answer', 'data-bolt'].forEach(function (a) {
+            stage.removeAttribute(a);
+          });
+        });
         if (q.type === 'read') renderRead(stage, api, q);
         else if (q.type === 'make') renderMake(stage, api, q);
         else renderJudge(stage, api, q);

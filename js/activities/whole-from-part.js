@@ -653,13 +653,28 @@
     var box = el('div', { class: 'wp-q', 'data-type': 'choose', 'data-k': q.k, 'data-d': q.d });
     api.say('More than one could be right! Pick every whole that works.', 'think');
     box.appendChild(MQ.ui.prompt('Bolt\'s part is ' + frac(q.k, q.d, 'wp-frac-inline') + ' of a shape. Which could be the <b>whole</b>? Pick <b>all</b> that work.'));
-    var partPic = miniPic(made.g, made.given, 140, 100, { unit: 38, cls: function () { return 'wp-given'; } });
+    // one scale for Bolt's part and all four cards, so equal pieces look equal everywhere
+    var unitAll = 38;
+    [[made.given, 140, 100]].concat(made.opts.map(function (o) { return [o.pieces, 180, 130]; })).forEach(function (t) {
+      var xs = [], ys = [];
+      t[0].forEach(function (p) {
+        p.cells.forEach(function (k) {
+          made.g.verts(k).forEach(function (v) {
+            xs.push(v[0]);
+            ys.push(v[1]);
+          });
+        });
+      });
+      var bw = Math.max.apply(null, xs) - Math.min.apply(null, xs), bh = Math.max.apply(null, ys) - Math.min.apply(null, ys);
+      unitAll = Math.min(unitAll, (t[1] - 12) / bw, (t[2] - 12) / bh);
+    });
+    var partPic = miniPic(made.g, made.given, 140, 100, { unit: unitAll, cls: function () { return 'wp-given'; } });
     box.appendChild(el('div', { class: 'wp-part-box' }, el('div', { class: 'wp-part-label' }, 'Bolt\'s part'), partPic));
     var order = U.shuffle(made.opts);
     var picked = {};
     var cards = order.map(function (o) {
       var pic = miniPic(made.g, o.pieces, 180, 130, {
-        unit: 38,
+        unit: unitAll,
         numbers: false,
         cls: function (p) {
           return p.given ? 'wp-given' : p.stamp === q.kind ? 'wp-new' : 'wp-big';

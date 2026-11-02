@@ -745,6 +745,9 @@
       ch.mark(winner.name, 'good');
       ch.disable();
       showWhy();
+      var bigN = Math.max(left.n, right.n);
+      var smallN = Math.min(left.n, right.n);
+      api.feedback('The same pizza cut into fewer slices has bigger slices. 1/' + smallN + ' is more than 1/' + bigN + ', so ' + winner.name + ' eats more.', 'info');
     });
   }
 

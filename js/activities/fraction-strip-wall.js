@@ -75,7 +75,7 @@
    */
   function coverTask(api, a, big, small, opts) {
     opts = opts || {};
-    var VW = 790;
+    var VW = X0 + W + 30 + W / small + 30;
     var root = svg('svg', { viewBox: '0 0 ' + VW + ' 172', class: 'sw-svg sw-cover' });
     var g = svg('g');
     root.appendChild(g);
@@ -90,11 +90,11 @@
     g.appendChild(guide);
     // pile
     var w = W / small;
-    var pileX = 660;
+    var pileX = X0 + W + 30;
     var pile = svg('g', { class: 'sw-pile' });
-    for (var k = 2; k >= 0; k--) pile.appendChild(svg('rect', { x: pileX + k * 6, y: trackY - k * 6, width: Math.min(w, 100), height: RH, rx: 4, fill: COL[small], stroke: '#5d4037', 'stroke-width': 2.5 }));
-    svgFrac(pile, pileX + Math.min(w, 100) / 2, trackY + RH / 2 - 4, 1, small, 18);
-    pile.appendChild(svg('text', { x: pileX + 55, y: trackY + RH + 26, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700, fill: '#5c677d' }, 'drag or click'));
+    for (var k = 2; k >= 0; k--) pile.appendChild(svg('rect', { x: pileX + k * 6, y: trackY - k * 6, width: w, height: RH, rx: 4, fill: COL[small], stroke: '#5d4037', 'stroke-width': 2.5 }));
+    svgFrac(pile, pileX + w / 2, trackY + RH / 2 - 4, 1, small, 18);
+    pile.appendChild(svg('text', { x: pileX + w / 2 + 6, y: trackY + RH + 26, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700, fill: '#5c677d' }, 'drag or click'));
     root.appendChild(pile);
     var ghost = svg('rect', { x: 0, y: 0, width: w, height: RH, rx: 4, fill: COL[small], stroke: '#5d4037', 'stroke-width': 2.5, opacity: 0, 'pointer-events': 'none' });
     root.appendChild(ghost);
@@ -829,6 +829,10 @@
         if (!deck || api.index === 0) deck = buildDeck();
         var q = deck[api.index];
         stage.setAttribute('data-sw-type', q.type);
+        api.cleanup(function () {
+          stage.removeAttribute('data-sw-type');
+          stage.removeAttribute('data-answer');
+        });
         if (q.type === 'cover') renderCover(stage, api, q);
         else if (q.type === 'fill') renderFill(stage, api, q);
         else if (q.type === 'tf') renderTF(stage, api, q);
@@ -840,7 +844,7 @@
   });
 
   var css = [
-    '.sw-svg{width:100%;max-width:700px;height:auto;display:block;user-select:none}',
+    '.sw-svg{width:100%;max-width:760px;height:auto;display:block;user-select:none}',
     '.sw-wall{max-width:640px}',
     '.sw-pizzas{max-width:520px}',
     '.sw-piece.sw-lit{stroke:#e63946;stroke-width:4}',

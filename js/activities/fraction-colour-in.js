@@ -517,7 +517,8 @@
       }
       var firstBad = null;
       ['g', 'y', 'w'].forEach(function (k) {
-        var ok = vals[k][0] === want[k] && vals[k][1] === 10;
+        // equivalent forms (5 yellow written as 1/2) are right too
+        var ok = vals[k][1] > 0 && vals[k][0] * 10 === want[k] * vals[k][1];
         boxes[k].mark(ok ? 'good' : 'bad');
         if (!ok && !firstBad) firstBad = k;
       });
@@ -628,7 +629,7 @@
       }
       var strong = api.tries() >= 1;
       if (k === t.d - t.n && t.d - t.n !== t.n) {
-        api.check(false, strong ? 'The TOP number says how many groups to colour: ' + t.n + '. You coloured ' + k + '.' : 'You coloured the part that should stay white. The top number is how many groups to colour.', TAG.over);
+        api.check(false, strong ? 'The TOP number says how many groups to colour: ' + t.n + '. You coloured ' + k + '.' : 'You coloured the part that should stay white. The top number is how many groups to colour.', 'Coloured the part that should stay white');
       } else {
         api.check(false, strong ? 'Colour exactly ' + t.n + ' of the ' + t.d + ' groups. You have ' + k + ' now.' : 'The top number, ' + t.n + ', tells you how many groups to colour.', TAG.count);
       }
