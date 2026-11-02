@@ -81,8 +81,11 @@
     if (ans === a + b) {
       out = { tag: 'Added instead of taking away', hint: ans + ' is bigger than ' + a + '! We take away ' + b + ', so the answer is smaller.' };
     } else if (ans === sfl && sfl !== c) {
-      if (n.h) out = { tag: 'Took smaller digit from larger', hint: 'In the tens it is ' + A.t + ' take away ' + B.t + ', not ' + B.t + ' take away ' + A.t + '. Not enough tens: swap a hundred!' };
-      else out = { tag: 'Took smaller digit from larger', hint: 'In the ones it is ' + A.o + ' take away ' + B.o + ', not ' + B.o + ' take away ' + A.o + '. Not enough ones: swap a ten!' };
+      var rv = [];
+      if (A.o < B.o) rv.push('In the ones it is ' + A.o + ' take away ' + B.o + ', not ' + B.o + ' take away ' + A.o + '. Not enough ones: swap a ten!');
+      if (A.t < B.t) rv.push('In the tens it is ' + A.t + ' take away ' + B.t + ', not ' + B.t + ' take away ' + A.t + '. Not enough tens: swap a hundred!');
+      if (!rv.length) rv.push('Take the bottom number away from the top number in every column. Swap first if a column is short.');
+      out = { tag: 'Took smaller digit from larger', hint: rv.join(' ') };
     } else if (n.h && d === 100) {
       out = { tag: 'Forgot to reduce the hundreds', hint: 'You swapped a hundred for 10 tens. So there is one hundred less: ' + A.h + ' hundreds become ' + (A.h - 1) + '.' };
     } else if (n.t && d === 10) {

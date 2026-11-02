@@ -70,8 +70,10 @@
     var walk = 'Ones: ' + terms(nums, 'o', 1).join(' + ') + ' = ' + p.o + '. Tens: ' + (terms(nums, 't', 10).join(' + ') || '0') + ' = ' + p.t + '.' + (p.h ? ' Hundreds: ' + p.h + '.' : '') + ' Now add those parts.';
     var out;
     var written = noRegroupWrite(nums);
-    if (ans === written && written !== correct) {
-      if (p.o >= 10) out = { tag: 'Wrote more than 9 ones in the ones place', hint: 'The ones make ' + p.o + '. That is 1 ten and ' + (p.o - 10) + ' ones. Swap 10 ones for a ten!' };
+    if (p.o < 10 && p.td >= 10 && ans === Number(String(p.hd + 1) + String(p.td) + String(p.o)) && ans !== correct) {
+      out = { tag: 'Wrote more than 9 tens in the tens place', hint: 'The tens make ' + p.td + ' tens. Do not write ' + p.td + ' in the tens place: 10 tens make 1 hundred, so ' + p.td + ' tens = 1 hundred and ' + (p.td - 10) + ' tens.' };
+    } else if (ans === written && written !== correct) {
+      if (p.o >= 10) out = { tag: 'Wrote more than 9 ones in the ones place', hint: 'The ones make ' + p.o + '. That is ' + Math.floor(p.o / 10) + ' ten' + (p.o >= 20 ? 's' : '') + ' and ' + (p.o % 10) + ' ones. Swap 10 ones for a ten!' };
       else out = { tag: 'Wrote more than 9 tens in the tens place', hint: 'The tens make ' + p.td + ' tens. 10 tens make 1 hundred. Swap them!' };
     } else if (d === -100 && tc >= 10) {
       out = { tag: 'Forgot the regrouped hundred', hint: 'So close! The tens made ' + tc + ' tens. Did you add the new hundred?' };
@@ -641,7 +643,8 @@
       }
       return fn();
     }
-    var cats = U.shuffle(['none', 'ones', 'tens']);
+    var cat0 = U.pick(['none', 'ones']); // level 1 keeps totals up to 99
+    var cats = [cat0, U.pick(['tens', cat0 === 'none' ? 'ones' : 'none'])];
     return [
       // Level 1: 2-digit + 2-digit, no regrouping / regroup the ones (totals up to 99)
       { type: 'mat', nums: uniq(function () { return gen2('none'); }) },
@@ -928,8 +931,7 @@
         if (v === m) {
           input.good();
           input.disable();
-          var other = m + 10 <= N - 10 ? ' Another way: ' + (N - 10) + ' + 10 = ' + N + '.' : '';
-          api.check(true, 'Yes! ' + m + ' + ' + add + ' = ' + N + '.' + other);
+          api.check(true, 'Yes! ' + m + ' + ' + add + ' = ' + N + '.');
           return;
         }
         if (repeated(memo, v, api)) return;
@@ -942,7 +944,7 @@
         } else if (v % 10 !== N % 10) {
           tag = 'Changed the ones digit when adding tens';
           hint = 'Adding tens never changes the ones. The missing number must end in ' + (N % 10) + '.';
-        } else if (v === m + 100) {
+        } else if (v === m + 100 && Math.floor(m / 100) !== Math.floor(N / 100)) {
           tag = 'Forgot the regrouped hundred';
           hint = 'Check: ' + v + ' + ' + add + ' = ' + (v + add) + ', not ' + N + '. Count back in tens past the hundred carefully.';
         } else {

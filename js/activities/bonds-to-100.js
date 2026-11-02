@@ -16,7 +16,7 @@
   }
   function rev(n) {
     var s = String(n);
-    if (s.length !== 2) return null;
+    if (s.length !== 2 || s[1] === '0') return null;
     return Number(s[1] + s[0]);
   }
 
@@ -107,9 +107,10 @@
     if (n < 10 && x === 10 - n) return { tag: 'Forgot the 0 tens in a single-digit number', hint: n + ' is 0 tens and ' + n + ' ones. ' + n + ' + ' + x + ' only makes 10, not 100. The tens still need to make 9.' };
     if (rev(n) === x && x !== partner(n)) return { tag: 'Reversed the digits', hint: 'Swapping the digits does not work. ' + n + ' + ' + x + ' = ' + (n + x) + ', not 100.' };
     if (n + x === 110 && o !== 0) return { tag: 'Made both digits add to 10', hint: n + ' + ' + x + ' = 110. The ones make 10, which gives an extra ten, so the tens only need to make 9.' };
+    if (o === 0 && n + x === 110) return { tag: 'Tens made 11 when the ones were 0', hint: n + ' + ' + x + ' = 110. The ones are 0, so the tens make exactly 10.' };
     if (o === 0 && n + x === 90) return { tag: 'Tens made 9 when the ones were 0', hint: n + ' + ' + x + ' = 90. The ones digit is 0, so the tens must make 10.' };
     if (Math.abs(n + x - 100) <= 3) return { tag: 'Counted on in ones', hint: n + ' + ' + x + ' = ' + (n + x) + '. So close! Use bonds: what makes the ones up to 10?' };
-    return { tag: 'Partner did not make 100', hint: n + ' + ' + x + ' = ' + (n + x) + ', not 100. What makes the ones up to 10? Then what makes the tens up to 9?' };
+    return { tag: 'Partner did not make 100', hint: n + ' + ' + x + ' = ' + (n + x) + ', not 100. ' + (o === 0 ? 'The ones are 0, so the tens make 10.' : 'What makes the ones up to 10? Then what makes the tens up to 9?') };
   }
 
   function strongHint(n) {

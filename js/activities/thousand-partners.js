@@ -178,7 +178,7 @@
     if (q.type === 'comp' || q.type === 'ladder') {
       var n = q.type === 'comp' ? q.n : q.ask;
       var T = q.type === 'comp' ? q.T : 1000;
-      if (x * 10 === ans) return { tag: 'Added a zero to only one number', hint: x + ' is the partner to 100. Put the 0 back: it needs to make ' + T + '.' };
+      if (x * 10 === ans) return { tag: 'Added a zero to only one number', hint: T === 1000 ? x + ' is the partner to 100. Put the 0 back: it needs to make ' + T + '.' : n + ' + ' + x + ' = ' + (n + x) + ', not ' + T + '. Your answer needs a 0 on the end.' };
       if (n + x === T + 100 && T === 1000 && n % 100 !== 0) return { tag: 'Hundreds added to 10', hint: n + ' + ' + x + ' = ' + (n + x) + '. The tens make 100 already, so the hundreds only need to make ' + (Math.floor(T / 100) - 1) + '.' };
       if (n + x === T - 100) return { tag: 'Forgot to cross the hundred', hint: n + ' + ' + x + ' = ' + (n + x) + '. One hundred short!' };
       if (n + x === T + 100) return { tag: 'One hundred too many', hint: n + ' + ' + x + ' = ' + (n + x) + '. That is one hundred too many.' };

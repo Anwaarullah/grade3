@@ -731,7 +731,7 @@
             tag = 'Left a number out';
             hint = 'Close! Did you add all ' + n + ' numbers? Check ' + left + '.';
           } else if (Math.abs(v - st.total) === 10 || Math.abs(v - st.total) === 100) {
-            tag = Math.abs(v - st.total) === 10 ? 'Forgot the regrouped ten' : 'Forgot the regrouped hundred';
+            tag = v < st.total ? (Math.abs(v - st.total) === 10 ? 'Forgot the regrouped ten' : 'Forgot the regrouped hundred') : 'Slip adding the columns';
             hint = 'Nearly! Check the ' + (Math.abs(v - st.total) === 10 ? 'tens' : 'hundreds') + '. Write each part in full: ones, tens, hundreds.';
           } else {
             tag = 'Slip adding the columns';
