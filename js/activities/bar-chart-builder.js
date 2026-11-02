@@ -712,6 +712,7 @@
         else if (tag === 'Misread a bar between two marks') hint = t + ' is not on a line. It is halfway between ' + (t - 1) + ' and ' + (t + 1) + '.';
         else if (tag === 'Bar started at 1 not 0') hint = 'Every bar starts at 0. Make the ' + c.name + ' bar stop at ' + t + ' on the scale.';
         else if (tag === 'Left a bar at 0') hint = 'The ' + c.name + ' bar is still at 0. Drag its top ' + horizWord + ' to ' + t + '.';
+        else if (extra.clueHint && extra.clueHint[first]) hint = extra.clueHint[first];
         else hint = 'Check the ' + c.name + ' bar. Find ' + t + ' on the scale and make the top of the bar line up with it.';
         hint += more;
         if (q.step === 2) setInfo(box, txt('The scale counts in 2s:'), skipStrip(q.max), t % 2 ? halfStrip(t, false) : null);
@@ -968,21 +969,19 @@
     stage.appendChild(row(ch.el, side));
     var extra = {};
     if (q.clues) {
+      extra.clueHint = { 1: 'Chocolate is 3 more than vanilla. Count on 3 from ' + q.vals[0] + '.', 4: 'Mint is strawberry and lemon added together: ' + q.vals[2] + ' + ' + q.vals[3] + '.' };
       extra.revealText = 'chocolate = ' + q.vals[0] + ' + 3 = ' + q.vals[1] + ' &nbsp;·&nbsp; mint = ' + q.vals[2] + ' + ' + q.vals[3] + ' = ' + q.vals[4];
     }
     if (isFix) extra.button = 'Check the bars';
     var bq = buildQuestion(stage, api, q, ch, side, extra);
     if (q.clues) {
-      // stronger help for the clue sums comes from the hint box
-      var origCheck = bq.check;
-      bq.button.replaceWith(bq.button); // keep handler
+      // after the 2nd wrong try, show the two clue sums as chips
       var cluesBox = info();
       side.insertBefore(cluesBox, bq.button);
       bq.button.addEventListener('click', function () {
-        if (api.isAnswered()) return;
-        if (api.tries() >= 1) setInfo(cluesBox, el('div', { class: 'bc-clue-sum' }, txt('chocolate:'), MQ.ui.sum([q.vals[0], 3], q.vals[1])), el('div', { class: 'bc-clue-sum' }, txt('mint:'), MQ.ui.sum([q.vals[2], q.vals[3]], q.vals[4])));
+        if (api.isAnswered() || api.tries() < 2) return;
+        setInfo(cluesBox, el('div', { class: 'bc-clue-sum' }, txt('chocolate:'), MQ.ui.sum([q.vals[0], 3], q.vals[1])), el('div', { class: 'bc-clue-sum' }, txt('mint:'), MQ.ui.sum([q.vals[2], q.vals[3]], q.vals[4])));
       });
-      void origCheck;
     }
   }
 

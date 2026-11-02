@@ -1081,6 +1081,7 @@
           default:
             renderBarToPicto(stage, api, q);
         }
+        if (window.MQ.__test) window.MQ.__test.type = q.type;
       },
     },
   });
