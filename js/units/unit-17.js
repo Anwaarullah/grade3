@@ -93,8 +93,8 @@
       'pattern-steps': {
         title: 'Grow and Shrink',
         icon: '🔺',
-        summary: 'Grow or shrink a pattern by the same amount each step.',
-        book: 'Textbook p.268 Worked example 1, p.269–270 Q1–Q4, p.274 Check your progress Q3 · Workbook p.244 Worked example 2, p.245 Q1–Q2, p.246 Q4–Q5',
+        summary: 'Grow and shrink patterns by adding or taking away the same amount each step.',
+        book: 'Textbook p.268 Worked example 1, p.269–270 Q1–Q4, p.274 Check your progress Q3 · Workbook p.244 Worked example 2, p.245 Q1–Q2, p.246 Q4',
         tips: {
           goal: 'Extend or shorten a pattern by adding or taking away the same amount each time, write the number sentences, and name that amount (the constant).',
           say: [
