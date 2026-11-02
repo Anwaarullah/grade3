@@ -31,8 +31,8 @@
       'mirror-line-finder': {
         title: 'Find the Fold',
         icon: '🪞',
-        summary: 'Find the mirror line and fold to see if both halves match.',
-        book: 'Textbook p.260, p.261 Q1, p.263 Q4, p.265 Q7–Q8, p.266 Q9 · Workbook p.237 Worked example 1, p.238 Q1, p.239 Q3, p.240 Q4–Q5, p.241 Q6',
+        summary: 'Fold pictures, shapes and flags on a mirror line to find where both halves match.',
+        book: 'Textbook p.260, p.261 Q1, p.263 Q4, p.265 Q7–Q8, p.266 Q9 · Workbook p.237 Worked example 1, p.238 Q1, p.239 Q3, p.240 Q4–Q5a',
         tips: {
           goal: 'Find vertical (up and down) and horizontal (side to side) lines of symmetry, and check them by folding: both halves must sit exactly on top of each other.',
           say: [
