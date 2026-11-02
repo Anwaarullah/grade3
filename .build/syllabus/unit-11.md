@@ -136,7 +136,7 @@ Source: Learner's Book 3, printed pages 168-182 (scan images 170-184).
   "share equally, left over, r (as in 7 r2)"
  ],
  "key_facts": [
-  "Multiplication is commutative like addition, so the numbers in a multiplication can be put in any order to make it easier (Tip, p.173)",
+  "Because the order of a multiplication can be changed (as with addition), you can rearrange the factors to make the working easier (intro and Tip, p.173)",
   "Q1 expected products (derived): 5x4x3 = 60 (5x4=20 first), 6x5x3 = 90 (6x5=30 first), 6x4x2 = 48, 8x3x2 = 48",
   "Worked example 1 (p.174): 16 x 4 is found two ways - split 16 into 10 and 6 (40 + 24 = 64), or into 8 and 8 (32 + 32 = 64, i.e. double 32). Both are right",
   "Scan/print note: in Worked example 1 the second speech bubble ends with a misprint '16 x 6 = 64'; the working shows 16 x 4 = 64",
@@ -276,7 +276,7 @@ Ordering follows the book. Because this is the child's weakest area, every activ
 ### 1. `times-square-explorer` - Times Square Explorer 🔢
 - **section:** 11.1
 - **summary:** Build and read a 10 x 10 multiplication square, with every product shown as an array of dots.
-- **book:** Textbook p.169-171 (Getting started Q1-3, Ex 11.1 Q1-4, Think like a mathematician p.171)
+- **book:** Textbook p.168-171 (Getting started Q1-3, Ex 11.1 Q1-4, Think like a mathematician p.171)
 - **Learn screens:**
   1. A shop shelf of soup tins in 3 rows of 8. Bolt asks how many. The child clicks "count in rows": each row lights up and a running total jumps 8, 16, 24. Then the shelf turns into a 3 x 8 dot array and the sentence 3 x 8 = 24 appears.
   2. A 10 x 10 grid with row and column headings. Hovering any cell lights its row and column and draws that small array in a side panel. The child clicks 3 cells Bolt names (e.g. 4 x 2, 6 x 3, 9 x 4) and types the products.

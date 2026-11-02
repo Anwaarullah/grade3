@@ -150,7 +150,7 @@ Source: Learner's Book 3, printed pages 183-199 (scan images 185-201).
   "Q3 (derived): fractions between 3/4 and 1 include 4/5, 9/10, 5/6, 7/8 etc.",
   "Q4 (derived): from a quarters strip above a fifths strip, 1/5 < 1/4 and 1/4 > 1/5. Sentence frames: [ ] is less than [ ], [ ] < [ ], [ ] is greater than [ ], [ ] > [ ]",
   "Q5 expected answers (derived): 2/4 = 1/2; 2/5 > 1/5; 1/3 < 2/3; 7/10 < 9/10; 1/5 > 1/10; 1/2 > 1/3",
-  "Q6 (derived): 1/3 of $100 is more than 1/4 of $100 ($25); the picture shows five $20 notes, which can be split into quarters ($25) but not into equal thirds of whole dollars",
+  "Q6 (derived): 1/3 of $100 (about $33) is more than 1/4 of $100 ($25), so 1/3 is the better choice; the picture shows the $100 as five $20 notes",
   "Think like a mathematician (p.190) expected idea (derived): if 1/2, 1/3, 1/4 and 1/10 of four different numbers are equal, the numbers are 2, 3, 4 and 10 times that value (e.g. 2, 3, 4, 10 or 4, 6, 8, 20 or 20, 30, 40, 100)",
   "Q7 expected answers (derived): a 1/2 = 2/4 = 3/6 = 4/8 = 5/10 = 6/12; b 1/10 = 2/20 = 3/30 = 4/40 = 5/50 = 6/60; c 1/4 = 2/8 = 3/12 = 4/16 = 5/20",
   "Zara reflection (p.191): each set of equivalent fractions shows a multiplication table (numerators count in 1s, denominators count in 2s/10s/4s)",
@@ -164,7 +164,7 @@ Source: Learner's Book 3, printed pages 183-199 (scan images 185-201).
   {"type": "Use <, > or =", "description": "Six pairs: same denominator, same numerator (unit fractions) and an equivalence (2/4 vs 1/2)", "number_ranges": "denominators 2, 3, 4, 5, 10", "difficulty": "core", "book_page": "190"},
   {"type": "Better deal with money", "description": "Choose 1/3 or 1/4 of $100 and explain", "number_ranges": "$100 shown as five $20 notes", "difficulty": "stretch", "book_page": "190"},
   {"type": "Same-value investigation", "description": "Unit fractions 1/2, 1/3, 1/4, 1/10 of four different numbers give the same answer - describe the numbers and give examples", "number_ranges": "open", "difficulty": "challenge", "book_page": "190"},
-  {"type": "Continue equivalent fraction chains", "description": "Fill four or five more equivalent fractions after a start", "number_ranges": "from 1/2, 1/10 and 1/4", "difficulty": "core/stretch", "book_page": "191"},
+  {"type": "Continue equivalent fraction chains", "description": "Fill four more equivalent fractions after a start", "number_ranges": "from 1/2, 1/10 and 1/4", "difficulty": "core/stretch", "book_page": "191"},
   {"type": "Draw an equivalence diagram", "description": "Draw a fraction wall or diagram to show one of the chains", "number_ranges": "as Q7", "difficulty": "core", "book_page": "191"},
   {"type": "Simplify to a unit fraction", "description": "Find the unit fraction equal to 9/27", "number_ranges": "9/27", "difficulty": "challenge", "book_page": "192"}
  ],
@@ -221,7 +221,7 @@ Source: Learner's Book 3, printed pages 183-199 (scan images 185-201).
  ],
  "key_facts": [
   "Fractions are numbers, so they can be added and subtracted (p.192)",
-  "Finding a fraction of a whole decreases the original value; in a sale prices are decreased (p.192)",
+  "Taking a fraction of an amount gives less than the starting amount, which is what happens to prices in a shop sale (p.192 intro, paraphrased)",
   "Q1 (derived): a tenths strip with 4 orange and 3 blue tenths bracketed: 4/10 + 3/10 = 7/10",
   "Reflection (p.193): the answer is not 7/70 because only the numerators are added - the size of the pieces (tenths) stays the same",
   "Q2 expected answers (derived): 1/3 + 1/3 = 2/3 (> 1/2); 2/5 + 2/5 = 4/5 (> 1/2); 2/10 + 3/10 = 5/10 (= 1/2); 1/2 + 1/4 = 3/4 (> 1/2). Item d mixes halves and quarters, beyond the 'same denominator' objective - needs 1/2 = 2/4",
@@ -229,7 +229,7 @@ Source: Learner's Book 3, printed pages 183-199 (scan images 185-201).
   "Q4 (derived): a fifths strip, 4/5 bracketed, 3 fifths crossed out: 4/5 - 3/5 = 1/5",
   "Q5 expected answers (derived): 2/3 - 2/3 = 0 (< 1/2); 3/5 - 2/5 = 1/5 (< 1/2); 1 - 3/10 = 7/10 (> 1/2); 1 - 3/4 = 1/4 (< 1/2)",
   "Q6 (derived): 1 - ?/5 = ?/5 -> 1 - 1/5 = 4/5, 1 - 2/5 = 3/5, 1 - 3/5 = 2/5, 1 - 4/5 = 1/5 (also 1 - 0/5 = 5/5 and 1 - 5/5 = 0/5)",
-  "Think like a mathematician (p.195): a 'Thirds' table lists additions making 1 (0/3 + 3/3, 1/3 + 2/3) and subtractions from 1 (1 - 3/3, 1 - 2/3, 1 - 1/3, 1 - 0/3). Since order does not matter for addition, there are twice as many subtractions; test with quarters, fifths etc.",
+  "Think like a mathematician (p.195): a 'Thirds' table lists additions making 1 (0/3 + 3/3, 1/3 + 2/3) and subtractions from 1 (1 - 3/3, 1 - 2/3, 1 - 1/3, 1 - 0/3). The child is asked whether there are always twice as many subtractions as additions. Derived: this holds for thirds (2 vs 4) and fifths (3 vs 6) but not for halves (2 vs 3) or quarters (3 vs 5), because the middle pair (1/2 + 1/2, 2/4 + 2/4) has no separate turned-round partner",
   "Worked example 1 (p.195-196): trousers cost $30 and are reduced by 1/10. 1/10 of 30 = 3; 30 - 3 = 27; they now cost $27",
   "Q7 expected answers (derived): reduce by 1/4 -> shorts $8 -> $6; T-shirt $4 -> $3; coat $32 -> $24; jumper $20 -> $15",
   "Check your progress (p.197-198) expected answers (derived): Q1 order smallest to greatest 1/10, 1/5, 1/4, 1/3, 1/2; Q2 1/4 < 1/3, 4/5 > 2/5, 1/10 < 1/5, 5/10 = 1/2, 4/4 = 10/10, 2/3 < 3/3; Q3 8/10 - 6/10 = 2/10 (< 1/2), 3/5 + 2/5 = 5/5 = 1 (> 1/2), 1/3 + 1/3 = 2/3 (> 1/2), 1 - 1/4 = 3/4 (> 1/2)"

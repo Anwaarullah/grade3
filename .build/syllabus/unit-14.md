@@ -1,4 +1,4 @@
-# Unit 14 Time (2) and timetables - syllabus notes (paraphrased; do not copy book text)
+# Unit 14 Time (2) - syllabus notes (paraphrased; do not copy book text)
 
 Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 
@@ -18,7 +18,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
  ],
  "vocabulary": ["analogue clock", "digital clock", "hour hand", "minute hand", "minutes past"],
  "key_facts": [
-  "Getting started Q1 clocks (best reading from the scan, derived): a about 8:05 (minute hand on 1, hour hand just past 8); b about 11:17 (minute hand a little past 3, hour hand just past 11); c about 2:35 (minute hand at or just before 7, hour hand about halfway between 2 and 3); d about 1:34 (minute hand just before 7, hour hand past halfway between 1 and 2). The c and d minute hands are within about one minute of 7 - see scan notes",
+  "Getting started Q1 clocks (best reading from the scan, derived): a 8:05 (minute hand on 1, hour hand on 8); b about 11:17 (minute hand a little past 3, hour hand just past 11); c 2:35 (minute hand on 7, hour hand a little before halfway from 2 to 3); d 1:34 (minute hand one mark before 7, hour hand about halfway from 1 to 2). Readings confirmed by measuring hand angles on the scan",
   "Q2: write the same four times on digital clocks in h:mm form",
   "Q3: draw hands for 5:55, 1:34, 6:17 and 9:12 (minute-level accuracy; the hour hand must be nearly at the next hour for 5:55)"
  ],
@@ -64,8 +64,8 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
   "before, after, check out, nights"
  ],
  "key_facts": [
-  "Time is measured in minutes, hours, days, weeks, months and years (p.225)",
-  "Tip (p.226, repeated p.227): when asked how many days are between two dates, do not count the two dates themselves",
+  "The units of time used in this section run from minutes up to years (minutes, hours, days, weeks, months, years) (p.225)",
+  "Tip (p.226, repeated p.227): a 'how many days between' question leaves out both the start date and the end date",
   "Q2 calendars (Jan, Feb with 28 days, Mar; 1 January is a Friday, 1 February and 1 March are Mondays). Expected answers (derived): a between 22 Jan and 18 Feb = 26 days; b three weeks after 1 March = 22 March; c six weeks before 17 March = 3 February; d a 3-week holiday leaving 19 January returns 9 February",
   "Q3 (no calendar, derived): a 14 days before 20 June = 6 June; b arrive 8 July, stay 3 nights, check out 11 July; c 11 Sept vs 18 Sept birthdays (same age) = 7 days older; d 13 on 7 Oct 2023 means born 2010, aged 20 on 7 Oct 2030",
   "Q4a (derived): days between 3 June 2022 and 25 November 2022 = 27 + 31 + 31 + 30 + 31 + 24 = 174, using printed calendars June-November 2022 (1 June is a Wednesday)",
@@ -141,7 +141,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
  ],
  "key_facts": [
   "Timetables help plan journeys, holidays and meetings by bus, train or plane; they show when a vehicle leaves and arrives, and also what happens during a school day (p.230)",
-  "Worked example 1 (p.230-231): a one-row school timetable - Maths 9-10 a.m., Science 10-10.45 a.m., Art 11-11.30 a.m., Music 12-12.30 p.m., Games 1-2.15 p.m., Literacy 2.30-3.15 p.m. Art starts at 11 in the morning; Music ends at 12.30 in the afternoon. Teaching point: find the lesson in the table; it gives the start and end times",
+  "Worked example 1 (p.230-231): a one-row school timetable - Maths 9-10 a.m., Science 10-10.45 a.m., Art 11-11.30 a.m., Music 12-12.30 p.m., Games 1-2.15 p.m., Literacy 2.30-3.15 p.m. Answers: Art begins at 11 a.m. and Music finishes at 12.30 p.m. Teaching point: find the lesson in the table; it gives the start and end times",
   "Q1 bus timetable: stops Orange Street, Baker Avenue, School, Genesta Road, Altash Way down the side; Bus 1-4 across. Bus 1: 7:40, 7:54, 8:22, 8:46, 9:02. Bus 2: 7:55, 8:09, 8:19, 8:43, 8:50. Bus 3: 8:15, 8:32, 8:45, 8:59, -. Bus 4: 8:30, -, -, 9:10, -",
   "Q1 expected answers (derived): a Bus 2 reaches Altash Way at 8:50; b the 8:15 from Orange Street (Bus 3) reaches school at 8:45; c from Baker Avenue to be at school by 8:30: Bus 1 (8:22) or Bus 2 (8:19); d yes - the timetable only shows buses going away from home in the morning, so it doesn't help for the journey home",
   "Note: Bus 2 leaves after Bus 1 but reaches school earlier (8:19 vs 8:22) - an oddity worth noticing",
@@ -194,7 +194,7 @@ Source: Learner's Book 3, printed pages 223-235 (scan images 225-237).
 ## Ambiguities and scan notes
 
 - Page offset is +2 for this unit (not +4).
-- p.223 Getting started clocks: a (8:05) and b (about 11:17) are clear; c and d have the minute hand within about a minute of the 7, so c reads 2:34-2:35 and d reads 1:34-1:35. Activities should use original clocks anyway.
+- p.223 Getting started clocks: a (8:05) and b (about 11:17) are clear; c is 2:35 (minute hand on the 7) and d is 1:34 (minute hand one mark before the 7), confirmed by measuring hand angles. Activities should use original clocks anyway.
 - p.225 Exercise 14.1 Q1 skips the letter d (a, b, c, e, f, g).
 - p.228 Q4c 'whose holiday is longer and by how many days' depends on whether Lily's 9-21 May is counted inclusively (13 days) - the Tip about 'between' does not apply because the question is about holiday length.
 - p.232 train timetable mixes '.' and ':' in times (11.17, 11.23), leaves Train 3's Central Town cell blank instead of '-', and has no a.m./p.m. Q2e spells the station 'Brightsville'.
