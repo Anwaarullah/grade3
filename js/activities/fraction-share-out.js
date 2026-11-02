@@ -761,8 +761,12 @@
         shake(denEl);
         return;
       }
-      if (isNaN(b) || b === 0 || isNaN(a)) {
-        api.check(false, 'Write a fraction: the top number AND the bottom number.', 'Gave a number instead of a fraction');
+      if (isNaN(b) || isNaN(a)) {
+        api.feedback('Write a fraction: fill the top box AND the bottom box.', 'info');
+        return;
+      }
+      if (b === 0) {
+        api.feedback('The bottom number can\'t be 0. How many equal groups are there?', 'info');
         return;
       }
       if (a * q.total === tn * b) {
@@ -798,6 +802,7 @@
       fi.good();
       fi.disable();
       showWorking();
+      api.feedback(pic.G + ' equal groups of ' + q.part + '. ' + (q.ask === 'not' ? pic.G - 1 + ' groups are not ringed' : '1 group is ringed') + ', so the answer is ' + sn + '/' + sd + ' (' + tn + ' out of ' + q.total + ').', 'info');
     });
   }
 
