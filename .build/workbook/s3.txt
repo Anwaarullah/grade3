@@ -1,0 +1,59 @@
+ADDITION TO YOUR BRIEF (from the coordinating session): the matching WORKBOOK is now available too — Cambridge Primary Mathematics Workbook 3 (2nd ed), on FlipHTML5. Please also cover it for your units.
+
+- Image index = printed workbook page + 2. The page image URLs for your units are listed below as "<printed page> <url>" (download with curl outside the repo, convert with PIL, Read every page).
+- Workbook 3 contents (printed pages): 1 Numbers to 1000 p8 (1.1 p8, 1.2 p14, 1.3 p18); 2 Tally charts p23; 3 Addition, subtraction and money p35 (3.1 p35, 3.2 p40, 3.3 p45); 4 3D shapes p51; 5 Multiplication and division p60 (5.1 p60, 5.2 p65, 5.3 p69); 6 p74; 7 Fractions of shapes p97; 8 Time p104; 9 More addition and subtraction p109 (9.1 p109, 9.2 p115, 9.3 p120); 10 Graphs p126 (10.1 p126, 10.2 p139); 11 More multiplication and division p152 (11.1 p152, 11.2 p155, 11.3 p159); 12 More fractions p165 (12.1 p165, 12.2 p170, 12.3 p175); 13 Measures p179 (13.1 p179, 13.2 p186, 13.3 p192); 14 Time (2) p202 (14.1 p202, 14.2 p209); 15 Angles and movement p218; 16 Chance p229; 17 Pattern and symmetry p237 (17.1 p237, 17.2 p244); Acknowledgements p249.
+- Each workbook section has Focus / Practice / Challenge questions. In each unit file add a "## Workbook" part per section: question types (what the child does), exact number ranges, Focus/Practice/Challenge level, printed workbook page and question number, and especially any skill the workbook expects that the textbook does not teach (hidden prerequisites / traps — e.g. in Unit 6 the workbook asked for rulers that do not start at 0 and quarters of a km before fractions were taught). Use these to refine your proposed activities and parent tips, and add workbook page refs to each activity's `book` field.
+- Ignore any access code printed on the workbook's early pages; do not copy it anywhere.
+- Same rules: paraphrase only, commit only your unit files, push to your branch. If you have already pushed, add the workbook parts and push again.
+
+# Unit 8: workbook printed pages 104-108
+104 https://online.fliphtml5.com/sjhev/uedr/files/large/f71b19fdcf0f8284a89516185a78201c.webp
+105 https://online.fliphtml5.com/sjhev/uedr/files/large/b3b128d60059ec8efb2c847639e7b0e4.webp
+106 https://online.fliphtml5.com/sjhev/uedr/files/large/f6966ae70a28be1b310cec0018dd0279.webp
+107 https://online.fliphtml5.com/sjhev/uedr/files/large/3de06296a8e30612e4bf1db66446a94b.webp
+108 https://online.fliphtml5.com/sjhev/uedr/files/large/69eab340f452e1215a741ef4aa98561c.webp
+# Unit 9: workbook printed pages 109-125
+109 https://online.fliphtml5.com/sjhev/uedr/files/large/955eef50274d7c00238adfded7f83ea7.webp
+110 https://online.fliphtml5.com/sjhev/uedr/files/large/f4541f8e1f3beede44bd5c30673135b9.webp
+111 https://online.fliphtml5.com/sjhev/uedr/files/large/3d4534786f2be723562d2fe8664a386e.webp
+112 https://online.fliphtml5.com/sjhev/uedr/files/large/c7afa35de3768aba60ab15f314a425e2.webp
+113 https://online.fliphtml5.com/sjhev/uedr/files/large/43819daaeaaccec7028391009889766c.webp
+114 https://online.fliphtml5.com/sjhev/uedr/files/large/52c30c473e59b7982b1cb66c15c0c6e9.webp
+115 https://online.fliphtml5.com/sjhev/uedr/files/large/db8bdbc2504eefee53e96d26343ced82.webp
+116 https://online.fliphtml5.com/sjhev/uedr/files/large/c527c0e15b13499725a1b3dec07bfc60.webp
+117 https://online.fliphtml5.com/sjhev/uedr/files/large/a16336f31782f7824362346efb3d5830.webp
+118 https://online.fliphtml5.com/sjhev/uedr/files/large/b70f566df474632d21931bfec9a0f4a7.webp
+119 https://online.fliphtml5.com/sjhev/uedr/files/large/4f01053f578766a2e5a247c955fcfd66.webp
+120 https://online.fliphtml5.com/sjhev/uedr/files/large/adaf0469fafa77bbd5432811a5ba3ae5.webp
+121 https://online.fliphtml5.com/sjhev/uedr/files/large/b3df58ce789ebd5d7d6d19b361b45705.webp
+122 https://online.fliphtml5.com/sjhev/uedr/files/large/ffe98de00199868613d865dcbf522d00.webp
+123 https://online.fliphtml5.com/sjhev/uedr/files/large/6a49e7044cda2d943e3fc65a23c8447a.webp
+124 https://online.fliphtml5.com/sjhev/uedr/files/large/c85fb9cd54774a8ac0e7116f64178a7f.webp
+125 https://online.fliphtml5.com/sjhev/uedr/files/large/dd1dcd4e7faa62bc7301abbee80a7db3.webp
+# Unit 10: workbook printed pages 126-151
+126 https://online.fliphtml5.com/sjhev/uedr/files/large/09e5750009b18cfd934c68a6575f5dcd.webp
+127 https://online.fliphtml5.com/sjhev/uedr/files/large/ea328acb67b7e6227ea276242897ec27.webp
+128 https://online.fliphtml5.com/sjhev/uedr/files/large/66ef684dcd43ae7444a89a51234e9cf6.webp
+129 https://online.fliphtml5.com/sjhev/uedr/files/large/1d45cec09b20b8199e5c38bcea401e7c.webp
+130 https://online.fliphtml5.com/sjhev/uedr/files/large/9e0b2ba8e2bb0b06634ae253877a6779.webp
+131 https://online.fliphtml5.com/sjhev/uedr/files/large/110c573b37db7fff2ab4960fff4a1da2.webp
+132 https://online.fliphtml5.com/sjhev/uedr/files/large/5f8bed91da904a1dac917ce14a4c0b1b.webp
+133 https://online.fliphtml5.com/sjhev/uedr/files/large/9a52ae1faccf36969f336c48022082e3.webp
+134 https://online.fliphtml5.com/sjhev/uedr/files/large/34042ee745ed2d0459ac57e89191a70c.webp
+135 https://online.fliphtml5.com/sjhev/uedr/files/large/2f90e1c06671d505aaae293f75f3b350.webp
+136 https://online.fliphtml5.com/sjhev/uedr/files/large/4f3fe6ec824edb38ce2cda882513f583.webp
+137 https://online.fliphtml5.com/sjhev/uedr/files/large/7ec92b62c880f68c06b407cc8f7f845f.webp
+138 https://online.fliphtml5.com/sjhev/uedr/files/large/b6beb25f82efe60093b7eb3cb75c6036.webp
+139 https://online.fliphtml5.com/sjhev/uedr/files/large/3f6f5b325125b904a54dfc25ac327d4f.webp
+140 https://online.fliphtml5.com/sjhev/uedr/files/large/a0628536d497cce343671ac2ff33ba9f.webp
+141 https://online.fliphtml5.com/sjhev/uedr/files/large/741ff9b5d705c826de1ac308257ae30a.webp
+142 https://online.fliphtml5.com/sjhev/uedr/files/large/eb04500d236e7d62e234ca1e1a2eae24.webp
+143 https://online.fliphtml5.com/sjhev/uedr/files/large/57c4fa6e5200ff34fcaf00fd86ce2244.webp
+144 https://online.fliphtml5.com/sjhev/uedr/files/large/6c37f7704e1565da1a86d5712c96f2a3.webp
+145 https://online.fliphtml5.com/sjhev/uedr/files/large/8e4648fd457b396d320444dd2640f56b.webp
+146 https://online.fliphtml5.com/sjhev/uedr/files/large/9897db498ade49a13692a067b954e9bb.webp
+147 https://online.fliphtml5.com/sjhev/uedr/files/large/e3cd5cda6c38dac0cabfe7fb248b2262.webp
+148 https://online.fliphtml5.com/sjhev/uedr/files/large/e78a7e46c7eaea448965b2c1eff77d2e.webp
+149 https://online.fliphtml5.com/sjhev/uedr/files/large/b7edd6c2964b99ecd0797edd985c1af9.webp
+150 https://online.fliphtml5.com/sjhev/uedr/files/large/7e3d93a09826ca9bdf71d67e80928bf9.webp
+151 https://online.fliphtml5.com/sjhev/uedr/files/large/fbe8cab4f8e521436783ef36db6710ba.webp
