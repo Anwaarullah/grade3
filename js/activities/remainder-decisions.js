@@ -508,6 +508,7 @@
       ch.mark('right', 'good');
       ch.disable();
       area.appendChild(el('div', { class: 'rd-sentence' }, storyWhy(q)));
+      api.feedback(storyWhy(q), 'info');
     });
   }
 
@@ -575,6 +576,7 @@
       bq.className = br.className = 'rd-box-in good';
       bq.disabled = br.disabled = btn.disabled = true;
       working();
+      api.feedback(q.n + ' ÷ ' + q.d + ' = ' + q.q + ' r' + q.r + '. Check: ' + q.q + ' × ' + q.d + ' + ' + q.r + ' = ' + q.n + '.', 'info');
     });
   }
 
@@ -621,6 +623,7 @@
       ch.mark('a', 'good');
       ch.disable();
       showBars();
+      api.feedback(q.n + ' ÷ ' + q.a + ' = ' + q.n / q.a + ' is greater than ' + q.n + ' ÷ ' + q.b + ' = ' + q.n / q.b + '. Fewer groups means more in each.', 'info');
     });
   }
 
@@ -718,6 +721,7 @@
       MQ.clear(pic);
       pic.appendChild(groupsView(s.n, s.d, s.color));
       area.appendChild(el('div', { class: 'rd-sentence' }, s.why));
+      api.feedback(s.why, 'info');
     });
   }
 

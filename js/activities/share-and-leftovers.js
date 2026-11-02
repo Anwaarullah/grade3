@@ -534,6 +534,7 @@
       hintLine.appendChild(el('div', { class: 'sl-sentence' }, sentence(n, d, q.q, q.r)));
       hintLine.appendChild(el('div', { class: 'sl-note' }, 'Count in ' + d + 's: ' + jumpCount(d, q.q) + ' (' + q.q + ' each)'));
       hintLine.appendChild(checkSum(n, d, q.q, q.r));
+      api.feedback(d + ' plates get ' + q.q + ' each (' + d + ' × ' + q.q + ' = ' + d * q.q + ')' + (q.r ? ' and ' + q.r + ' left over' : ', none left over') + '. ' + sentence(n, d, q.q, q.r) + '.', 'info');
     });
   }
 
@@ -594,6 +595,7 @@
       MQ.clear(out);
       out.appendChild(el('div', { class: 'sl-note' }, 'Count the plates in ' + q.q + 's: ' + jumpCount(q.q, q.d)));
       out.appendChild(checkSum(q.n, q.d, q.q, q.r));
+      api.feedback(q.d + ' × ' + q.q + ' = ' + q.d * q.q + ', + ' + q.r + ' in the jar = ' + q.n + ' sweets at the start.', 'info');
     });
   }
 

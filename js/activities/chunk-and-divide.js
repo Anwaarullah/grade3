@@ -643,6 +643,7 @@
       out.appendChild(el('div', { class: 'cad-sentence' }, sentence(n, d, q.q, q.r)));
       out.appendChild(el('div', { class: 'cad-note' }, 'Groups: ' + groupsSum() + ' = ' + q.q + '. ' + q.r + ' is smaller than ' + d + ', so it is the remainder.'));
       out.appendChild(checkLine(n, d, b.state.chunks, q.r));
+      api.feedback('Groups: ' + groupsSum() + ' = ' + q.q + ', and ' + q.r + ' left. So ' + sentence(n, d, q.q, q.r) + '.', 'info');
     });
   }
 

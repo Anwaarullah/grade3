@@ -632,6 +632,7 @@
     api.onReveal(function () {
       lockBoxes();
       showAnswers();
+      api.feedback('Each jump is ' + signed(q.step) + ': ' + q.answers.join(', ') + '. The rule is ' + ruleText(q.step) + '.', 'info');
       if (ruleArea.choices) {
         ruleArea.choices.mark(ruleText(q.step), 'good');
         ruleArea.choices.disable();
@@ -702,6 +703,7 @@
       for (var i = 0; i < gap / q.step; i++) parts.push(q.step);
       working.appendChild(el('div', { class: 'sh-line' }, 'The gap is ' + q.b + ' − ' + q.a + ' = ' + gap + '.'));
       working.appendChild(el('div', { class: 'sh-line' }, gap + ' = ' + parts.join(' + ') + ', so jumps of ' + q.step + ' land on ' + q.b + '.'));
+      api.feedback('The gap is ' + gap + '. Jumps of ' + q.step + ' fit into ' + gap + ' exactly, so the rule could be add ' + q.step + '.', 'info');
     });
   }
 
