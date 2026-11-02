@@ -73,8 +73,8 @@
       'six-square-designs': {
         title: 'Symmetry Tile Designer',
         icon: '🟨',
-        summary: 'Build designs from squares and shapes with one or two lines of symmetry.',
-        book: 'Textbook p.263 Q5, p.271 Q5–Q6, p.272 Q7 and Think like a mathematician, p.274 Check your progress Q4–Q5 · Workbook p.238 Q1c, p.240 Q4b, p.242–243 Q7, Q9, p.245 Q3',
+        summary: 'Build tile designs that match across one or two fold lines, colours too!',
+        book: 'Textbook p.271 Q5–Q6, p.272 Q7 and Think like a mathematician, p.274 Check your progress Q4–Q5 · Workbook p.238 Q1c, p.239 Q3b–c, p.240 Q4b, p.242–243 Q7, Q9, p.245 Q3',
         tips: {
           goal: 'Make patterns that are symmetrical in a vertical line, a horizontal line, or both — with matching colours as well as matching shapes.',
           say: [
