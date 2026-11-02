@@ -40,9 +40,9 @@ Source: Learner's Book 3, printed pages 133-149. There is no project page after 
  "section": "9.1 Addition: regrouping tens and reordering",
  "book_pages": "134-139 (p.134 lower half = objectives, intro, key words; p.135 = Exercise 9.1 Q1-Q2; p.136-137 MISSING FROM SCAN; p.138 = Q5 (spinner), reflection, Q6 (digit grid); p.139 = reflection, Q7, Look what I can do!)",
  "objectives": [
-  "[Book objective] Estimate and add two 2-digit numbers, regrouping the tens or the ones",
-  "[Book objective] Estimate and add up to two 3-digit numbers, regrouping the tens or the ones",
-  "[Book objective] Reorder numbers when adding, to make calculating easier",
+  "[Book objective] Make an estimate, then add a pair of 2-digit numbers where the ones or the tens need regrouping",
+  "[Book objective] Make an estimate, then add 3-digit numbers (up to two of them) where the ones or the tens need regrouping",
+  "[Book objective] Change the order of the numbers being added when that makes the calculation easier",
   "[Repeated as 'Look what I can do!' on p.139]",
   "[Intro, p.134] Learners can already regroup ones; now they regroup tens when there are more than 9 tens in the tens place",
   "[Inferred from Q5 and its speech bubble] Use the fact that addition is commutative and associative to choose an efficient order (e.g. look for pairs that make 10, or doubles)",
@@ -61,7 +61,7 @@ Source: Learner's Book 3, printed pages 133-149. There is no project page after 
   "Commutative: you can add numbers in any order and get the same total. Associative: you can group them in any way (spoken by a character on p.138, 'addition is commutative and associative')",
   "Q1 derived: 43 + 56 = 99 (no regrouping; estimate 40 + 60 = 100); 67 + 29 = 96 (regroup ones; estimate 70 + 30 = 100)",
   "Q2 derived: the place value grid shows 6 tens + 4 ones and 5 tens + 3 ones, i.e. 64 + 53 = 117 (estimate 60 + 50 = 110). The 11 tens regroup into 1 hundred and 1 ten, so the total grid has 1 hundred, 1 ten, 7 ones",
-  "Q5 spinner numbers: 1 to 9 (one of each). Three spins give totals 6-24; four spins give totals 10-30 (repeats allowed)",
+  "Q5 spinner numbers: 1 to 9 (one of each). Repeats are allowed (it is a spinner), so three spins give totals 3-27 and four spins give totals 4-36",
   "Q6 digit grid (3 by 3): rows read 132, 253, 341; columns read 123, 354, 231. Adding all three rows gives 726 and all three columns gives 708 (derived)",
   "Q7: e.g. 253 is 'two hundred and fifty-three' - the hundreds digit gives 'two hundred', the tens digit gives 'fifty', the ones digit gives 'three'",
   "[Missing pages] Q3-Q4 and Worked example 1 are not available; from the objectives they very likely practise 2-digit and 3-digit additions that regroup the tens, possibly in column form"
@@ -70,7 +70,7 @@ Source: Learner's Book 3, printed pages 133-149. There is no project page after 
   {"type": "2-digit + 2-digit with estimate", "description": "Estimate, then add two 2-digit numbers and show a method", "number_ranges": "43 + 56 (no regrouping), 67 + 29 (regroup ones); totals under 100", "difficulty": "core", "book_page": "135"},
   {"type": "Add numbers shown as place value counters", "description": "Two numbers are shown as tens and ones counters in a place value grid. Estimate, write the number sentence and draw the total in a 100s/10s/1s grid", "number_ranges": "64 + 53 = 117 (regroup tens into a hundred)", "difficulty": "core", "book_page": "135"},
   {"type": "[Missing] Exercise 9.1 Q3-Q4", "description": "Not in the scan. Probably 2-digit and 3-digit additions that regroup tens", "number_ranges": "unknown", "difficulty": "unknown", "book_page": "136-137"},
-  {"type": "Spinner: add three or four single digits", "description": "Use a paper-clip spinner numbered 1-9. Spin three times and add the numbers, showing the method; then spin four times and add. Reorder the numbers to make adding easier. Then discuss which method is most efficient and why", "number_ranges": "three or four digits 1-9; totals 3-36", "difficulty": "core", "book_page": "138"},
+  {"type": "Spinner: add three or four single digits", "description": "Use a paper-clip spinner numbered 1-9. Spin three times and add the numbers, showing the method; then spin four times and add. Reorder the numbers to make adding easier. Then discuss which method is most efficient and why", "number_ranges": "three or four digits 1-9, repeats possible; totals 3-27 (three spins) and 4-36 (four spins)", "difficulty": "core", "book_page": "138"},
   {"type": "Choose and add three 3-digit numbers from a grid", "description": "Read three different 3-digit numbers across or down a 3 by 3 digit grid; estimate and add them, showing a method; explain the chosen order to a partner", "number_ranges": "132, 253, 341, 123, 354, 231; totals about 500-950", "difficulty": "stretch", "book_page": "138-139"},
   {"type": "Numbers in words", "description": "Write two of the 3-digit numbers from Q6 in words and explain how place value appears in words and in digits", "number_ranges": "3-digit numbers from the grid", "difficulty": "core", "book_page": "139"}
  ],
@@ -113,9 +113,9 @@ Source: Learner's Book 3, printed pages 133-149. There is no project page after 
  "section": "9.2 Subtraction: regrouping tens",
  "book_pages": "140-144 (p.140 = objectives, intro, key words, Exercise 9.2 Q1; p.141 = Q2-Q3; p.142 = Q4, reflection, Worked example 2; p.143 = Q5, Think like a mathematician; p.144 top = reflection and Look what I can do!)",
  "objectives": [
-  "[Book objective] Estimate and subtract a 2-digit number from a 3-digit number, regrouping the tens or the ones",
-  "[Book objective] Estimate and subtract a 3-digit number from a 3-digit number, regrouping the tens or the ones",
-  "[Book objective] Use trial and improvement to find an unknown number",
+  "[Book objective] Make an estimate, then take a 2-digit number from a 3-digit number, regrouping where needed (ones or tens)",
+  "[Book objective] Make an estimate, then take one 3-digit number from another, regrouping where needed (ones or tens)",
+  "[Book objective] Find a missing number by guessing, checking and improving the guess",
   "[Repeated as 'Look what I can do!' on p.144]",
   "[Intro, p.140] Learners can already regroup 1 ten as 10 ones; now they regroup 1 hundred as 10 tens when there are not enough tens",
   "[Inferred from reflection on p.142] Check a subtraction with a different calculation (e.g. the inverse addition)"
@@ -184,11 +184,11 @@ Source: Learner's Book 3, printed pages 133-149. There is no project page after 
 ```json
 {
  "section": "9.3 Complements",
- "book_pages": "144-149 (p.144 lower half = objectives, intro, key words; p.145 = Exercise 9.3 Q1 with a blank 100 square; p.146 = Q2; p.147 = Q3-Q4; p.148 = Q5, reflection, Think like a mathematician, Look what I can do!; p.149 = Check your progress Q1-Q3, covering the whole unit)",
+ "book_pages": "144-149 (p.144 lower half = objectives, intro, key words; p.145 = Exercise 9.3 Q1 with a blank 100 square; p.146 = Q2; p.147 = Q3-Q4 and a reflection (is calculating with bonds quicker than counting on or back?); p.148 = Q5, reflection, Think like a mathematician, Look what I can do!; p.149 = Check your progress Q1-Q3, covering the whole unit)",
  "objectives": [
-  "[Book objective] Find complements of 100 and 1000 (using multiples of 10)",
-  "[Book objective] Find complements of multiples of 10 or 100 up to 1000",
-  "[Book objective] Calculate estimates mentally",
+  "[Book objective] Find what must be added to reach 100 or 1000, working with multiples of 10",
+  "[Book objective] Find the missing part to make any multiple of 10 or 100 up to 1000",
+  "[Book objective] Work out estimates in your head",
   "[Repeated as 'Look what I can do!' on p.148]",
   "[Intro, p.144] With big numbers counting on or back is slow; for multiples of 10, use known number bonds and calculate mentally",
   "[Inferred from Q3] Make a fact ten times larger: 35 + 65 = 100 becomes 350 + 650 = 1000"
@@ -295,7 +295,7 @@ Ordered as taught (6 activities: 2 per section).
   2. Four numbers (6, 8, 4, 2): the child joins pairs that make 10 with a line, then adds the tens.
   3. Digit grid: a 3 by 3 grid; the child clicks a row to read 132, a column to read 354, and adds them on the mat from activity 1.
 - **Practice** (count 8)
-  - Level 1: three digits 1-9 (totals up to 24). Child drags two cards into a "make 10" or "double" box, then types the total.
+  - Level 1: three digits 1-9 (totals up to 27). Child drags two cards into a "make 10" or "double" box, then types the total.
   - Level 2: four digits 1-9 (totals up to 36). Child groups them into two friendly pairs before adding.
   - Level 3: pick two or three 3-digit numbers from a 3 by 3 digit grid (rows and columns) and add them; then build one number in words from tiles.
 - **Mistake tags**: Added in a slow order; Pair did not make 10; Used the same card twice; Lost a number when regrouping; Place value slip in words

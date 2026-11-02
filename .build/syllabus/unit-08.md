@@ -1,11 +1,13 @@
 # Unit 8 Time (section 8.1) - syllabus notes (paraphrased; do not copy book text)
 
 Source: Learner's Book 3, printed pages 125-132 (scan image index 129-136, offset +4 as stated in the brief; every page corner checked).
-Unit 8 has a single section, 8.1 Time. There is no project page after this unit (Unit 9 starts on p.133).
+Unit 8 has a single section, 8.1 Time. The unit opener also asks big-picture questions (what time is, how we tell it, whether it is the same time everywhere) and 8.1 opens with everyday reasons for knowing the time (buses, trains, getting to school). There is no project page after this unit (Unit 9 starts on p.133).
 
 ## Scan notes
 - All 8 pages present and readable.
 - Clock faces are small; minute-hand positions on the "to the minute" clocks (p.129 Q5, p.130 CYP Q1) can only be read to about +/- 1 minute from the scan. Times below marked "approx." are my best reading, not printed answers.
+- Verification pass: an independent second reading of all 8 pages corrected three clock readings (p.127 Q1b, p.130 CYP Q1b, p.132 CYP Q4a) and the light-bar answer; the values below are the corrected ones.
+- Worked example 1 b (p.126): the printed answer says 'about half past 8', but the drawn hour hand appears to sit between 7 and 8. Likely a drawing inconsistency in the book; the activity should use its own clean drawings.
 - Getting started clock c (p.125) has both hands on the 9-3 line; the hand pointing at 9 is the longer one, so it reads as quarter to 3. A child could argue for 9:15 because the hands look similar.
 
 ## Textbook (Learner's Book 3), verified extraction
@@ -15,9 +17,9 @@ Unit 8 has a single section, 8.1 Time. There is no project page after this unit 
  "section": "Unit 8 opener (Getting started) + 8.1 Time",
  "book_pages": "125-132 (p.125 = unit title page with Getting started and unit intro; p.126 = 8.1 objectives, key words, Worked example 1; p.127-129 = Exercise 8.1 Q1-Q5 and Think like a mathematician; p.130 = reflection, Look what I can do!, Check your progress Q1; p.131-132 = Check your progress Q2-Q4)",
  "objectives": [
-  "[Book objective] Read and record times shown on analogue clocks",
-  "[Book objective] Read and record times shown on digital clocks",
-  "[Book objective] Link analogue and digital times (the same time shown both ways)",
+  "[Book objective] Read analogue clocks and write down the time they show",
+  "[Book objective] Read digital clocks and write down the time they show",
+  "[Book objective] Connect analogue and digital displays of the same time",
   "[Unit intro, p.125] Tell the time to the nearest minute",
   "[Repeated as 'Look what I can do!' self-check statements on p.130: the child ticks the three objectives above]",
   "[Inferred from WE1 and Q1] Estimate the time using only the hour hand: where the hour hand sits between two numbers tells you roughly how many minutes have passed",
@@ -36,7 +38,7 @@ Unit 8 has a single section, 8.1 Time. There is no project page after this unit 
   "digital numbers (reflection question)"
  ],
  "key_facts": [
-  "If the hour hand points exactly at a number, it is an o'clock time and the minute hand points to 12 (WE1 a, p.126)",
+  "Hour hand exactly on a number means an exact hour, so the minute hand must be on the 12 (WE1 a, p.126)",
   "If the hour hand is about halfway between two numbers, the time is close to half past, give or take a minute or two (WE1 b)",
   "If the hour hand is about three-quarters of the way between two numbers, the time is close to quarter to the next hour (WE1 c: 13 to 17 minutes to 1 are all acceptable)",
   "Estimates of time from the hour hand are a range, not one exact answer (WE1 gives 28-32 past 8, and 13-17 to 1)",
@@ -47,12 +49,12 @@ Unit 8 has a single section, 8.1 Time. There is no project page after this unit 
   "Derived answers, CYP Q2 (p.131): 02:38 = 22 minutes to 3; 05:09 = 9 minutes past 5; 07:37 = 23 minutes to 8; 06:15 = quarter past 6",
   "Q3 matching (p.128), derived: 04:17 goes with the clock whose minute hand is just past the 3 (e); 04:48 with the minute hand near the 10 (d); 04:45 with the minute hand on the 9 (f). All three digital times are in the 4 o'clock hour, so only the minute hand separates them",
   "Getting started (p.125), derived: a quarter past 7; b half past 2; c quarter to 3; d quarter past 10; e 9 o'clock",
-  "Q1 (p.127), estimates from the hour hand only: a hour hand on the 3, so 3 o'clock; c hour hand on the 12, so 12 o'clock; b hour hand roughly between 7 and 8 (small, light clock face), so about half past 7",
+  "Q1 (p.127), estimates from the hour hand only: a hour hand on the 3, so 3 o'clock; c hour hand on the 12, so 12 o'clock; b hour hand about three-quarters of the way from 6 to 7 (small, light clock face, hard to read), so about quarter to 7",
   "Q5 (p.129), approx.: a about 6:20; b quarter to 3; c about 6:25; d about 9:41 (about twenty to ten)",
-  "CYP Q1 (p.130), approx.: a about 8:16; b about 10:21; c about 11:25; d about 9:41",
-  "CYP Q4 (p.132): only clock c (minute hand on 9, hour hand nearly at 9, i.e. about 8:45) lies between 8 o'clock and 10 o'clock. The others show about 6:33, about 10:12 and about 11:58/12:00",
+  "CYP Q1 (p.130), approx.: a about 8:16; b 3:50 (ten to four: the long hand is on the 10, the short hand just before the 4 - easy to misread with the hands swapped); c about 11:25; d about 9:41",
+  "CYP Q4 (p.132): only clock c (minute hand on 9, hour hand nearly at 9, i.e. 8:45) lies between 8 o'clock and 10 o'clock. The others show about 7:32, about 10:12 and about 11:58/12:00 (in the last one the short hand is drawn a little left of 12, so it is ambiguous)",
   "There are 60 minutes in an hour; each small mark on the clock is 1 minute and each number is 5 minutes (assumed, not stated on these pages)",
-  "Seven-segment displays: each digit is made from up to 7 light bars. Bars needed: 1 uses 2, 7 uses 3, 4 uses 4, 2/3/5 use 5, 0/6/9 use 6, 8 uses 7 (derived for the Think like a mathematician task). With exactly 5 bars working the display can show 2, 3 or 5. The only digit whose bar count equals itself is 5"
+  "Seven-segment displays: each digit is made from up to 7 light bars. Bars needed: 1 uses 2, 7 uses 3, 4 uses 4, 2/3/5 use 5, 0/6/9 use 6, 8 uses 7 (derived for the Think like a mathematician task). With exactly 5 bars working the display can show 2, 3 or 5 (some fonts draw 7 or 9 differently, so answers can vary). Digits whose bar count equals the digit itself: 4 (4 bars) and 5 (5 bars)"
  ],
  "question_types": [
   {
@@ -107,7 +109,7 @@ Unit 8 has a single section, 8.1 Time. There is no project page after this unit 
   {
    "type": "Check your progress: read analogue to the minute",
    "description": "Write the time on four analogue clocks",
-   "number_ranges": "about 8:16, 10:21, 11:25, 9:41 (approx.)",
+   "number_ranges": "about 8:16, 3:50, 11:25, 9:41 (approx.)",
    "difficulty": "core",
    "book_page": "130"
   },
@@ -128,7 +130,7 @@ Unit 8 has a single section, 8.1 Time. There is no project page after this unit 
   {
    "type": "Between two times",
    "description": "Circle the one clock out of four that shows a time between 8 o'clock and 10 o'clock, then draw hands on two blank clocks to show two more times in that window and write them",
-   "number_ranges": "8:00-10:00 window; distractors around 6:30, 10:10 and 12:00",
+   "number_ranges": "8:00-10:00 window; distractors around 7:30, 10:10 and 12:00",
    "difficulty": "core / stretch",
    "book_page": "132"
   }
@@ -213,8 +215,8 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
   3. The hour hand: the child picks which number the short hand has just passed (not the one it is nearest to), and the full time appears in words and digits.
 - **Practice** (count 10)
   - Level 1: minute hand on a number (multiples of 5, 5-55 past), hour hand matching. Child types the minutes past.
-  - Level 2: minute hand between numbers, 1-29 minutes past (e.g. 6:18, 8:16, 10:21). Child types hour and minutes.
-  - Level 3: any minute 1-59; times after half past are read "past" here (e.g. 9:41); the outer ring is hidden and appears only as a hint.
+  - Level 2: minute hand between numbers, 1-29 minutes past (e.g. 6:18, 8:16, 11:25). Child types hour and minutes.
+  - Level 3: any minute 1-59; times after half past are read "past" here (e.g. 9:41, and 3:50 drawn so the hands could be swapped by mistake); the outer ring is hidden and appears only as a hint.
 - **Mistake tags**: Read the number not the minutes; Counted numbers in 1s not 5s; Read the hour it is nearly at; Swapped hour and minute hands; Miscounted the small marks
 - **Parent tips**
   - Goal: Read any analogue clock to the exact minute.
@@ -284,4 +286,4 @@ Ordered as taught. Section 8.1 is the whole unit, and it is big (analogue estima
   - Say: "Put the long hand in first, then check where the short hand should be." / "One hour later, what changes and what stays the same?" / "Is 8:45 after 8 o'clock? Is it before 10?"
   - Watch for: the hour hand pointing exactly at the number for times like 8:45; adding 1 to the minutes instead of the hour.
   - Away from screen: Make a "my day" list of 3 favourite times. He draws each on a paper clock and writes the digital time beside it.
-- **Bonus screen (optional, challenge)**: Broken stopwatch. A single seven-segment digit; the child clicks bars on and off to make digits and counts the bars. Find every digit that uses exactly 5 bars (2, 3, 5), and the digit that uses as many bars as its own value (5).
+- **Bonus screen (optional, challenge)**: Broken stopwatch. A single seven-segment digit; the child clicks bars on and off to make digits and counts the bars. Find every digit that uses exactly 5 bars (2, 3, 5), and the digits that use as many bars as their own value (4 and 5).

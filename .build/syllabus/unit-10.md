@@ -6,7 +6,7 @@ Source: Learner's Book 3, printed pages 150-167 = scan image index **152-169** (
 - All 18 pages present and readable.
 - The bar chart on p.152 ('Gadgets owned by a Stage 8 class') is drawn slightly off the grid: the calculator and computer bars stop a little above 10, so their values are not exact (about 10 and about 11). Treat them as roughly 10, 4, 11, 8.
 - Worked example 2 (p.161) says "ten numbers" but only nine are listed (book misprint).
-- The 7 monsters on p.165 and p.166 are the same characters, but one is drawn with wheels on p.165 and with legs on p.166; leg counts are hard to read from the small pictures, so no definitive answer is given for the monster pictogram.
+- The 7 monsters on p.165 and p.166 are the same characters; leg counts are hard to read from the small pictures, so no definitive answer is given for the monster pictogram. Two of the seven monsters differ between the pages: the 4th (pink/grey) and the 7th (purple, one-eyed) have wheels on p.165 but legs on p.166.
 
 ## Unit opener (p.150-151)
 
@@ -35,8 +35,8 @@ Source: Learner's Book 3, printed pages 150-167 = scan image index **152-169** (
  "section": "10.1 Pictograms and bar charts",
  "book_pages": "152-159 (p.152 = objectives, key words, intro with a key-of-2 pictogram and a bar chart; p.153 = Worked example 1; p.154 = Exercise 10.1 Q1; p.155 = Q2; p.156-157 = Q3 (spinner) and Q4 (name lengths); p.158 = Q5 (group survey); p.159 = Think like a mathematician (two dice), reflection, Look what I can do!)",
  "objectives": [
-  "[Book objective] Record, organise and represent data using pictograms and bar charts",
-  "[Book objective] Interpret data, finding similarities and differences, and asking and answering questions",
+  "[Book objective] Collect data and set it out as a pictogram or a bar chart",
+  "[Book objective] Make sense of data: spot what is the same and what is different, and ask and answer questions about it",
   "[Repeated as 'Look what I can do!' on p.159]",
   "[Intro, p.152] A pictogram is a visual tally that uses pictures instead of bars; it works best with simple pictures",
   "[Intro, p.152] A bar chart uses bars and has two axes, one vertical and one horizontal",
@@ -117,8 +117,8 @@ Source: Learner's Book 3, printed pages 150-167 = scan image index **152-169** (
  "section": "10.2 Venn and Carroll diagrams",
  "book_pages": "160-167 (p.160 = objectives, key words, intro to Venn and Carroll diagrams; p.161 = Worked example 2; p.162 = Exercise 10.2 Q1; p.163 = Q2; p.164 = Q3 (group Venn); p.165 = Q4 (monsters), Think like a mathematician, reflection, Look what I can do!; p.166-167 = Check your progress Q1-Q4, covering the whole unit)",
  "objectives": [
-  "[Book objective] Record, organise and show data using Venn and Carroll diagrams",
-  "[Book objective] Interpret data, finding similarities and differences, and asking and answering questions",
+  "[Book objective] Collect data and sort it into Venn diagrams and Carroll diagrams",
+  "[Book objective] Make sense of data: spot what is the same and what is different, and ask and answer questions about it",
   "[Repeated as 'Look what I can do!' on p.165]",
   "[Intro, p.160] A Venn diagram shows how members of a set are related: circles inside a box; a Carroll diagram is a grid that groups data by rules",
   "[Inferred from WE2 and Q1] Use the overlap for items that fit both rules and the space outside the circles for items that fit neither",
@@ -223,7 +223,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
   2. The child drags the top of the "cat" bar up to 8 on a scale of 1. A ruler line slides across from the bar top to the scale.
   3. The scale changes to go up in 2s. A bar ends between 6 and 8: the child decides it shows 7.
 - **Practice** (count 9)
-  - Level 1: build a chart from data in words (e.g. 1 turtle, 3 rabbits, 6 fish, 8 cats, 9 guinea pigs) on a scale of 1 to 10, then add the title and axis labels.
+  - Level 1: build a chart from data in words (e.g. 1 turtle, 3 rabbits, 6 fish, 8 cats, 9 guinea pigs) on a scale of 1 from 0 to 9 (as in the book), then add the title and axis labels.
   - Level 2: read a chart (scale of 1, up to 7; e.g. dice scores 2, 6, 1, 3, 5, 3): how many, most, least, how many more, total.
   - Level 3: read a chart with a scale in 2s (up to 12), including bars that end between gridlines (odd values); pick the question that can be answered from the chart.
 - **Mistake tags**: Counted gridlines not the scale; Bar started at 1 not 0; Missing title or axis label; Misread a bar between two marks; Answered 'altogether' for 'how many more'
