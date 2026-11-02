@@ -974,6 +974,7 @@
       if (!bad) {
         var extra = '';
         if (pic.key === 'circle') extra = ' A circle has lots of mirror lines: any line through the middle works!';
+        else if (pic.key === 'plus' && placed.length === 1) extra = ' The plus has other mirror lines too, even slanted ones! Look at the green lines.';
         else if (lines.v && lines.h && placed.length === 1) extra = ' This shape has another mirror line too. Look at the green lines.';
         api.check(true, 'Yes! Both halves match.' + extra);
         finish();

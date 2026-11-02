@@ -156,9 +156,9 @@
   // Level 2: one example answer for each (number of tiles)-(number of lines) target.
   var BUILD_EXAMPLES = {
     '4-1': ['ttt', '.t.'],
-    '4-2': ['tt', 'tt'],
+    '4-2': ['tttt'],
     '5-1': ['ttt', '.t.', '.t.'],
-    '5-2': ['.t.', 'ttt', '.t.'],
+    '5-2': ['ttttt'],
     '6-1': ['tttt', '.tt.'],
     '6-2': ['ttt', 'ttt'],
   };
@@ -309,7 +309,7 @@
     }
     box.appendChild(chip('↕ Vertical', res.v));
     box.appendChild(chip('↔ Horizontal', res.h));
-    box.appendChild(el('span', { class: 'ssd-total' }, '= ' + res.n + (res.n === 1 ? ' line' : ' lines')));
+    box.appendChild(el('span', { class: 'ssd-total' }, '= ' + res.n + (res.n === 1 ? ' line' : ' lines') + ' going ↕ or ↔'));
   }
 
   function paletteRow(colours, current, onPick) {
@@ -630,7 +630,7 @@
       MQ.sound('correct');
       update();
       api.say('Fixed! Same shapes and same colours, so both lines are back.', 'cheer');
-      api.feedback('Two lines: all four corners match, colours too.', 'good');
+      api.feedback('Both lines work: all four corners match, colours too.', 'good');
     });
   }
 
@@ -743,7 +743,7 @@
   function renderBuild(stage, api, q) {
     var N = 6;
     api.say('Make a design with ' + q.n + ' tiles and ' + (q.lines === 1 ? 'exactly ONE line of symmetry.' : 'TWO lines of symmetry.'), 'think');
-    stage.appendChild(MQ.ui.prompt('Use <b>' + q.n + ' tiles</b> joined edge to edge. Make <b>' + (q.lines === 1 ? 'exactly 1 line' : '2 lines') + '</b> of symmetry.'));
+    stage.appendChild(MQ.ui.prompt('Use <b>' + q.n + ' tiles</b> joined edge to edge. Make <b>' + (q.lines === 1 ? 'exactly 1 line' : '2 lines') + '</b> of symmetry going ↕ up-down or ↔ side-to-side.'));
     var g = makeBoard(N, N, 54);
     g.svg.classList.add('ssd-play');
     stage.appendChild(el('div', { class: 'ssd-board' }, g.svg));
@@ -811,7 +811,7 @@
       if (res.n === q.lines) {
         btns.check.disabled = true;
         btns.clear.disabled = true;
-        api.check(true, res.n === 2 ? 'Two lines! Both folds match.' : 'Exactly one line: ' + (res.v ? 'vertical' : 'horizontal') + '. Great designing!');
+        api.check(true, res.n === 2 ? 'Both folds match: up-down AND side-to-side!' : 'Exactly one line: ' + (res.v ? 'vertical' : 'horizontal') + '. Great designing!');
         return;
       }
       lastChecked = snap;
@@ -831,7 +831,7 @@
         if (second) hint = 'Both lines work. Move tiles so left and right still match, but the top and bottom are different (like a letter T).';
       } else {
         tag = 'Tile has no mirror partner';
-        hint = 'No line works yet. Fold it in your head: every tile needs a partner on the other side.';
+        hint = 'No up-down or side-to-side line works yet. Fold it in your head: every tile needs a partner on the other side.';
         if (second) {
           var bv = unpaired(l, 'v', res.sv), bh = unpaired(l, 'h', res.sh);
           var useV = bv.length <= bh.length;
@@ -1007,7 +1007,7 @@
       if (okEach.every(Boolean)) {
         btns.check.disabled = true;
         btns.clear.disabled = true;
-        api.check(true, 'Now it has 2 lines: vertical and horizontal!');
+        api.check(true, 'Now both lines work: vertical and horizontal!');
         return;
       }
       lastChecked = snap;
