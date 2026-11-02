@@ -45,7 +45,7 @@
         title: 'Adding with swaps',
         icon: '➕',
         summary: 'Add to a 3-digit number. Got 10 ones or more? Swap them for a ten!',
-        book: 'Textbook p.36 Q1, p.38 Q1, p.39 Q2–3, p.40 Q4–6, p.52 Q1 · Workbook p.35–38 Q1–10, p.39 Q11',
+        book: 'Textbook p.36 Q1, p.38 Q1, p.39 Q2–3, p.40 Q4–6, p.52 Check your progress Q1 · Workbook p.35–38 Q1–10, p.39 Q11',
         tips: {
           goal: 'Add a 1-, 2- or 3-digit number to a 3-digit number when the ones make 10 or more, and check the answer against an estimate.',
           say: [
@@ -67,7 +67,7 @@
         title: 'Take away with swaps',
         icon: '➖',
         summary: 'Not enough ones to take away? Open a ten into 10 ones!',
-        book: 'Textbook p.36 Q2, p.42 Q1, p.43 Q2–4, p.44 Q5–6, p.52 Q2 · Workbook p.40–43 Q1–10, p.44 Q11',
+        book: 'Textbook p.36 Q2, p.42 Q1, p.43 Q2–4, p.44 Q5–6, p.52 Check your progress Q2 · Workbook p.40–43 Q1–10, p.44 Q11',
         tips: {
           goal: 'Subtract a 1-, 2- or 3-digit number from a 3-digit number, swapping a ten for 10 ones when there are not enough ones.',
           say: [
@@ -86,7 +86,7 @@
       'ink-blot-sums': {
         title: 'Ink blot puzzles',
         icon: '🖋️',
-        summary: 'Ink has hidden some digits. Find what is underneath, and find every answer!',
+        summary: 'Ink has hidden some digits in adding and take-away sums. Find every answer!',
         book: 'Textbook p.41 Think like a mathematician, p.45 Think like a mathematician · Workbook p.39 Q12, p.44 Q12',
         tips: {
           goal: 'Reason about missing digits in additions and subtractions, and look for every possible answer, not just one.',
@@ -129,7 +129,7 @@
         title: 'School shop',
         icon: '🛒',
         summary: 'Add up prices, find the change, and work out a missing price.',
-        book: 'Textbook p.49 Q4, p.50 Q5–6, p.51 Q7–8, p.52 Q9, p.53 Q3 · Workbook p.46 Q3, p.47 Q4, p.48 Q6, p.49 Q7, p.50 Q9–10',
+        book: 'Textbook p.49 Q4, p.50 Q5–6, p.51 Q7–8, p.52 Q9, p.53 Check your progress Q3 · Workbook p.46 Q3, p.47 Q4, p.48 Q6, p.49 Q7, p.50 Q9–10',
         tips: {
           goal: 'Add prices, find change by counting up, and work backwards to find a missing price.',
           say: [
