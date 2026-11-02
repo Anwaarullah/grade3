@@ -1,8 +1,5 @@
 /* Maths Mission — styles. Space theme, large readable text, big click targets. */
 :root {
-  --space-1: #0b1530;
-  --space-2: #15234a;
-  --space-3: #22346b;
   --ink: #1b2a4a;
   --ink-soft: #4a5a7d;
   --paper: #f7f9ff;
@@ -16,7 +13,8 @@
   --info-bg: #eef3ff;
   --accent: #2ec4b6;
   --radius: 18px;
-  --shadow: 0 10px 30px rgba(3, 10, 30, 0.35);
+  --bg: #f3f5fa;
+  --shadow: 0 2px 10px rgba(27, 42, 74, 0.08), 0 1px 2px rgba(27, 42, 74, 0.06);
   --font: 'Nunito', 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -29,11 +27,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font);
-  color: var(--paper);
-  background-color: var(--space-1);
-  background-image: radial-gradient(1.5px 1.5px at 20px 30px, #ffffffcc 50%, transparent 51%), radial-gradient(1px 1px at 90px 120px, #ffffff99 50%, transparent 51%), radial-gradient(1.5px 1.5px at 160px 60px, #ffffffaa 50%, transparent 51%), radial-gradient(1px 1px at 230px 170px, #ffffff88 50%, transparent 51%), radial-gradient(ellipse at top, var(--space-3), var(--space-1) 70%);
-  background-size: 260px 220px, 260px 220px, 260px 220px, 260px 220px, 100% 100%;
-  background-attachment: fixed;
+  color: var(--ink);
+  background: var(--bg);
   min-height: 100vh;
   line-height: 1.45;
 }
@@ -66,9 +61,8 @@ h4 {
   align-items: center;
   gap: 10px;
   padding: 8px 18px;
-  background: rgba(11, 21, 48, 0.85);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
 }
 .brand {
   display: flex;
@@ -79,7 +73,7 @@ h4 {
   text-decoration: none;
 }
 .crumb {
-  color: #b9c6ea;
+  color: var(--ink-soft);
   font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
@@ -89,7 +83,7 @@ h4 {
   flex: 1;
 }
 .total-stars {
-  color: var(--gold);
+  color: #b07d00;
   font-weight: 800;
   margin-right: 4px;
 }
@@ -99,15 +93,15 @@ h4 {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
   font-size: 1.1rem;
   cursor: pointer;
   text-decoration: none;
 }
 .icon-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--paper-2);
 }
 .icon-btn.on {
   background: var(--accent);
@@ -136,11 +130,11 @@ h4 {
   letter-spacing: 0.08em;
   font-size: 0.75rem;
   font-weight: 800;
-  color: #9fb3d9;
+  color: var(--ink-soft);
   margin: 0 0 4px;
 }
 .footnote {
-  color: #9fb3d9;
+  color: var(--ink-soft);
   font-size: 0.85rem;
   text-align: center;
   margin-top: 28px;
@@ -211,13 +205,16 @@ h4 {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 18px 6px 26px;
+  padding: 22px 24px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 .hero h1 {
   font-size: 2.3rem;
 }
 .hero .lead {
-  color: #d7e0f7;
+  color: var(--ink-soft);
   max-width: 640px;
   margin: 0 0 16px;
 }
@@ -253,7 +250,7 @@ h4 {
   flex: 1;
   height: 14px;
   border-radius: 99px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--paper-2);
   overflow: hidden;
 }
 .bar span {
@@ -263,34 +260,43 @@ h4 {
   border-radius: 99px;
 }
 .bar-label {
-  color: var(--gold);
+  color: #b07d00;
   font-weight: 800;
 }
-.planets {
+.sections {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
-.planet {
-  background: var(--paper);
+.section-card {
+  background: #fff;
   color: var(--ink);
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow);
   border-top: 8px solid var(--accent);
 }
-.planet-head {
+.section-head {
   display: flex;
   gap: 10px;
   align-items: center;
   margin-bottom: 10px;
 }
-.planet-head h3 {
+.section-num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+.section-head h3 {
   font-size: 1.3rem;
   margin: 0;
-}
-.planet-head .kicker {
-  color: var(--ink-soft);
 }
 .book-ref {
   font-size: 0.78rem;
@@ -366,9 +372,9 @@ h4 {
   gap: 10px;
   padding: 10px 12px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  color: #c9d4f0;
+  background: #fff;
+  border: 1px dashed var(--line);
+  color: var(--ink-soft);
   font-size: 0.9rem;
 }
 .upcoming-num {
@@ -377,7 +383,7 @@ h4 {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--paper-2);
   font-weight: 800;
 }
 
@@ -389,7 +395,7 @@ h4 {
   align-items: start;
 }
 .play-main {
-  background: var(--paper);
+  background: #fff;
   color: var(--ink);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -861,7 +867,7 @@ svg text {
   }
 }
 @media (max-width: 900px) {
-  .planets {
+  .sections {
     grid-template-columns: 1fr;
   }
 }

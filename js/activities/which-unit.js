@@ -34,7 +34,7 @@
     { name: 'a long train journey', icon: '🛤️', unit: 'km', why: 'A journey is a long distance' },
     { name: 'the distance between two continents', icon: '🌍', unit: 'km', why: 'Continents are very far apart' },
     { name: 'the drive to the airport', icon: '✈️', unit: 'km', why: 'You need a car to get there' },
-    { name: 'a rocket flight into space', icon: '🚀', unit: 'km', why: 'Space is a very long way up' },
+    { name: 'a long car trip to the seaside', icon: '🚗', unit: 'km', why: 'A long car trip is a long distance' },
   ];
 
   // "About ___" sentences: sensible-unit questions with a number given.

@@ -1,20 +1,20 @@
-# Maths Mission
+# Grade 3 Maths
 
 An interactive maths website for a Grade 3 learner following **Cambridge Primary
-Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a space
-theme, a robot co-pilot called Bolt, short missions of about 15 minutes, stars, and a
-**Parent corner** with what to say and what to watch for in each mission.
+Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a clean,
+plain design, a friendly robot helper called Bolt, short activities of about 15 minutes,
+stars, and a **Parent corner** with what to say and what to watch for in each activity.
 
-The first planet set covers **Unit 6: Measurement, area and perimeter**:
+The first set covers **Unit 6: Measurement, area and perimeter**:
 
-| Section | Missions |
+| Section | Activities |
 |---|---|
-| 6.1 Measurement | Ruler Lab · Which Unit? · Unit Converter · Rounding Rover · Estimate Station |
-| 6.2 2D shapes and perimeter | Robot Patrol · Shape Sorter · Perimeter Puzzles |
-| 6.3 Introducing area | Square Counter · Fence or Floor? · Rectangle Builder · Mission Control Challenge |
+| 6.1 Measurement | Ruler Lab · Which Unit? · Unit Converter · Rounding Measurements · Estimate and Measure |
+| 6.2 2D shapes and perimeter | Walk the Edge · Shape Sorter · Perimeter Puzzles |
+| 6.3 Introducing area | Square Counter · Fence or Floor? · Rectangle Builder · Unit 6 Challenge |
 
 Every activity is original. The books are used only to follow the same topics, order
-and number ranges, and each mission lists the matching textbook and workbook pages.
+and number ranges, and each activity lists the matching textbook and workbook pages.
 
 ## Putting it on your own website
 
@@ -40,10 +40,10 @@ same browser each time. "Reset all progress" is in the Parent corner.
 
 ## How to use it with your child
 
-* One mission per session (15–20 minutes), sitting together.
-* Open the **Parent corner** panel on the right of each mission: it gives the goal,
+* One activity per session (15–20 minutes), sitting together.
+* Open the **Parent corner** panel on the right of each activity: it gives the goal,
   phrases to use, the mistakes to watch for, and a quick hands-on task.
-* After finishing a planet, do the matching workbook pages (listed on the map).
+* After finishing a section, do the matching workbook pages (listed on the home page).
 * The Parent corner page (👪 at the top) shows stars, how many questions he got
   right first time, and his most common slips.
 * 🗣️ turns on read-aloud; 🔊 turns sound effects on or off.

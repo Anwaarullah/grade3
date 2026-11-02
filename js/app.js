@@ -1,4 +1,4 @@
-/* Maths Mission — app shell: mission map, activity player, parent corner. */
+/* Grade 3 Maths — app shell: lesson map, activity player, parent corner. */
 (function () {
   'use strict';
   var MQ = window.MQ;
@@ -50,20 +50,6 @@
     for (var i = 0; i < max; i++) s.appendChild(el('span', { class: i < n ? 'star on' : 'star' }, '★'));
     return s;
   }
-  function planetArt(color, size) {
-    var s = MQ.svg;
-    size = size || 84;
-    return s(
-      'svg',
-      { viewBox: '0 0 100 100', width: size, height: size, class: 'planet-art', 'aria-hidden': 'true' },
-      s('circle', { cx: 50, cy: 50, r: 30, fill: color }),
-      s('circle', { cx: 40, cy: 40, r: 6, fill: '#ffffff', opacity: 0.25 }),
-      s('circle', { cx: 60, cy: 62, r: 4, fill: '#000000', opacity: 0.12 }),
-      s('circle', { cx: 36, cy: 60, r: 3, fill: '#000000', opacity: 0.12 }),
-      s('ellipse', { cx: 50, cy: 52, rx: 46, ry: 11, fill: 'none', stroke: '#ffffff', 'stroke-width': 3, opacity: 0.7, transform: 'rotate(-18 50 52)' })
-    );
-  }
-
   /* ---------------- top bar ---------------- */
   function topbar(crumb) {
     var settings = MQ.store.settings();
@@ -104,7 +90,7 @@
     return el(
       'header',
       { class: 'topbar' },
-      el('a', { class: 'brand', href: '#/' }, MQ.robot('happy', 30), el('span', null, 'Maths Mission')),
+      el('a', { class: 'brand', href: '#/' }, MQ.robot('happy', 30), el('span', null, 'Grade 3 Maths')),
       crumb ? el('span', { class: 'crumb' }, crumb) : null,
       el('span', { class: 'spacer' }),
       el('span', { class: 'total-stars', title: 'Stars collected' }, '★ ', String(MQ.store.totalStars())),
@@ -114,7 +100,7 @@
     );
   }
 
-  /* ---------------- mission map ---------------- */
+  /* ---------------- lesson map ---------------- */
   function renderMap() {
     var rec = nextRecommended();
     var page = el('main', { class: 'page map' });
@@ -128,9 +114,9 @@
           'div',
           { class: 'hero-text' },
           el('p', { class: 'kicker' }, 'Grade 3 · Cambridge Stage 3'),
-          el('h1', null, 'Hello, astronaut!'),
-          el('p', { class: 'lead' }, 'I am Bolt, your robot co-pilot. Every mission takes about 15 minutes. Collect stars to explore each planet.'),
-          rec ? el('a', { class: 'btn btn-big', href: '#/play/' + rec }, 'Next mission: ' + recMeta.icon + ' ' + recMeta.title + ' ▶') : null
+          el('h1', null, 'Hello! Ready to practise?'),
+          el('p', { class: 'lead' }, 'I am Bolt, your maths helper. Each activity takes about 15 minutes. Try to collect 3 stars in every one.'),
+          rec ? el('a', { class: 'btn btn-big', href: '#/play/' + rec }, 'Next activity: ' + recMeta.icon + ' ' + recMeta.title + ' ▶') : null
         )
       )
     );
@@ -154,7 +140,7 @@
           el('div', { class: 'unit-progress' }, el('div', { class: 'bar' }, el('span', { style: { width: Math.round((got / max) * 100) + '%' } })), el('span', { class: 'bar-label' }, '★ ' + got + ' / ' + max))
         )
       );
-      var planets = el('div', { class: 'planets' });
+      var sectionsEl = el('div', { class: 'sections' });
       u.sections.forEach(function (s) {
         var list = el('ol', { class: 'missions' });
         s.activities.forEach(function (id) {
@@ -174,16 +160,16 @@
             )
           );
         });
-        planets.appendChild(
+        sectionsEl.appendChild(
           el(
             'article',
-            { class: 'planet', style: { '--accent': s.color } },
-            el('div', { class: 'planet-head' }, planetArt(s.color), el('div', null, el('p', { class: 'kicker' }, s.id + ' · ' + s.title), el('h3', null, s.planet), el('p', { class: 'book-ref' }, s.book))),
+            { class: 'section-card', style: { '--accent': s.color } },
+            el('div', { class: 'section-head' }, el('span', { class: 'section-num' }, s.id), el('div', null, el('h3', null, s.title), el('p', { class: 'book-ref' }, s.book))),
             list
           )
         );
       });
-      unitEl.appendChild(planets);
+      unitEl.appendChild(sectionsEl);
       page.appendChild(unitEl);
     });
 
@@ -191,8 +177,8 @@
     cur.upcoming.forEach(function (u) {
       up.appendChild(el('div', { class: 'upcoming' }, el('span', { class: 'upcoming-num' }, String(u.number)), el('span', null, u.title)));
     });
-    page.appendChild(el('section', { class: 'unit unit-upcoming' }, el('div', { class: 'unit-head' }, el('div', null, el('p', { class: 'kicker' }, 'Coming next'), el('h2', null, 'More planets to explore'))), up));
-    page.appendChild(el('p', { class: 'footnote' }, 'Activities follow the order of Cambridge Primary Mathematics Stage 3. Practise with the matching workbook pages after each planet.'));
+    page.appendChild(el('section', { class: 'unit unit-upcoming' }, el('div', { class: 'unit-head' }, el('div', null, el('p', { class: 'kicker' }, 'Coming next'), el('h2', null, 'More units to come'))), up));
+    page.appendChild(el('p', { class: 'footnote' }, 'Activities follow the order of Cambridge Primary Mathematics Stage 3. Practise with the matching workbook pages after each section.'));
 
     MQ.clear(root);
     root.appendChild(topbar(null));
@@ -204,10 +190,10 @@
     var m = meta(id);
     var where = sectionOf(id);
     MQ.clear(root);
-    root.appendChild(topbar(where ? 'Unit ' + where.unit.number + ' › ' + where.section.planet : ''));
+    root.appendChild(topbar(where ? 'Unit ' + where.unit.number + ' › ' + where.section.id + ' ' + where.section.title : ''));
 
     if (!MQ.activities[id]) {
-      root.appendChild(el('main', { class: 'page' }, el('div', { class: 'card center' }, MQ.robot('think', 90), el('h2', null, 'This mission is still being built'), el('p', null, 'Check back soon!'), el('a', { class: 'btn', href: '#/' }, '◀ Back to the map'))));
+      root.appendChild(el('main', { class: 'page' }, el('div', { class: 'card center' }, MQ.robot('think', 90), el('h2', null, 'This activity is still being built'), el('p', null, 'Check back soon!'), el('a', { class: 'btn', href: '#/' }, '◀ Back to all activities'))));
       return;
     }
 
@@ -260,7 +246,7 @@
       el(
         'div',
         { class: 'play-main' },
-        el('div', { class: 'play-head' }, el('a', { class: 'back', href: '#/' }, '◀ Map'), el('h1', null, m.icon + ' ' + m.title), progress),
+        el('div', { class: 'play-head' }, el('a', { class: 'back', href: '#/' }, '◀ All activities'), el('h1', null, m.icon + ' ' + m.title), progress),
         el('div', { class: 'robot-row' }, robotBox, bubble),
         stage,
         el('div', { class: 'controls' }, fb, el('div', { class: 'control-btns' }, revealBtn, nextBtn))
@@ -321,12 +307,12 @@
       done: function (r) {
         phaseNow = 'done';
         MQ.clear(progress);
-        progress.appendChild(el('span', { class: 'phase-tag phase-done' }, 'Mission complete'));
+        progress.appendChild(el('span', { class: 'phase-tag phase-done' }, 'Finished!'));
         shell.feedback('', 'info');
         revealBtn.hidden = true;
         var ids = allIds();
         var nextId = ids[ids.indexOf(id) + 1];
-        var msg = r.stars === 3 ? 'Amazing! Three stars!' : r.stars === 2 ? 'Great job! Two stars!' : 'Mission done! Play again to earn more stars.';
+        var msg = r.stars === 3 ? 'Amazing! Three stars!' : r.stars === 2 ? 'Great job! Two stars!' : 'All done! Play again to earn more stars.';
         shell.say(msg, 'cheer');
         MQ.clear(stage);
         stage.className = 'stage stage-done';
@@ -352,7 +338,7 @@
                 '↻ Play again'
               ),
               nextId && MQ.activities[nextId] ? el('a', { class: 'btn', href: '#/play/' + nextId }, 'Next: ' + meta(nextId).title + ' ▶') : null,
-              el('a', { class: 'btn btn-ghost', href: '#/' }, '🗺️ Map')
+              el('a', { class: 'btn btn-ghost', href: '#/' }, 'All activities')
             )
           )
         );
@@ -377,15 +363,15 @@
         'section',
         { class: 'card' },
         el('h1', null, '👪 Parent corner'),
-        el('p', null, 'Sit with him for 15–20 minutes a day: one mission, then the matching workbook pages. Open the "Parent corner" panel inside each mission for what to say and what to watch for.'),
+        el('p', null, 'Sit with him for 15–20 minutes a day: one activity, then the matching workbook pages. Open the "Parent corner" panel inside each activity for what to say and what to watch for.'),
         el('p', { class: 'muted' }, 'Progress is saved in this browser on this laptop only.')
       )
     );
-    var table = el('table', { class: 'progress-table' }, el('thead', null, el('tr', null, el('th', null, 'Mission'), el('th', null, 'Stars'), el('th', null, 'Plays'), el('th', null, 'Right first time'), el('th', null, 'Last played'), el('th', null, 'Slips to work on'))));
+    var table = el('table', { class: 'progress-table' }, el('thead', null, el('tr', null, el('th', null, 'Activity'), el('th', null, 'Stars'), el('th', null, 'Plays'), el('th', null, 'Right first time'), el('th', null, 'Last played'), el('th', null, 'Slips to work on'))));
     var tbody = el('tbody');
     cur.units.forEach(function (u) {
       u.sections.forEach(function (s) {
-        tbody.appendChild(el('tr', { class: 'section-row' }, el('td', { colspan: 6 }, s.id + ' ' + s.title + ' · ' + s.planet)));
+        tbody.appendChild(el('tr', { class: 'section-row' }, el('td', { colspan: 6 }, s.id + ' ' + s.title)));
         s.activities.forEach(function (id) {
           var m = meta(id);
           var p = prog.activities[id];

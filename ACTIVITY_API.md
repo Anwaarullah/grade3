@@ -1,4 +1,4 @@
-# Writing a Maths Mission activity
+# Writing a Grade 3 Maths activity
 
 Each activity is one plain JavaScript file in `js/activities/<id>.js`, loaded by a
 `<script>` tag in `index.html`. There is no build step and no ES modules, so the site
@@ -80,7 +80,7 @@ read `deck[api.index]`.
 * `MQ.util`: `rand(a, b)`, `pick`, `shuffle`, `range`, `clamp`, `fmt(13.5)` → "13½", `parseNum`, `same(a, b)`.
 
 CSS variables you can use: `--ink`, `--ink-soft`, `--paper`, `--paper-2`, `--line`,
-`--accent` (the planet colour), `--gold`, `--good`, `--good-bg`, `--try`, `--try-bg`,
+`--accent` (the section colour), `--gold`, `--good`, `--good-bg`, `--try`, `--try-bg`,
 `--info-bg`. Shared classes: `.btn`, `.btn-ghost`, `.chip`, `.prompt`, `.lesson`.
 
 ## Teaching rules for this learner
@@ -94,8 +94,10 @@ CSS variables you can use: `--ink`, `--ink-soft`, `--paper`, `--paper-2`, `--lin
 * Wrong answers get a specific, kind hint that points at the likely mistake. "Show me"
   explains the answer visually.
 * Use realistic numbers that match the textbook and workbook ranges.
-* Space and robots theme: rockets, robots, planets, aliens, space stations.
-  Keep it light; the maths matters most.
+* Plain, clean look with **everyday objects** from home and school (pencils, books, keys,
+  rooms, doors, gardens, playgrounds, shops), like the textbook and workbook. Bolt the
+  robot is the only character: he gives instructions and hints. No space, planet or
+  fantasy theme.
 * Everything must be original. Do not copy text or pictures from the books.
 
 ## Testing

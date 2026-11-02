@@ -1,4 +1,4 @@
-/* Maths Mission — curriculum map.
+/* Grade 3 Maths — curriculum map.
  * Follows the order of Cambridge Primary Mathematics Stage 3 (Learner's Book 3 and
  * Workbook 3, 2nd edition). Page references point to the printed page numbers so a
  * parent can line activities up with the books. All activity content is original.
@@ -18,7 +18,6 @@
           {
             id: '6.1',
             title: 'Measurement',
-            planet: 'Planet Measure',
             color: '#ff9f1c',
             book: 'Textbook p.89–101 · Workbook p.74–82',
             activities: ['ruler-lab', 'which-unit', 'unit-converter', 'rounding-rover', 'estimate-measure'],
@@ -26,7 +25,6 @@
           {
             id: '6.2',
             title: '2D shapes and perimeter',
-            planet: 'Planet Perimeter',
             color: '#2ec4b6',
             book: 'Textbook p.101–108 · Workbook p.82–90',
             activities: ['robot-patrol', 'regular-irregular', 'perimeter-puzzles'],
@@ -34,7 +32,6 @@
           {
             id: '6.3',
             title: 'Introducing area',
-            planet: 'Planet Area',
             color: '#c77dff',
             book: 'Textbook p.109–116 · Workbook p.90–96',
             activities: ['square-counter', 'fence-or-grass', 'rectangle-builder', 'mission-challenge'],
@@ -43,7 +40,7 @@
       },
     ],
 
-    /** The rest of the book, shown on the map as "coming soon". */
+    /** The rest of the book, shown on the home page as "coming soon". */
     upcoming: [
       { number: 1, title: 'Numbers to 1000' },
       { number: 2, title: 'Tally charts and frequency tables' },
@@ -68,7 +65,7 @@
       'ruler-lab': {
         title: 'Ruler Lab',
         icon: '📏',
-        summary: 'Measure space parts with a ruler — even a broken one that does not start at 0.',
+        summary: 'Measure things with a ruler, even a broken one that does not start at 0.',
         book: 'Textbook p.97 Q6 · Workbook p.76 Q4, p.77 Q6, p.79 Q9',
         tips: {
           goal: 'Measure lengths in centimetres, starting from 0, and work out lengths on a ruler that starts at another number.',
@@ -87,7 +84,7 @@
       },
       'which-unit': {
         title: 'Which Unit?',
-        icon: '🛰️',
+        icon: '📐',
         summary: 'Sort things into centimetres, metres or kilometres.',
         book: 'Textbook p.93–94 Q3, p.98 Q9 · Workbook p.74 Q1, p.77 Q5',
         tips: {
@@ -125,9 +122,9 @@
         },
       },
       'rounding-rover': {
-        title: 'Rounding Rover',
-        icon: '🚙',
-        summary: 'Drive the rover to the nearest 10, 100 or whole metre.',
+        title: 'Rounding Measurements',
+        icon: '🔢',
+        summary: 'Round lengths to the nearest 10 cm, 100 cm or whole metre.',
         book: 'Textbook p.99 Q10, p.113 Q1 · Workbook p.77 Q6, p.79 Q9',
         tips: {
           goal: 'Round measurements to the nearest whole cm, 10 cm, 100 cm (= nearest metre) and 10 km.',
@@ -144,7 +141,7 @@
         },
       },
       'estimate-measure': {
-        title: 'Estimate Station',
+        title: 'Estimate and Measure',
         icon: '🎯',
         summary: 'Guess first, then measure. How close can you get?',
         book: 'Textbook p.89, p.91–92 · Workbook p.75 Q2, p.78 Q7, p.80–81 Q10–11',
@@ -165,9 +162,9 @@
 
       /* ---------------- 6.2 2D shapes and perimeter ---------------- */
       'robot-patrol': {
-        title: 'Robot Patrol',
-        icon: '🤖',
-        summary: 'Walk the robot all the way round the base to find the perimeter.',
+        title: 'Walk the Edge',
+        icon: '🚶',
+        summary: 'Walk all the way round a shape and add the sides to find the perimeter.',
         book: 'Textbook p.102, p.106 Q6 · Workbook p.83 Q2, p.84 Q3, p.89 Q9–10',
         tips: {
           goal: 'Perimeter is the distance all the way round a shape: add every side.',
@@ -248,7 +245,7 @@
       },
       'fence-or-grass': {
         title: 'Fence or Floor?',
-        icon: '🏗️',
+        icon: '🏡',
         summary: 'Perimeter is the fence round the edge. Area is the floor inside.',
         book: 'Textbook p.110 · Workbook p.91 Q3, p.93 Q5–6, p.94 Q6c',
         tips: {
@@ -287,9 +284,9 @@
         },
       },
       'mission-challenge': {
-        title: 'Mission Control Challenge',
-        icon: '🚀',
-        summary: 'Design space gardens, then a mixed quiz on the whole unit.',
+        title: 'Unit 6 Challenge',
+        icon: '🏆',
+        summary: 'Design gardens with the same fence, then a mixed quiz on the whole unit.',
         book: 'Textbook p.112, p.114 Q4, p.115–116 Project 3 · Workbook p.94 Q7',
         tips: {
           goal: 'Same perimeter can give different areas (and the other way round), plus a review of all of Unit 6.',
