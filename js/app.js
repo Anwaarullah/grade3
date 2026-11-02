@@ -33,16 +33,59 @@
     var p = MQ.store.load().activities[id];
     return p ? p.stars || 0 : 0;
   }
+  function unitIds(u) {
+    var ids = [];
+    u.sections.forEach(function (s) {
+      ids = ids.concat(s.activities);
+    });
+    return ids;
+  }
+  function unitByNumber(n) {
+    return cur.units.filter(function (u) {
+      return u.number === n;
+    })[0];
+  }
+  function unitStars(u) {
+    var ids = unitIds(u);
+    return {
+      got: ids.reduce(function (sum, id) {
+        return sum + starsOf(id);
+      }, 0),
+      max: ids.length * 3,
+      ready: ids.filter(function (id) {
+        return MQ.activities[id];
+      }).length,
+      total: ids.length,
+    };
+  }
+  /** Next activity: carry on after the last one played, otherwise the first without stars. */
   function nextRecommended() {
-    var ids = allIds().filter(function (id) {
+    var prog = MQ.store.load().activities;
+    var ready = allIds().filter(function (id) {
       return MQ.activities[id];
     });
-    for (var i = 0; i < ids.length; i++) if (starsOf(ids[i]) === 0) return ids[i];
-    var lowest = null;
-    ids.forEach(function (id) {
-      if (starsOf(id) < 3 && (lowest === null || starsOf(id) < starsOf(lowest))) lowest = id;
+    if (!ready.length) return null;
+    var last = null;
+    var lastT = '';
+    Object.keys(prog).forEach(function (id) {
+      if (prog[id].lastPlayed && prog[id].lastPlayed > lastT && ready.indexOf(id) !== -1) {
+        lastT = prog[id].lastPlayed;
+        last = id;
+      }
     });
-    return lowest || ids[0];
+    var start = last ? ready.indexOf(last) + 1 : 0;
+    for (var i = 0; i < ready.length; i++) {
+      var id = ready[(start + i) % ready.length];
+      if (starsOf(id) === 0) return id;
+    }
+    var lowest = null;
+    ready.forEach(function (rid) {
+      if (starsOf(rid) < 3 && (lowest === null || starsOf(rid) < starsOf(lowest))) lowest = rid;
+    });
+    return lowest || ready[0];
+  }
+  function progressBar(got, max) {
+    return el('div', { class: 'unit-progress' }, el('div', { class: 'bar' }, el('span', { style: { width: (max ? Math.round((got / max) * 100) : 0) + '%' } })), el('span', { class: 'bar-label' }, '★ ' + got + ' / ' + max));
   }
   function starRow(n, max) {
     max = max || 3;
@@ -100,11 +143,12 @@
     );
   }
 
-  /* ---------------- lesson map ---------------- */
+  /* ---------------- home: all units ---------------- */
   function renderMap() {
     var rec = nextRecommended();
     var page = el('main', { class: 'page map' });
     var recMeta = meta(rec);
+    var recWhere = rec ? sectionOf(rec) : null;
     page.appendChild(
       el(
         'section',
@@ -116,72 +160,105 @@
           el('p', { class: 'kicker' }, 'Grade 3 · Cambridge Stage 3'),
           el('h1', null, 'Hello! Ready to practise?'),
           el('p', { class: 'lead' }, 'I am Bolt, your maths helper. Each activity takes about 15 minutes. Try to collect 3 stars in every one.'),
-          rec ? el('a', { class: 'btn btn-big', href: '#play-' + rec }, 'Next activity: ' + recMeta.icon + ' ' + recMeta.title + ' ▶') : null
+          rec
+            ? el(
+                'div',
+                { class: 'hero-actions' },
+                el('a', { class: 'btn btn-big', href: '#play-' + rec }, 'Next activity: ' + recMeta.icon + ' ' + recMeta.title + ' ▶'),
+                recWhere ? el('span', { class: 'hero-where' }, 'Unit ' + recWhere.unit.number + ' · ' + recWhere.section.id + ' ' + recWhere.section.title) : null
+              )
+            : null
         )
       )
     );
 
-    cur.units.forEach(function (u) {
-      var ids = [];
-      u.sections.forEach(function (s) {
-        ids = ids.concat(s.activities);
-      });
-      var got = ids.reduce(function (sum, id) {
-        return sum + starsOf(id);
-      }, 0);
-      var max = ids.length * 3;
-      var unitEl = el(
-        'section',
-        { class: 'unit' },
+    var grid = el('div', { class: 'unit-grid' });
+    for (var n = 1; n <= 17; n++) {
+      var u = unitByNumber(n);
+      var title = u ? u.title : cur.titles[n];
+      var st = u ? unitStars(u) : null;
+      var color = u && u.sections[0] ? u.sections[0].color : '#9aa6c4';
+      var open = st && st.ready > 0;
+      grid.appendChild(
         el(
-          'div',
-          { class: 'unit-head' },
-          el('div', null, el('p', { class: 'kicker' }, 'Unit ' + u.number), el('h2', null, u.title)),
-          el('div', { class: 'unit-progress' }, el('div', { class: 'bar' }, el('span', { style: { width: Math.round((got / max) * 100) + '%' } })), el('span', { class: 'bar-label' }, '★ ' + got + ' / ' + max))
+          'a',
+          { class: 'unit-card' + (open ? '' : ' is-locked'), href: open ? '#unit-' + n : null, 'aria-disabled': open ? null : 'true', style: { '--accent': color } },
+          el('span', { class: 'unit-num' }, String(n)),
+          el(
+            'span',
+            { class: 'unit-card-text' },
+            el('strong', null, title),
+            open
+              ? el('small', null, st.total + ' activities' + (st.ready < st.total ? ' (' + (st.total - st.ready) + ' still being built)' : '') + (u.sections.length > 1 ? ' · sections ' + u.sections.map(function (s) { return s.id; }).join(', ') : ''))
+              : el('small', null, 'Being built…'),
+            open ? progressBar(st.got, st.max) : null
+          )
         )
       );
-      var sectionsEl = el('div', { class: 'sections' });
-      u.sections.forEach(function (s) {
-        var list = el('ol', { class: 'missions' });
-        s.activities.forEach(function (id) {
-          var m = meta(id);
-          var ready = !!MQ.activities[id];
-          list.appendChild(
-            el(
-              'li',
-              null,
-              el(
-                'a',
-                { class: 'mission' + (id === rec ? ' is-next' : '') + (ready ? '' : ' is-locked'), href: ready ? '#play-' + id : null, 'aria-disabled': ready ? null : 'true' },
-                el('span', { class: 'mission-icon', 'aria-hidden': 'true' }, m.icon),
-                el('span', { class: 'mission-text' }, el('strong', null, m.title), el('small', null, ready ? m.summary : 'Being built…')),
-                ready ? starRow(starsOf(id)) : null
-              )
-            )
-          );
-        });
-        sectionsEl.appendChild(
-          el(
-            'article',
-            { class: 'section-card', style: { '--accent': s.color } },
-            el('div', { class: 'section-head' }, el('span', { class: 'section-num' }, s.id), el('div', null, el('h3', null, s.title), el('p', { class: 'book-ref' }, s.book))),
-            list
-          )
-        );
-      });
-      unitEl.appendChild(sectionsEl);
-      page.appendChild(unitEl);
-    });
-
-    var up = el('div', { class: 'upcoming-grid' });
-    cur.upcoming.forEach(function (u) {
-      up.appendChild(el('div', { class: 'upcoming' }, el('span', { class: 'upcoming-num' }, String(u.number)), el('span', null, u.title)));
-    });
-    page.appendChild(el('section', { class: 'unit unit-upcoming' }, el('div', { class: 'unit-head' }, el('div', null, el('p', { class: 'kicker' }, 'Coming next'), el('h2', null, 'More units to come'))), up));
+    }
+    page.appendChild(el('section', { class: 'unit' }, el('div', { class: 'unit-head' }, el('div', null, el('p', { class: 'kicker' }, 'Learner\'s Book 3'), el('h2', null, 'All units'))), grid));
     page.appendChild(el('p', { class: 'footnote' }, 'Activities follow the order of Cambridge Primary Mathematics Stage 3. Practise with the matching workbook pages after each section.'));
 
     MQ.clear(root);
     root.appendChild(topbar(null));
+    root.appendChild(page);
+  }
+
+  /* ---------------- one unit: its sections and activities ---------------- */
+  function renderUnit(n) {
+    var u = unitByNumber(n);
+    if (!u) {
+      renderMap();
+      return;
+    }
+    var rec = nextRecommended();
+    var st = unitStars(u);
+    var page = el('main', { class: 'page map' });
+    page.appendChild(el('a', { class: 'back back-light', href: '#home' }, '◀ All units'));
+    var unitEl = el('section', { class: 'unit' }, el('div', { class: 'unit-head' }, el('div', null, el('p', { class: 'kicker' }, 'Unit ' + u.number), el('h1', { class: 'unit-title' }, u.title)), progressBar(st.got, st.max)));
+    var sectionsEl = el('div', { class: 'sections' + (u.sections.length === 1 ? ' sections-one' : u.sections.length === 2 ? ' sections-two' : '') });
+    u.sections.forEach(function (s) {
+      var list = el('ol', { class: 'missions' });
+      s.activities.forEach(function (id) {
+        var m = meta(id);
+        var ready = !!MQ.activities[id];
+        list.appendChild(
+          el(
+            'li',
+            null,
+            el(
+              'a',
+              { class: 'mission' + (id === rec ? ' is-next' : '') + (ready ? '' : ' is-locked'), href: ready ? '#play-' + id : null, 'aria-disabled': ready ? null : 'true' },
+              el('span', { class: 'mission-icon', 'aria-hidden': 'true' }, m.icon),
+              el('span', { class: 'mission-text' }, el('strong', null, m.title), el('small', null, ready ? m.summary : 'Being built…')),
+              ready ? starRow(starsOf(id)) : null
+            )
+          )
+        );
+      });
+      sectionsEl.appendChild(
+        el(
+          'article',
+          { class: 'section-card', style: { '--accent': s.color } },
+          el('div', { class: 'section-head' }, el('span', { class: 'section-num' }, s.id), el('div', null, el('h3', null, s.title), el('p', { class: 'book-ref' }, s.book))),
+          list
+        )
+      );
+    });
+    unitEl.appendChild(sectionsEl);
+    page.appendChild(unitEl);
+    var prevU = unitByNumber(n - 1);
+    var nextU = unitByNumber(n + 1);
+    page.appendChild(
+      el(
+        'nav',
+        { class: 'unit-nav' },
+        prevU ? el('a', { class: 'btn btn-ghost', href: '#unit-' + prevU.number }, '◀ Unit ' + prevU.number) : el('span'),
+        nextU ? el('a', { class: 'btn btn-ghost', href: '#unit-' + nextU.number }, 'Unit ' + nextU.number + ' ▶') : el('span')
+      )
+    );
+    MQ.clear(root);
+    root.appendChild(topbar('Unit ' + u.number));
     root.appendChild(page);
   }
 
@@ -246,7 +323,7 @@
       el(
         'div',
         { class: 'play-main' },
-        el('div', { class: 'play-head' }, el('a', { class: 'back', href: '#home' }, '◀ All activities'), el('h1', null, m.icon + ' ' + m.title), progress),
+        el('div', { class: 'play-head' }, el('a', { class: 'back', href: where ? '#unit-' + where.unit.number : '#home' }, where ? '◀ Unit ' + where.unit.number : '◀ Home'), el('h1', null, m.icon + ' ' + m.title), progress),
         el('div', { class: 'robot-row' }, robotBox, bubble),
         stage,
         el('div', { class: 'controls' }, fb, el('div', { class: 'control-btns' }, revealBtn, nextBtn))
@@ -338,7 +415,7 @@
                 '↻ Play again'
               ),
               nextId && MQ.activities[nextId] ? el('a', { class: 'btn', href: '#play-' + nextId }, 'Next: ' + meta(nextId).title + ' ▶') : null,
-              el('a', { class: 'btn btn-ghost', href: '#home' }, 'All activities')
+              el('a', { class: 'btn btn-ghost', href: where ? '#unit-' + where.unit.number : '#home' }, where ? 'Back to Unit ' + where.unit.number : 'Home')
             )
           )
         );
@@ -413,6 +490,7 @@
     var table = el('table', { class: 'progress-table' }, el('thead', null, el('tr', null, el('th', null, 'Activity'), el('th', null, 'Stars'), el('th', null, 'Plays'), el('th', null, 'Right first time'), el('th', null, 'Last played'), el('th', null, 'Slips to work on'))));
     var tbody = el('tbody');
     cur.units.forEach(function (u) {
+      tbody.appendChild(el('tr', { class: 'unit-row' }, el('td', { colspan: 6 }, 'Unit ' + u.number + ' · ' + u.title)));
       u.sections.forEach(function (s) {
         tbody.appendChild(el('tr', { class: 'section-row' }, el('td', { colspan: 6 }, s.id + ' ' + s.title)));
         s.activities.forEach(function (id) {
@@ -478,6 +556,7 @@
     var m = h.match(/^#\/?play[-\/]([\w-]+)/);
     if (m) renderPlay(m[1]);
     else if (/^#\/?parent/.test(h)) renderParent();
+    else if (/^#unit-(\d+)/.test(h)) renderUnit(parseInt(h.match(/^#unit-(\d+)/)[1], 10));
     else renderMap();
     window.scrollTo(0, 0);
   }

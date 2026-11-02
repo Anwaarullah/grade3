@@ -30,8 +30,27 @@ IIFE and use the global `MQ` object.
 })();
 ```
 
-The page title, icon, summary, parent tips and book page references come from
-`js/curriculum.js`. Do not repeat them in the activity file.
+The page title, icon, summary, parent tips and book page references come from the
+unit file `js/units/unit-NN.js`. Do not repeat them in the activity file.
+
+## Unit files
+
+Each unit has one file, `js/units/unit-NN.js` (see `js/units/unit-06.js`), that calls:
+
+```js
+window.MQ.addUnit(
+  { id: 'u6', number: 6, title: 'Measurement, area and perimeter',
+    sections: [ { id: '6.1', title: 'Measurement', color: '#ff9f1c',
+                  book: 'Textbook p.89–101 · Workbook p.74–82', activities: ['ruler-lab', ...] }, ... ] },
+  { 'ruler-lab': { title: 'Ruler Lab', icon: '📏', summary: 'One short child-facing line.',
+                   book: 'Textbook p.97 Q6 · Workbook p.76 Q4',
+                   tips: { goal: '...', say: ['...', '...', '...'], watch: ['...', '...'], offline: '...' } }, ... }
+);
+```
+
+Section colours come from `MQ.curriculum.sectionColors` in order. `index.html` loads every
+unit file followed by that unit's activity files. Links inside the site are `#home`,
+`#unit-N`, `#play-<id>` and `#parent`.
 
 ## The `stage` and `api`
 

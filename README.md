@@ -5,7 +5,8 @@ Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a c
 plain design, a friendly robot helper called Bolt, short activities of about 15 minutes,
 stars, and a **Parent corner** with what to say and what to watch for in each activity.
 
-The first set covers **Unit 6: Measurement, area and perimeter**:
+It covers all 17 units of the book. The home page lists every unit; each unit page shows
+its sections and activities. Unit 6 (Measurement, area and perimeter) was built first:
 
 | Section | Activities |
 |---|---|
@@ -51,7 +52,8 @@ same browser each time. "Reset all progress" is in the Parent corner.
 ## Development
 
 * Each activity is one file in `js/activities/`. See `ACTIVITY_API.md` for the activity contract.
-* `js/curriculum.js` holds the map, the book page references and the parent tips.
+* `js/units/unit-NN.js` holds each unit's sections, book page references and parent tips;
+  `js/curriculum.js` is the small registry they plug into.
 * Smoke test (needs Node and Playwright):
   ```bash
   node tools/smoke.js            # all activities + the map
