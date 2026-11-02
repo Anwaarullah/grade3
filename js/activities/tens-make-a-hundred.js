@@ -168,6 +168,8 @@
       var out = {};
       ['h', 't', 'o'].forEach(function (k) {
         var g = svg('g', { class: 'tmh-grp tmh-r' + ri + ' tmh-k-' + k });
+        // Invisible grab area over the whole cell, so the gaps between pieces still catch the mouse.
+        if (d[k]) g.appendChild(svg('rect', { x: CX[k] + 4, y: tops[ri] + 2, width: CW[k] - 8, height: RH - 4, class: 'tmh-hit' }));
         for (var i = 0; i < d[k]; i++) g.appendChild(makePiece(k, i, tops[ri], 'tmh-' + SRC[ri]));
         root.appendChild(g);
         out[k] = { g: g, n: d[k], moved: d[k] === 0, src: SRC[ri] };
@@ -613,6 +615,16 @@
     }
   }
 
+  /** A repeat of the same wrong answer is not a new mistake: just nudge, do not count a try. */
+  function repeated(memo, v, api) {
+    if (memo.last === v) {
+      api.feedback('That is the same answer as before. Try a different one.', 'try');
+      return true;
+    }
+    memo.last = v;
+    return false;
+  }
+
   var deck = null;
 
   function buildDeck() {
@@ -664,6 +676,7 @@
       },
     });
     tools = matTools(mat);
+    var memo = {};
     var input = MQ.ui.numberInput({
       prefix: 'Total =',
       onSubmit: function (v) {
@@ -673,6 +686,7 @@
           tools.disable();
           api.check(true, U.pick(['Yes! ', 'Correct! ', 'Brilliant! ']) + sumText(nums) + ' = ' + correct + '.');
         } else {
+          if (repeated(memo, v, api)) return;
           input.bad();
           var d = diagnose(nums, v, api.tries());
           api.check(false, d.hint, d.tag);
@@ -725,7 +739,11 @@
     var m = null;
     var ch = MQ.ui.choices(
       ['none', 'ones', 'tens'].map(function (k) { return { label: SORT_LABEL[k], value: k }; }),
-      function (v) {
+      function (v, btn) {
+        if (btn.classList.contains('bad')) {
+          api.feedback('You tried that one. Pick another.', 'try');
+          return;
+        }
         if (v === cat) {
           ch.mark(v, 'good');
           ch.disable();
@@ -788,9 +806,14 @@
     var stepIdx = 0;
     var steps = stackSteps(nums);
     var estChip = el('div', { class: 'chip tmh-estchip' });
+    var memo = {};
 
     side.appendChild(el('div', { class: 'tmh-side-title' }, 'Estimate:'));
-    var ch = MQ.ui.choices(estimateOptions(nums).map(function (v) { return { label: 'about ' + v, value: v }; }), function (v) {
+    var ch = MQ.ui.choices(estimateOptions(nums).map(function (v) { return { label: 'about ' + v, value: v }; }), function (v, btn) {
+      if (btn.classList.contains('bad')) {
+        api.feedback('You tried that one. Pick another.', 'try');
+        return;
+      }
       if (v === est) {
         ch.mark(v, 'good');
         ch.disable();
@@ -825,6 +848,7 @@
               view.set('total', correct);
               api.check(true, praise());
             } else {
+              if (repeated(memo, v, api)) return;
               input.bad();
               var d = diagnose(nums, v, api.tries());
               api.check(false, d.hint, d.tag);
@@ -854,6 +878,7 @@
             api.feedback('Yes! ' + s.label + ': ' + s.val + '.', 'good');
             showStep();
           } else {
+            if (repeated(memo, s.key + ':' + v, api)) return;
             input.bad();
             var d = stepMiss(nums, s, v, api.tries());
             api.check(false, d.hint, d.tag);
@@ -896,6 +921,7 @@
     stage.appendChild(MQ.ui.prompt('<span class="tmh-q"><span class="tmh-qbox">?</span> + ' + add + ' = ' + N + '</span>'));
     stage.appendChild(sticksPic(k));
     var chain = el('div', { class: 'tmh-chain' });
+    var memo = {};
     var input = MQ.ui.numberInput({
       prefix: '? =',
       onSubmit: function (v) {
@@ -906,6 +932,7 @@
           api.check(true, 'Yes! ' + m + ' + ' + add + ' = ' + N + '.' + other);
           return;
         }
+        if (repeated(memo, v, api)) return;
         input.bad();
         var tag;
         var hint;
@@ -1140,6 +1167,7 @@
     '.tmh-grp{transition:opacity .25s}',
     '.tmh-grp:not(.tmh-gone):hover{filter:brightness(1.06)}',
     '.tmh-gone{opacity:.13;pointer-events:none}',
+    '.tmh-hit{fill:transparent;stroke:none;pointer-events:all}',
     '.tmh-frame{fill:rgba(255,183,3,.12);stroke:#e0a100;stroke-width:3;stroke-dasharray:8 5;animation:tmh-glow 1.4s ease-in-out infinite}',
     '@keyframes tmh-glow{50%{stroke:#ffcf4d;fill:rgba(255,183,3,.24)}}',
     '.tmh-piece{transform-box:fill-box;transform-origin:center;transition:opacity .4s,transform .4s}',
