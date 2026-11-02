@@ -187,6 +187,58 @@ Source: Learner's Book 3, printed pages 150-167 = scan image index **152-169** (
 }
 ```
 
+## Workbook (Workbook 3, printed pages 126-151)
+All 26 pages read; corner numbers confirmed. F = Focus, P = Practice, C = Challenge. Levels: 10.1 F Q1-4, P Q5-7, C Q8-11; 10.2 F Q1-3, P Q4-7, C Q8-11.
+
+### 10.1 Pictograms and bar charts
+- p.126 WE1: books sold, key 1 = 2. Mon 6, Tue 10, Wed 8, Thu 4. Most = Tue.
+- p.127 Q1 F: phones, key 1 = 2. Symbols 3,4,5,2 = 6,8,10,4. Title; total 28; most Thu, least Fri; own pictogram + 2 questions.
+- p.128 Q2 F: fix a wrong bar chart (scale 1s, 0-7). Data: cricket 6, golf 3, tennis 5, football 7. Total 21; order golf, tennis, cricket, football.
+- p.129 Q3 F: vertical pictogram of park visits, key 1 = 2 families, half symbols. Mon 10, Tue 6, Wed 11, Thu 8, Fri 3, Sat 15, Sun 14. Most Sat, fewest Fri.
+- p.130 Q4 F: horizontal bar chart of cloudy hours (1s): 4,1,3,2,5,5,2 (Mon-Sun, total 22). Convert to pictogram (key 1 = 1).
+- p.131 Q5 P: goals, key 1 = 2. A 11, B 3, C 6, D 12. A + B = 14.
+- p.132 Q6 P: unlabelled bars 6,10,14,12,8 squares tall. Child invents title, labels, scale.
+- p.133 Q7 P: trees, key 1 = 2. Weeks 7,14,5,9,10. Redraw as bar chart, scale 2s to 14.
+- p.134 Q8 C: ice cream given in words: vanilla 12, chocolate 15 (12 + 3), strawberry 6, lemon 11, mint 17 (6 + 11). Bar chart in 2s on blank grid.
+- p.135-136 Q9 C: sort 29 vehicle pictures into a pictogram (key 1 = 1, 8 rows). Cars 6, tractors 4, trucks 9, bikes 5, trikes 5. Trucks − cars = 3; trikes − tractors = 1.
+- p.137 Q10 C: vertical pictogram with axis 1-9: bee 3, butterfly 9, ladybird 4, snail 1, spider 7, worm 2. Add title, key, axis labels (total 26).
+- p.138 Q11 C: redraw Q10 as a bar chart (squares of 1, labels 0-10 in 2s).
+
+### 10.2 Venn and Carroll diagrams
+- p.139 WE2: Venns "1 ten / even" (overlap 12,14) and "3 tens / even" (overlap 38,30,32).
+- p.140 Q1 F: Venn ">10 / odd". >10 only 14,56,82,68,72; both 61,41,45; odd only 5,7,9,3; outside none.
+- p.140 Q2 F: Carroll, 1-digit × even. 1-digit even: 2; 1-digit odd: 1,5; other even: 10,14,62,76,108; other odd: 15,21,27,35,47,55,83,91.
+- p.141-142 Q3 F: uniform survey (green/yellow × t-shirt/shirt). Ask ≤10 learners, present, explain choice.
+- p.143 Q4 P: Venn "triangle / has symmetry", 8 shapes. Triangle only: right-angled triangle. Both: 2 isosceles triangles. Symmetry only: trapezium, rectangle, square, pentagon, circle.
+- p.144 Q5 P: Carroll, <50 × odd. Odd <50: 17,13,45; odd ≥50: 245,71,555; even <50: 4,18; even ≥50: 106,912,56.
+- p.144 Q6 P: Carroll ÷3 × ÷5. Both 45,60; ÷5 only 50,55,20; ÷3 only 66,69,24,18; neither 68,97.
+- p.145-146 Q7 P: pet-food survey (3 kinds). Ask ≤10, present, 3 findings.
+- p.147 Q8 C: label a filled Venn: multiples of 3 (3,6,9,12,21) / multiples of 5 (5,10,20,25,75,80), overlap 15,30. Add 18 to the 3s circle and 45 to the overlap; 13,14,16,17,19 go outside.
+- p.148 Q9 C: Carroll for 10-40, between 10 and 20 × even digit sum. Between/even sum: 11,13,15,17,19; between/odd: 12,14,16,18. Other even: 22-28 (evens), 31-39 (odds), 40. Other odd: 21-29 (odds), 30-38 (evens). 10/20 ambiguous.
+- p.148 Q10a C: write the labels. Rows: 3-digit / not 3-digit. Columns: not a multiple of 10 / multiple of 10.
+- p.149 Q10b: same numbers in a Venn. Overlap 140,490; outside 18,24,51,6.
+- p.149 Q11a-b C: how bar charts and pictograms differ; choose one for jumps 24,18,15,21 (bar chart).
+- p.150-151 Q11c: own investigation (breakfast/travel/pets); choose display; 3 findings.
+
+### Hidden prerequisites and traps
+- **Multiplication:** a key of 2 needs doubling (p.127, p.129 up to 15, p.131, p.133 up to 14). A half symbol = 1.
+- **Multiplication:** ÷3 and ÷5 tests up to 69 (p.144 Q6, written with "÷" signs).
+- **Multiplication:** multiples of 3 to 30, of 5 to 80, plus 45 (p.147).
+- Horizontal bar chart (p.130); block-graph-style pictogram with numbered axis (p.137).
+- Scales: a 2s scale with odd values between gridlines (p.133: 5,7,9; p.134: 11,15,17). The child invents the scale (p.132). Squares worth 1 but labels in 2s (p.138).
+- 3-digit numbers in sorting (p.140, p.144, p.148).
+- "Not less than 50" in the grid but "more than 50" in part b (p.144); whether "between" includes its end numbers (p.148).
+- Digit sums (p.148); symmetry (p.143); labels worked out backwards (p.147-148).
+- Trap: spiders, snails and worms are called "insects" (p.137-138).
+- Absent: keys of 5 or 10, scales in 5s or 10s, quarter symbols, three-circle Venns, spinners or dice.
+
+### Activity refinements
+- **pictogram-maker**: Workbook p.126 WE1, p.127 Q1, p.129 Q3, p.130 Q4a, p.131 Q5, p.135 Q9, p.137 Q10. Add vertical layout, write-the-key mode, bar-to-pictogram conversion, jumbled-picture sorting. Tip: count in 2s, +1 for a half.
+- **bar-chart-builder**: Workbook p.128 Q2, p.132 Q6, p.133 Q7, p.134 Q8, p.138 Q11, p.149 Q11a-b. Add fix-the-bars, horizontal bars, odd values on 2s scale, word-clue data, label-a-bare-chart, "which graph?" choice.
+- **spin-and-count**: no workbook match; reuse its tally → chart → findings flow for Workbook p.141 Q3, p.145 Q7, p.150 Q11c.
+- **venn-hoops**: Workbook p.139 WE2, p.140 Q1, p.143 Q4, p.147 Q8, p.149 Q10b. Add rules tens digit, >10, triangle/symmetry, multiples of 3/5 (with counting strip); guess-the-labels mode; outside region.
+- **carroll-grid**: Workbook p.140 Q2, p.141 Q3, p.144 Q5-6, p.148 Q9-10a. Add 3-digit numbers, ÷3/÷5 with multiples chart, digit sums, write-the-labels, survey 2×2. Tip: "not less than 50" = "50 or more".
+
 ## Proposed activities
 
 Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
@@ -196,7 +248,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **icon**: 🖼️
 - **section**: 10.1
 - **summary**: Read and build pictograms, using a key where one picture can stand for 1 or 2.
-- **book**: Textbook p.150 Getting started, p.152 intro, p.153 Worked example 1, p.154 Q1, p.166 Check your progress Q1
+- **book**: Textbook p.150 Getting started, p.152 intro, p.153 Worked example 1, p.154 Q1, p.166 Check your progress Q1 · Workbook p.126 worked example, p.127 Q1, p.129 Q3, p.130 Q4, p.131 Q5, p.135-136 Q9, p.137 Q10
 - **Learn screens**
   1. A garden bird-watch pictogram, key 1 picture = 1 bird. The child clicks a row and the pictures count themselves (1, 2, 3 ...). Bolt asks which bird was seen most.
   2. The key changes to 1 picture = 2. The same row now counts 2, 4, 6 (a skip-counting strip appears). A half picture is cut in two: half of 2 is 1.
@@ -204,7 +256,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **Practice** (count 9)
   - Level 1: key 1 picture = 1; read rows (counts 1-8) and answer how many / which most / which least.
   - Level 2: key 1 = 1 with half pictures (e.g. 3 and a half hours of sunshine); answer how many more and how many altogether; build a pictogram from three clues (e.g. 7 and a half, 2 less, the sum of both).
-  - Level 3: key 1 picture = 2 with half pictures (counts up to 14, e.g. 11, 7, 8); read rows by counting in 2s; build one row from a number.
+  - Level 3: key 1 picture = 2 with half pictures (counts up to 15, e.g. 11, 7, 8, 15); read rows by counting in 2s; build one row from a number. Include vertical (column) pictograms as well as rows, a 'write the key' item, and turning a bar chart into a pictogram (workbook p.129, p.130, p.137).
 - **Mistake tags**: Ignored the key; Counted a half picture as 1 whole; Ignored the half picture; Mixed up more and altogether; Forgot the title or key
 - **Parent tips**
   - Goal: Use the key to turn pictures into numbers, and draw a pictogram from data.
@@ -217,7 +269,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **icon**: 📊
 - **section**: 10.1
 - **summary**: Drag bars to the right height, label the chart, and answer questions by reading the scale.
-- **book**: Textbook p.152 intro, p.155 Q2, p.167 Check your progress Q4
+- **book**: Textbook p.152 intro, p.155 Q2, p.167 Check your progress Q4 · Workbook p.128 Q2, p.130 Q4, p.132 Q6, p.133 Q7, p.134 Q8, p.138 Q11, p.149 Q11a-b
 - **Learn screens**
   1. A blank chart with two axes. Bolt names them: the horizontal axis shows the groups, the vertical axis shows how many. The child drags "Title", "Pets" and "Number of pets" labels into place.
   2. The child drags the top of the "cat" bar up to 8 on a scale of 1. A ruler line slides across from the bar top to the scale.
@@ -225,7 +277,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **Practice** (count 9)
   - Level 1: build a chart from data in words (e.g. 1 turtle, 3 rabbits, 6 fish, 8 cats, 9 guinea pigs) on a scale of 1 from 0 to 9 (as in the book), then add the title and axis labels.
   - Level 2: read a chart (scale of 1, up to 7; e.g. dice scores 2, 6, 1, 3, 5, 3): how many, most, least, how many more, total.
-  - Level 3: read a chart with a scale in 2s (up to 12), including bars that end between gridlines (odd values); pick the question that can be answered from the chart.
+  - Level 3: read and draw charts with a scale in 2s (up to 18), including bars that end between gridlines (odd values such as 5, 7, 11, 15, 17); horizontal bar charts; data given as word clues ('3 more than vanilla'); a 'fix the wrong bars' item; give a bare chart a title, labels and scale (workbook p.128, p.130, p.132, p.134); and choose a bar chart or a pictogram for a data set and say why.
 - **Mistake tags**: Counted gridlines not the scale; Bar started at 1 not 0; Missing title or axis label; Misread a bar between two marks; Answered 'altogether' for 'how many more'
 - **Parent tips**
   - Goal: Draw and read bar charts with a title, labelled axes and a scale.
@@ -238,7 +290,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **icon**: 🎲
 - **section**: 10.1
 - **summary**: Run a spinner or dice experiment, tally the results, turn them into a chart, and compare with a prediction.
-- **book**: Textbook p.151 four investigation steps, p.156-157 Q3-Q4, p.158 Q5, p.159 Think like a mathematician
+- **book**: Textbook p.151 four investigation steps, p.156-157 Q3-Q4, p.158 Q5, p.159 Think like a mathematician · Workbook p.141-142 Q3, p.145-146 Q7, p.150-151 Q11c (surveys; the workbook has no spinner or dice questions)
 - **Learn screens**
   1. The four steps of an investigation as four cards (ask, collect, look, check). The child puts them in order.
   2. A 5-colour spinner. The child predicts which colour will win in 20 spins, then clicks "spin" 20 times (or "spin 20"); a tally chart fills in and frequencies appear.
@@ -246,6 +298,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **Practice** (count 8)
   - Level 1: given a finished tally chart (4 options, totals up to 12), type the frequencies and pick the most popular option.
   - Level 2: run a 20-spin spinner experiment, then answer two questions from the resulting chart (how many, how many more); compare with a second run ("what is the same, what is different?").
+  - Workbook link: the workbook has no spinner or dice questions, only small surveys (uniform colours, pet food, breakfast/travel/pets) asked of up to 10 people. Include one survey round where the child chooses the categories, tallies 10 given answers and picks a display.
   - Level 3: two-dice totals: predict how many 7s in 20 throws, throw, record totals 2-12 in a tally, and decide whether the prediction was close. A survey-style item: build a tally from 20 children's picnic choices.
 - **Mistake tags**: Tally marks miscounted (gate of 5); Frequency does not match tally; Expected equal results; Chart does not match the tally
 - **Parent tips**
@@ -259,7 +312,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **icon**: ⭕
 - **section**: 10.2
 - **summary**: Sort numbers and pictures into two overlapping hoops, using the middle for both and the outside for neither.
-- **book**: Textbook p.160 intro, p.161 Worked example 2, p.162 Q1, p.164 Q3, p.167 Check your progress Q3
+- **book**: Textbook p.160 intro, p.161 Worked example 2, p.162 Q1, p.164 Q3, p.167 Check your progress Q3 · Workbook p.139 worked example, p.140 Q1, p.143 Q4, p.147 Q8, p.149 Q10b
 - **Learn screens**
   1. Two hoops on a mat: "red things" and "round things". The child drags a red ball, a red book, a green apple and a blue pencil. The red ball has to go in the middle; the blue pencil goes outside, still on the mat.
   2. Numbers: "even" and "less than 10". The child sorts 4, 7, 12, 15; Bolt explains each region.
@@ -267,7 +320,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **Practice** (count 9)
   - Level 1: everyday object cards (6-8 per round) with picture rules (colour, shape, 'has wheels', 'is food').
   - Level 2: numbers with odd/even and 'less than' / 'more than' rules (e.g. odd / less than 20; even / more than 50), up to 100.
-  - Level 3: multiple rules with the skip-count checker available (multiples of 2 and 3 for 1-20; odd and multiples of 5 up to 40; multiple of 4 and less than 100); one region may be empty.
+  - Level 3: multiple rules with the skip-count checker available (multiples of 2 and 3 for 1-20; odd and multiples of 5 up to 40; multiple of 4 and less than 100; multiples of 3 and of 5 up to 80); one region may be empty. Also a 'guess the labels' round where the circles are already filled (workbook p.147), shape rules (triangle / has a line of symmetry, p.143) and tens-digit rules ('has 3 tens', p.139).
 - **Mistake tags**: Fits both but put in one hoop; Left an item off the mat; Placed in the wrong hoop; Multiple-of check wrong; Thought a region cannot be empty
 - **Parent tips**
   - Goal: Use a Venn diagram to show what items have in common and how they differ.
@@ -280,7 +333,7 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **icon**: 🔲
 - **section**: 10.2
 - **summary**: Sort items into a 2 by 2 grid by a rule and its opposite, then invent your own rules.
-- **book**: Textbook p.160 intro, p.163 Q2, p.165 Q4, p.166 Check your progress Q2
+- **book**: Textbook p.160 intro, p.163 Q2, p.165 Q4, p.166 Check your progress Q2 · Workbook p.140 Q2, p.141-142 Q3, p.144 Q5-Q6, p.148 Q9-Q10a
 - **Learn screens**
   1. A 2 by 2 grid labelled "curves / not curves" and "blue / not blue". As a card hovers over a cell, its row and column labels both light up. The child places a blue circle, blue triangle, yellow circle and yellow triangle.
   2. Numbers: "even / not even" and "multiple of 3 / not a multiple of 3". The child places 12, 15, 16, 23 and checks each with the skip-count line.
@@ -288,10 +341,10 @@ Ordered as taught (5 activities: 3 for the big 10.1 section, 2 for 10.2).
 - **Practice** (count 9)
   - Level 1: picture items (shapes, everyday objects) with colour and shape rules.
   - Level 2: numbers 10-24 with even / not even and multiple of 3 / not (e.g. 15, 11, 10, 16, 18, 21, 20, 22, 12, 24, 17, 23); shapes with 2D / not 2D and has vertices / no vertices (rectangle, cube, circle, cylinder, triangle, pentagon, hexagon, octagon).
-  - Level 3: hidden-label rounds: Bolt has already sorted items; the child chooses the row and column labels that make the sorting correct.
+  - Level 3: hidden-label rounds: Bolt has already sorted items; the child chooses the row and column labels that make the sorting correct (e.g. 3-digit / not 3-digit x multiple of 10 / not). Workbook extras: numbers above 100 (245, 555, 912), 'less than 50 / not less than 50', 'divisible by 3 / by 5' up to 69 (with the multiples strip), and an even/odd digit-sum rule for 10-40 (workbook p.144, p.148).
 - **Mistake tags**: Read row label as column; Item in two cells; Thought cylinder has vertices; Thought a drawn cube is 2D; Multiple-of check wrong; Labels do not split the items
 - **Parent tips**
   - Goal: Use a Carroll diagram to sort by two rules and their opposites, so every item has exactly one place.
   - Say: "Check the row first, then the column." / "'Not even' means the same as odd." / "Do your labels give every item a place?"
-  - Watch for: putting one item in two cells; saying a circle or cylinder has corners.
+  - Watch for: putting one item in two cells; saying a circle or cylinder has corners; 'not less than 50' (it means 50 or more, so 50 itself belongs there).
   - Away from screen: Draw a 2 by 2 grid on paper and sort the cutlery or shoes in the house (big / not big, has laces / no laces).
