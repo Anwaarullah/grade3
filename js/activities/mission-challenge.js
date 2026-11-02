@@ -714,7 +714,7 @@
     var ch = MQ.ui.choices(
       opts.map(function (o) {
         var g = gardenSvg(o[0], o[1], { cell: 15, cols: 10, rows: 6, pad: 22, unit: 'm' });
-        var area = el('div', { class: 'mc-hidden mc-area-lab' }, o[0] + ' × ' + o[1] + ' = ' + o[0] * o[1] + ' m²');
+        var area = el('div', { class: 'mc-hidden mc-area-lab' }, o[0] + ' × ' + o[1] + ' = ' + o[0] * o[1] + ' square metres');
         labels[o[0]] = area;
         return { label: el('div', { class: 'mc-gcard' }, g.svg, el('div', { class: 'mc-gname' }, o[0] + ' m by ' + o[1] + ' m'), area), value: o[0] };
       }),
@@ -745,7 +745,7 @@
       ch.mark(6, 'good');
       ch.disable();
       showAll();
-      api.feedback('Same fence, different space: 2 × 10 = 20, 4 × 8 = 32, 6 × 6 = 36 m². The square wins!', 'info');
+      api.feedback('Same fence, different space: 2 × 10 = 20, 4 × 8 = 32, 6 × 6 = 36 square metres. The square wins!', 'info');
     });
   };
 
@@ -770,7 +770,7 @@
         var plus = el('button', { class: 'btn mc-step', type: 'button', 'aria-label': 'Longer' }, '+');
         var controls = el('div', { class: 'mc-controls' }, el('span', { class: 'mc-ctl-name' }, 'Length'), minus, slider, plus, lenVal);
         var tbody = el('tbody');
-        var table = el('table', { class: 'mc-table' }, el('thead', null, el('tr', null, el('th', null, 'Length'), el('th', null, 'Width'), el('th', null, 'Area'))), tbody);
+        var table = el('table', { class: 'mc-table' }, el('thead', null, el('tr', null, el('th', null, 'Length'), el('th', null, 'Width'), el('th', null, 'Area (square metres)'))), tbody);
         var left = el('div', { class: 'mc-gleft' }, picHolder, controls);
         var right = el('div', { class: 'mc-gright' }, info, el('div', { class: 'mc-table-title' }, 'Gardens you made'), table);
         stage.appendChild(el('div', { class: 'mc-garden-lab' }, left, right));
@@ -784,7 +784,7 @@
           picHolder.appendChild(gardenSvg(L, W, { cell: 24, cols: 11, rows: 11, pad: 30, unit: 'm' }).svg);
           MQ.clear(info);
           info.appendChild(el('div', { class: 'mc-fenceline' }, 'Fence: ' + L + ' + ' + W + ' + ' + L + ' + ' + W + ' = 24 m'));
-          info.appendChild(el('div', { class: 'mc-arealine' }, 'Area: ' + L + ' × ' + W + ' = ', el('b', null, A + ' m²')));
+          info.appendChild(el('div', { class: 'mc-arealine' }, 'Area: ' + L + ' × ' + W + ' = ', el('b', null, A + ' square metres')));
           var key = String(L);
           if (!tried[key]) {
             tried[key] = { L: L, W: W, area: A };
@@ -795,7 +795,7 @@
           markRow(key);
           if (A === 36) {
             api.say('6 by 6 gives 36 square metres. The biggest! A square is a rectangle too.', 'cheer');
-            api.feedback('The square garden (6 m by 6 m) has the most space: 36 m².', 'good');
+            api.feedback('The square garden (6 m by 6 m) has the most space: 36 square metres.', 'good');
           } else if (nTried >= 3) {
             api.say(A <= 20 ? 'Long and thin gives a small garden. Can you find the biggest?' : 'Getting bigger! Can you find the biggest garden?', 'think');
           }
@@ -812,7 +812,7 @@
           });
           var best = Math.max.apply(null, rows.map(function (r) { return r.area; }));
           rows.forEach(function (r) {
-            var tr = el('tr', { 'data-key': String(r.L), class: r.area === best ? 'mc-best' : '' }, el('td', null, r.L + ' m'), el('td', null, r.W + ' m'), el('td', null, r.area + ' m²'));
+            var tr = el('tr', { 'data-key': String(r.L), class: r.area === best ? 'mc-best' : '' }, el('td', null, r.L + ' m'), el('td', null, r.W + ' m'), el('td', null, String(r.area)));
             tbody.appendChild(tr);
           });
         }
@@ -856,7 +856,7 @@
           var P = 2 * (L + W);
           var g = gardenSvg(L, W, { cell: 16, cols: L, rows: 3, pad: 22, unit: 'm' });
           var fence = el('div', { class: 'mc-same-fence' }, 'Fence: ?');
-          var card = el('button', { class: 'mc-same-card', type: 'button' }, g.svg, el('div', { class: 'mc-gname' }, L + ' × ' + W + ' = 12 m²'), fence);
+          var card = el('button', { class: 'mc-same-card', type: 'button' }, g.svg, el('div', { class: 'mc-gname' }, L + ' × ' + W + ' = 12 square metres'), fence);
           card.addEventListener('click', function () {
             if (card.classList.contains('mc-open')) return;
             card.classList.add('mc-open');
@@ -865,7 +865,7 @@
             seen++;
             if (seen === 3) {
               api.say('Same grass, different fences! Long and thin needs the most fence.', 'cheer');
-              api.feedback('12 m² each, but the fences are 26 m, 16 m and 14 m.', 'good');
+              api.feedback('12 square metres each, but the fences are 26 m, 16 m and 14 m.', 'good');
             }
           });
           row.appendChild(card);
