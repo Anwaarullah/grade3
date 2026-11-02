@@ -224,7 +224,8 @@
     var rowW = perRow * cw + (perRow - 1) * gap;
     var W = Math.max(rowW + 20, opts.minW || 0);
     var H = rows * (ch + pill + 8) + 4;
-    var root = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, class: 'eg-svg eg-groups' + (compact ? ' eg-compact' : ''), style: { maxWidth: '100%', height: 'auto' } });
+    var sc = opts.scale || Math.min(1.25, 860 / W);
+    var root = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, width: Math.round(W * sc), height: Math.round(H * sc), class: 'eg-svg eg-groups' + (compact ? ' eg-compact' : ''), style: { maxWidth: '100%', height: 'auto' } });
     var cards = [];
     var pills = [];
     var lit = 0;
@@ -320,10 +321,7 @@
       if (q.kind === 'pears') g.appendChild(pearIcon(x + w / 2, 24));
       if (q.kind === 'tshirts') g.appendChild(shirtIcon(x + w / 2, 26));
       if (q.kind === 'jumps') g.appendChild(svg('path', { d: 'M' + (x + 3) + ' ' + (top - 2) + ' Q' + (x + w / 2) + ' ' + (top - 50) + ' ' + (x + w - 3) + ' ' + (top - 2), fill: 'none', stroke: '#c2410c', 'stroke-width': 3, 'stroke-dasharray': '6 4', 'marker-end': '' }));
-      g.appendChild(svg('rect', { x: x, y: top, width: w, height: bh, class: 'eg-card eg-segrect', fill: fills[q.kind], stroke: q.kind === 'planks' ? '#7f5539' : '#4a5a7d', 'stroke-width': 2 }));
-      if (q.kind === 'planks') {
-        g.appendChild(svg('path', { d: 'M' + (x + 8) + ' ' + (top + 12) + ' q' + w / 4 + ' -6 ' + (w / 2) + ' 0 M' + (x + 14) + ' ' + (top + 32) + ' q' + w / 4 + ' 6 ' + (w / 2 - 6) + ' 0', fill: 'none', stroke: '#b08968', 'stroke-width': 1.5 }));
-      }
+      g.appendChild(svg('rect', { x: x, y: top, width: w, height: bh, class: 'eg-segrect', fill: fills[q.kind], stroke: q.kind === 'planks' ? '#7f5539' : '#4a5a7d', 'stroke-width': 2 }));
       g.appendChild(svg('text', { x: x + w / 2, y: top + bh / 2 + 7, 'text-anchor': 'middle', class: 'eg-seglab' }, amt(q, q.size)));
       root.appendChild(g);
       cards.push(g);
@@ -398,7 +396,7 @@
     var jumps = svg('g');
     root.appendChild(jumps);
     var n = 0;
-    var hh = Math.min(base - 8, Math.max(16, sp * 0.55));
+    var hh = Math.min(base - 30, Math.max(14, sp * 0.5));
     var api = {
       el: root,
       n: function () {
@@ -678,7 +676,6 @@
             if (state.locked) return;
             startP = p;
             base = { x: it.pos.x, y: it.pos.y };
-            layer.appendChild(it.g);
           },
           move: function (p, dx, dy) {
             if (!startP) return;
@@ -686,6 +683,7 @@
           },
           end: function (p) {
             if (!startP) return;
+            layer.appendChild(it.g); // bring to front (after the drag, so pointer capture is kept)
             var d = Math.abs(p.x - startP.x) + Math.abs(p.y - startP.y);
             startP = null;
             if (d < 6) {
@@ -909,7 +907,7 @@
       if (stepA) showB();
       ch.mark(q.choice.right, 'good');
       ch.disable();
-      var nl = jumpLine(q.size, q.groups, { h: 84 });
+      var nl = jumpLine(q.size, q.groups, { h: 74 });
       work.insertBefore(nl.el, work.firstChild);
       nl.all();
       api.feedback('Count in ' + q.size + 's: ' + multiples(q.size, q.groups).join(', ') + '. So ' + q.size + ' × ' + q.groups + ' = ' + q.total + '.', 'info');
@@ -928,12 +926,12 @@
     var W = 900;
     var plates = [];
     var spacing = Math.min(220, 860 / q.groups);
-    for (var i = 0; i < q.groups; i++) plates.push({ x: W / 2 + (i - (q.groups - 1) / 2) * spacing, y: 196 });
+    for (var i = 0; i < q.groups; i++) plates.push({ x: W / 2 + (i - (q.groups - 1) / 2) * spacing, y: 178 });
     var stage2 = el('div', { class: 'eg-work' });
     var done = false;
     var eng = plateEngine(api, {
-      W: W, H: 280, count: q.total,
-      pile: { shape: 'tray', cx: W / 2, cy: 58, rx: Math.min(10, q.total) * 18 + 14, ry: Math.ceil(q.total / 10) * 17 + 14, cols: 10, dx: 34, dy: 32, label: '' },
+      W: W, H: 256, count: q.total,
+      pile: { shape: 'tray', cx: W / 2, cy: 52, rx: Math.min(10, q.total) * 18 + 14, ry: Math.ceil(q.total / 10) * 17 + 14, cols: 10, dx: 34, dy: 32, label: '' },
       pileName: 'tray', itemWord: word,
       plates: plates, prx: 92, pry: 48, slotCols: 4, slotRows: 3, sdx: 30, sdy: 25,
       clickMode: 'fill', fillTo: q.size,
@@ -955,7 +953,7 @@
       done = true;
       eng.lock();
       btn.disabled = true;
-      var nl = jumpLine(q.size, q.groups, { h: 80 });
+      var nl = jumpLine(q.size, q.groups, { h: 74 });
       stage2.appendChild(nl.el);
       nl.all();
       stage2.appendChild(el('div', { class: 'eg-ask' }, q.groups + ' plates of ' + q.size + '. Which × sentence matches?'));
@@ -1110,7 +1108,7 @@
         markBox(b7, true);
       });
       finishUI();
-      var nl = jumpLine(q.size, q.groups, { h: 84 });
+      var nl = jumpLine(q.size, q.groups, { h: 74 });
       work.appendChild(nl.el);
       nl.all();
       api.feedback(q.groups + ' ' + k.groups + ' with ' + q.size + ' in each: add ' + q.size + ' again and again, ' + q.groups + ' times. That is ' + q.size + ' × ' + q.groups + ' = ' + q.total + '.', 'info');
@@ -1136,6 +1134,8 @@
     for (var i = 0; i < 10; i++) plateXs.push(W / 2 + (i - 4.5) * spacing);
     var plateLayer = svg('g');
     root.appendChild(plateLayer);
+    var placeholder = svg('text', { x: W / 2, y: plateY + 6, 'text-anchor': 'middle', class: 'eg-placeholder' }, 'Your plates go here');
+    plateLayer.appendChild(placeholder);
     var cakeLayer = svg('g');
     root.appendChild(cakeLayer);
     var cakes = [];
@@ -1155,12 +1155,13 @@
     function fillOne() {
       if (left < q.size || filled >= 10) return false;
       var px = plateXs[filled];
+      if (placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
       plateLayer.appendChild(svg('ellipse', { cx: px, cy: plateY, rx: 38, ry: 24, class: 'eg-plate-rim' }));
       plateLayer.appendChild(svg('text', { x: px, y: plateY + 50, 'text-anchor': 'middle', class: 'eg-pill' }, String((filled + 1) * q.size)));
       for (var j = 0; j < q.size; j++) {
         var cake = cakes[left - 1 - j];
-        var ox = (j % 2 === 0 ? -11 : 11);
-        var oy = q.size === 3 && j === 2 ? 8 : (j < 2 ? -6 : 8);
+        var ox = j % 2 === 0 ? -12 : 12;
+        var oy = j < 2 ? -7 : 9;
         if (q.size === 3 && j === 2) ox = 0;
         cake.style.transform = 'translate(' + (px + ox) + 'px,' + (plateY + oy) + 'px)';
       }
@@ -1318,7 +1319,7 @@
       });
       finishUI();
       if (!q.story) {
-        var nl = jumpLine(q.size, q.groups, { h: 80 });
+        var nl = jumpLine(q.size, q.groups, { h: 74 });
         work.appendChild(nl.el);
         nl.all();
       }
@@ -1385,6 +1386,7 @@
     var n = 0;
     var jumpBtn;
     var pic = groupsPic(q, {
+      scale: 1.25,
       onLight: function (lit) {
         nl.step();
         if (n) sum.appendChild(el('span', { class: 'sum-op' }, '+'));
@@ -1418,7 +1420,7 @@
     api.say('Adding 3 four times has a shortcut: ×. Which number goes where?', 'think');
     stage.appendChild(MQ.ui.lesson('The × shortcut', '3 + 3 + 3 + 3 = 12'));
     var q = { kind: 'apples', size: 3, groups: 4, total: 12 };
-    var pic = groupsPic(q, { clickable: false });
+    var pic = groupsPic(q, { clickable: false, scale: 1.25 });
     pic.lightAll();
     stage.appendChild(pic.el);
     var sA = el('span', { class: 'eg-slot', 'data-slot': 'size' }, '?');
@@ -1549,7 +1551,7 @@
     '.eg-stage{gap:10px}',
     '.eg-pic{width:100%;display:flex;justify-content:center}',
     '.eg-svg{display:block;max-width:100%;height:auto;user-select:none;-webkit-user-select:none}',
-    '.eg-groups{max-height:260px}',
+    '.eg-groups{max-height:300px}',
     '.eg-card{fill:#ffffff;stroke:#dbe3f3;stroke-width:2;transition:fill .2s,stroke .2s}',
     '.eg-click{cursor:pointer}',
     '.eg-click:hover .eg-card{stroke:var(--accent)}',
@@ -1604,6 +1606,7 @@
     '.eg-banner-sub{font-size:1rem;font-weight:700}',
     '.eg-bowl{fill:#e0f2fe;stroke:#5fa8d3;stroke-width:3}',
     '.eg-tray{fill:#f1f5fb;stroke:#9fb3d9;stroke-width:3}',
+    '.eg-placeholder{font-size:20px;font-weight:700;fill:#b8c4e3}',
     '.eg-pilelab{font-size:18px;font-weight:800;fill:#4a5a7d}',
     '.eg-plate{cursor:pointer}',
     '.eg-plate-rim{fill:#ffffff;stroke:#9fb3d9;stroke-width:3}',
