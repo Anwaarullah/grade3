@@ -263,10 +263,15 @@
     ck.svg.setAttribute('data-kind', 'drag');
     var cap = capBox();
     var placed = start;
-    var hd = handDrag(ck, api, { move: function (v) { placed = v; }, end: function (v) { placed = v; } });
+    var moved = false;
+    var hd = handDrag(ck, api, { move: function (v) { placed = v; moved = true; }, end: function (v) { placed = v; moved = true; } });
     var checkBtn = el('button', { class: 'btn btn-check hh-check', type: 'button' }, 'Check');
     checkBtn.addEventListener('click', function () {
       if (api.isAnswered()) return;
+      if (!moved) {
+        api.feedback('First drag the long orange hand (or click the clock) to where you think it goes.', 'info');
+        return;
+      }
       if (minDist(placed, m) <= 2) {
         hd.lock();
         checkBtn.disabled = true;
