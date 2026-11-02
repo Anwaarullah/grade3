@@ -897,11 +897,12 @@
     var K = KINDS[q.kind];
     var d = q.mode === 'rows' ? q.r : q.c;
     var each = q.T / d;
+    var word = q.mode === 'rows' ? 'rows' : 'columns';
     api.say('The total is shared out. Which ÷ fact matches?', 'think');
-    stage.appendChild(MQ.ui.prompt(q.T + ' ' + K.noun + ' split into ' + d + ' equal ' + q.mode + '. Which fact is right?'));
+    stage.appendChild(MQ.ui.prompt(q.T + ' ' + K.noun + ' split into ' + d + ' equal ' + word + '. Which fact is right?'));
     var arr = makeArray({ rows: q.r, cols: q.c, kind: q.kind, later: api.later });
     arr.split(q.mode);
-    var cap = el('div', { class: 'af-note' }, q.T + ' split into ' + d + ' ' + q.mode + '. Count one ' + (q.mode === 'rows' ? 'row' : 'column') + '.');
+    var cap = el('div', { class: 'af-note' }, q.T + ' split into ' + d + ' ' + word + '. Count one ' + (q.mode === 'rows' ? 'row' : 'column') + '.');
     var correct = q.options.filter(function (o) {
       return o.ok;
     })[0];
@@ -917,7 +918,7 @@
           ch.mark(v, 'good');
           ch.disable();
           done();
-          api.check(true, q.T + ' shared into ' + d + ' ' + q.mode + ' gives ' + each + ' in each. ' + plainFact(o.st) + '!');
+          api.check(true, q.T + ' shared into ' + d + ' ' + word + ' gives ' + each + ' in each. ' + plainFact(o.st) + '!');
         } else {
           ch.mark(v, 'bad');
           var hint = o.tag === TAG.flipped ? 'That one is back to front. The total, ' + q.T + ', is what we split, so it comes first: ' + q.T + ' ÷ …' : q.T + ' is the total we split up. It cannot be the answer: look for a fact that starts with ' + q.T + '.';
@@ -934,14 +935,14 @@
     });
     function done() {
       arr.splitLabels();
-      cap.textContent = q.T + ' split into ' + d + ' ' + q.mode + ' → ' + each + ' in each';
+      cap.textContent = q.T + ' split into ' + d + ' ' + word + ' → ' + each + ' in each';
     }
     stage.appendChild(el('div', { class: 'af-row' }, el('div', { class: 'af-left' }, arr.el, cap), el('div', { class: 'af-right' }, ch)));
     api.onReveal(function () {
       ch.mark(plainFact(correct.st), 'good');
       ch.disable();
       done();
-      api.feedback('Start with the total: ' + plainFact(correct.st) + '. ' + q.T + ' split into ' + d + ' ' + q.mode + ' gives ' + each + ' in each.', 'info');
+      api.feedback('Start with the total: ' + plainFact(correct.st) + '. ' + q.T + ' split into ' + d + ' ' + word + ' gives ' + each + ' in each.', 'info');
     });
   }
 
@@ -1059,7 +1060,7 @@
       api.say('Drag the number tiles into the boxes. Or click a tile!', 'think');
       stage.appendChild(MQ.ui.prompt('Fill the fact family for this ' + K.tray + '.'));
     }
-    var arr = makeArray({ rows: q.r, cols: q.c, kind: q.kind, later: api.later, box: 220, clickRows: function () {} });
+    var arr = makeArray({ rows: q.r, cols: q.c, kind: q.kind, later: api.later, box: 260, clickRows: function () {} });
     var cap = el('div', { class: 'af-note' }, 'Click the rows to count in ' + q.c + 's.');
     var fb = familyBoard(stage, api, q, {
       single: !twoSteps && !q.given,
@@ -1082,7 +1083,7 @@
     var nWrong = q.wrong.length;
     api.say('I wrote this family, but I made ' + (nWrong === 1 ? 'a mistake' : '2 mistakes') + '. Can you find ' + (nWrong === 1 ? 'it' : 'them') + '?', 'oops');
     stage.appendChild(MQ.ui.prompt('Bolt made <b>' + nWrong + '</b> mistake' + (nWrong === 1 ? '' : 's') + '. Tap the wrong fact' + (nWrong === 1 ? '' : 's') + ', then press Check.'));
-    var arr = makeArray({ rows: q.r, cols: q.c, kind: q.kind, later: api.later, box: 210, clickRows: function () {} });
+    var arr = makeArray({ rows: q.r, cols: q.c, kind: q.kind, later: api.later, box: 260, clickRows: function () {} });
     var cap = el('div', { class: 'af-note' }, rowsOf(q) + ' = ' + q.T);
     var picked = {};
     var phase = 1;
@@ -1541,7 +1542,7 @@
   var css = [
     '.af-row{display:flex;gap:22px;align-items:flex-start;justify-content:center;flex-wrap:wrap;width:100%}',
     '.af-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 1 auto;min-width:0;max-width:100%}',
-    '.af-left-sm{max-width:340px}',
+    '.af-left-sm{max-width:370px}',
     '.af-right{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1 1 280px;min-width:0;max-width:460px}',
     '.af-right-wide{max-width:600px;flex-basis:420px}',
     '.af-array{display:flex;justify-content:center;max-width:100%}',
