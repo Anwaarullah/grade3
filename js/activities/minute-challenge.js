@@ -800,6 +800,7 @@
 
   function sortHint(q, v, tries) {
     var a = q.item.ans;
+    if (a === 'more' && v === 'hour') return 'An hour is a very long time. ' + (tries >= 1 ? 'Think of your one-minute test: ' + q.item.name + ' takes a few of those minutes, not a whole hour.' : 'Does ' + q.item.name + ' really take that long?');
     if (a === 'hour' && v === 'more') return 'Yes, a lesson is more than 1 minute, but one box is closer. ' + (tries >= 1 ? 'Is it nearer to 1 minute or to 1 hour?' : 'How long is a lesson?');
     if (tries >= 1) {
       if (a === 'less') return 'Count how long it takes: one, done! That is much less than 1 minute.';
@@ -813,6 +814,7 @@
 
   function sortTag(q, v) {
     var a = q.item.ans;
+    if (a === 'more' && v === 'hour') return 'An hour is a very long time. ' + (tries >= 1 ? 'Think of your one-minute test: ' + q.item.name + ' takes a few of those minutes, not a whole hour.' : 'Does ' + q.item.name + ' really take that long?');
     if (a === 'hour' && v === 'more') return 'Picked a box that is not the closest';
     if ((a === 'hour') !== (v === 'hour')) return 'Unit far too big or too small';
     return 'Mixed up less than and more than 1 minute';

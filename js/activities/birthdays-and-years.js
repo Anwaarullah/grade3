@@ -437,7 +437,7 @@
 
   function genNext(n) {
     var a = U.rand(6, 11);
-    var Y = U.rand(2024, 2027);
+    var Y = U.rand(THIS_YEAR - 1, THIS_YEAR);
     var K = nextKid();
     var when = n === 1 ? 'next year, in <b>' + (Y + 1) + '</b>' : 'in <b>' + (Y + n) + '</b>';
     return {
@@ -461,12 +461,12 @@
     var K = nextKid();
     return {
       type: 'ageIn', key: 'ageIn:' + B + ':' + age, B: B, T: B + age, K: K, ans: age, unit: 'years old',
-      text: K.name + ' was born in <b>' + B + '</b>. How old will ' + K.he + ' be on ' + K.his + ' birthday in <b>' + (B + age) + '</b>?',
+      text: K.name + ' was born in <b>' + B + '</b>. How old ' + (B + age <= THIS_YEAR ? 'was ' + K.he : 'will ' + K.he + ' be') + ' on ' + K.his + ' birthday in <b>' + (B + age) + '</b>?',
     };
   }
   function genBorn() {
     var a = U.rand(10, 19);
-    var Y = U.rand(Math.max(2015, 2000 + a), 2030);
+    var Y = U.rand(Math.max(2015, 2000 + a), THIS_YEAR);
     var K = nextKid();
     return {
       type: 'born', key: 'born:' + Y + ':' + a, a: a, Y: Y, B: Y - a, K: K, ans: Y - a, unit: '', pad: U.rand(1, 3),
@@ -498,7 +498,7 @@
     var K = nextKid();
     return {
       type: 'twoStep', key: 'twoStep:' + a + ':' + k, a: a, Y: Y, T: Y + k, k: k, K: K, ans: a + k, unit: 'years old',
-      text: K.name + ' turned <b>' + a + '</b> on ' + K.his + ' birthday in <b>' + Y + '</b>. How old will ' + K.he + ' be on ' + K.his + ' birthday in <b>' + (Y + k) + '</b>?',
+      text: K.name + ' turned <b>' + a + '</b> on ' + K.his + ' birthday in <b>' + Y + '</b>. How old ' + (Y + k <= THIS_YEAR ? 'was ' + K.he : 'will ' + K.he + ' be') + ' on ' + K.his + ' birthday in <b>' + (Y + k) + '</b>?',
     };
   }
   function genWait2() {

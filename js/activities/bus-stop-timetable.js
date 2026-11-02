@@ -223,6 +223,7 @@
       var c = stoppers(tt, a, b);
       if (c.length < 2) continue;
       var ans = c.reduce(function (m, v2) { return tt.t[v2][a] < tt.t[m][a] ? v2 : m; });
+      if (c.some(function (v2) { return tt.t[v2][b] < tt.t[ans][b]; })) continue; // leaving first must also mean arriving first
       return { type: 'earliest', tt: tt, a: a, b: b, ans: ans, first: first };
     }
     return null;
@@ -977,7 +978,7 @@
       ch.mark(v, 'bad');
       var strong = api.tries() >= 1;
       if (tt.t[v][q.a] == null) return api.check(false, tt.veh[v] + ' has – at ' + A + '. It does not stop there, so you cannot get on!', TAG.skip);
-      if (tt.t[v][q.b] == null) return api.check(false, strong ? 'Look for the first train with a time at ' + A + ' AND a time at ' + B + '.' : tt.veh[v] + ' leaves first, but it has – at ' + B + '. It does not stop there!', TAG.skip);
+      if (tt.t[v][q.b] == null) return api.check(false, strong ? 'Look for the first train with a time at ' + A + ' AND a time at ' + B + '.' : tt.veh[v] + (v === q.first ? ' leaves first, but it' : ' stops at ' + A + ', but it') + ' has – at ' + B + '. It does not stop there!', TAG.skip);
       api.check(false, strong ? 'Look for a train that leaves ' + A + ' before ' + lab(tt.t[v][q.a]) + ' and stops at ' + B + '.' : tt.veh[v] + ' works, but is there an earlier one?', TAG.notEarliest);
     });
     stage.appendChild(ch);
