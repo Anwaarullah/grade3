@@ -658,6 +658,9 @@
         sc.jump(a, a + q.part, String(a + q.part), i < q.n ? 'fwf-jump-on' : 'fwf-jump-off');
       }
       setSum(box, rep(q.part, q.d), q.L, 'cm');
+      var lab = el('div', { class: 'fwf-ans-row', html: fr(q.n, q.d) + ' is ' + (q.n === 1 ? '1 piece' : q.n + ' pieces') + ':' });
+      lab.appendChild(sumRow(rep(q.part, q.n), q.ans, 'cm'));
+      box.appendChild(lab);
     }
 
     checkBtn.addEventListener('click', function () {
@@ -1126,7 +1129,8 @@
     '.fwf-ghost-tray{opacity:.6;pointer-events:none}',
     '.fwf-pile{fill:#fff8e6;stroke:#e0c27a;stroke-width:2}',
     '.fwf-pile-label{font-size:17px;font-weight:800;fill:var(--ink)}',
-    '.fwf-sumbox{min-height:46px;display:flex;align-items:center;justify-content:center}',
+    '.fwf-sumbox{min-height:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}',
+    '.fwf-ans-row{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:800;flex-wrap:wrap;justify-content:center}',
     '.fwf-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}',
     '.fwf-col{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}',
     '.fwf-note{font-weight:800;color:var(--ink-soft)}',
