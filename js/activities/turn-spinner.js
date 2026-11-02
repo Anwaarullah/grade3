@@ -334,7 +334,7 @@
         { n: U.pick([1, 2]), dir: d1, word: 'turn' },
         { n: U.pick([1, 2]), dir: -d1, word: 'turn' },
       ]);
-      if (q.steps[0].n === 2 && q.steps[1].n === 2) continue; // would just come home
+      if (q.answer === norm(q.start)) continue; // equal turns back and forth just come home
       if (avoid && (avoid.start === q.start || avoid.answer === q.answer)) continue;
       return q;
     }

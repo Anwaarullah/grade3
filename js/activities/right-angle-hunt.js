@@ -1347,13 +1347,13 @@
       updCounter();
       checkBtn.disabled = true;
       if (!cs.length) return 'A circle has no corners at all, so it has 0 right angles.';
-      if (notMode) return 'The green squares are right angles. The ' + nWant + ' orange corners are not right angles.';
+      if (notMode) return (cs.length - nWant > 0 ? 'The green squares are right angles. ' : 'None of these corners is a right angle. ') + 'The ' + nWant + ' orange corners are not right angles.';
       var reflex = cs.filter(function (c) {
         return c.theta > 180;
       }).length;
       return (
         'The ' + def.name + ' has ' + nWant + ' right angle' + (nWant === 1 ? '' : 's') + '.' +
-        (reflex ? ' The corner that points in is bigger than a right angle.' : nWant === 0 ? ' None of the corners is a square corner.' : '')
+        (reflex ? (reflex === 1 ? ' The corner that points in is bigger than a right angle.' : ' The ' + reflex + ' corners that point in are bigger than a right angle.') : nWant === 0 ? ' None of the corners is a square corner.' : '')
       );
     }
 

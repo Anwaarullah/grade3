@@ -1331,7 +1331,7 @@
         var hint;
         var tag;
         if (i === q.p || i === q.g) {
-          hint = 'That is the ' + q.cells[i].name + ' itself. Look for a place next to it in the clue direction.';
+          hint = 'That is the ' + q.cells[i].name + ' itself. Look for a place in the clue direction, in the same row or column.';
           tag = 'Mixed up the compass points';
         } else if (ok1 || ok2) {
           hint = 'That fits one clue: it is ' + (ok1 ? DN[q.d1] + ' of the ' + P.name : DN[q.d2] + ' of the ' + G.name) + '. Does it fit the other clue too?';

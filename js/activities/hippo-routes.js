@@ -661,7 +661,8 @@
               } else {
                 input.bad();
                 var hint, tag = 'Miscounted steps';
-                if (n === ans + 1) hint = 'You counted the crossings. Count the paths between them: one path = one step.';
+                if (n === ans + 1 && n === (q.dir === 'E' ? q.rows : q.cols)) hint = 'Did you count the crossings, or the ' + (q.dir === 'E' ? 'south' : 'east') + ' steps? Count only the ' + ARROW[q.dir] + ' paths: one path = one step.';
+                else if (n === ans + 1) hint = 'You counted the crossings. Count the paths between them: one path = one step.';
                 else if (n === (q.dir === 'E' ? q.rows : q.cols)) hint = 'That is the number of ' + (q.dir === 'E' ? 'south' : 'east') + ' steps. Count the ' + ARROW[q.dir] + ' steps.';
                 else if (n === q.cols + q.rows) hint = 'That is all the steps. Count only the ' + WORD[q.dir] + ' ' + ARROW[q.dir] + ' ones.';
                 else hint = 'Draw a route to the river. Then count the ' + ARROW[q.dir] + ' chips under the map.';

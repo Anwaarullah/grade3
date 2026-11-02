@@ -1405,7 +1405,7 @@
         tag = onLine ? 'Lost count of squares' : 'Mixed up the compass directions';
         hint = onLine ? 'Right way, but count the jumps from the star again.' : 'Go ' + DN[m.d] + ' ' + ARW[m.d] + ' from the star, in a straight line.';
       }
-      if (api.tries() >= 1) hint += ' Put your finger on the star and jump ' + DN[m.d] + ': 1, 2' + (m.n > 2 ? ', 3…' : '…');
+      if (api.tries() >= 1) hint += ' Put your finger on the star and jump ' + DN[m.d] + ': ' + U.range(1, m.n).join(', ') + '.';
       api.check(false, hint, tag);
     }
     drawList();

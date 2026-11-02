@@ -114,7 +114,7 @@
           watch: [
             'Random clicking without checking for repeats.',
             'Routes that go back north or west.',
-            'Getting tired on the 3 by 3 grid. 20 routes is a lot: stop at 10 and come back later.',
+            'Getting tired on the 3 by 3 grid. 20 routes is a lot. The question asks him to find 6, then Bolt lists all 20 in order so he can count them.',
           ],
           offline: 'Draw a 2 by 2 block grid on paper. Walk a toy along every route from one corner to the opposite corner, colouring each route a different colour. There are 6.',
         },
