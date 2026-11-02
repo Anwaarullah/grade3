@@ -417,6 +417,8 @@
    * Shared practice helpers
    * ---------------------------------------------------------------- */
   function numberQ(stage, api, ans, opts) {
+    var tried = {};
+    var wrongN = 0;
     var ni = MQ.ui.numberInput({
       half: opts.half,
       unit: opts.unit,
@@ -429,6 +431,11 @@
           api.check(true, opts.praise);
         } else {
           ni.bad();
+          if (tried[num]) {
+            api.feedback('You tried ' + fmt(num) + ' already. Look again and try a different number.', 'try');
+            return;
+          }
+          tried[num] = true;
           var j = opts.judge(num);
           var strong = api.tries() >= 1;
           if (strong && opts.onStrong) opts.onStrong();
@@ -441,7 +448,7 @@
     var checkBtn = ni.el.querySelector('.btn-check');
     window.MQ.__test = {
       solve: function () { ni.setValue(fmt(ans)); checkBtn.click(); },
-      wrong: function () { ni.setValue(String(Math.floor(ans) + 4)); checkBtn.click(); },
+      wrong: function () { ni.setValue(String(Math.floor(ans) + 4 + wrongN++)); checkBtn.click(); },
     };
     return ni;
   }
@@ -449,7 +456,10 @@
   function choiceHook(ch, right) {
     window.MQ.__test = {
       solve: function () { ch.buttons.filter(function (b) { return b.value_ === right; })[0].click(); },
-      wrong: function () { ch.buttons.filter(function (b) { return b.value_ !== right; })[0].click(); },
+      wrong: function () {
+        var w = ch.buttons.filter(function (b) { return b.value_ !== right; });
+        (w.filter(function (b) { return !b.classList.contains('bad'); })[0] || w[0]).click();
+      },
     };
   }
 
@@ -513,12 +523,16 @@
     stage.appendChild(P.el);
     var ch = MQ.ui.choices(
       q.rows.map(function (r) { return { label: (!ctx.sym ? r.icon + ' ' : '') + r.name, value: r.name }; }),
-      function (val) {
+      function (val, btn) {
         if (val === right) {
           ch.mark(val, 'good');
           ch.disable();
           api.check(true, right + ': ' + target + ' ' + keyWord(ctx, target) + '. ' + (most ? 'The longest row!' : 'The shortest row!'));
         } else {
+          if (btn.classList.contains('bad')) {
+            api.feedback('You tried that one. Pick a different answer.', 'try');
+            return;
+          }
           ch.mark(val, 'bad');
           var strong = api.tries() >= 1;
           if (val === opposite) api.check(false, most ? 'That is the shortest row. Most means the longest row.' : 'That is the longest row. Least means the shortest row.', 'Mixed up most and least');
@@ -574,6 +588,7 @@
         MQ.clear(work);
         work.appendChild(el('div', { class: 'sum-row' }, el('span', { class: 'chip' }, fmt(A.value)), el('span', { class: 'sum-op' }, opWord), el('span', { class: 'chip' }, fmt(B.value)), el('span', { class: 'sum-op' }, '='), el('span', { class: 'chip chip-total' }, fmt(ans) + ' ' + ctx.many)));
       });
+      api.feedback(A.name + ' is ' + fmt(A.value) + ', ' + B.name + ' is ' + fmt(B.value) + '. ' + (more ? 'How many more means take away: ' : 'Altogether means add: ') + fmt(A.value) + ' ' + opWord + ' ' + fmt(B.value) + ' = ' + fmt(ans) + '.', 'info');
     });
   }
 
@@ -596,8 +611,19 @@
     var checkBtn = el('button', { type: 'button', class: 'btn btn-check pm-checkbtn' }, 'Check my pictogram');
     stage.appendChild(checkBtn);
     var editable = cfg.rows.map(function (r, i) { return r.edit ? i : -1; }).filter(function (i) { return i >= 0; });
+    var lastWrong = null;
+    var wrongN = 0;
     checkBtn.addEventListener('click', function () {
       if (api.isAnswered()) return;
+      if (editable.every(function (i) { return P.pics[i] === 0; })) {
+        api.feedback('Add some pictures first. Use the + buttons.', 'try');
+        return;
+      }
+      var sig = P.pics.join(',') + '|' + chosenTitle;
+      if (sig === lastWrong) {
+        api.feedback('Nothing has changed yet. Change a row, then check again.', 'try');
+        return;
+      }
       var strong = api.tries() >= 1;
       for (var k = 0; k < editable.length; k++) {
         var i = editable[k];
@@ -605,15 +631,18 @@
         if (!m) m = buildMistake(P.pics[i], cfg.targets[i], q.keyN, cfg.rows[i].name, ctx);
         if (m) {
           P.rows.forEach(function (r, j) { P.lit(j, j === i); });
+          lastWrong = sig;
           api.check(false, strong ? m.strong : m.hint, m.tag);
           return;
         }
       }
       if (cfg.titles && !chosenTitle) {
+        lastWrong = sig;
         api.check(false, strong ? 'Pick a title above the pictogram, so people know what it shows.' : 'The pictures are right! But a pictogram needs a title too.', 'Forgot the title or key');
         return;
       }
       if (cfg.titles && chosenTitle !== cfg.titleRight) {
+        lastWrong = sig;
         api.check(false, 'Does that title tell us what the pictures show? Pick another.', 'Chose a title that does not fit');
         return;
       }
@@ -630,7 +659,12 @@
         checkBtn.click();
       },
       wrong: function () {
-        editable.forEach(function (i, k) { clickTo(P, i, cfg.targets[i] / q.keyN + (k === 0 ? 1 : 0)); });
+        var w = wrongN++;
+        var row = editable[w % editable.length];
+        var need = cfg.targets[row] / q.keyN;
+        var step = 1 + Math.floor(w / editable.length);
+        editable.forEach(function (i) { clickTo(P, i, cfg.targets[i] / q.keyN); });
+        clickTo(P, row, need + step <= cfg.maxCells ? need + step : need - 0.5 * step);
         checkBtn.click();
       },
     };
@@ -731,8 +765,8 @@
     var host = el('div', { class: 'pm-strip-host' });
     stage.appendChild(host);
     var ch = MQ.ui.choices(
-      [1, 2].map(function (n) { return { label: sym + ' = ' + n + ' ' + keyWord(ctx, n), value: n }; }),
-      function (val) {
+      [1, 2, 4].map(function (n) { return { label: sym + ' = ' + n + ' ' + keyWord(ctx, n), value: n }; }),
+      function (val, btn) {
         if (val === k) {
           ch.mark(val, 'good');
           ch.disable();
@@ -740,14 +774,19 @@
           P.count(q.ask);
           api.check(true, v + ' ' + ctx.many + ', ' + v / k + ' pictures, so each picture stands for ' + k + '.');
         } else {
+          if (btn.classList.contains('bad')) {
+            api.feedback('You tried that one. Pick a different answer.', 'try');
+            return;
+          }
           ch.mark(val, 'bad');
           var strong = api.tries() >= 1;
           P.lit(q.ask);
-          if (k === 2) api.check(false, strong ? 'Count in 2s along the ' + lower(r.name) + ' row: 2, 4, 6 ... Do you reach ' + v + '?' : 'There are ' + v / k + ' pictures in the ' + lower(r.name) + ' row, but ' + v + ' ' + ctx.many + '. So one picture must stand for more than 1.', 'Could not work out the key');
+          if (val > k) api.check(false, strong ? 'Count along the ' + lower(r.name) + ' row in ' + k + 's. Do you reach ' + v + '?' : 'If each picture was ' + val + ', the ' + lower(r.name) + ' row would show ' + (v / k) * val + '. But there were only ' + v + '.', 'Could not work out the key');
+          else if (k === 2) api.check(false, strong ? 'Count in 2s along the ' + lower(r.name) + ' row: 2, 4, 6 ... Do you reach ' + v + '?' : 'There are ' + v / k + ' pictures in the ' + lower(r.name) + ' row, but ' + v + ' ' + ctx.many + '. So one picture must stand for more than 1.', 'Could not work out the key');
           else api.check(false, strong ? 'Count the ' + lower(r.name) + ' pictures in 1s. Do you reach ' + v + '?' : 'Count the ' + lower(r.name) + ' pictures. There are ' + v + ' pictures and ' + v + ' ' + ctx.many + '.', 'Could not work out the key');
         }
       },
-      { columns: 2 }
+      { columns: 3 }
     );
     ch.classList.add('pm-choices');
     stage.appendChild(ch);
