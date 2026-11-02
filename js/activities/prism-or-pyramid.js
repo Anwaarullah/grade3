@@ -250,7 +250,7 @@
       if (!front[fi]) return;
       var k = 0.8 + 0.24 * Math.max(0, dot(nz[fi], LIGHT));
       var key = hlF[fi] || hl[f.role];
-      var c = shade(key ? HL[key].fill : baseFill, k);
+      var c = shade(key ? HL[key].fill : baseFill, key ? 0.93 + 0.08 * (k - 0.8) / 0.24 : k);
       g.appendChild(S('polygon', { points: ptsOf(f), fill: c, stroke: c, 'stroke-width': 0.8, 'stroke-linejoin': 'round', 'data-role': f.role, 'data-fi': fi, class: 'pp-face' }));
     });
     // hidden faces that are highlighted: dashed coloured outline
@@ -587,7 +587,7 @@
   function nameQ() {
     var k = U.pick(NAMED);
     var others = U.shuffle(NAMED.filter(function (x) {
-      return x !== k;
+      return x !== k && !(k === 'cube' && x === 'cuboid'); // a cube is also a cuboid, so never offer that as a wrong answer
     })).slice(0, 3);
     return { type: 'name', kind: k, pose: k === 'cube' ? 'stand' : U.pick(['stand', 'lying']), options: U.shuffle([k].concat(others)) };
   }
@@ -1036,7 +1036,7 @@
     var W = 420;
     var ends = {};
     var sliceDone = false, seenA = false, seenB = false, unlocked = false;
-    var v = viewer(api, 'triPrism', { pose: 'lying', W: W, H: 210, yaw: -28, pitch: 20, pad: 16, onFace: onFace });
+    var v = viewer(api, 'triPrism', { pose: 'lying', W: W, H: 230, yaw: -28, pitch: 20, pad: 8, onFace: onFace });
     v.st.slice = 0.5;
     v.redraw();
     var sliceEnd = function (t) {
@@ -1286,10 +1286,10 @@
     api.lockNext();
     stage.appendChild(MQ.ui.lesson('Turned around', 'A prism is still a prism lying down. A pyramid is still a pyramid upside down.'));
     var done = false;
-    var v = viewer(api, 'hexPrism', { pose: 'lying', W: 380, H: 220, yaw: 0, pitch: 18, drag: true, onTurn: check });
+    var v = viewer(api, 'hexPrism', { pose: 'lying', W: 380, H: 230, yaw: 14, pitch: 18, drag: true, onTurn: check });
     // make it long like a pencil tin
     v.st.model = prism(regPoly(6, 0.62), 2.3);
-    v.st.s = (110 - 14) / v.st.model.R;
+    v.st.s = (115 - 8) / v.st.model.R;
     v.redraw();
     var btnL = el('button', { class: 'btn btn-ghost', type: 'button', 'aria-label': 'Turn left' }, '◀ Turn');
     var btnR = el('button', { class: 'btn btn-ghost', type: 'button', 'aria-label': 'Turn right' }, 'Turn ▶');
