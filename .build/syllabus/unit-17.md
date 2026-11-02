@@ -210,10 +210,65 @@ every page). Every page from printed 260 to 276 was read; all are clear.
 }
 ```
 
+## Workbook (Workbook 3, printed pages 237-248)
+
+Source note: workbook image index = printed page + 2, as stated in the kit. Pages 237-246 were read and are clear. **The URLs listed for printed pages 247 and 248 show second scans of pages 245 and 246** (same Focus Q1-Q3 and Practice Q4-Q5), so the real pages 247-248 (most likely the end of 17.2 Practice and the 17.2 Challenge) were **not available**. These need a follow-up if the correct image URLs can be found.
+
+### 17.1 Shape and symmetry (WB p.237-243)
+
+| Level | WB page / Q | What the child does | Numbers / details |
+|---|---|---|---|
+| Worked example 1 | p.237 | Draw vertical/horizontal lines on 3 flags and write how many: diagonal stripe (0), diagonal cross (2), off-centre Nordic cross (0) | answers 0, 2, 0 given; key words horizontal, reflection, vertical |
+| Focus | p.238 Q1a-b | Same task on 3 flags: small triangle in the middle (0), horizontal band not centred (1, vertical), three stars two-up-one-down (1, vertical) | answers 0-2 (derived) |
+| Focus | p.238 Q1c | Draw a flag with exactly 1 line and one with exactly 2 | open |
+| Focus | p.238 Q2a | Reflect 4 small shapes: triangle under a horizontal line, rectangle beside a vertical line, triangle against a vertical line, trapezium just below a horizontal line (small gap) | 4 shapes; one has a gap to the line |
+| Focus | p.239 Q2b | Draw two own shapes and their lines of symmetry | open |
+| Focus | p.239 Q3a | Draw lines with a ruler on a rectangle (2), a label shape with cut corners (2) and a trapezium/flowerpot (1 vertical) | answers derived |
+| Focus | p.239 Q3b | Draw two lines on three square tile patterns (each has both vertical and horizontal lines) | 3 tiles |
+| Focus | p.239 Q3c | Draw own symmetrical patterns in a box with a vertical line and a box with a horizontal line | open |
+| Practice | p.240 Q4a | Six flags, write 0, 1 or 2 and draw the lines | derived: centred cross 2, pennant triangle in a corner 0, centred vertical band 2, off-centre vertical band 1 (horizontal), three different-colour horizontal stripes 1 (vertical), centred thin vertical band 2 |
+| Practice | p.240 Q4b | Add shapes to any 0-line flag so it gets 1 or 2 lines | open |
+| Practice | p.240 Q5a | Five shapes said to be made by folding and cutting squares; draw lines "where you can" | A (semicircle + triangle) none; B (oval with tabs) 2; C (tree) 1 vertical; D (arrowhead) 1 vertical; E (crown) 1 vertical (derived) |
+| Practice | p.241 Q5b | Reflect an L shape in a vertical line some distance away | gap between shape and line |
+| Practice | p.241 Q6 | Draw the vertical or horizontal line on a star/hexagon rosette with a ruler, then colour it so the line(s) are kept | rosette has both lines (and more) |
+| Challenge | p.242 Q7 | Design a flag (rectangle or pennant triangle) with 1 or 2 lines, 3 colours that are also symmetrical; explain | rectangle allows 2 lines; pennant only 1 (horizontal) |
+| Challenge | p.242 Q8a | Reflect two stepped (staircase) shapes: one in a horizontal line below it, one in a vertical line to its right | right-angled steps; both sit just off the line |
+| Challenge | p.243 Q8b | Draw two own shapes with two lines of symmetry and mark them | open |
+| Challenge | p.243 Q9 | Label the vertical and horizontal lines on a 2-line pattern; make an own 2-line pattern with symmetrical colours | open |
+
+### 17.2 Pattern and symmetry (WB p.244-246; p.247-248 not available)
+
+| Level | WB page / Q | What the child does | Numbers / details |
+|---|---|---|---|
+| Worked example 2 | p.244 | Extend an X-of-5-circles pattern by a constant of 5 | 5, 10, 15, next 20 |
+| Focus | p.245 Q1 | Extend a squares pattern and say what it goes up in | 1, 2, 3 squares → goes up in 1s |
+| Focus | p.245 Q2 | Reduce a row of triangles by one triangle (the constant) at a time; say what it goes down in | 4, 3, 2, 1 |
+| Focus | p.245 Q3 | A pattern-block butterfly (hexagons, a column of squares, two antenna pieces) has one vertical line: colour it with colour symmetry | 6 hexagons, 5 squares |
+| Practice | p.246 Q4 | The constant is a "house" (square + triangle roof). Start with 3 houses, extend by one twice, complete 3, 3 + 1 =, 4 + 1 =; write something you notice | 3, 4, 5 |
+| Practice | p.246 Q5 | Invent an extending pattern: draw the start, the constant and the extended pattern; write one thing about it | open |
+
+### What the workbook expects that the textbook does not teach (hidden prerequisites / traps)
+- **Counting lines of symmetry (0, 1 or 2)** on whole designs (flags): the textbook mostly asks to *draw a* line; the workbook asks for the total and includes 0 as an answer.
+- **Off-centre details break symmetry**: flags with a band slightly off the middle, or a cross set to one side (Nordic cross), have fewer lines than they seem to. The child must check that both halves really match, not that "it looks like a cross".
+- **Colour must match too**: three stripes of different colours have no horizontal line (WB Q4); the textbook only says this in 17.2 Q7.
+- **Reflecting across a gap**: several shapes (WB Q2a trapezium, Q5b L shape, Q8a staircases) sit a distance from the mirror line, so the reflection must be the same distance on the other side. The textbook shapes mostly touch the line.
+- **"Made by folding" does not guarantee a line** (WB Q5a shape A has none) - a reasoning trap.
+- **Use a ruler** to draw lines of symmetry (Q3a, Q6).
+- **Counting in 5s** (WB Worked example 2: 5, 10, 15, 20). The textbook patterns only use constants of 1, 2, 3 and 4. This is the 5 times table in disguise: MULTIPLICATION DEPENDENCE.
+- **A constant can be a group of shapes** (a "house" = square + triangle counts as 1), so "goes up in 1" while the number of pieces goes up in 2.
+- **Sentence-completion words**: "goes up in …", "goes down in …".
+- **Pennant (triangle) flags**: the triangle flag can only have a horizontal line.
+
+### Effect on the proposed activities
+- `mirror-line-finder`: add a "count the lines: 0, 1 or 2" flag round with original flags (centred and slightly off-centre bands, three-colour stripes, a pennant), and a "fold and cut" round where one shape has no line. Book refs add WB p.237-240 WE1, Q1, Q3-Q5a, p.241 Q6.
+- `reflect-it`: Level 2-3 must include shapes a gap away from the line and stepped staircase shapes. Book refs add WB p.238-239 Q2, p.241 Q5b, p.242-243 Q8.
+- `six-square-designs`: add a flag-designer mode (rectangle or pennant, 3 colours that must also be symmetrical, aim for 1 or 2 lines) and a "colour the butterfly so the colours match" item. Book refs add WB p.238 Q1c, p.240 Q4b, p.242-243 Q7, Q9, p.245 Q3.
+- `pattern-steps`: add constant 5 (with a five-frame or X-of-5 picture so it can be counted), a "constant is a group" item (house = square + roof), and "goes up in / goes down in" sentence chips. Book refs add WB p.244 WE2, p.245 Q1-Q2, p.246 Q4-Q5.
+
 ## Proposed activities
 
 ### 1. `mirror-line-finder` - Find the fold
-- **icon**: 🪞  **section**: 17.1  **book**: p.260 Getting started; p.261 intro and Q1; p.263 Q4; p.265 Q7-Q8; p.266 Q9
+- **icon**: 🪞  **section**: 17.1  **book**: LB p.260 Getting started; p.261 intro and Q1; p.263 Q4; p.265 Q7-Q8; p.266 Q9; WB p.237 WE1, p.238 Q1, p.239 Q3, p.240 Q4-Q5a, p.241 Q6
 - **summary**: Drag and drop a mirror line onto pictures and shapes and fold to test if both halves match.
 - **Learn screens**
   1. An apple and a door: Bolt shows a **vertical** line (up and down) through each; the picture folds on the line and the halves match.
@@ -222,8 +277,9 @@ every page). Every page from printed 260 to 276 was read; all are clear.
 - **Practice (10 questions)**
   - Level 1: everyday pictures (cup, butterfly, house front, leaf, envelope) — click "vertical", "horizontal" or "no line" from a button choice; one line per picture.
   - Level 2: 2D shapes (rectangle, isosceles triangle, right-angled triangle, parallelogram, circle, plus sign, regular pentagon, arrow) — drag a line onto the shape or say "none"; shapes with two lines accept either line.
+  - Level 2 extra (workbook): original flags — count the lines (0, 1 or 2), including bands slightly off-centre, three different-coloured stripes and a pennant.
   - Level 3: tile pictures and square logos with a dashed line already drawn — "is it symmetrical about THIS line?" (including a symmetrical picture with the line in the wrong place); then "how many lines can you find?" for rectangle (2), square (4), plus sign (4), circle (lots).
-- **Mistake tags**: `vertical-horizontal-mixup`, `diagonal-halves`, `wrong-line-position`, `outline-only`
+- **Mistake tags**: `vertical-horizontal-mixup`, `diagonal-halves`, `wrong-line-position`, `outline-only`, `off-centre-missed`, `colour-ignored`
 - **Parent tips**
   - Goal: Find vertical and horizontal lines of symmetry and check them by folding.
   - Say: "If we fold it on the line, would the two halves sit exactly on top of each other?" / "Is your line going up and down, or side to side?" / "The outside is a square, but what about the picture inside?"
@@ -231,7 +287,7 @@ every page). Every page from printed 260 to 276 was read; all are clear.
   - Away from screen: Fold paper cut-outs of a heart, a rectangle and a home-made arrow to find lines that work.
 
 ### 2. `reflect-it` - Mirror drawing
-- **icon**: 🦋  **section**: 17.1  **book**: p.262 Q2-Q3; p.263 Q3c; p.264 Q6; p.273 Check your progress Q1-Q2
+- **icon**: 🦋  **section**: 17.1  **book**: LB p.262 Q2-Q3; p.263 Q3c; p.264 Q6; p.273 Check your progress Q1-Q2; WB p.238-239 Q2, p.241 Q5b, p.242-243 Q8
 - **summary**: Complete the other half of a picture by reflecting it in a vertical or horizontal mirror line on a square grid.
 - **Learn screens**
   1. A half butterfly on a grid with a vertical mirror line. Bolt counts "2 squares from the line here, so 2 squares from the line there" and colours the matching square.
@@ -239,7 +295,7 @@ every page). Every page from printed 260 to 276 was read; all are clear.
   3. A shape away from the line (a diamond touching the line at one point; a chevron one square away): count the gap each time.
 - **Practice (8 questions)**
   - Level 1: 6×6 grid, vertical line, 3-5 coloured squares touching the line — click squares to reflect.
-  - Level 2: 8×8 grid, vertical or horizontal line, 5-8 squares, some 1-3 squares away from the line; two colours.
+  - Level 2: 8×8 grid, vertical or horizontal line, 5-8 squares, some 1-3 squares away from the line (the workbook uses many shapes with a gap); two colours; stepped staircase shapes.
   - Level 3: outline shapes on dot grid (trapezium, stepped L, zig-zag tree, house pentagon) — click dots to draw the reflected outline; a rectangle 4 by 6 and a triangle with a 7-unit side to be drawn half on each side of the line.
 - **Mistake tags**: `slid-not-flipped`, `wrong-distance`, `gap-ignored`, `colour-mismatch`
 - **Parent tips**
@@ -249,7 +305,7 @@ every page). Every page from printed 260 to 276 was read; all are clear.
   - Away from screen: Stand a small mirror on a half drawing (half a face, half a house) and draw what you see.
 
 ### 3. `six-square-designs` - Symmetry tile designer
-- **icon**: 🟨  **section**: 17.1 / 17.2  **book**: p.263 Q5; p.266-267 Think like a mathematician; p.271 Q5-Q6; p.272 Q7 and Think like a mathematician; p.274 Check your progress Q4-Q5
+- **icon**: 🟨  **section**: 17.1 / 17.2  **book**: p.263 Q5; p.266-267 Think like a mathematician; p.271 Q5-Q6; p.272 Q7 and Think like a mathematician; p.274 Check your progress Q4-Q5; WB p.238 Q1c, p.240 Q4b, p.242-243 Q7, Q9, p.245 Q3
 - **summary**: Build designs from squares and pattern blocks with one or two lines of symmetry.
 - **Learn screens**
   1. Six square tiles: drag them into a row of 6 — Bolt shows two lines of symmetry. Move one tile up from the end — the lines vanish.
@@ -267,7 +323,7 @@ every page). Every page from printed 260 to 276 was read; all are clear.
   - Away from screen: Use six sticky notes, toast squares or coasters on the table to make a two-line pattern.
 
 ### 4. `pattern-steps` - Grow and shrink patterns
-- **icon**: 🔺  **section**: 17.2  **book**: p.268 Worked example 1; p.269-270 Q1-Q4; p.274 Check your progress Q3
+- **icon**: 🔺  **section**: 17.2  **book**: LB p.268 Worked example 1; p.269-270 Q1-Q4; p.274 Check your progress Q3; WB p.244 WE2, p.245 Q1-Q2, p.246 Q4-Q5
 - **summary**: Extend or shorten a shape pattern by a constant amount and write the number sentences.
 - **Learn screens**
   1. Two triangles (a little tree); click "add 2" to plant another tree each step; number sentences appear: 2, 2 + 2 = 4, 4 + 2 = 6. Bolt points to the "+ 2" every time: "this is the **constant**."
@@ -275,7 +331,7 @@ every page). Every page from printed 260 to 276 was read; all are clear.
   3. A number track shows the jumps so the child sees the same jump size between each step.
 - **Practice (10 questions)**
   - Level 1: constant 1 or 2, start 1-4, up to 4 steps (totals up to 12); click the next picture and type the total.
-  - Level 2: constant 2, 3 or 5 starting from the constant, up to 5 steps (totals up to 25); fill missing boxes in number sentences (9 + □ = □); name the constant.
+  - Level 2: constant 2, 3 or 5 starting from the constant, up to 5 steps (totals up to 25; constant 5 shown as groups of 5 dots to count, as in the workbook); fill missing boxes in number sentences (9 + □ = □); name the constant with "goes up in …" chips. One item uses a group as the constant (a house = square + roof, so 3, 4, 5 houses).
   - Level 3: shorten patterns (16 by 4, 20 by 5, 12 by 3) down to 0; or find the constant from three given terms (3, 6, 9 → 3) and predict the next term; one item asks how many after 3 more steps.
 - **Mistake tags**: `added-step-number`, `constant-vs-total`, `wrong-start`, `not-to-zero`
 - **Parent tips**

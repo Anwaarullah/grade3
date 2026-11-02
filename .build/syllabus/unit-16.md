@@ -157,10 +157,43 @@ every page). Every page from printed 249 to 259 was read; all are clear.
 }
 ```
 
+## Workbook (Workbook 3, 16.1 Chance, printed pages 229-236)
+
+Source note: workbook image index = printed page + 2, as stated in the kit. All 8 pages (229-236) were read and are clear. Key words box on p.229 repeats the textbook list (chance, likely, might happen, will happen, will not happen).
+
+| Level | WB page / Q | What the child does | Numbers / details |
+|---|---|---|---|
+| Worked example 1 | p.229 | Spinner with 6 equal parts (3 white, 2 grey, 1 black): is black likely, is grey more likely than black, white or shaded? Model answers use "unlikely", "greater chance" and "half … half" | 6 equal sectors; 1 vs 2 vs 3 |
+| Focus | p.230 Q1a | Ring likely / unlikely for landing on red, with a reason | 4 equal quarters: red, blue, orange, red (red = 2 of 4) |
+| Focus | p.230 Q1b | Ring will land / will not land on green, with a reason | green is not on the spinner → will not |
+| Focus | p.230 Q2 | Write will / will not / might happen for 4 everyday sentences (helping a partner next week, bus home tomorrow, seeing a lion on the way home, going to the shop tomorrow) | no numbers; judgement items |
+| Focus | p.231 Q3 | Spinner movement game on a 3×3 grid: start bottom-right, finish top-left; spinner has 6 equal parts (3 "up", 3 "left"); move one square, stay put if there is no space. How many spins to finish? Will that always happen? | minimum 4 spins (2 up + 2 left); can take many more |
+| Practice | p.232 Q4 | Agree or disagree: "the spinner will land on yellow" | yellow is half the spinner; red a quarter; green and blue an eighth each → might, not will |
+| Practice | p.232 Q5 | Write one sentence each that will / might / will not happen | open |
+| Practice | p.233-234 Q6 | Is "heads" more likely on a coin or on an 8-part spinner with 1 heads and 7 tails? Toss 5 times and spin 5 times, tick Heads / Not heads, compare with prediction | coin 1 of 2; spinner 1 of 8; 5 trials each |
+| Challenge | p.234 Q7 | Write two questions using the word "chance" about two bags of marbles | bag 1: 10 dark + 1 light; bag 2: 1 light + 1 dark |
+| Challenge | p.235 Q8 | Rolling a 1-6 dice: how likely is a 7? (cards say will happen / will not happen / **may** happen). Write dice questions whose answers are will and will not happen | 1-6 dice; target 7 |
+| Challenge | p.235-236 Q9 | Two shape spinners: Zara's has 6 equal parts (one star), Marcus's has 3 equal parts (one star). Marcus claims he will land on the star more times in 10 spins: agree? Test with paper clip, record, describe | star 1 of 6 vs 1 of 3; 10 spins each |
+
+### What the workbook expects that the textbook does not teach (hidden prerequisites / traps)
+- **likely / unlikely as an answer**: the textbook lists "likely" as a key word but only ever asks will / might / won't. Workbook Q1a and the worked example ask for likely vs unlikely, which is a judgement about *how* likely. With red = 2 of 4 (exactly half) the "right" answer is not obvious; accept either with a reason about the 2 red parts.
+- **"greater chance" / comparing chances by counting equal parts** (WE1b, Q6, Q9): 1 of 8 vs 1 of 2, 1 of 6 vs 1 of 3. This is fraction thinking (Unit 7/12) and is only lightly touched in the textbook (spinner A vs B).
+- **"half the spaces"** (WE1c) assumes the child sees 3 of 6 as half.
+- **Unequal spinner reading** (Q4): yellow is a half, red a quarter, green and blue an eighth each; the child must see that "biggest" still only means "might".
+- **New words**: "may happen" (Q8, a synonym the textbook never uses), "conjecture" (Q9b), "Not heads" as a results category (Q6).
+- **Movement directions on a grid** (Q3: up / left, staying put at an edge) borrow from Unit 15 (position and movement).
+- **Writing** is heavy: most Focus/Practice/Challenge items need a written reason or invented sentence. For this learner, let the parent scribe or offer sentence chips.
+
+### Effect on the proposed activities
+- `chance-word-sort`: add a likely / unlikely step for "might" cards at Level 3 (WB Q1a, WE1); include the word "may happen" as a synonym chip (WB Q8). Book refs add WB p.229-230 Q1-Q2, p.232 Q5, p.235 Q8.
+- `spinner-lab`: add the coin-vs-8-part-spinner comparison and the 6-part vs 3-part star spinners (WB Q6, Q9); add an "Agree with Bolt?" item where Bolt says an unequal spinner *will* land on its biggest colour (WB Q4). Book refs add WB p.229, p.232-236 Q4, Q6, Q9.
+- `sweet-jar-chance`: add a two-bag variant (10 of one colour + 1 of another vs 1 + 1) and "write a chance question" with the word chance (WB Q7). Book refs add WB p.234 Q7.
+- `crocodile-coin-walk`: add a grid mode (3×3, spinner says up or left, stay put at an edge; how many spins to reach the corner?) (WB Q3). Book refs add WB p.231 Q3.
+
 ## Proposed activities
 
 ### 1. `chance-word-sort` - Will it happen?
-- **icon**: 🎲  **section**: 16.1  **book**: p.249 Getting started Q1-Q3; p.250 intro; p.255 Check your progress Q1
+- **icon**: 🎲  **section**: 16.1  **book**: LB p.249 Getting started Q1-Q3; p.250 intro; p.255 Check your progress Q1; WB p.229 WE1, p.230 Q1-Q2, p.232 Q5, p.235 Q8
 - **summary**: Sort everyday events into "will happen", "might happen" and "will not happen".
 - **Learn screens**
   1. Bolt holds a normal dice: "It will land on 1, 2, 3, 4, 5 or 6 — that **will happen**." Then "It will land on 9" — **will not happen**. Then "It will land on 4" — **might happen**. The child clicks each card to flip and hear the word.
@@ -170,6 +203,7 @@ every page). Every page from printed 249 to 259 was read; all are clear.
   - Level 1: 6 clear-cut cards (a cup of water will be wet; a cat will drive the school bus; it will rain at school today) — drag to a bin.
   - Level 2: 8 cards mixing possible/impossible with "possible vs certain" pairs (the sun will set tonight / you will see a rainbow today); a "possible or impossible?" two-bin round first, then three bins.
   - Level 3: 8 judgement cards (eat lunch today, find a coin in the garden, a tree falls down) — the child picks a bin AND one reason from 3 reason chips ("it happens every day", "it can happen but not always", "it can never happen"). Any bin with a matching reason is accepted.
+  - Level 3 extra (workbook): for "might" cards on a spinner picture, also choose likely or unlikely (e.g. 1 black part out of 6 → unlikely); "may happen" is shown as another way to say "might happen".
 - **Mistake tags**: `might-as-wont` (said won't for something possible), `usual-as-certain`, `unusual-as-impossible`, `reason-mismatch`
 - **Parent tips**
   - Goal: Use the three chance phrases correctly and give a reason.
@@ -196,7 +230,7 @@ every page). Every page from printed 249 to 259 was read; all are clear.
   - Away from screen: Put 5 number cards in a cup; take turns asking "Will I pull out a number bigger than 3?" and test it.
 
 ### 3. `crocodile-coin-walk` - Coin-toss walk
-- **icon**: 🪙  **section**: 16.1  **book**: p.252 Q2
+- **icon**: 🪙  **section**: 16.1  **book**: LB p.252 Q2; WB p.231 Q3
 - **summary**: Toss a coin to step a counter along a garden path and see that results change each time.
 - **Learn screens**
   1. A 10-stone garden path (pond at one end, shed at the other), counter in the middle. Heads = one stone to the pond, tails = one stone to the shed. The child clicks "toss" 10 times.
@@ -214,7 +248,7 @@ every page). Every page from printed 249 to 259 was read; all are clear.
   - Away from screen: Play the real game on a paper strip with a real coin and compare two games.
 
 ### 4. `spinner-lab` - Spinner lab
-- **icon**: 🎡  **section**: 16.1  **book**: p.253-255 Q3 and Think like a mathematician
+- **icon**: 🎡  **section**: 16.1  **book**: LB p.253-255 Q3 and Think like a mathematician; WB p.229 WE1, p.232 Q4, p.233-234 Q6, p.235-236 Q9
 - **summary**: Predict, spin and tally to see that bigger sections come up more often.
 - **Learn screens**
   1. Two spinners: 3 equal parts (1-3) and 8 equal parts (1-8). The child clicks every possible outcome on each to list them.
@@ -224,15 +258,16 @@ every page). Every page from printed 249 to 259 was read; all are clear.
   - Level 1: equal spinners with 2-4 sections (colours from home: sock colours, fruit); list all outcomes; "will it land on purple?" when purple is not on it.
   - Level 2: pick the spinner more likely to land on a colour (sections 2-8, equal; or one colour taking 1 to 3 of 4 quarters).
   - Level 3: unequal spinners (halves, quarters, eighths): order outcomes from most to least likely; estimate counts out of 8 or 20 spins; explain what happens if all parts are equal size.
-- **Mistake tags**: `more-numbers-more-likely`, `ignores-section-size`, `missing-outcome`, `estimates-not-total`
+  - Workbook-style items in Levels 2-3: coin vs a spinner with 1 heads part out of 8 (which gives heads more often?); two star spinners (1 of 6 vs 1 of 3) and "Bolt thinks he will get the star more times — agree?"; "Bolt says this spinner WILL land on yellow" when yellow is half (answer: might).
+- **Mistake tags**: `more-numbers-more-likely`, `ignores-section-size`, `missing-outcome`, `estimates-not-total`, `biggest-as-certain`
 - **Parent tips**
   - Goal: Link the size of a spinner part to how often it comes up, and compare guesses with results.
   - Say: "Which colour has the biggest slice?" / "Out of 20 spins, how many do you think? Do your guesses add to 20?" / "It didn't match exactly — is that OK?"
-  - Watch for: thinking a spinner with more numbers makes 3 more likely; upset when results differ from the guess.
+  - Watch for: thinking a spinner with more numbers makes 3 more likely; saying the biggest colour "will" happen (the workbook tests this); upset when results differ from the guess.
   - Away from screen: Make a paper-clip spinner with one big and two small parts; spin 20 times and tally.
 
 ### 5. `sweet-jar-chance` - Sweet jar questions
-- **icon**: 🍬  **section**: 16.1  **book**: p.257 Check your progress Q4
+- **icon**: 🍬  **section**: 16.1  **book**: LB p.257 Check your progress Q4; WB p.234 Q7
 - **summary**: Fill a jar with sweets, then answer and invent chance questions about picking one.
 - **Learn screens**
   1. The child drags 5 sweets from 3 colour trays into a jar.
