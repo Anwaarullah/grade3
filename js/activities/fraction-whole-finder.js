@@ -764,7 +764,10 @@
         } else if (v === q.k) {
           tag = 'Found one part only';
           hint = q.k + ' is one tray, ' + words(1, q.d) + '. The whole bag is ' + q.d + ' trays.';
-        } else if ((q.P % q.d === 0 && (v === q.P / q.d || v === q.P + q.P / q.d)) || v === q.P + q.d) {
+        } else if (v === q.P + q.d && !(q.P % q.d === 0 && (v === q.P / q.d || v === q.P + q.P / q.d))) {
+          tag = 'Added the bottom number';
+          hint = 'Do not add the ' + q.d + '. ' + fr(q.n, q.d) + ' means ' + q.n + ' trays. Share ' + q.P + ' into ' + q.n + ' trays, then add one more tray the same.';
+        } else if (q.P % q.d === 0 && (v === q.P / q.d || v === q.P + q.P / q.d)) {
           tag = q.d === 4 ? 'Shared by 4 instead of 3 for 3/4' : 'Shared by 3 instead of 2 for 2/3';
           hint = fr(q.n, q.d) + ' means ' + q.n + ' trays. Share ' + q.P + ' into ' + q.n + ' trays, then add one more tray.';
         } else {

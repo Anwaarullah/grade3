@@ -258,7 +258,8 @@
       return { ok: false, tag: 'Added the bottom numbers', hint: 'The pieces are still ' + nm + ', so the bottom number stays ' + d + '. Only the top number changes.' + (strong ? ' ' + a + ' + ' + b + ' = ' + t + '.' : '') };
     }
     if (q.from1) {
-      return { ok: false, tag: 'Forgot 1 is a whole strip', hint: '1 whole strip is ' + d + '/' + d + '. Take ' + b + ' ' + (b === 1 ? 'piece' : 'pieces') + ' away.' + (strong ? ' ' + d + ' − ' + b + ' = ' + t + ', so ' + t + ' ' + nm + ' are left.' : '') };
+      var notWhole = dd !== d || n === b || n === 0 || n === 1;
+      return { ok: false, tag: notWhole ? 'Forgot 1 is a whole strip' : 'Counted the pieces wrongly', hint: '1 whole strip is ' + d + '/' + d + '. Take ' + b + ' ' + (b === 1 ? 'piece' : 'pieces') + ' away.' + (strong ? ' ' + d + ' − ' + b + ' = ' + t + ', so ' + t + ' ' + nm + ' are left.' : '') };
     }
     if (q.op === '-' && b === 0) {
       return { ok: false, tag: 'Thinks taking away 0 leaves 0', hint: 'We take away 0 pieces, so nothing goes. All ' + a + ' ' + nm + ' are still there!' };
@@ -358,7 +359,13 @@
       })
     );
     var dp = U.pick([4, 5]);
-    var p = U.rand(1, dp - 1);
+    // avoid repeating an earlier addition with the same pair (e.g. 1/4 + 3/4)
+    var pairOk = U.range(1, dp - 1).filter(function (k) {
+      return !q.some(function (x) {
+        return x.op === '+' && x.d === dp && ((x.a === k && x.b === dp - k) || (x.b === k && x.a === dp - k));
+      });
+    });
+    var p = U.pick(pairOk.length ? pairOk : U.range(1, dp - 1));
     q.push({ type: 'pair', op: '+', d: dp, a: p, b: dp - p });
     var hasZero = q.some(function (x) {
       return x.op === '-' && (x.a === x.b || x.b === 0);
@@ -592,7 +599,7 @@
           sent.mark('good');
           sent.disable();
           var extra = '';
-          if (v.d !== d) extra = ' ' + v.n + '/' + v.d + ' is the same as ' + t + '/' + d + '.';
+          if (v.d !== d) extra = ' ' + (v.d === 1 ? String(v.n) : v.n + '/' + v.d) + ' is the same as ' + t + '/' + d + '.';
           api.check(true, (q.from1 ? '1 = ' + d + '/' + d + '. ' : '') + t + ' ' + nm + '!' + extra);
         } else {
           sent.mark('bad');
@@ -787,7 +794,7 @@
     api.onReveal(function () {
       // choose a pair that is not Bolt's (and not his turned round)
       var p = 0;
-      for (var k = 0; k <= d; k++) {
+      for (var k = 1; k < d; k++) {
         if (k !== q.a && k !== q.b) {
           p = k;
           break;

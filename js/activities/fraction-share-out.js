@@ -384,9 +384,17 @@
       } else if (t === 'canshare') {
         var d = U.pick([3, 4, 10]);
         var ok = Math.random() < 0.5;
+        var used = q.filter(function (o) { return o.d === d; }).map(function (o) { return o.n; });
         var pool = U.range(12, 30).filter(function (x) {
-          return ok ? x % d === 0 : x % d !== 0;
+          return (ok ? x % d === 0 : x % d !== 0) && used.indexOf(x) === -1;
         });
+        if (!pool.length) {
+          d = 4; // 12-30 always has unused multiples and non-multiples of 4
+          used = q.filter(function (o) { return o.d === 4; }).map(function (o) { return o.n; });
+          pool = U.range(12, 30).filter(function (x) {
+            return (ok ? x % 4 === 0 : x % 4 !== 0) && used.indexOf(x) === -1;
+          });
+        }
         var n2 = !ok && d === 3 && Math.random() < 0.4 ? 20 : U.pick(pool);
         q.push({ type: 'canshare', m: 1, d: d, n: n2, ok: ok, set: setOf('cookie'), lvl: 3 });
       } else {
@@ -477,7 +485,7 @@
       var strong = api.tries() >= 1;
       if (v === q.n * q.d) return ['Sharing makes each group smaller, not bigger. Count one ' + set.box + '.', 'Multiplied instead of divided'];
       if (v === q.n) return ['That is all of the ' + set.many + '. ' + (q.m === 1 ? 'We want just one ' + set.box + '.' : 'We want ' + q.m + ' ' + set.boxes + '.'), q.m === 1 ? 'Divided by the top number' : 'Gave the whole amount'];
-      if (q.m > 1 && v === per) return ['That is one ' + set.box + '. The top number says take ' + q.m + '. Count on: ' + per + ', ' + per * 2 + '…', 'Found one part only for 3/4'];
+      if (q.m > 1 && v === per) return ['That is one ' + set.box + '. The top number says take ' + q.m + '. Count on: ' + per + ', ' + per * 2 + '…', 'Found one part only for ' + q.m + '/' + q.d];
       if (q.m > 1 && q.n % q.m === 0 && v === q.n / q.m) return ['Share into the bottom number: ' + q.d + ' ' + set.boxes + ', not ' + q.m + '.', 'Divided by the top number'];
       if (q.m > 1 && v === q.m) return [q.m + ' is how many ' + set.boxes + ' we take. How many ' + set.many + ' are in them?', 'Divided by the top number'];
       if (strong) {

@@ -731,12 +731,19 @@
       if (answered) return;
       var m = String(raw).trim().match(/^(\d+)\s*\/\s*(\d+)$/);
       if (m) {
-        if (+m[2] !== 10) {
-          input.bad();
-          api.check(false, 'Only the top numbers add up. The bottom number stays 10, because they are all tenths.', 'Added the denominators');
+        var top = +m[1], bot = +m[2];
+        if (bot === 0) {
+          api.feedback('The bottom number is 10: they are all tenths.', 'info');
           return;
         }
-        n = +m[1];
+        if (bot !== 10 && (top * 10) % bot === 0 && bot !== 20 && bot !== 30) {
+          n = (top * 10) / bot; // an equal fraction, e.g. 1/5 = 2/10
+        } else if (bot !== 10) {
+          input.bad();
+          if (bot === 20 || bot === 30) api.check(false, 'Only the top numbers add up. The bottom number stays 10, because they are all tenths.', 'Added the denominators');
+          else api.check(false, 'Count in tenths: the bottom number is 10. How many more tenths make 10 tenths?', 'Wrote a fraction that is not tenths');
+          return;
+        } else n = top;
       }
       if (!(n >= 1 && n <= 10) || Math.round(n) !== n) {
         api.feedback('A dice shows a whole number from 1 to 6.', 'info');
@@ -747,7 +754,7 @@
         input.setValue(String(n));
         input.good();
         finish(n);
-        api.check(true, q.partial + ' tenths + ' + n + ' tenths = 10 tenths = 1 whole!');
+        api.check(true, q.partial + ' tenths + ' + n + (n === 1 ? ' tenth' : ' tenths') + ' = 10 tenths = 1 whole!');
         return;
       }
       if (n >= 1 && n <= 6) ch.mark(n, 'bad');

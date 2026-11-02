@@ -989,7 +989,10 @@
       done = true;
       board.reveal();
       var sorted = q.cards.slice().sort(cmp);
-      api.feedback('Thirds and tenths are drawn on the line. In order: ' + sorted.map(fracText).join(', ') + '.', 'info');
+      var dn = { 2: 'Halves', 3: 'Thirds', 4: 'Quarters', 5: 'Fifths', 10: 'Tenths' };
+      var ds = [];
+      q.cards.forEach(function (c) { var nm = dn[c.d] || c.d + 'ths'; if (ds.indexOf(nm) === -1) ds.push(nm); });
+      api.feedback(ds.join(' and ') + ' are drawn on the line. In order: ' + sorted.map(fracText).join(', ') + '.', 'info');
     });
   }
 
