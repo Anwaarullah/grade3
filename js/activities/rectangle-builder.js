@@ -429,6 +429,7 @@
             box.setValue(String(N));
             box.disable();
             MQ.clear(work);
+            api.feedback('Count in ' + C + 's, one jump for each row: ' + U.range(1, R).map(function (i) { return i * C; }).join(', ') + '.', 'info');
             pic.countRows(api, {
               step: 650,
               done: function () {
@@ -524,7 +525,7 @@
               sbox.bad();
               var hint;
               var tag;
-              if (Math.abs(n - SA / 4) < 1.01) {
+              if (Math.abs(n - SA / 4) < 0.5 && Math.abs(SA / 4 - side) >= 1) {
                 hint = 'Dividing by 4 is perimeter thinking (going round the 4 sides). Area is rows × columns. Which number × itself makes ' + SA + '?';
                 tag = 'Divided the area by 4 (perimeter thinking)';
               } else if (n === SA) {
@@ -594,7 +595,7 @@
             } else if (n === ps * 2) {
               hint = 'That is only 2 sides. A square has 4 sides.';
               tag = 'Added only two sides';
-            } else if (Math.abs(n - PA / 4) < 1.01) {
+            } else if (Math.abs(n - PA / 4) < 0.5 && Math.abs(PA / 4 - ps) >= 1) {
               hint = 'Do not divide the area by 4. First find the side: which number × itself makes ' + PA + '?';
               tag = 'Divided the area by 4 (perimeter thinking)';
             } else {
@@ -622,6 +623,7 @@
           pbox.good();
           pbox.disable();
           showWorking();
+          api.feedback(ps + ' × ' + ps + ' = ' + PA + ', so each side is ' + ps + '. Then go round all 4 sides: ' + per + ' units.', 'info');
         });
       },
     },

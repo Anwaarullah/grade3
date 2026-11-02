@@ -376,7 +376,7 @@
     api.say(isArea ? 'Area question! Count the squares on the floor.' : 'Perimeter question! Count the edges of the fence.', 'think');
     stage.appendChild(keyword(isArea ? 'area' : 'perim'));
     stage.appendChild(MQ.ui.prompt('This ' + place + ' is a' + (/^[aeiouL]/.test(shape.name) ? 'n ' : ' ') + shape.name + '. What is its <b class="fg-' + (isArea ? 'area' : 'perim') + '-word">' + (isArea ? 'area' : 'perimeter') + '</b>?'));
-    var gf = gridFor(shape.cells, 560, 360, 48);
+    var gf = gridFor(shape.cells, 560, 310, 48);
     var g = gf.g;
     var drawn = drawShape(g, gf.cells, api);
     stage.appendChild(g.svg);
@@ -430,6 +430,7 @@
       results.appendChild(resultLine('perim', perim, !isArea));
       if (isArea) results.appendChild(el('div', { class: 'fg-working' }, 'Rows: ' + rows.join(' + ') + ' = ' + area));
       else results.appendChild(el('div', { class: 'fg-working' }, 'Sides: ' + runs.join(' + ') + ' = ' + perim));
+      api.feedback(isArea ? 'The question asks for the floor: ' + area + ' squares inside.' : 'The question asks for the fence: ' + perim + ' edges round the outside.', 'info');
     });
   }
 

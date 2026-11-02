@@ -164,6 +164,7 @@
       box.good();
       box.disable();
       show();
+      api.feedback('Each metre is 100 cm: ' + repeated(100, q.m).join(' + ') + ' = ' + ans + ' cm.', 'info');
     });
   };
 
@@ -242,12 +243,14 @@
       box.good();
       box.disable();
       show();
+      api.feedback('The crayon starts at ' + s + ' and ends at ' + e + ': ' + q.len + ' jumps of 1 cm.', 'info');
     });
   };
 
   Q.unit = function (stage, api, q) {
     var it = q.item;
     api.say('Which unit would you use to measure this?', 'think');
+    stage.appendChild(MQ.ui.prompt('Which unit would you use to measure it?'));
     stage.appendChild(el('div', { class: 'mc-item' }, el('span', { class: 'mc-item-icon' }, it.icon), el('span', null, it.name)));
     var ch = MQ.ui.choices(
       ['cm', 'm', 'km'].map(function (k) {
@@ -408,6 +411,7 @@
       box.good();
       box.disable();
       show();
+      api.feedback('Opposite sides match, so add all 4: ' + L + ' + ' + W + ' + ' + L + ' + ' + W + ' = ' + P + ' cm.', 'info');
     });
   };
 
@@ -422,7 +426,6 @@
     stage.appendChild(MQ.ui.prompt('Is this shape <b>regular</b> or <b>irregular</b>?'));
     var Wd = 340;
     var Ht = 240;
-    var root = svg('svg', { viewBox: '0 0 ' + Wd + ' ' + Ht, width: Wd, height: Ht, style: { maxWidth: '100%', height: 'auto' } });
     var pts;
     var u = 40; // px per cm, drawn to scale
     if (q.shape === 'rectangle') pts = [[50, 60], [50 + 6 * u, 60], [50 + 6 * u, 60 + 3 * u], [50, 60 + 3 * u]];
@@ -435,6 +438,14 @@
         pts.push([Wd / 2 + R * Math.cos(a), Ht / 2 + R * Math.sin(a)]);
       }
     }
+    // Fit the picture round the shape, with room for the side labels (the hexagon is taller than 240).
+    var xs = pts.map(function (p) { return p[0]; });
+    var ys = pts.map(function (p) { return p[1]; });
+    var bx = Math.min.apply(null, xs) - 70;
+    var by = Math.min.apply(null, ys) - 40;
+    var bw = Math.max.apply(null, xs) + 70 - bx;
+    var bh = Math.max.apply(null, ys) + 40 - by;
+    var root = svg('svg', { viewBox: bx + ' ' + by + ' ' + bw + ' ' + bh, width: bw, height: bh, style: { maxWidth: '100%', height: 'auto' } });
     root.appendChild(svg('polygon', { points: pts.map(function (p) { return p.join(','); }).join(' '), class: 'mc-shape' }));
     var labels = svg('g', { class: 'mc-hidden' });
     var cx = pts.reduce(function (s, p) { return s + p[0]; }, 0) / pts.length;
@@ -446,7 +457,8 @@
       var dx = mx - cx;
       var dy = my - cy;
       var d = Math.sqrt(dx * dx + dy * dy) || 1;
-      labels.appendChild(svg('text', { x: mx + (dx / d) * 22, y: my + (dy / d) * 22 + 6, 'text-anchor': 'middle', class: 'mc-dim mc-dim-new' }, sh.sides[k] + ' cm'));
+      var off = 22 + 16 * Math.abs(dx / d); // labels beside an upright side need more room
+      labels.appendChild(svg('text', { x: mx + (dx / d) * off, y: my + (dy / d) * off + 6, 'text-anchor': 'middle', class: 'mc-dim mc-dim-new' }, sh.sides[k] + ' cm'));
     });
     root.appendChild(labels);
     stage.appendChild(el('div', { class: 'mc-pic' }, root));
@@ -527,7 +539,7 @@
     box.focus();
     function show() {
       MQ.clear(marks);
-      sh.whole.forEach(function (w, i) {
+      sh.whole.slice().sort(function (a, b) { return a[1] - b[1] || a[0] - b[0]; }).forEach(function (w, i) {
         marks.appendChild(svg('text', { x: g.x(w[0]) + cell / 2, y: g.y(w[1]) + cell / 2 + 8, 'text-anchor': 'middle', class: 'mc-num' }, String(i + 1)));
       });
       halfEls.forEach(function (p, i) {
@@ -545,6 +557,7 @@
       box.good();
       box.disable();
       show();
+      api.feedback(nW + ' whole squares, and ' + nH + ' halves make ' + nH / 2 + ' more: ' + U.fmt(ans) + ' square units.', 'info');
     });
   };
 
@@ -624,6 +637,7 @@
       box.good();
       box.disable();
       show();
+      api.feedback(isArea ? 'Area: ' + R + ' rows of ' + C + ' = ' + area + ' square units.' : 'Perimeter: ' + C + ' + ' + R + ' + ' + C + ' + ' + R + ' = ' + per + ' units.', 'info');
     });
   };
 
@@ -656,12 +670,15 @@
         box.bad();
         var hint;
         var tag;
-        if (Math.abs(n - A / 4) < 1.01) {
+        if (Math.abs(n - A / 4) < 0.5 && Math.abs(A / 4 - s) >= 1) {
           hint = 'Dividing by 4 is perimeter thinking. Area is rows × columns: which number × itself makes ' + A + '?';
           tag = 'Divided the area by 4 (perimeter thinking)';
         } else if (n === A) {
           hint = A + ' is the area. We want one side.';
           tag = 'Gave the area instead of the side length';
+        } else if (n > 0 && n < 10) {
+          hint = n + ' × ' + n + ' = ' + n * n + (n * n < A ? '. Too small.' : '. Too big.') + ' Which helper square has ' + A + ' squares inside?';
+          tag = 'Wrong side length for a square';
         } else {
           hint = 'Which square has ' + A + ' squares inside? Look at the helper squares.';
           tag = 'Wrong side length for a square';

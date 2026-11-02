@@ -434,6 +434,7 @@
       redrawMarks();
       revealCount(g, drawn.pieces);
       counter.innerHTML = workingText(wholes, halves, answer);
+      api.feedback(workingText(wholes, halves, answer), 'info');
     });
   }
 
@@ -571,6 +572,7 @@
       for (var j = 0; j < full; j++) parts.push(w);
       if (left) parts.push(left);
       counter.innerHTML = 'Here is one way: rows of ' + parts.join(' + ') + ' = <b>' + n + ' squares</b>. Any shape works if it has ' + n + ' squares joined side to side!';
+      api.feedback('Any shape works if it has ' + n + ' squares joined side to side.', 'info');
     });
   }
 
@@ -633,6 +635,7 @@
       ch.disable();
       drawn.forEach(function (x) { revealCount(x.g, x.d.pieces); });
       showAreas();
+      api.feedback('Shapes ' + names[right[0]] + ' and ' + names[right[1]] + ' both cover ' + U.fmt(areas[right[0]]) + ' squares.', 'info');
     });
   }
 
