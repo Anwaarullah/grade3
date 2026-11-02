@@ -420,6 +420,97 @@ Unit layout:
 
 ---
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3 (2nd ed.), printed pages 179-201 (image index =
+printed page + 2, as stated by the coordinating brief; page-corner numbers checked on every page).
+Every page read. Workbook p.202 begins Unit 14 and was not part of the supplied list. No access code
+appears on these pages. Workbook questions are graded Focus / Practice / Challenge.
+
+### 13.1 Mass (workbook p.179-185)
+
+| WB page / Q | Level | What the child does | Numbers |
+|---|---|---|---|
+| p.179 Worked example 1 | - | Apple and pear on digital scales total 160 g; the apple is 70 g, so subtract to find the pear (90 g) | 160 - 70 |
+| p.179 Q1a | Focus | Read a 0-800 g dial (labels every 100, minor ticks) and **round to the nearest 100 g** | needle just under 200 (about 190 g) -> 200 g |
+| p.180 Q1b | Focus | Read a horizontal slider scale 0-100 g (labels every 10, ticks every 5) and **round to the nearest 10 g** | pointer about 42 g -> 40 g |
+| p.180-181 Q2 | Focus | Two scales: potatoes 700 g on a 0-1000 g dial, flour 2 kg on a 0-10 kg dial. Three children argue (arrow further round = heavier; 2 kg < 700 g; 2 kg > 700 g). Say who is right and why | correct: the flour is heavier, 2 kg = 2000 g > 700 g |
+| p.182 Q3 | Focus | Ring a sensible mass for carrot, sheep, feather, frog | carrot 18 g (from 8 kg / 4 kg / 18 g) - scan note: 18 g is light for a carrot but is the only sensible option; sheep 90 kg; feather 1 g; frog 30 g |
+| p.182 Q4 | Practice | Melon on scales reads 3 kg, skin is 850 g; how much can be eaten? Tip says change 3 kg to 3000 g | 3000 - 850 = 2150 g |
+| p.183 Q5 | Practice | Read three 0-1000 g dials (labels every 100, unlabelled minor ticks) and round each to the nearest 100 g | banana about 175 g -> 200; apples about 250 g (needle near the unlabelled 250 tick -> 300 by the halfway rule; scan note: needle position is approximate); orange about 190 g -> 200 |
+| p.183 Q6 | Practice | Ring a sensible mass: rabbit, pumpkin, mobile phone | rabbit 1 kg (10 g / 100 g / 1 kg); pumpkin 3 kg (700 g / 3 kg / 13 kg - 13 kg also possible for a big pumpkin); phone 140 g |
+| p.184 Q7a | Challenge | Two parcels together weigh 3 kg; one is 900 g; find the other | 3000 - 900 = 2100 g (2 kg 100 g) |
+| p.184 Q7b-c | Challenge | Draw scales showing more than 1 kg; draw and label three parcels: one under 500 g, one between 600 and 950 g, one free choice | open |
+| p.185 Q7 cont. | Challenge | Write a question of your own with its answer | open |
+| p.185 Q8 | Challenge | Three 0-5 kg dials with many unlabelled ticks (about 10 per kg); **round to the nearest whole kg** | about 0.9 -> 1 kg; about 2.9 -> 3 kg; about 1.8 -> 2 kg |
+| p.185 Q9 | Challenge | A 0-10 kg dial with the needle missing; potatoes are 7 kg to the nearest kg. **Colour every part of the dial the needle could point to** | from 6.5 kg up to (not including) 7.5 kg |
+
+**Hidden prerequisites / traps (not taught in the textbook 13.1):**
+- **Rounding a mass to the nearest 100 g, 10 g or whole kg** (Q1, Q5, Q8). The textbook 13.1 never asks for rounding on a scale; it only appears in 13.2/13.3 of the textbook. Relies on Unit 1 rounding.
+- **Reading unlabelled minor ticks** on dials (Q5, Q8): the child must work out each tick's value (e.g. 50 g, or 0.1 kg on the 0-5 kg dial - tenths of a kg are never named; the child just sees "a bit less than 1").
+- **Subtracting grams from several kilograms** (Q4: 3000 - 850, Q7: 3000 - 900). The textbook only does 1 kg - 350 g. These need 4-digit place value (3000) which Stage 3 barely touches.
+- **The reverse of rounding** (Q9): which readings round to 7 kg. This is a range idea the textbook never teaches.
+- **Arrow "further round the dial" ≠ heavier** when the dials use different units (Q2) - a strong version of the g vs kg comparison trap.
+
+### 13.2 Capacity (workbook p.186-191)
+
+| WB page / Q | Level | What the child does | Numbers |
+|---|---|---|---|
+| p.186 Worked example 2 | - | A full 5 litre bucket; 6 lambs each need 500 ml. Is there enough? Two lambs share 1 litre, so 6 lambs need 3 litres | 500 ml = half a litre; 6 x 500 = 3 L |
+| p.186 Q1 | Focus | A full 2 litre bottle; three friends each have a 500 ml cup. Can they all have a drink? Explain | 3 x 500 = 1500 ml < 2000 ml: yes, with 500 ml left |
+| p.187 Q2a-c | Focus | Read three containers and **round to the nearest 100 ml**: a 500 ml jug filled to the top; a 300 ml jug (ticks every 50); a 250 ml cylinder labelled every 50 ml | a 500 ml; b about 80 ml -> 100 ml; c about 120 ml -> 100 ml |
+| p.187 Q2d | Focus | Draw the liquid level for 2 and a half litres on a 3 litre jug marked 1L, 2L, 3L with half-litre ticks | 2.5 L line |
+| p.188 Q3 | Focus | Full 2 litre jug; someone says pouring away 500 ml leaves 1 litre. Explain what you think | wrong: 2000 - 500 = 1500 ml (1 and a half litres) |
+| p.188 Q4 | Practice | A full 400 ml flask: pour out half (how much poured?), a quarter (how much left?), three quarters (how much left?) | 200 ml; 300 ml; 100 ml |
+| p.189 Q5 | Practice | Three 1 L containers (A full, B 500 ml, C about 350 ml) and three speech bubbles (exactly half a litre / less than 500 ml / 1000 ml). Match each person to a container and write what you found | A = 1000 ml, B = half a litre, C = less than 500 ml |
+| p.190 Q6 | Practice | Jug 1 (labels every 100 ml) holds 400 ml; jug 2 (labels every 250 ml, ticks every 50) is full at 1 litre. Pour three 125 ml drinks from jug 2: will both jugs then hold the same? How much is left in jug 2? | 3 x 125 = 375; 1000 - 375 = 625 ml, so no (625 vs 400) |
+| p.191 Q7 | Challenge | True or false: the tallest container always has the largest capacity. Explain and draw examples | false |
+| p.191 Q8 | Challenge | A full 1 litre bottle: pour out a quarter - ml left, fraction left; if three quarters were poured out - how many ml, how much left | 750 ml, 3/4; 750 ml, 250 ml |
+
+**Hidden prerequisites / traps:**
+- **Fractions of 400** (Q4): half, quarter and three quarters of 400 ml. The textbook only uses fractions of 1 litre (250/500/750). Needs halving twice (400 -> 200 -> 100), then 3 x 100.
+- **"How much is left"** after pouring out a fraction (Q4b-c, Q8): a two-step problem (find the fraction, then subtract) - easy to stop after step one.
+- **125 ml drinks** (Q6): 3 x 125 = 375 and 1000 - 375 = 625. Multiplying a 3-digit number and subtracting from 1000 is well beyond the textbook. Best handled by repeated addition on a jug scale (125, 250, 375) - note that 125 is an eighth of a litre, never taught.
+- **Reading a 50 ml step** on jugs labelled every 100 ml or 50 ml, then rounding to the nearest 100 ml (Q2) - the textbook rounds only on 100 ml marks.
+- **Multi-litre jugs** (2 L, 3 L, 5 L): the textbook stays at 1 litre; the workbook expects 2000 ml, 2 and a half litres, 5 litres.
+
+### 13.3 Temperature (workbook p.192-201)
+
+| WB page / Q | Level | What the child does | Numbers |
+|---|---|---|---|
+| p.192 Worked example 3 | - | A thermometer in boiling water reads 100 °C. Fact: water boils at 100 °C; temperature is measured in degrees Celsius | 100 °C |
+| p.192 Q1 | Focus | A thermometer in ice: what does it show? Difference between ice and boiling water | 0 °C; 100 °C |
+| p.193 Q2a-d | Focus | Four vertical thermometers 0-40 °C labelled in 5s: coldest, warmest, read C, which two are above 20 °C | A about 1 °C (coldest), B about 31 °C (warmest), C about 16 °C, D about 22 °C; above 20: B and D |
+| p.193 Q2e | Focus | Colour a thermometer to show a temperature you like and say hot / warm / cold and why | open, 0-40 °C |
+| p.194-195 Q3 | Focus | Horizontal 0-30 °C thermometers with a tick every 1 °C (labels every 1). a) Round A and B to the nearest number on the scale; b) draw "just over 27 °C" and "just under 14 °C"; c) complete "thermometer X is rounded up/down to __ °C" for A-D | A about 26.5 -> 27 (scan: bar ends between 26 and 27, near halfway); B about 12.7 -> 13; C rounds down to 27; D rounds up to 14 |
+| p.195 Q4a | Practice | Difference between ice (0 °C) and air on a 0-30 °C thermometer labelled in 2s | air about 24 °C; difference 24 °C |
+| p.196 Q4b-c | Practice | Table of monthly temperatures in two countries (Apr-Jul); find each month's difference and the biggest | A: 9, 12, 17, 18; B: 31, 31, 32, 33. Differences 22, 19, 15, 15; biggest April |
+| p.196 Q5a-b | Practice | Four thermometers 0-40 labelled in 10s (ticks every 5 - the 5s are unlabelled): which is best for plants that like just over 18 °C, and what does it show | C, about 20 °C (scan: C reads about 20-21, A about 16, B about 11, D about 34) |
+| p.197 Q5c | Practice | School must not fall below 15 °C: show and write a temperature that would close schools | any reading below 15 °C |
+| p.197 Q6 | Practice | A thermometer with only 0 and 40 labelled and 7 unlabelled marks between: write all the missing labels (each mark is 5 °C), then show a temperature between 15 and 20 °C | 5, 10, ... 35; e.g. 17 °C |
+| p.198 Q7 | Challenge | Compare ice (0 °C) and a room thermometer (about 24 °C): fill in "the temperature of the __ is higher than the __"; night is 14 °C lower than the day; show 30 °C below boiling on a 0-100 °C thermometer labelled in 10s | room > ice; 24 - 14 = 10 °C; 70 °C |
+| p.199 Q8a | Challenge | Six thermometer tops with unusual scales: A, B labelled every 2 (20-38); C, D labelled every 3 (72-99); E, F labelled every 4 (16-48). Ring higher/lower for A vs B, C vs D, E vs F | A about 29 < B about 32; C about 90 > D about 84; E about 23 > F about 20 |
+| p.200 Q8b-c | Challenge | Write each to the nearest labelled division; find the differences A-E, D-B, F-C | e.g. A 28 or 30, B 32, C 90, D 84, E 24, F 20 (scan note: readings between labels are approximate, so differences will vary slightly) |
+| p.200-201 Q9 | Challenge | Five thermometers 0-50 °C labelled in 5s with 1 °C ticks; round each to the nearest labelled division and order warmest to coldest | about 9 -> 10; about 27 -> 25; about 43 -> 45; about 38 -> 40; about 15 -> 15. Order 45, 40, 25, 15, 10 |
+
+**Hidden prerequisites / traps:**
+- **Boiling 100 °C and freezing/ice 0 °C** (WE3, Q1, Q7): facts the textbook never states; the textbook thermometers only go to 40 °C. Also a 0-100 °C scale labelled in 10s.
+- **Scales labelled in 3s and 4s** (Q8): the textbook only uses 2s, 5s and 10s. Counting in 3s and 4s from 72 or 16 is times-table knowledge (MULTIPLICATION dependency for this child).
+- **Differences of temperatures** (Q4, Q7, Q8c) up to two digits, including subtracting across a ten (31 - 9, 33 - 18).
+- **"Just over" / "just under"** a value (Q3b, Q5a): placing a line slightly past a tick.
+- **"Rounded up" vs "rounded down"** as words to write (Q3c), not just the rounded number.
+- **Filling in missing scale labels** (Q6): work out that 8 equal gaps from 0 to 40 are 5 each - a division idea, solvable by counting in 5s.
+
+### How the workbook changes the activities
+
+- `scale-reader`: add rounding to the nearest 100 g / 10 g / whole kg (WB Q1, Q5, Q8), a "who is right?" g-vs-kg argument (WB Q2), and a level-3 "colour the part of the dial that rounds to 7 kg" task (WB Q9). Add subtracting from 2 kg / 3 kg as a stretch (WB Q4, Q7).
+- `balance-puzzle`: add WB-style sensible-estimate items (carrot, sheep, feather, frog, rabbit, pumpkin, phone) and the "total minus known part" scales problem from WB Worked example 1.
+- `jug-reader`: add 2 L, 3 L and 5 L jugs (fill to 2 and a half litres), jugs labelled in 50s and 250s, rounding to the nearest 100 ml, and fractions of 400 ml (halve, halve again).
+- `same-amount`: add "how much is left?" pour-out stories (2 L - 500 ml; 1 L - a quarter; 1 L - 3 drinks of 125 ml counted on the jug) and the WB "tallest is always biggest?" true/false.
+- `thermo-reader`: add 0 °C ice and 100 °C boiling facts, a 0-100 thermometer labelled in 10s, "just over / just under" line drawing, missing-label scales, and month-temperature difference tables. Scales in 3s and 4s (WB Q8) kept out of the core because of the times-table dependency; offered as an optional challenge.
+
+---
+
 ## Proposed activities
 
 Ordered as taught. Ids checked against Unit 6 ids (ruler-lab, which-unit, unit-converter,
@@ -431,7 +522,7 @@ mission-challenge): none reused.
 - **icon:** ⚖️
 - **section:** 13.1
 - **summary:** Read dial scales in grams and kilograms, then compare two masses with <, > or =.
-- **book:** p.201 Worked example 1; p.203 Q3; p.220 Check your progress Q1
+- **book:** p.201 Worked example 1; p.203 Q3; p.220 Check your progress Q1; Workbook p.179-180 Q1, p.180-181 Q2, p.182 Q4, p.183 Q5, p.184 Q7a, p.185 Q8-Q9
 - **Learn screens:**
   1. *1 kg = 1000 g.* A 1 kg bag of rice sits on a kg dial (needle at 1). The child clicks "show in grams": the bag splits into ten 100 g bags and a second dial labelled in grams shows 1000. Bolt: "Same rice, two ways to say it."
   2. *Reading a dial.* A gram dial labelled 0, 100, 200 ... The child drags a fruit onto the pan; the needle swings. The child clicks the label the needle points to. Then the dial changes to one labelled in 10s and the child does it again ("Look at the labels first!").
@@ -440,12 +531,12 @@ mission-challenge): none reused.
 - **Practice (count 10):**
   - Level 1: read a dial where the needle sits exactly on a label. Dials 0-50 g (10s), 0-500 g (100s), 0-5 kg (1s). Type the number and pick the unit g/kg.
   - Level 2: needle on a labelled number on dials counting in 250s (0-1250 g) or 0-10 kg; or a pair of dials to compare with <, >, = (pairs include g vs kg such as 1000 g vs 1 kg, 800 g vs 1 kg, 2 kg vs 1500 g).
-  - Level 3: needle halfway between two labels (e.g. 150 g on a 100s dial, 750 g between 500 and 1000) - read to the nearest labelled division; or "1 kg bag, use X g, how much is left?" with X in 50s (100-900).
+  - Level 3: needle between two labels (e.g. about 180 g on a 100s dial, about 2.9 on a 0-5 kg dial) - round to the nearest 100 g, 10 g or whole kg (workbook style); or "1 kg bag, use X g, how much is left?" with X in 50s (100-900), stretching to 2 kg or 3 kg totals (3000 - 850); or the workbook's reverse task: tap every part of a 0-10 kg dial that would round to 7 kg.
 - **Mistake tags:** Ignored the dial labels; Compared numbers without units; Did not see 1000 g = 1 kg; Subtracted g from kg without converting; Read the wrong label.
 - **Parent tips:**
   - Goal: read a weighing scale correctly and know that 1 kg is the same as 1000 g.
   - Say: "What does this dial count in?"; "Grams or kilograms - which is the big one?"; "Can we make both the same unit before we compare?"
-  - Watch for: saying 500 g is more than 5 kg because 500 is bigger; guessing the reading without checking the labels; forgetting to say the unit.
+  - Watch for: saying 500 g is more than 5 kg because 500 is bigger (the workbook has a child arguing exactly this); guessing the reading without checking the labels; forgetting to say the unit. The workbook also asks him to round scale readings and subtract from 3 kg - more than the textbook teaches, so expect help there.
   - Away from screen: weigh three foods on your kitchen scales (a bag of pasta, an apple, a tin) and read the scale together; check the label on the packet.
 
 ### 2. `balance-puzzle` - Balance It!
@@ -453,7 +544,7 @@ mission-challenge): none reused.
 - **icon:** 🍐
 - **section:** 13.1
 - **summary:** Use a pan balance to find the mass of one item, and choose sensible mass estimates.
-- **book:** p.202 Q1-Q2; p.204 Q4-Q5; p.205 Q6
+- **book:** p.202 Q1-Q2; p.204 Q4-Q5; p.205 Q6; Workbook p.179 Worked example 1, p.182 Q3, p.183 Q6
 - **Learn screens:**
   1. *Heavier goes down.* Drag two household items (a book and a sock) onto a pan balance; the heavier side drops. Child predicts first, then drops them in.
   2. *Balanced means equal.* 2 peaches (80 g each, shown as 80 g tags) on the left, pears added one at a time on the right until level (4 pears). The child sees 80 + 80 = 160 split into four equal pears: a 160 bar is cut in half (80) and half again (40). No division sign used.
@@ -494,7 +585,7 @@ mission-challenge): none reused.
 - **icon:** 🥛
 - **section:** 13.2
 - **summary:** Fill and read measuring jugs in ml and litres, including halves and quarters of a litre.
-- **book:** p.207-208 Worked example 2; p.208 Q1; p.209 Q2; p.211 Q4; p.221 Check your progress Q2
+- **book:** p.207-208 Worked example 2; p.208 Q1; p.209 Q2; p.211 Q4; p.221 Check your progress Q2; Workbook p.186 Q1, p.187 Q2, p.188 Q4, p.189 Q5, p.191 Q8
 - **Learn screens:**
   1. *What capacity means.* A teaspoon (5 ml), a bottle (half a litre) and a bowl (a quarter litre). The child drags each to a full 1 litre jug to see how much of it they would fill.
   2. *Two scales, same water (WE2).* Jug 1 marked 250/500/750 ml/1 L, jug 2 marked 1/4, 1/2, 3/4, 1 litre. The child drags a tap to fill both to the halfway line and sees 500 ml = half a litre. Then 250 ml = quarter, 750 ml = three quarters.
@@ -503,7 +594,7 @@ mission-challenge): none reused.
 - **Practice (count 10):**
   - Level 1: read a 1 L jug filled exactly to 250, 500, 750 or 1000 ml (scales in ml or in fractions); type ml or click the fraction.
   - Level 2: fill to a target by dragging the tap (e.g. 300 ml on a 100s scale, 3/4 litre on a fractions scale); or "how much drink?" with 1-4 tins of 250 ml (answer in ml and as a fraction of a litre).
-  - Level 3: water between 100 ml marks (levels like 380, 520, 690 ml): pick the nearest marked division; or crates of 4 cans to litres with 8, 12 or 16 cans shown in rows of 4 (count the rows).
+  - Level 3: water between 100 ml marks (levels like 380, 520, 690 ml): pick the nearest marked division; or crates of 4 cans to litres with 8, 12 or 16 cans shown in rows of 4 (count the rows); or workbook-style 2 L and 3 L jugs (fill to 2 and a half litres) and a 400 ml flask poured out by halves and quarters (show the flask split into 4 equal bands of 100 ml).
 - **Mistake tags:** Read the wrong scale step; Did not see 500 ml = half a litre; Rounded to the wrong mark; Counted cans as litres.
 - **Parent tips:**
   - Goal: read a measuring jug and know that 1 litre = 1000 ml, half a litre = 500 ml and a quarter litre = 250 ml.
@@ -516,14 +607,14 @@ mission-challenge): none reused.
 - **icon:** 🫗
 - **section:** 13.2
 - **summary:** Discover that a higher water level does not always mean more water, and solve the two-cup pouring puzzle.
-- **book:** p.208 Q1c; p.210 Q3; p.212 Q6; p.213 Think like a mathematician
+- **book:** p.208 Q1c; p.210 Q3; p.212 Q6; p.213 Think like a mathematician; Workbook p.188 Q3, p.190 Q6, p.191 Q7
 - **Learn screens:**
   1. *Marcus's idea.* A tall thin glass and a wide jug. Bolt says "the higher water always has more". The child pours both into two identical measuring jugs and sees which really has more (sometimes the lower one!).
   2. *Pebble in the water.* A cylinder at 500 ml; the child drags a pebble in and the level rises to 600 ml. The child finds the difference (100 ml).
   3. *Two cups.* A 500 ml cup and a 300 ml cup. Buttons: fill, pour into other cup, pour into big bowl, empty. The child makes 1000 ml (two 500s) with Bolt's help.
 - **Practice (count 8):**
   - Level 1: two containers of different shapes, both with a hidden ml amount; the child predicts which has more, then pours into identical jugs to check (amounts 100-900 ml in 100s, chosen so the taller level is sometimes the smaller amount).
-  - Level 2: pebble/stone displacement: start level and new level shown on a cylinder marked in 100s; type the difference (differences 50-300 ml).
+  - Level 2: pebble/stone displacement: start level and new level shown on a cylinder marked in 100s; type the difference (differences 50-300 ml). Or a workbook-style "how much is left?" pour: a full 1 L or 2 L jug, pour out 500 ml or a quarter; the jug animates and the child reads what remains (answers 250-1500 ml).
   - Level 3: two-cup puzzles with the 500/300 cups: make 800, 200, 700, 600, 100 ml (one target per question), using the bowl as the collector; the number of moves is not limited.
 - **Mistake tags:** Judged by level only; Subtracted the wrong way round; Lost track of what is in each cup.
 - **Parent tips:**
@@ -537,19 +628,19 @@ mission-challenge): none reused.
 - **icon:** 🌡️
 - **section:** 13.3
 - **summary:** Read horizontal and vertical thermometers in °C and round to the nearest labelled number.
-- **book:** p.214-215 Worked example 3; p.215 Q1; p.216 Q2; p.217-218 Q3; p.222 Check your progress Q4
+- **book:** p.214-215 Worked example 3; p.215 Q1; p.216 Q2; p.217-218 Q3; p.222 Check your progress Q4; Workbook p.192 Q1, p.193 Q2, p.194-195 Q3, p.195-196 Q4, p.196-197 Q5-Q6, p.198 Q7, p.200-201 Q9
 - **Learn screens:**
-  1. *Hot and cold.* Pictures (ice lolly, classroom, sunny day, cup of tea) to drag onto a big thermometer at sensible places. Bolt: "Temperature is measured in degrees Celsius, °C."
+  1. *Hot and cold.* Pictures (ice lolly, classroom, sunny day, cup of tea) to drag onto a big thermometer at sensible places. Bolt: "Temperature is measured in degrees Celsius, °C." Then two anchor facts from the workbook: a thermometer in melting ice shows 0 °C and in boiling water shows 100 °C.
   2. *The longer the line, the hotter (WE3).* Two horizontal thermometers labelled in 5s showing 15 °C and 20 °C; the child clicks the hotter, then drags a red line to show 25 °C.
   3. *Different labels.* The same 17 °C shown on a scale labelled in 2s and on one labelled in 5s; the child counts ticks to read it on both.
   4. *Nearest labelled number.* A line at 13 °C on a 5s scale: the child taps the nearest label (15). Bolt explains a reading exactly halfway rounds up.
 - **Practice (count 10):**
   - Level 1: read a thermometer exactly on a label (scales labelled in 10s or 5s, 0-40 °C); or click which of two is hotter.
   - Level 2: thermometers with 1 °C ticks labelled in 5s or 2s, readings 11-34 °C; type the exact reading. Or drag the red line to a given temperature (e.g. 26 °C, 27 °C).
-  - Level 3: round a reading to the nearest 10 °C or nearest labelled division (vertical scales in 10s without ticks: about 12, 28, 32 °C); or a day story: start 15-20 °C, rises by 4-8 °C, then falls 1 °C an hour for 3-9 hours (a clock and a moving thermometer help count).
+  - Level 3: round a reading to the nearest 10 °C or nearest labelled division (vertical scales in 10s without ticks: about 12, 28, 32 °C; workbook-style 0-50 °C scales labelled in 5s); or fill in the missing labels on a scale with only 0 and 40 shown; or a two-country temperature table (difference per month, e.g. 31 - 9); or a day story: start 15-20 °C, rises by 4-8 °C, then falls 1 °C an hour for 3-9 hours (a clock and a moving thermometer help count).
 - **Mistake tags:** Counted ticks wrongly; Read the label before the end of the line; Rounded to the wrong label; Forgot °C; Miscounted the hours.
 - **Parent tips:**
   - Goal: read a thermometer in degrees Celsius and say which temperature is hotter or colder.
   - Say: "What do the labels count in, and what is each small line worth?"; "Where does the red line stop?"; "Is it nearer 10 or 20?"
-  - Watch for: counting the first line as 1 instead of starting at 0; rounding to the nearest small tick instead of a label; forgetting that a longer line means hotter.
+  - Watch for: counting the first line as 1 instead of starting at 0; rounding to the nearest small tick instead of a label; forgetting that a longer line means hotter. The workbook expects him to know water freezes at 0 °C and boils at 100 °C (not in the textbook), and has scales counting in 3s and 4s - skip those if times tables are still shaky.
   - Away from screen: read an outdoor or fridge thermometer (or the weather app) each day for a week and say which day was warmest and by how many degrees.

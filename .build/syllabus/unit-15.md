@@ -188,6 +188,47 @@ Unit layout:
 
 ---
 
+## Workbook
+
+Source: Cambridge Primary Mathematics Workbook 3 (2nd ed.), printed pages 218-228 (image index =
+printed page + 2, as stated by the coordinating brief; page-corner numbers checked on every page).
+Every page read. No access code appears on these pages. Workbook questions are graded
+Focus / Practice / Challenge.
+
+### 15.1 Angles, direction, position and movement (workbook p.218-228)
+
+| WB page / Q | Level | What the child does | Numbers / answers |
+|---|---|---|---|
+| p.218-219 Worked example 1 | - | Ring every angle that is NOT a right angle in four shapes (house-arrow pentagon, trapezium, equilateral triangle, square with a cut corner) and explain how you know. Model answer: a right angle is where a horizontal and a vertical line meet | pentagon 3 non-right; trapezium 4; triangle 3; cut square 2 |
+| p.219 Q1a | Focus | Ring all right angles inside four shapes | right-angled triangle 1; long right-angled triangle 1; octagon-style shape with two cut top corners 2 (bottom corners); arrow 2 (the two base corners of the stem; where the stem meets the arrow-head shoulders the inside angle is bigger than a right angle, and the head's points are smaller) |
+| p.220 Q1b | Focus | Draw two shapes of your own with right angles and mark them | open |
+| p.220 Q2 | Focus | Label N, E, S on a cross where only West is given; then from a star on a 5 by 8 grid, draw circles 4 north, 3 south, 2 west, 1 east | grid moves 1-4 squares |
+| p.221 Q3 | Focus | 3 by 3 picture grid (tree, castle, school / pond, tent, bridge / park, fire station, house). The compass shows only S (at the bottom). Write the missing cardinal points round the grid and complete sentences such as "the tree is __ of the castle and __ of the pond"; describe where the house is | tree is west of the castle and north of the pond; tent is south of castle, north of fire station, east of pond, west of bridge; house is in the south-east corner (east of fire station, south of bridge) |
+| p.222 Q4 | Practice | Four tilted shapes (right-angled triangle, parallelogram, square turned 45 degrees, trapezium); join one angle from each to "right angle", "less than", "greater than" | the tilted square still has right angles |
+| p.223 Q5 | Practice | 7 by 5 town grid map (church, book shop, mosque, hospital, taxi rank, letterbox, newsagent, fire station, petrol station, school, coffee shop) with a compass; write two different sets of instructions from the school to the hospital | school (col 2, bottom row) to hospital (col 5, row 2): 3 squares east and 3 squares north, in either order |
+| p.224 Q6 | Practice | Draw a map (tree, pond, pot of gold, bushes, river with bridge, person) on a grid with an island shape; the compass is drawn turned so only S is labelled, and S points to the LEFT. Write the four cardinal points round the map and two sentences using two cardinal points each. Tip: a compass can point any way but the points keep the same order | S on the left means W at the top, N on the right, E at the bottom |
+| p.225 Q7a-b | Challenge | Five drawn angles at various tilts: ring those greater than a right angle, cross those less than | two greater (1st and 5th, scan: approximate), three less |
+| p.225 Q7c | Challenge | Explain the angle shown as a semicircle on a straight line | a straight line, a half turn = two right angles |
+| p.226 Q8 | Challenge | Park grid map (pond with ducks, paths, sandpit, slide, flowers, trees, benches); write the position of six things using N/S/E/W | open |
+| p.227-228 Q9 | Challenge | Treasure-island map (tree, mountains, treasure box, hut, ship) with compass. Fill gaps (the tree is west of the treasure; the hut is south of the treasure), where are the mountains and ship, which way do you walk from the tree to the ship; add two objects and write directions from the tree using all four cardinal points | mountains north (of the treasure); ship east; walk east |
+
+**Hidden prerequisites / traps (not in the textbook):**
+- **Rotated compasses** (Q3 shows only S at the bottom; **Q6 shows S pointing left**). The textbook always has north at the top. The child must place the other points in clockwise order (N, E, S, W) from wherever one is given. This is the biggest hidden trap in the unit.
+- **Relative position between two objects** ("the tent is south of the castle and east of the pond", Q3, Q6, Q8, Q9). The textbook only asks what you see in each direction from one central point.
+- **Right angles in tilted shapes** (Q4: a square turned 45 degrees; Q7: tilted angles). The textbook's worked model says a right angle is where a horizontal and a vertical line meet (WB p.219), which is misleading for a tilted square - activities should show that turning a shape does not change its angles.
+- **Reflex corners**: the cut-corner square and arrow shapes include corners greater than a right angle and the arrow has inward corners; count only angles inside the shape.
+- **Writing two different routes** (Q5) - the child needs to see that order of moves can change but the totals (3 east, 3 north) stay the same.
+- No turning/clockwise questions in the workbook at all: the workbook is about right angles and compass position, so turn practice depends on the textbook and the website.
+
+### How the workbook changes the activities
+
+- `right-angle-hunt`: add tilted shapes (square turned 45 degrees, parallelogram, trapezium) and "ring the angles that are not right angles" shapes (pentagon arrow, cut-corner square); a straight-line half turn card (= 2 right angles).
+- `compass-garden`: add a level-3 rotated compass (only one letter given, sometimes S on the left or at the bottom) where the child drags the other three letters in clockwise order; add two-reference position sentences ("the shed is north of the pond and west of the gate") on a 3 by 3 picture grid.
+- `robot-route`: add a WB Q2-style "place the counters" task (from a star, 4 north, 3 south, 2 west, 1 east) and a "find two different routes, same totals" task on a town grid (school to hospital, 3 east and 3 north).
+- `turn-spinner` and `hippo-routes` are textbook-only (no workbook pages); keep them as they are.
+
+---
+
 ## Proposed activities
 
 Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 proposals in
@@ -198,7 +239,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **icon:** 🔄
 - **section:** 15.1
 - **summary:** Turn an arrow by quarter, half and full turns, clockwise and anticlockwise, and learn that a quarter turn is a right angle.
-- **book:** p.236 Getting started Q1-Q2; p.238 angle diagrams; p.246 Q6
+- **book:** p.236 Getting started Q1-Q2; p.238 angle diagrams; p.246 Q6; Workbook p.225 Q7c (straight line = half turn)
 - **Learn screens:**
   1. *Clockwise.* A clock face with a big arrow pointing to 12. The child clicks "turn clockwise" and the arrow sweeps the way clock hands go. Then anticlockwise. Bolt: "Clockwise goes the same way as the clock hands."
   2. *Quarter turn = right angle.* The arrow turns a quarter (12 to 3). A shaded quarter of the circle and a small square in the corner appear: "This is a right angle." The child turns a quarter the other way (12 to 9).
@@ -219,7 +260,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **icon:** 📐
 - **section:** 15.1
 - **summary:** Use a paper right-angle measurer to sort everyday angles and to count right angles inside shapes.
-- **book:** p.238; p.239 Q1; p.240 Q2; p.247 Check your progress Q1
+- **book:** p.238; p.239 Q1; p.240 Q2; p.247 Check your progress Q1; Workbook p.218-219 Worked example 1, p.219-220 Q1, p.222 Q4, p.225 Q7
 - **Learn screens:**
   1. *Make a measurer.* An animation folds a sheet of paper in half and in half again; the folded corner becomes a draggable right-angle tool.
   2. *Check a corner.* The child drags the measurer onto the corner of a book: it fits exactly (right angle). Onto an open laptop lid: there is a gap (greater). Onto a pair of open scissors: it does not fit inside (less).
@@ -232,7 +273,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **Parent tips:**
   - Goal: recognise a right angle and say whether other angles are bigger or smaller.
   - Say: "Does the measurer fit exactly?"; "Is there a gap, or is it squashed?"; "Turn the page - is it still a right angle?"
-  - Watch for: thinking a long-armed angle is bigger; not seeing a right angle when it is tilted; counting the inward corner of an L-shape as a right angle.
+  - Watch for: thinking a long-armed angle is bigger; not seeing a right angle when it is tilted (the workbook shows a square turned on its corner - still 4 right angles); counting the inward corner of an L-shape as a right angle.
   - Away from screen: fold a paper right-angle measurer together and find four right angles, four bigger and four smaller angles around the house.
 
 ### 3. `compass-garden` - Compass Garden
@@ -240,7 +281,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **icon:** 🧭
 - **section:** 15.1
 - **summary:** Learn north, south, east and west, and work out which way Bolt faces after turning right angles.
-- **book:** p.237 town map; p.241 Q3 a-h; p.248 Check your progress Q2 (label the compass)
+- **book:** p.237 town map; p.241 Q3 a-h; p.248 Check your progress Q2 (label the compass); Workbook p.220 Q2 (label compass), p.221 Q3, p.224 Q6, p.226 Q8, p.227-228 Q9
 - **Learn screens:**
   1. *The four points.* A compass rose: the child drags N, E, S, W labels onto it (N at the top first; Bolt teaches "Never Eat Shredded Wheat" going clockwise).
   2. *What can you see?* Bolt stands in the middle of a garden: shed to the north, gate to the east, pond to the south, house to the west. The child clicks a direction button and Bolt turns to face that place.
@@ -253,7 +294,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **Parent tips:**
   - Goal: name the four compass directions and use right-angle turns to change direction.
   - Say: "Where is north on this picture?"; "If you turn clockwise from north, where do you face?"; "How many right angles make a half turn?"
-  - Watch for: east and west swapped; turning anticlockwise when asked for clockwise; guessing without turning his body (encourage him to stand and turn).
+  - Watch for: east and west swapped; turning anticlockwise when asked for clockwise; guessing without turning his body (encourage him to stand and turn); being thrown when the compass on the page is turned so north is not at the top (the workbook does this) - go round clockwise N, E, S, W from the letter you know.
   - Away from screen: use a phone compass to find north at home; stick N, E, S, W notes on the walls and play "face east, turn two right angles clockwise".
 
 ### 4. `robot-route` - Bolt's Route
@@ -261,7 +302,7 @@ Ordered as taught. Ids checked against Unit 6 ids and against the Unit 13 propos
 - **icon:** 🤖
 - **section:** 15.1
 - **summary:** Give Bolt step-by-step instructions on a grid using forward, left and right, or compass directions.
-- **book:** p.242 Q4 a-b; p.245 Q5; p.248 Check your progress Q2 (dot-grid moves)
+- **book:** p.242 Q4 a-b; p.245 Q5; p.248 Check your progress Q2 (dot-grid moves); Workbook p.220 Q2 (moves from a star), p.223 Q5 (two routes school to hospital)
 - **Learn screens:**
   1. *Forward and turns.* Bolt on a grid facing south. The child presses "forward 1", "turn right", "forward 2" and watches. Bolt points out that facing south, his right is west on the map.
   2. *Read a route.* A drawn path on a grid; the child drags instruction cards (forward 1, turn right, forward 4, turn left ...) into order, then presses Go to check Bolt follows the path.
