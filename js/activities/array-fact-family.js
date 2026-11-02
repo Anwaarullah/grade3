@@ -1163,6 +1163,12 @@
 
     checkBtn.addEventListener('click', function () {
       if (phase !== 1 || api.isAnswered()) return;
+      if (!Object.keys(picked).some(function (k) {
+        return picked[k];
+      })) {
+        api.feedback('Tap the wrong fact' + (nWrong === 1 ? '' : 's') + ' first, then press Check.', 'info');
+        return;
+      }
       var missed = q.wrong.filter(function (i) {
         return !picked[i];
       });
@@ -1537,7 +1543,14 @@
   });
 
   MQ._test = MQ._test || {};
-  MQ._test[ID] = { buildDeck: buildDeck, isTrue: isTrue, inFamily: inFamily };
+  MQ._test[ID] = {
+    buildDeck: buildDeck,
+    isTrue: isTrue,
+    inFamily: inFamily,
+    deck: function () {
+      return deck;
+    },
+  };
 
   var css = [
     '.af-row{display:flex;gap:22px;align-items:flex-start;justify-content:center;flex-wrap:wrap;width:100%}',
