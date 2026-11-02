@@ -361,7 +361,7 @@
     } else {
       g.appendChild(S('circle', { cx: cx, cy: cy, r: 14, fill: '#dfe6ec', stroke: '#7d8c99', 'stroke-width': 1.8 }));
       g.appendChild(S('circle', { cx: cx, cy: cy, r: 10.5, fill: 'none', stroke: '#aab6c1', 'stroke-width': 1 }));
-      g.appendChild(S('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', class: 'tt-itemlab tt-itemlab-s' }, '10p'));
+      g.appendChild(S('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', class: 'tt-itemlab tt-itemlab-s' }, '10c'));
     }
     return g;
   }
@@ -390,7 +390,7 @@
       el: el('div', { class: 'tt-pic' }, root),
       label: function () {
         rowLabs.forEach(function (l) {
-          l.textContent = l.dataset.v + (kind === 'coins' ? 'p' : '');
+          l.textContent = l.dataset.v + (kind === 'coins' ? 'c' : '');
         });
       },
     };
@@ -643,12 +643,12 @@
       },
     },
     coins: {
-      unit: 'p',
+      unit: 'c',
       text: function (n) {
-        return 'Leo has <b>' + n + ' coins</b>. Each one is a <b>10p</b> coin. How much money is that?';
+        return 'Leo has <b>' + n + ' coins</b>. Each one is a <b>10c</b> coin. How much money is that?';
       },
       fact: function (n) {
-        return '10p × ' + n + ' = ' + n * 10 + 'p';
+        return '10c × ' + n + ' = ' + n * 10 + 'c';
       },
     },
     planks: {
@@ -690,7 +690,7 @@
       var d = digitsOf(n);
       deck.push({ type: 'drag', n: n, form: forms2[i], answer: n * 10, slots: { H: d[0], T: d[1], O: 0 } });
     }
-    // Word problem: boxes of 10 pencils, packs of 10 stickers, 10p coins (drawn: up to 39), or ten planks.
+    // Word problem: boxes of 10 pencils, packs of 10 stickers, 10c coins (drawn: up to 39), or ten planks.
     var ctx = U.pick(['pencils', 'stickers', 'coins', 'planks']);
     var wn = ctx === 'planks' ? twoDigit(used, 21, 98) : twoDigit(used, 12, 39);
     deck.push({ type: 'word', ctx: ctx, n: wn, unit: WORDS[ctx].unit, answer: wn * 10 });
@@ -1015,7 +1015,7 @@
     function finish() {
       inp.disable();
       if (pic.label) pic.label();
-      var u = q.ctx === 'coins' ? 'p' : q.ctx === 'planks' ? ' cm' : '';
+      var u = q.ctx === 'coins' ? 'c' : q.ctx === 'planks' ? ' cm' : '';
       if (q.ctx === 'planks') {
         work.appendChild(MQ.ui.sum(U.range(1, 10).map(function () {
           return q.n;
