@@ -30,7 +30,8 @@
   // "40 + 24": add the tens of 24 first, then the ones.
   function addHelp(a, b) {
     var t = b - (b % 10);
-    if (t === 0 || b % 10 === 0) return 'Count on from ' + a + ' in tens.';
+    if (t === 0) return 'Count on ' + b + ' more from ' + a + '.';
+    if (b % 10 === 0) return 'Count on from ' + a + ' in tens.';
     return a + ' + ' + t + ' = ' + (a + t) + ', then add ' + (b % 10) + ' more.';
   }
   function box(label) {
@@ -833,9 +834,11 @@
       };
     }
     if (a === A && b === B && t === T) return null;
-    var ones = s1 >= s2 ? s2 : s1; // the part that was "only added"
-    var big = s1 >= s2 ? s1 : s2;
-    if ((b === s2 && B !== s2) || (a === s1 && A !== s1) || t === A + s2 || t === s1 + B) {
+    // Which part was "only added" (not multiplied)?
+    var secondPlain = (b === s2 && B !== s2) || t === A + s2;
+    var ones = secondPlain ? s2 : s1;
+    var big = secondPlain ? s1 : s2;
+    if (secondPlain || (a === s1 && A !== s1) || t === s1 + B) {
       return {
         tag: 'Only multiplied the tens part',
         hint: 'You multiplied the ' + big + ' but only added the ' + ones + '. The ' + ones + ' needs × ' + m + ' too!' + (strong ? ' Count ' + m + ' rows of ' + ones + ': ' + jumpList(ones, m).slice(0, m - 1).join(', ') + ', …' : ''),
