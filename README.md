@@ -5,14 +5,28 @@ Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a c
 plain design, a friendly robot helper called Bolt, short activities of about 15 minutes,
 stars, and a **Parent corner** with what to say and what to watch for in each activity.
 
-It covers all 17 units of the book. The home page lists every unit; each unit page shows
-its sections and activities. Unit 6 (Measurement, area and perimeter) was built first:
+It covers all 17 units of the book: **105 activities**. The home page lists every unit
+with star progress; each unit page shows its sections and activities.
 
-| Section | Activities |
-|---|---|
-| 6.1 Measurement | Ruler Lab · Which Unit? · Unit Converter · Rounding Measurements · Estimate and Measure |
-| 6.2 2D shapes and perimeter | Walk the Edge · Shape Sorter · Perimeter Puzzles |
-| 6.3 Introducing area | Square Counter · Fence or Floor? · Rectangle Builder · Unit 6 Challenge |
+| Unit | Topic | Activities |
+|---|---|---|
+| 1 | Numbers to 1000 | Build a number · Number grid jigsaw · Number word cards · Bigger or smaller? · Where on the line? · Rounding hill |
+| 2 | Tally charts and frequency tables | Tally marks · Class survey · What does the table tell us? · Test your guess |
+| 3 | Addition, subtraction and money | Adding with swaps · Take away with swaps · Ink blot puzzles · Dollars and cents · School shop · Digit sum detective |
+| 4 | 3D shapes | 3D Shape Sorter · Prism or Pyramid? · Faces, Edges, Corners · Cube Builder · Straws and Clay · Mystery Shape |
+| 5 | Multiplication and division | Equal Groups · Array Fact Family · Multiples Hunter · Times-10 Machine · Double It! 2s, 4s, 8s · Split and Add · Jump Along |
+| 6 | Measurement, area and perimeter | Ruler Lab · Which Unit? · Unit Converter · Rounding Measurements · Estimate and Measure · Walk the Edge · Shape Sorter · Perimeter Puzzles · Square Counter · Fence or Floor? · Rectangle Builder · Unit 6 Challenge |
+| 7 | Fractions of shapes | Fair Shares · Colour the Fraction · Fraction Strip Wall · Find the Whole · Tile Designer |
+| 8 | Time | Hour Hand Hints · Five-Minute Ring · Past or To? · Clock Twins · Set the Clock |
+| 9 | More addition and subtraction | Tens Make a Hundred · Best Order Adding · Swap a Hundred · Mystery Number · Bonds to 100 · Thousand Partners |
+| 10 | Graphs | Pictogram Maker · Bar Chart Builder · Spin and Count · Venn Hoops · Carroll Grid |
+| 11 | More multiplication and division | Times Square Explorer · Sequence Hops · Split and Multiply · Share and Leftovers · Grid Method Builder · Chunk and Divide · Remainder Decisions |
+| 12 | More fractions | Share It Out · Find the Whole · Fraction Line-Up · Equivalent Fraction Wall · Fraction Strip Sums · Sale Price Shop · Dicey Tenths · Measure Fractions |
+| 13 | Measure: mass, capacity and temperature | Kitchen Scales · Balance It! · Make a Kilogram · Fill the Jug · Same Amount? · Thermometer Check |
+| 14 | Time and timetables | Clock to the Minute · One-Minute Challenge · Calendar Hops · Birthdays and Years · My Day Timetable · Bus Stop Timetable |
+| 15 | Angles and movement | Quarter and Half Turns · Right Angle Hunt · Compass Garden · Bolt's Route · Hippo to the River |
+| 16 | Chance | Will It Happen? · What Could I Pick? · Coin-Toss Walk · Spinner Lab · Sweet Jar Questions · Venn Card Game |
+| 17 | Pattern and symmetry | Find the Fold · Mirror Drawing · Symmetry Tile Designer · Grow and Shrink · How Likely? |
 
 Every activity is original. The books are used only to follow the same topics, order
 and number ranges, and each activity lists the matching textbook and workbook pages.
