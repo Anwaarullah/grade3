@@ -811,7 +811,7 @@
     var clock = makeClock({ hour: q.h, minute: q.m, width: 200, halves: true });
     L.clockBox.appendChild(clock.svg);
     var disp = digital(q.h, q.m);
-    L.side.appendChild(q.bonus ? el('div', { class: 'pt-row pt-row-tight' }, disp, el('div', { class: 'pt-bonus' }, 'Bonus! The digits go up by one.')) : disp);
+    L.side.appendChild(q.bonus ? el('div', { class: 'pt-row pt-row-tight' }, disp, el('div', { class: 'pt-bonus' }, 'Bonus! On a watch it reads ' + q.h + ':' + (q.m < 10 ? '0' : '') + q.m + ': the digits go up by one.')) : disp);
     var minOpts = [t, q.m];
     [t + 10, t - 10, t + 1, t - 1, t + 2].forEach(function (x) {
       if (minOpts.length < 4 && x > 0 && x < 30 && minOpts.indexOf(x) === -1) minOpts.push(x);
@@ -960,6 +960,11 @@
         return;
       }
       var second = api.tries() >= 1;
+      if (p.shortMin && p.h === q.h && p.m === q.m) {
+        input.classList.add('bad');
+        api.check(false, 'Nearly! Minutes always have two digits on a digital clock. ' + q.m + ' minutes is written :0' + q.m + '.', 'Missing leading zero');
+        return;
+      }
       if (p.h === q.h && p.m === q.m) {
         input.classList.remove('bad');
         input.classList.add('good');

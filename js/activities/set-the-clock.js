@@ -276,7 +276,7 @@
     if (t === a || t === b) return d + ' is exactly on the edge, so it is not between.';
     if (t < a) return d + ' is ' + (a - t) + (a - t === 1 ? ' minute' : ' minutes') + ' before ' + A + '. Too early: outside.';
     if (t > b) return d + ' is ' + (t - b) + (t - b === 1 ? ' minute' : ' minutes') + ' after ' + B + '. Too late: outside.';
-    var extra = m >= 40 ? ' The short hand is nearly at ' + stcNextHour(h) + ', but it is still ' + h + '-something.' : '';
+    var extra = m >= 45 ? ' The short hand is nearly at ' + stcNextHour(h) + ', but it is still ' + h + '-something.' : '';
     return d + ' is after ' + A + ' and before ' + B + ': inside!' + extra;
   }
 
@@ -449,7 +449,7 @@
         card.classList.add('stc-shake');
         api.later(function () { card.classList.remove('stc-shake'); }, 400);
         var t = dayT(h, m);
-        if (inside) api.feedback(stcDigital(h, m) + ' is after 8 o\'clock and before 10 o\'clock. It belongs inside!' + (m >= 40 ? ' The short hand is near ' + stcNextHour(h) + ', but it is still ' + h + '-something.' : ''), 'try');
+        if (inside) api.feedback(stcDigital(h, m) + ' is after 8 o\'clock and before 10 o\'clock. It belongs inside!' + (m >= 45 ? ' The short hand is near ' + stcNextHour(h) + ', but it is still ' + h + '-something.' : ''), 'try');
         else if (t < A) api.feedback('Look at the short hand: it has not reached 8 yet. ' + stcDigital(h, m) + ' is before 8 o\'clock.', 'try');
         else api.feedback('The short hand has gone past 10. ' + stcDigital(h, m) + ' is after 10 o\'clock: too late.', 'try');
       }
@@ -569,7 +569,7 @@
       };
     }
     if (m === (q.h % 12) * 5 && q.m !== m)
-      return { hint: 'The long hand is pointing at the ' + q.h + '. But the long hand shows the MINUTES. Count in 5s from the 12 to ' + q.m + '.', tag: 'Minute hand on the hour number' };
+      return { hint: 'The long hand is pointing at the ' + q.h + '. But the long hand shows the MINUTES. ' + (q.m === 0 ? "For o'clock, the long hand goes on the 12." : 'Count in 5s from the 12 to ' + q.m + '.'), tag: 'Minute hand on the hour number' };
     if (q.m >= 1 && q.m <= 12 && m === (q.m * 5) % 60)
       return { hint: 'The ' + q.m + ' on the clock means ' + ((q.m * 5) % 60 || 60) + ' minutes. ' + q.m + ' minutes is ' + q.m + ' small marks after the 12.', tag: 'Pointed at the number instead of counting minutes' };
     var dm = Math.abs(sdiff(m, q.m, 60));
@@ -642,7 +642,7 @@
         return;
       }
       var second = api.tries() >= 1;
-      if (p.h === 13) api.check(false, 'Clocks do not show 13! After 12 the hours start again at 1.' + (second ? ' So 1 hour after ' + stcDigital(q.h, q.m) + ' is 01:' + stcDigital(1, q.m).slice(3) + '.' : ''), 'Went to 13 instead of 1');
+      if (p.h === 13 && q.h === 12) api.check(false, 'Clocks do not show 13! After 12 the hours start again at 1.' + (second ? ' So 1 hour after ' + stcDigital(q.h, q.m) + ' is 01:' + stcDigital(1, q.m).slice(3) + '.' : ''), 'Went to 13 instead of 1');
       else if (p.m !== q.m) api.check(false, 'Look at the minutes: they should stay :' + stcDigital(1, q.m).slice(3) + '. One hour later, only the hour changes.' + (second ? ' The hour goes ' + q.h + ' → ' + nh + '.' : ''), 'Changed minutes when adding 1 hour');
       else if (p.h === q.h) api.check(false, 'That is the same time! One hour later, the hour goes up by 1.' + (second ? ' ' + q.h + ' → ' + nh + '.' : ''), 'Did not change the hour');
       else api.check(false, 'The minutes are right. Now the hour: just 1 more than ' + q.h + '.' + (second ? (q.h === 12 ? ' After 12 comes 1.' : ' ' + q.h + ' + 1 = ' + nh + '.') : ''), 'Added the wrong number of hours');
@@ -680,7 +680,7 @@
         sc.lock();
         check.disabled = true;
         showWorkOnClock(sc.ck, h, m);
-        api.check(true, d + ' is after 8 o\'clock and before 10 o\'clock. ' + (m >= 40 ? 'The short hand is near ' + stcNextHour(h) + ' but still ' + h + '-something.' : 'Well set!'));
+        api.check(true, d + ' is after 8 o\'clock and before 10 o\'clock. ' + (m >= 45 ? 'The short hand is near ' + stcNextHour(h) + ' but still ' + h + '-something.' : 'Well set!'));
         return;
       }
       var second = api.tries() >= 1;

@@ -206,6 +206,10 @@
         a = parts[0].trim();
         if (!b) b = (parts[1] || '').trim();
       }
+      if (/^\d{3,4}$/.test(a) && !b) {
+        b = a.slice(-2);
+        a = a.slice(0, -2);
+      }
       if (!/^\d{1,2}$/.test(a)) {
         shake(hh);
         hh.focus();
@@ -288,7 +292,7 @@
     var onesTxt = ones ? ', then count the little marks on in ones.' : '.';
 
     // swapped hands (needs an hour answer)
-    if (hour !== null && hour !== h && near.indexOf(hour) !== -1 && (Math.abs(min - hourHandMin) <= 4 || min === h || min === h * 5 || min === fmNextHour(h) * 5)) {
+    if (hour !== null && hour !== h && Math.abs(m - hourHandMin) > 4 && near.indexOf(hour) !== -1 && (Math.abs(min - hourHandMin) <= 4 || min === h || min === h * 5 || min === fmNextHour(h) * 5)) {
       return {
         tag: 'Swapped hour and minute hands',
         hint: second ? 'Look at the hands again: the LONG orange hand gives the minutes, the SHORT dark hand gives the hour. The short hand has just passed the ' + h + '.' : 'Careful: you read the hands the wrong way round. Long orange hand = minutes, short dark hand = hour.',
@@ -304,7 +308,7 @@
       if (hour === fmNextHour(h)) {
         return {
           tag: 'Read the hour it is nearly at',
-          hint: second ? 'The short hand is between ' + h + ' and ' + fmNextHour(h) + '. It has not reached ' + fmNextHour(h) + ' yet, so the hour is still ' + h + '.' : 'The short hand is close to ' + hour + ', but has it got there yet? Use the number it has just passed.',
+          hint: second ? 'The short hand is between ' + h + ' and ' + fmNextHour(h) + '. It has not reached ' + fmNextHour(h) + ' yet, so the hour is still ' + h + '.' : (m >= 30 ? 'The short hand is close to ' + hour + ', but has it got there yet? Use the number it has just passed.' : 'The short hand has passed ' + h + ', but it has not reached ' + hour + ' yet. Use the number it has just passed.'),
         };
       }
       if (hour === fmPrevHour(h)) {
@@ -341,7 +345,7 @@
     if (Math.abs(min - m) <= 4) {
       return {
         tag: 'Miscounted the small marks',
-        hint: second ? upTo + onesTxt : 'Nearly! Has the long hand really reached the next number? Count the jumps, then the little marks.',
+        hint: second ? upTo + onesTxt : (min > m ? 'Nearly! Has the long hand really reached the next number? Count the jumps, then the little marks.' : 'Nearly! The long hand has gone past that number: count on in ones past it.'),
       };
     }
     if (min > 0 && min % 5 === 0 && Math.abs(min - m) <= 10) {

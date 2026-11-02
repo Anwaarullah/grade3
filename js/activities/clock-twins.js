@@ -203,11 +203,11 @@
     if (x.m > 30 && d.h === ctNextHour(x.h) && circDiff(d.m, x.m) <= 2) {
       return {
         tag: "Matched a 'to' time to the wrong hour",
-        hint: 'Look at the short hand: it is nearly at ' + ctNextHour(x.h) + ', but it has not got there yet.' + (strong ? ' So the hour is still ' + two(x.h) + ', not ' + two(ctNextHour(x.h)) + '.' : ''),
+        hint: 'Look at the short hand: it is ' + (x.m >= 45 ? 'nearly at ' : 'past halfway to ') + ctNextHour(x.h) + ', but it has not got there yet.' + (strong ? ' So the hour is still ' + two(x.h) + ', not ' + two(ctNextHour(x.h)) + '.' : ''),
       };
     }
     var sw = swappedReading(x.h, x.m);
-    if (sw && sw.h === d.h && circDiff(sw.m, d.m) <= 2 && !(d.h === x.h && d.m === x.m)) {
+    if (sw && sw.h === d.h && sw.h !== x.h && circDiff(sw.m, d.m) <= 2 && !(d.h === x.h && d.m === x.m)) {
       return {
         tag: 'Swapped hour and minute hands',
         hint: 'Careful! The long orange hand shows the minutes, and the short dark hand shows the hour.' + (strong ? ' On this clock the short hand points to ' + (x.m === 0 ? '' : 'just past ') + x.h + '.' : ''),
@@ -405,7 +405,7 @@
 
     if (Q.level === 1) api.say('Find the twins! Click a clock, then the digital time that matches it.');
     else if (Q.level === 2) api.say('All the same hour! Look closely at the long orange hand.', 'think');
-    else if (Q.rising) api.say('Digits going up: 1, 2, 3! Match each clock and each word card to its digital time.', 'think');
+    else if (Q.rising) api.say('Special times! Leave off the first 0 and the digits go up, like 2:34. Match each clock and word card to its digital time.', 'think');
     else api.say('Match each clock and each word card to its digital time. One digital time has no twin!', 'think');
 
     var promptHtml = triple ? 'Join each <b>clock</b> and each <b>word card</b> to a <b>digital time</b>.' : 'Click a <b>clock</b>, then its <b>digital twin</b>.';
