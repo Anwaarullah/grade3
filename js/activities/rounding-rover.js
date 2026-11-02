@@ -114,6 +114,12 @@
       X: X,
       moveTo: function (v) {
         pinG.style.transform = 'translate(' + X(v) + 'px, 0px)';
+        // Put the label beside the pin head, on the inside of the flag pole, so it is not
+        // cut off at the edge or drawn over the flag.
+        var atHi = v === q.hi;
+        pinLabel.setAttribute('text-anchor', atHi ? 'end' : 'start');
+        pinLabel.setAttribute('x', atHi ? -20 : 20);
+        pinLabel.setAttribute('y', 104);
         pinLabel.textContent = q.value + ' → ' + flagLabel(q, v);
       },
       mark: function (v, kind) {

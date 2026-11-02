@@ -87,7 +87,9 @@
     var ruler = MQ.ui.ruler({ from: 0, to: to, cm: CM, label: false });
     var W = ruler.width + 56;
     var Hh = 172;
-    var root = svg('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'em-svg', role: 'img', 'aria-label': 'A ' + obj.name + ' to measure' });
+    // Never scale up: 1 cm stays CM screen pixels, the same as the "1 cm on screen" square
+    // on the first learn screen.
+    var root = svg('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'em-svg', role: 'img', 'aria-label': 'A ' + obj.name + ' to measure', style: { maxWidth: W + 'px', margin: '0 auto' } });
     var rx = 20;
     var ry = 104;
     var x0 = rx + ruler.xOf(0);
@@ -247,9 +249,9 @@
   ];
 
   var KM = [
-    { place: 'The park at the end of your road', icon: '🌳', clue: '2 minutes walk', more: false, why: 'A 2-minute walk is much less than 1 km. 1 km takes about 15 minutes to walk.' },
+    { place: 'The park at the end of your road', icon: '🌳', clue: 'a 2-minute walk', more: false, why: 'A 2-minute walk is much less than 1 km. 1 km takes about 15 minutes to walk.' },
     { place: 'The next town', icon: '🏘️', clue: '30 minutes by car', more: true, why: 'A car goes a long way in 30 minutes: many kilometres!' },
-    { place: 'The school gate, from your classroom', icon: '🏫', clue: '1 minute walk', more: false, why: 'A 1-minute walk is far less than 1 km.' },
+    { place: 'The school gate, from your classroom', icon: '🏫', clue: 'a 1-minute walk', more: false, why: 'A 1-minute walk is far less than 1 km.' },
     { place: 'The seaside', icon: '🏖️', clue: '1 hour by car', more: true, why: 'An hour in a car is a long journey: many kilometres.' },
     { place: 'The shop across the street', icon: '🏪', clue: 'just cross the road', more: false, why: 'Across the road is only a few metres.' },
     { place: "Grandma's house in another city", icon: '🏙️', clue: '2 hours by train', more: true, why: 'Another city is a long journey: lots of kilometres.' },

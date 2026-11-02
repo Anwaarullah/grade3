@@ -582,7 +582,7 @@
       reveal: function () {
         return revealPanel(sticksFig(whole, 50), MQ.ui.sum(parts, h.cm, 'cm'), h.cm + ' cm = ' + U.fmt(ans) + ' m');
       },
-      explain: whole + ' whole metres and half a metre: ' + U.fmt(ans) + ' m.',
+      explain: whole + (whole === 1 ? ' whole metre' : ' whole metres') + ' and half a metre: ' + U.fmt(ans) + ' m.',
     };
   }
 
@@ -741,8 +741,10 @@
     var answerEl;
     var markAnswer;
     if (q.kind === 'choice') {
+      // Shuffle the options (except "which is longer", which keeps its natural order) so the
+      // right answer is not always in the same place.
       var ch = MQ.ui.choices(
-        q.options,
+        q.noBlank ? q.options : U.shuffle(q.options),
         function (v, btn) {
           if (api.isAnswered()) return;
           if (eq(v, q.answer)) {
