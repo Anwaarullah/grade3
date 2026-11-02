@@ -125,8 +125,8 @@
     var u = unit(sub(P[1], P[0]));
     var v = unit(sub(P[3], P[0]));
     var pts = [];
-    for (var k = 0; k < 10; k++) {
-      var a = (2 * Math.PI * k) / 10;
+    for (var k = 0; k < 16; k++) {
+      var a = (2 * Math.PI * k) / 16;
       pts.push(addv(c, addv(mul(u, r * Math.cos(a)), mul(v, r * Math.sin(a)))));
     }
     return { face: fi, fill: fill, pts: pts };
@@ -412,6 +412,7 @@
       var inf = m.info;
       if (inf.kind === 'prism') o.working = inf.n + ' on the ' + inf.ends[0] + ' + ' + inf.n + ' on the ' + inf.ends[1] + ' = ' + o.V;
       else o.working = inf.n + ' round the base + 1 at the top = ' + o.V;
+      o.short = inf.kind === 'prism' ? inf.n + ' + ' + inf.n : inf.n + ' + 1';
       o.edgeWorking = o.E + ' straight edges';
     } else if (o.kind === 'cylinder') {
       o.V = 0; o.E = 2; o.straightE = 0; o.curvedE = 2; o.curved = true; fs.circle = 2;
@@ -474,10 +475,10 @@
   /* ---------------------------------------------------------------- *
    * Venn geometry (shared by learn screen 3 and level 3)
    * ---------------------------------------------------------------- */
-  var VW = 820, VH = 480;
+  var VW = 820, VH = 488;
   var CA = [315, 205], CB = [505, 205], CR = 150;
   var UNI = { x: 10, y: 4, w: 800, h: 368 };
-  var TRAY_Y = 428;
+  var TRAY_Y = 424;
   var SLOTS = {
     A: [[212, 205], [268, 118], [268, 292]],
     B: [[608, 205], [552, 118], [552, 292]],
@@ -502,7 +503,7 @@
     svg.appendChild(S('text', { x: CA[0] - 50, y: 40, 'text-anchor': 'middle', class: 'ss-vlabel ss-vlabel-a' }, A.text));
     svg.appendChild(S('text', { x: CB[0] + 50, y: 40, 'text-anchor': 'middle', class: 'ss-vlabel ss-vlabel-b' }, B.text));
     if (opts.outsideHint) svg.appendChild(S('text', { x: UNI.x + 14, y: UNI.y + UNI.h - 12, class: 'ss-vsmall' }, 'fits neither → outside'));
-    svg.appendChild(S('rect', { x: 10, y: 386, width: 800, height: 88, rx: 14, class: 'ss-tray' }));
+    svg.appendChild(S('rect', { x: 10, y: 380, width: 800, height: 104, rx: 14, class: 'ss-tray' }));
     var layer = S('g');
     svg.appendChild(layer);
     return {
@@ -523,7 +524,10 @@
     var g = S('g', { class: 'ss-tok', 'data-obj': id });
     g.appendChild(S('rect', { x: -half - 4, y: -half - 4, width: size + 8, height: size + 26, rx: 10, class: 'ss-tok-bg' }));
     g.appendChild(drawObj(id, -half + 2, -half, size - 4, size - 4, { dots: opts.dots }));
-    g.appendChild(S('text', { x: 0, y: half + 15, 'text-anchor': 'middle', class: 'ss-tok-name' }, OBJ[id].name));
+    var nm = OBJ[id].name;
+    var nameAttrs = { x: 0, y: half + 15, 'text-anchor': 'middle', class: 'ss-tok-name' };
+    if (nm.length * 7.8 > size + 4) { nameAttrs.textLength = size + 4; nameAttrs.lengthAdjust = 'spacingAndGlyphs'; }
+    g.appendChild(S('text', nameAttrs, nm));
     g.pos = { x: 0, y: 0 };
     g.moveTo = function (x, y) {
       g.pos = { x: x, y: y };
@@ -640,7 +644,7 @@
     var state = { place: {}, order: [], locked: false, sel: null };
     var toks = {};
     q.items.forEach(function (id) {
-      var t = makeToken(id, 76);
+      var t = makeToken(id, 72);
       t.setAttribute('data-answer', OBJ[id].edgeType);
       toks[id] = t;
       state.place[id] = 'tray';
@@ -655,7 +659,7 @@
       BINS.forEach(function (b, bi) {
         var inBin = state.order.filter(function (id) { return state.place[id] === b.key; });
         inBin.forEach(function (id, j) {
-          toks[id].moveTo(10 + bi * 270 + 45 + (j % 3) * 85, 255 + Math.floor(j / 3) * 98);
+          toks[id].moveTo(10 + bi * 270 + 44 + (j % 3) * 86, 252 + Math.floor(j / 3) * 98);
         });
       });
       checkBtn.disabled = state.locked || tray.length > 0;
@@ -773,7 +777,7 @@
     q.items.forEach(function (id) {
       var o = OBJ[id];
       notes[id] = el('span', { class: 'ss-note' });
-      table.appendChild(el('div', { class: 'ss-td ss-td-first' }, objSvg(id, 74, { dots: true }), el('span', { class: 'ss-name' }, o.name, notes[id])));
+      table.appendChild(el('div', { class: 'ss-td ss-td-first' }, objSvg(id, 92, { dots: true }), el('span', { class: 'ss-name' }, o.name, notes[id])));
       cells[id] = {};
       L2_LABELS.forEach(function (k) {
         var b = el('button', { class: 'ss-tick', type: 'button', 'aria-pressed': 'false', 'data-obj': id, 'data-label': k, 'data-correct': LABELS[k].test(o) ? '1' : '0', 'aria-label': o.name + ': ' + LABELS[k].text });
@@ -853,7 +857,7 @@
           b.classList.remove('ss-bad');
           if (b.on) b.classList.add('ss-good');
         });
-        notes[id].textContent = (o.curved ? 'curved surface · ' : 'flat faces · ') + cornersPhrase(o) + (o.V > 1 ? ' (' + o.working + ')' : '');
+        notes[id].textContent = (o.curved ? 'curved surface · ' : 'flat faces · ') + cornersPhrase(o) + (o.short ? ' (' + o.short + ')' : '');
       });
       api.feedback('A square is a rectangle too. "More than 5" means 6 or more, so 5 corners does not fit.', 'info');
     });
@@ -1190,14 +1194,14 @@
     });
     svg.appendChild(S('text', { x: 24, y: 24, class: 'ss-shelf-label' }, 'tin'));
     svg.appendChild(S('text', { x: 24, y: 184, class: 'ss-shelf-label' }, 'dice'));
-    var tinSay = S('text', { x: 780, y: 30, 'text-anchor': 'end', class: 'ss-say' });
-    var diceSay = S('text', { x: 780, y: 190, 'text-anchor': 'end', class: 'ss-say' });
+    var tinSay = S('text', { x: 80, y: 24, class: 'ss-say' });
+    var diceSay = S('text', { x: 90, y: 184, class: 'ss-say' });
     svg.appendChild(tinSay);
     svg.appendChild(diceSay);
     // tin lying on its side: the round end faces us
     var R = 50;
     var tin = S('g', { class: 'ss-roller', 'data-name': 'tin' });
-    var off = [24, -15];
+    var off = [62, -34];
     var ol = Math.hypot(off[0], off[1]);
     var pp = [(-off[1] / ol) * R, (off[0] / ol) * R];
     tin.appendChild(S('circle', { cx: off[0], cy: off[1], r: R, fill: '#d9dde4', stroke: INK, 'stroke-width': 3 }));
@@ -1226,6 +1230,7 @@
     function finish() {
       if (done.tin && done.dice) {
         api.say('The tin rolls: it has a curved surface. The dice has only flat faces, so it slides.', 'cheer');
+        api.feedback('Curved surface: it rolls. Only flat faces: it slides.', 'good');
         api.unlockNext();
         facts.hidden = false;
       }
@@ -1234,11 +1239,11 @@
     api.cleanup(
       MQ.ui.drag(svg, tin, {
         start: function () { cancelAnimationFrame(raf); t0x = tinX; },
-        move: function (p, dx) { tinX = U.clamp(t0x + dx, 90, 720); placeTin(); },
+        move: function (p, dx) { tinX = U.clamp(t0x + dx, 90, 680); placeTin(); },
         end: function () {
           if (tinX - tinStart < 60) return;
           // keep rolling a little: round things roll on their own
-          var from = tinX, to = Math.min(720, tinX + 150), t0 = null;
+          var from = tinX, to = Math.min(680, tinX + 150), t0 = null;
           function step(t) {
             if (t0 == null) t0 = t;
             var k = Math.min(1, (t - t0) / 700);
@@ -1305,6 +1310,7 @@
       cur.setAttribute('data-answer', regionFor(OBJ[id], A, B));
       cur.moveTo(410, TRAY_Y);
       cur.classList.add('ss-current');
+      cur.style.pointerEvents = 'none';
       board.layer.appendChild(cur);
       api.say('Where does the ' + OBJ[id].name + ' go? It has ' + cornersPhrase(OBJ[id]) + '.', 'think');
     }
