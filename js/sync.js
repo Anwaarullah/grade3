@@ -297,12 +297,27 @@
           return pull().then(push);
         });
     },
+    /**
+     * Saves what is left to save, signs out, then clears this device so the next person on a
+     * shared device does not see (or upload into their own account) this family's children.
+     * If the parent never agreed to sync, nothing came from the account, so the device's own
+     * progress is left as it was.
+     */
     signOut: function () {
-      return client.auth.signOut().then(function () {
-        state.user = null;
-        state.consented = false;
-        setStatus('idle');
-      });
+      var wasSyncing = !!(state.user && state.consented);
+      clearTimeout(pushTimer);
+      var first = wasSyncing ? push().catch(function () {}) : Promise.resolve();
+      return first
+        .then(function () {
+          return client.auth.signOut();
+        })
+        .then(function (res) {
+          if (res && res.error) throw res.error;
+          state.user = null;
+          state.consented = false;
+          if (wasSyncing) MQ.store.wipe();
+          setStatus('idle');
+        });
     },
     /** Deletes the parent account and every child profile and record in the cloud, then clears this device. */
     deleteAccount: function () {

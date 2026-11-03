@@ -197,6 +197,11 @@
         }
       }
     }
+    db = normalise(d);
+    return db;
+  }
+  /** Fill in missing parts, make sure a profile exists and currentChildId points at a real child. */
+  function normalise(d) {
     ['children', 'deletedChildren'].forEach(function (k) {
       if (!Array.isArray(d[k])) d[k] = [];
     });
@@ -213,8 +218,7 @@
       d.dirtyChildren[first] = true;
     }
     if (!d.currentChildId && d.children.length) d.currentChildId = d.children[0].id;
-    db = d;
-    return db;
+    return d;
   }
   function childProgress(id) {
     var d = getDb();
@@ -273,15 +277,16 @@
       getDb().settings[key] = value;
       store.save('settings');
     },
-    /** Clear the current child's progress. */
-    reset: function () {
+    /** Clear one child's progress (default: the current child). */
+    reset: function (childId) {
       var d = getDb();
-      if (!d.currentChildId) return;
-      var acts = childProgress(d.currentChildId).activities;
-      d.dirty[d.currentChildId] = d.dirty[d.currentChildId] || {};
+      var id = childId || d.currentChildId;
+      if (!id || !d.children.some(function (c) { return c.id === id; })) return;
+      var acts = childProgress(id).activities;
+      d.dirty[id] = d.dirty[id] || {};
       Object.keys(acts).forEach(function (a) {
         acts[a] = blankRecord();
-        d.dirty[d.currentChildId][a] = true;
+        d.dirty[id][a] = true;
       });
       store.save('reset');
     },
@@ -336,12 +341,8 @@
       delete d.dirty[id];
       delete d.dirtyChildren[id];
       d.deletedChildren.push(id);
-      if (d.currentChildId === id) d.currentChildId = d.children.length ? d.children[0].id : null;
-      if (!d.children.length) {
-        db = null;
-        store.save('children');
-        getDb();
-      }
+      if (d.currentChildId === id) d.currentChildId = null;
+      normalise(d); // a fresh "Player 1" if that was the last child, and a valid currentChildId
       store.save('children');
     },
 
@@ -353,8 +354,9 @@
     /** Replace everything on this device (e.g. after deleting the account). */
     wipe: function () {
       var keep = getDb().settings;
-      db = blankDb();
-      db.settings = keep;
+      var d = blankDb();
+      d.settings = keep;
+      db = normalise(d); // starts again with a fresh "Player 1"
       try {
         window.localStorage.removeItem(OLD_KEY);
       } catch (e) {}
