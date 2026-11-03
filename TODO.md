@@ -64,6 +64,10 @@ start with **Phase 1**.
 - [ ] Tests with a fake Supabase client (sign-in, consent, sync between two devices, offline).
 - [ ] Note: cloud sync cannot work inside the claude.ai preview (it blocks outside servers);
       test on the parent's own domain.
+- Note: the parent gate (a 13–19 × 6–9 question, with a 30-second wait after 3 wrong answers in a
+  row) is a speed bump, not a lock: a child who has done Unit 11 could work it out. The real
+  safeguard is the second confirmation step on every destructive action (remove, reset, sign out,
+  delete account).
 - Note: the store rewrite is committed and safe on its own: if no profile exists it creates
   "Player 1" automatically. config.js and sync.js are committed but not loaded by index.html yet.
 

@@ -151,7 +151,12 @@ This lets a parent press **Sign in with Google**. You do this part in Google Clo
    * **Audience / User type**: **External**.
    * Under **Branding** (or the same page), add your home page (YOUR-SITE), your privacy
      page (YOUR-SITE followed by `#privacy`, if your site shows it there) and under
-     **Authorised domains** your domain, e.g. `example.in`.
+     **Authorised domains** add **both** your domain, e.g. `example.in`, **and**
+     `PROJECT-REF.supabase.co` (your PROJECT-REF from step 3). Google needs the second one
+     because the sign-in returns through Supabase's address.
+   * Note: Google's account chooser will say "to continue to PROJECT-REF.supabase.co"
+     rather than your site's name. That is normal. Showing your own domain there needs a
+     Supabase custom domain, which is a paid add-on.
    * Scopes: you do not need to add any. The basic ones (email, profile, openid) are
      enough.
    * Under **Audience** (or **Publishing status**), press **Publish app** so that it is
@@ -183,7 +188,7 @@ the folder structure:
 ```
 index.html
 css/
-js/        (including your edited js/config.js)
+js/        (including your edited js/config.js and the js/vendor/ folder)
 assets/
 ```
 
@@ -226,9 +231,24 @@ project**).
 ## Looking after families' data
 
 **What is stored.** For each parent: their email (in Supabase's sign-in system), the
-privacy policy version they agreed to and when. For each child: a nickname, an emoji
+privacy policy version they agreed to and when. If they use **Continue with Google**,
+Google also shares their name and a link to their Google profile picture, which Supabase
+keeps with the login (the site does not use them). For each child: a nickname, an emoji
 avatar, and stars, plays, answers and mistake counts per activity. Nothing else: no
 child email, birthday, photo, location, ads or tracking.
+
+Supabase's sign-in system also keeps short-term security logs (sign-in times, IP
+address, browser) in its `auth` tables. They are not part of the families' tables and
+are not removed by **Delete my account**. If a parent asks for these to be removed too,
+you can delete them by hand in the **SQL Editor** (replace USER-ID with the id shown in
+**Authentication → Users** before you delete the user):
+`delete from auth.audit_log_entries where payload->>'actor_id' = 'USER-ID';`
+The privacy page mentions these logs in general terms.
+
+**Other services the site talks to.** The typeface comes from Google Fonts (every
+visitor's browser asks Google for it). Your sign-in emails go through the email service
+you chose in step 5. The sign-in code library is served from your own site
+(`js/vendor/`), not from an outside script host. The privacy page lists these.
 
 **Deleting a family on request.** Parents can delete everything themselves in the Parent
 corner (**Delete account**). If a parent emails you instead:
@@ -272,8 +292,13 @@ anon/publishable key go on the website.
 * **The sign-in email never arrives.** Look in spam. With the built-in sender only your
   own team's addresses get emails and only a few per hour: set up custom SMTP (step 5).
 * **The email link opens but the parent is not signed in.** It was opened on a different
-  device or browser from the one that asked for it. Request a new link on the device you
-  want to use.
+  device or browser from the one that asked for it, it was more than an hour old, or it
+  had been used already (some email services "pre-open" links to scan them). The Parent
+  corner then says "Sign-in did not finish…". Request a new link on the device you want
+  to use.
+* **Signing out on one device.** Sign out only signs out that device; the family's other
+  devices stay signed in. If some progress could not be saved yet (for example the
+  device is offline), the Parent corner says so and offers "Sign out anyway".
 * **"Could not reach the sign-in service".** Check the two values in `js/config.js`
   (no spaces, the whole key, quotes kept), that the project is not paused, and that you
   are not in the claude.ai preview.

@@ -144,7 +144,9 @@
    *     children: [ { id, name, avatar } ],
    *     progress: { <childId>: { activities: { <activityId>: record } } },
    *     dirty: { <childId>: { <activityId>: true } }, dirtyChildren: { <childId>: true },
-   *     deletedChildren: [ ids ] }
+   *     deletedChildren: [ ids ], syncedChildren: { <childId>: true },
+   *     resetAt: { <childId>: ISO time of the last "Reset progress" (sync ignores older cloud records) },
+   *     accountId: id of the signed-in parent this device's profiles belong to (set by js/sync.js) }
    * ------------------------------------------------------------------ */
   var STORE_KEY = 'g3maths.v2';
   var OLD_KEY = 'mathsMission.v1';
@@ -164,7 +166,7 @@
     return { stars: 0, plays: 0, firstTry: 0, answered: 0, lastPlayed: null, mistakes: {} };
   }
   function blankDb() {
-    return { version: 2, currentChildId: null, settings: { sound: true, voice: false }, children: [], progress: {}, dirty: {}, dirtyChildren: {}, deletedChildren: [] };
+    return { version: 2, currentChildId: null, settings: { sound: true, voice: false }, children: [], progress: {}, dirty: {}, dirtyChildren: {}, deletedChildren: [], syncedChildren: {}, resetAt: {} };
   }
   function readJson(key) {
     try {
@@ -205,15 +207,27 @@
     ['children', 'deletedChildren'].forEach(function (k) {
       if (!Array.isArray(d[k])) d[k] = [];
     });
-    ['progress', 'dirty', 'dirtyChildren'].forEach(function (k) {
+    ['progress', 'dirty', 'dirtyChildren', 'syncedChildren', 'resetAt'].forEach(function (k) {
       if (!d[k] || typeof d[k] !== 'object') d[k] = {};
+    });
+    // Drop leftovers of children that no longer exist (e.g. a late sync reply after a wipe).
+    // dirtyChildren and deletedChildren keep their own meaning and are left alone.
+    var known = {};
+    d.children.forEach(function (c) {
+      known[c.id] = true;
+    });
+    ['progress', 'dirty', 'syncedChildren', 'resetAt'].forEach(function (k) {
+      Object.keys(d[k]).forEach(function (id) {
+        if (!known[id]) delete d[k][id];
+      });
     });
     d.settings = Object.assign({ sound: true, voice: false }, d.settings || {});
     if (d.currentChildId && !d.children.some(function (c) { return c.id === d.currentChildId; })) d.currentChildId = null;
     if (!d.children.length) {
       // Always have a profile to save into, so progress is never dropped.
       var first = uuid();
-      d.children.push({ id: first, name: 'Player 1', avatar: '🦊' });
+      // placeholder: dropped by js/sync.js when a signed-in family already has children and it was never used.
+      d.children.push({ id: first, name: 'Player 1', avatar: '🦊', placeholder: true });
       d.progress[first] = d.progress[first] || { activities: {} };
       d.dirtyChildren[first] = true;
     }
@@ -247,8 +261,8 @@
       return p;
     },
     save: function (what) {
+      var d = normalise(getDb()); // e.g. sync removed the last child: start a fresh "Player 1"
       try {
-        var d = getDb();
         var copy = JSON.parse(JSON.stringify(d));
         Object.keys(copy.progress).forEach(function (k) {
           delete copy.progress[k].settings;
@@ -288,6 +302,7 @@
         acts[a] = blankRecord();
         d.dirty[id][a] = true;
       });
+      d.resetAt[id] = new Date().toISOString();
       store.save('reset');
     },
     totalStars: function (childId) {
@@ -331,6 +346,7 @@
       if (!c) return;
       if (fields.name != null) c.name = String(fields.name).trim().slice(0, 30) || c.name;
       if (fields.avatar) c.avatar = fields.avatar;
+      delete c.placeholder;
       getDb().dirtyChildren[id] = true;
       store.save('children');
     },
@@ -340,6 +356,7 @@
       delete d.progress[id];
       delete d.dirty[id];
       delete d.dirtyChildren[id];
+      delete d.syncedChildren[id];
       d.deletedChildren.push(id);
       if (d.currentChildId === id) d.currentChildId = null;
       normalise(d); // a fresh "Player 1" if that was the last child, and a valid currentChildId
@@ -363,6 +380,17 @@
       store.save('wipe');
     },
   });
+
+  // Another tab of this site saved (or a parent signed out there and the device was cleared):
+  // forget the copy held in memory so this tab reads the new one instead of writing its old
+  // copy back over it.
+  try {
+    window.addEventListener('storage', function (e) {
+      if (e.key !== STORE_KEY && e.key !== null) return;
+      db = null;
+      emit('pull');
+    });
+  } catch (e) {}
 
   /* ------------------------------------------------------------------ *
    * Sound effects (tiny synthesised beeps, no audio files needed)
