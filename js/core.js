@@ -136,61 +136,229 @@
   };
 
   /* ------------------------------------------------------------------ *
-   * Saved progress (browser storage; always wrapped in try/catch)
+   * Saved progress, per child profile (browser storage, always wrapped in
+   * try/catch). js/sync.js mirrors it to the cloud when a parent signs in.
+   *
+   * Stored shape (localStorage 'g3maths.v2'):
+   *   { version: 2, currentChildId, settings: { sound, voice },
+   *     children: [ { id, name, avatar } ],
+   *     progress: { <childId>: { activities: { <activityId>: record } } },
+   *     dirty: { <childId>: { <activityId>: true } }, dirtyChildren: { <childId>: true },
+   *     deletedChildren: [ ids ] }
    * ------------------------------------------------------------------ */
-  var STORE_KEY = 'mathsMission.v1';
-  var memoryCopy = null;
+  var STORE_KEY = 'g3maths.v2';
+  var OLD_KEY = 'mathsMission.v1';
+  var db = null;
+  var listeners = [];
 
-  function blankProgress() {
-    return { activities: {}, settings: { sound: true, voice: false }, playerName: '' };
+  function uuid() {
+    try {
+      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    } catch (e) {}
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (Math.random() * 16) | 0;
+      return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+    });
+  }
+  function blankRecord() {
+    return { stars: 0, plays: 0, firstTry: 0, answered: 0, lastPlayed: null, mistakes: {} };
+  }
+  function blankDb() {
+    return { version: 2, currentChildId: null, settings: { sound: true, voice: false }, children: [], progress: {}, dirty: {}, dirtyChildren: {}, deletedChildren: [] };
+  }
+  function readJson(key) {
+    try {
+      var raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function getDb() {
+    if (db) return db;
+    var d = readJson(STORE_KEY);
+    if (!d || typeof d !== 'object' || d.version !== 2) {
+      d = blankDb();
+      // Bring progress from the single-player version into a first profile.
+      var old = readJson(OLD_KEY);
+      if (old && typeof old === 'object') {
+        if (old.settings) d.settings = Object.assign(d.settings, old.settings);
+        var acts = old.activities || {};
+        if (Object.keys(acts).length) {
+          var id = uuid();
+          d.children.push({ id: id, name: 'Player 1', avatar: '🦊' });
+          d.progress[id] = { activities: acts };
+          d.currentChildId = id;
+          d.dirtyChildren[id] = true;
+          d.dirty[id] = {};
+          Object.keys(acts).forEach(function (a) {
+            d.dirty[id][a] = true;
+          });
+        }
+      }
+    }
+    ['children', 'deletedChildren'].forEach(function (k) {
+      if (!Array.isArray(d[k])) d[k] = [];
+    });
+    ['progress', 'dirty', 'dirtyChildren'].forEach(function (k) {
+      if (!d[k] || typeof d[k] !== 'object') d[k] = {};
+    });
+    d.settings = Object.assign({ sound: true, voice: false }, d.settings || {});
+    if (d.currentChildId && !d.children.some(function (c) { return c.id === d.currentChildId; })) d.currentChildId = null;
+    if (!d.children.length) {
+      // Always have a profile to save into, so progress is never dropped.
+      var first = uuid();
+      d.children.push({ id: first, name: 'Player 1', avatar: '🦊' });
+      d.progress[first] = d.progress[first] || { activities: {} };
+      d.dirtyChildren[first] = true;
+    }
+    if (!d.currentChildId && d.children.length) d.currentChildId = d.children[0].id;
+    db = d;
+    return db;
+  }
+  function childProgress(id) {
+    var d = getDb();
+    if (!id) return { activities: {} };
+    if (!d.progress[id]) d.progress[id] = { activities: {} };
+    if (!d.progress[id].activities) d.progress[id].activities = {};
+    return d.progress[id];
+  }
+  function emit(what) {
+    listeners.forEach(function (fn) {
+      try {
+        fn(what);
+      } catch (e) {
+        console.error(e);
+      }
+    });
   }
 
   var store = (MQ.store = {
+    uuid: uuid,
+    /** The current child's progress: { activities, settings }. */
     load: function () {
-      if (memoryCopy) return memoryCopy;
-      var data = null;
-      try {
-        var raw = window.localStorage.getItem(STORE_KEY);
-        if (raw) data = JSON.parse(raw);
-      } catch (e) {
-        data = null;
-      }
-      if (!data || typeof data !== 'object') data = blankProgress();
-      data.activities = data.activities || {};
-      data.settings = Object.assign({ sound: true, voice: false }, data.settings || {});
-      memoryCopy = data;
-      return data;
+      var d = getDb();
+      var p = childProgress(d.currentChildId);
+      p.settings = d.settings; // settings are per device, shared by all profiles
+      return p;
     },
-    save: function () {
+    save: function (what) {
       try {
-        window.localStorage.setItem(STORE_KEY, JSON.stringify(store.load()));
+        var d = getDb();
+        var copy = JSON.parse(JSON.stringify(d));
+        Object.keys(copy.progress).forEach(function (k) {
+          delete copy.progress[k].settings;
+        });
+        window.localStorage.setItem(STORE_KEY, JSON.stringify(copy));
       } catch (e) {
         /* storage blocked: progress lives only for this visit */
       }
+      emit(what || 'save');
     },
+    /** Record for an activity of the current child (created if missing) — marks it for sync. */
     activity: function (id) {
-      var p = store.load();
-      if (!p.activities[id]) {
-        p.activities[id] = { stars: 0, plays: 0, firstTry: 0, answered: 0, lastPlayed: null, mistakes: {} };
+      var d = getDb();
+      var p = childProgress(d.currentChildId);
+      if (!p.activities[id]) p.activities[id] = blankRecord();
+      if (d.currentChildId) {
+        d.dirty[d.currentChildId] = d.dirty[d.currentChildId] || {};
+        d.dirty[d.currentChildId][id] = true;
       }
       return p.activities[id];
     },
     settings: function () {
-      return store.load().settings;
+      return getDb().settings;
     },
     setSetting: function (key, value) {
-      store.load().settings[key] = value;
-      store.save();
+      getDb().settings[key] = value;
+      store.save('settings');
     },
+    /** Clear the current child's progress. */
     reset: function () {
-      memoryCopy = blankProgress();
-      store.save();
+      var d = getDb();
+      if (!d.currentChildId) return;
+      var acts = childProgress(d.currentChildId).activities;
+      d.dirty[d.currentChildId] = d.dirty[d.currentChildId] || {};
+      Object.keys(acts).forEach(function (a) {
+        acts[a] = blankRecord();
+        d.dirty[d.currentChildId][a] = true;
+      });
+      store.save('reset');
     },
-    totalStars: function () {
-      var p = store.load();
-      return Object.keys(p.activities).reduce(function (sum, id) {
-        return sum + (p.activities[id].stars || 0);
+    totalStars: function (childId) {
+      var d = getDb();
+      var acts = childProgress(childId || d.currentChildId).activities;
+      return Object.keys(acts).reduce(function (sum, id) {
+        return sum + (acts[id].stars || 0);
       }, 0);
+    },
+
+    /* ---- child profiles ---- */
+    children: function () {
+      return getDb().children.slice();
+    },
+    currentChild: function () {
+      var d = getDb();
+      return d.children.filter(function (c) { return c.id === d.currentChildId; })[0] || null;
+    },
+    progressOf: function (childId) {
+      return childProgress(childId);
+    },
+    switchChild: function (id) {
+      var d = getDb();
+      if (d.children.some(function (c) { return c.id === id; })) {
+        d.currentChildId = id;
+        store.save('switch');
+      }
+    },
+    addChild: function (name, avatar) {
+      var d = getDb();
+      var c = { id: uuid(), name: String(name).trim().slice(0, 30) || 'Player', avatar: avatar || '🙂' };
+      d.children.push(c);
+      d.progress[c.id] = { activities: {} };
+      d.dirtyChildren[c.id] = true;
+      d.currentChildId = c.id;
+      store.save('children');
+      return c;
+    },
+    updateChild: function (id, fields) {
+      var c = getDb().children.filter(function (x) { return x.id === id; })[0];
+      if (!c) return;
+      if (fields.name != null) c.name = String(fields.name).trim().slice(0, 30) || c.name;
+      if (fields.avatar) c.avatar = fields.avatar;
+      getDb().dirtyChildren[id] = true;
+      store.save('children');
+    },
+    removeChild: function (id) {
+      var d = getDb();
+      d.children = d.children.filter(function (c) { return c.id !== id; });
+      delete d.progress[id];
+      delete d.dirty[id];
+      delete d.dirtyChildren[id];
+      d.deletedChildren.push(id);
+      if (d.currentChildId === id) d.currentChildId = d.children.length ? d.children[0].id : null;
+      if (!d.children.length) {
+        db = null;
+        store.save('children');
+        getDb();
+      }
+      store.save('children');
+    },
+
+    /* ---- used by js/sync.js ---- */
+    raw: getDb,
+    onChange: function (fn) {
+      listeners.push(fn);
+    },
+    /** Replace everything on this device (e.g. after deleting the account). */
+    wipe: function () {
+      var keep = getDb().settings;
+      db = blankDb();
+      db.settings = keep;
+      try {
+        window.localStorage.removeItem(OLD_KEY);
+      } catch (e) {}
+      store.save('wipe');
     },
   });
 

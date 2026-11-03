@@ -64,8 +64,8 @@ start with **Phase 1**.
 - [ ] Tests with a fake Supabase client (sign-in, consent, sync between two devices, offline).
 - [ ] Note: cloud sync cannot work inside the claude.ai preview (it blocks outside servers);
       test on the parent's own domain.
-- Note: the store rewrite in `js/core.js` is **not committed yet**. Without the "Who's playing?"
-  screen a new visitor would have no profile to save into, so it ships together with the screens.
+- Note: the store rewrite is committed and safe on its own: if no profile exists it creates
+  "Player 1" automatically. config.js and sync.js are committed but not loaded by index.html yet.
 
 ### Phase 2: privacy and legal basics (India DPDP Act)
 - [ ] Only the parent has an account; children get a nickname only, no email.
