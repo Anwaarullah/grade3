@@ -145,7 +145,10 @@
    *     progress: { <childId>: { activities: { <activityId>: record } } },
    *     dirty: { <childId>: { <activityId>: true } }, dirtyChildren: { <childId>: true },
    *     deletedChildren: [ ids ], syncedChildren: { <childId>: true },
-   *     resetAt: { <childId>: ISO time of the last "Reset progress" (sync ignores older cloud records) },
+   *     resetGen: { <childId>: how many times "Reset progress" was pressed for this child, as far
+   *                 as this device knows (synced as children.reset_gen; each record carries the
+   *                 count it was built on as rec.gen, and records with a lower count are blank) },
+   *     resetPending: { <childId>: id of a reset made on this device that has not reached the account yet },
    *     accountId: id of the signed-in parent this device's profiles belong to (set by js/sync.js) }
    * ------------------------------------------------------------------ */
   var STORE_KEY = 'g3maths.v2';
@@ -162,11 +165,11 @@
       return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
     });
   }
-  function blankRecord() {
-    return { stars: 0, plays: 0, firstTry: 0, answered: 0, lastPlayed: null, mistakes: {} };
+  function blankRecord(gen) {
+    return { stars: 0, plays: 0, firstTry: 0, answered: 0, lastPlayed: null, mistakes: {}, gen: gen || 0 };
   }
   function blankDb() {
-    return { version: 2, currentChildId: null, settings: { sound: true, voice: false }, children: [], progress: {}, dirty: {}, dirtyChildren: {}, deletedChildren: [], syncedChildren: {}, resetAt: {} };
+    return { version: 2, currentChildId: null, settings: { sound: true, voice: false }, children: [], progress: {}, dirty: {}, dirtyChildren: {}, deletedChildren: [], syncedChildren: {}, resetGen: {}, resetPending: {} };
   }
   function readJson(key) {
     try {
@@ -207,16 +210,17 @@
     ['children', 'deletedChildren'].forEach(function (k) {
       if (!Array.isArray(d[k])) d[k] = [];
     });
-    ['progress', 'dirty', 'dirtyChildren', 'syncedChildren', 'resetAt'].forEach(function (k) {
+    ['progress', 'dirty', 'dirtyChildren', 'syncedChildren', 'resetGen', 'resetPending'].forEach(function (k) {
       if (!d[k] || typeof d[k] !== 'object') d[k] = {};
     });
+    delete d.resetAt; // an earlier version kept reset times from the devices' clocks
     // Drop leftovers of children that no longer exist (e.g. a late sync reply after a wipe).
     // dirtyChildren and deletedChildren keep their own meaning and are left alone.
     var known = {};
     d.children.forEach(function (c) {
       known[c.id] = true;
     });
-    ['progress', 'dirty', 'syncedChildren', 'resetAt'].forEach(function (k) {
+    ['progress', 'dirty', 'syncedChildren', 'resetGen', 'resetPending'].forEach(function (k) {
       Object.keys(d[k]).forEach(function (id) {
         if (!known[id]) delete d[k][id];
       });
@@ -226,7 +230,7 @@
     if (!d.children.length) {
       // Always have a profile to save into, so progress is never dropped.
       var first = uuid();
-      // placeholder: dropped by js/sync.js when a signed-in family already has children and it was never used.
+      // placeholder: never uploaded by js/sync.js while unused if the family or this device has other children.
       d.children.push({ id: first, name: 'Player 1', avatar: '🦊', placeholder: true });
       d.progress[first] = d.progress[first] || { activities: {} };
       d.dirtyChildren[first] = true;
@@ -273,14 +277,21 @@
       }
       emit(what || 'save');
     },
-    /** Record for an activity of the current child (created if missing) — marks it for sync. */
-    activity: function (id) {
+    /**
+     * Record for an activity (created if missing) — marks it for sync. childId: whose record
+     * (default: the current child). Returns null when that child no longer exists.
+     */
+    activity: function (id, childId) {
       var d = getDb();
-      var p = childProgress(d.currentChildId);
-      if (!p.activities[id]) p.activities[id] = blankRecord();
-      if (d.currentChildId) {
-        d.dirty[d.currentChildId] = d.dirty[d.currentChildId] || {};
-        d.dirty[d.currentChildId][id] = true;
+      var cid = childId || d.currentChildId;
+      if (childId && !d.children.some(function (c) { return c.id === childId; })) return null;
+      var p = childProgress(cid);
+      var gen = (cid && d.resetGen[cid]) || 0;
+      // A record from before a reset this device knows about is blank (see adoptReset in js/sync.js).
+      if (!p.activities[id] || (p.activities[id].gen || 0) < gen) p.activities[id] = blankRecord(gen);
+      if (cid) {
+        d.dirty[cid] = d.dirty[cid] || {};
+        d.dirty[cid][id] = true;
       }
       return p.activities[id];
     },
@@ -297,12 +308,18 @@
       var id = childId || d.currentChildId;
       if (!id || !d.children.some(function (c) { return c.id === id; })) return;
       var acts = childProgress(id).activities;
+      // Counted, not timed (device clocks can be wrong): records built on an older count are
+      // blank on every device. The database numbers the resets (children.reset_gen, see
+      // js/sync.js); until it has this one, d.resetPending holds it.
+      var gen = (d.resetGen[id] || 0) + 1;
+      d.resetGen[id] = gen;
+      d.resetPending[id] = uuid();
       d.dirty[id] = d.dirty[id] || {};
       Object.keys(acts).forEach(function (a) {
-        acts[a] = blankRecord();
+        acts[a] = blankRecord(gen);
         d.dirty[id][a] = true;
       });
-      d.resetAt[id] = new Date().toISOString();
+      d.dirtyChildren[id] = true;
       store.save('reset');
     },
     totalStars: function (childId) {
@@ -331,13 +348,14 @@
         store.save('switch');
       }
     },
-    addChild: function (name, avatar) {
+    /** opts.makeCurrent === false: the child who is playing now stays the player. */
+    addChild: function (name, avatar, opts) {
       var d = getDb();
       var c = { id: uuid(), name: String(name).trim().slice(0, 30) || 'Player', avatar: avatar || '🙂' };
       d.children.push(c);
       d.progress[c.id] = { activities: {} };
       d.dirtyChildren[c.id] = true;
-      d.currentChildId = c.id;
+      if (!opts || opts.makeCurrent !== false || !d.currentChildId) d.currentChildId = c.id;
       store.save('children');
       return c;
     },
@@ -533,6 +551,8 @@
     var count = def.practice.count || 8;
     var cleanups = [];
     var result = { firstTry: 0, answered: 0, count: count, mistakes: {} };
+    // The child who started: another tab may switch the current child before this one finishes.
+    var childId = store.raw().currentChildId;
     var current = null; // { phase, index }
 
     function runCleanups() {
@@ -690,17 +710,20 @@
       MQ.clear(shell.stage);
       var ratio = result.firstTry / count;
       var stars = ratio >= 0.9 ? 3 : ratio >= 0.6 ? 2 : 1;
-      var rec = store.activity(id);
-      rec.plays++;
-      rec.stars = Math.max(rec.stars || 0, stars);
-      rec.lastStars = stars;
-      rec.firstTry += result.firstTry;
-      rec.answered += count;
-      rec.lastPlayed = new Date().toISOString();
-      Object.keys(result.mistakes).forEach(function (k) {
-        rec.mistakes[k] = (rec.mistakes[k] || 0) + result.mistakes[k];
-      });
-      store.save();
+      var rec = store.activity(id, childId);
+      // null: that child was removed (e.g. in another tab) while playing, so nobody else gets the stars.
+      if (rec) {
+        rec.plays++;
+        rec.stars = Math.max(rec.stars || 0, stars);
+        rec.lastStars = stars;
+        rec.firstTry += result.firstTry;
+        rec.answered += count;
+        rec.lastPlayed = new Date().toISOString();
+        Object.keys(result.mistakes).forEach(function (k) {
+          rec.mistakes[k] = (rec.mistakes[k] || 0) + result.mistakes[k];
+        });
+        store.save();
+      }
       MQ.sound('star');
       shell.done({ stars: stars, firstTry: result.firstTry, count: count, mistakes: result.mistakes });
     }

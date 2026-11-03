@@ -1138,6 +1138,11 @@ svg text {
   font-size: 1.4rem;
   font-weight: 800;
 }
+.gate-input:disabled {
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
 .gate-msg {
   min-height: 1.5em;
   color: var(--try);
@@ -1248,6 +1253,17 @@ svg text {
   margin: 8px 0;
   color: var(--good);
   font-weight: 700;
+}
+/* Errors and warnings use the "try again" colour, never the success green. */
+.kids-msg.is-error,
+.acct-msg.is-error {
+  color: var(--try);
+}
+/* No blank band while there is nothing to say (screen readers hear messages through #sr-live). */
+.kids-msg:empty,
+.acct-msg:empty {
+  min-height: 0;
+  margin: 0;
 }
 .kids-remove {
   margin-top: 10px;
@@ -1382,8 +1398,14 @@ svg text {
 .acct-status {
   overflow-wrap: anywhere;
 }
+.acct-signout {
+  margin-top: 12px;
+}
 .acct-signout .acct-msg {
   margin: 4px 0 0;
+}
+.acct-leftover {
+  margin: 0 0 14px;
 }
 .acct-delete {
   margin-top: 18px;

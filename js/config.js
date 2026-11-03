@@ -12,6 +12,6 @@ window.MQ.config = {
   /** Shown on the privacy page so families know who to contact. */
   contactEmail: '',
   siteName: 'Grade 3 Maths',
-  /** Bump when the privacy policy changes; parents are asked to agree again. */
+  /** Bump when the privacy notice changes; parents are asked to agree again. */
   consentVersion: '2026-11',
 };
