@@ -29,3 +29,17 @@ from public.progress
 group by activity_id
 order by plays desc
 limit 20;
+
+-- 4. Parents who signed up (newest first)
+select
+  u.email,
+  u.created_at::date                          as signed_up,
+  u.last_sign_in_at::date                     as last_sign_in,
+  (p.id is not null)                          as agreed_to_privacy_notice,
+  (select count(*) from public.children c where c.parent_id = u.id) as children,
+  (select max(pr.last_played)::date from public.progress pr
+     join public.children c on c.id = pr.child_id
+    where c.parent_id = u.id)                 as last_played
+from auth.users u
+left join public.parents p on p.id = u.id
+order by u.created_at desc;
