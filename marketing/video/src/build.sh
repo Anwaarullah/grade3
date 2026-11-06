@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rebuild the Interactive Maths promo video (1080x1920, 30 fps, about 61.5 s).
+# Rebuild the Interactive Maths promo video (1080x1920, 30 fps, about 62 s).
 #
 #   cd marketing/video/src && ./build.sh            # full build -> ../interactive-maths.mp4 and ../poster.png
 #   ./build.sh --stills 2,10,30                      # just render a few stills to $WORK/stills for checking
