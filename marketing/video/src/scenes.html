@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <title>Interactive Maths promo (1080x1920)</title>
 <!--
-  60-second vertical promo for parents. The whole film is a pure function of time:
+  70-second vertical promo for parents, with a voice-over (../vo/plan.json; mixed by mix.py).
+  Scene times follow the voice cues: each scene starts 0.3 s before its spoken line. The whole film is a pure function of time:
   window.renderAt(t) draws the frame at t seconds (await it), build.js screenshots every frame.
   Open in a browser with #play to preview in real time (clip frames must exist; see build.sh).
 -->
@@ -71,6 +72,8 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
 .qr img { width: 420px; height: 420px; display: block; image-rendering: pixelated; }
 .ring { position: absolute; border: 7px solid var(--orange); border-radius: 22px; box-shadow: 0 0 0 9999px rgba(27,42,74,0); pointer-events: none; }
 .bolt svg { display: block; }
+.credit { display: inline-flex; align-items: center; font-size: 40px; font-weight: 800; line-height: 1.1; color: var(--ink-soft);
+  background: rgba(255,255,255,.75); border: 3px solid var(--line); border-radius: 999px; padding: 14px 34px; }
 </style>
 </head>
 <body>
@@ -79,6 +82,7 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
 
   <!-- 1. Title -->
   <section class="scene" id="s1">
+    <div class="center" style="top:200px"><div class="pill" data-in="-1">👋 Hi parents!</div></div>
     <div class="center" style="top:330px">
       <div class="bolt" id="s1bolt" data-in="-1"></div>
     </div>
@@ -103,8 +107,8 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
       <div class="row">¼ of 20 =<span></span></div>
       <div class="row">9 × 3 =<span></span></div>
     </div>
-    <div class="center" style="top:1560px">
-      <div class="cap" data-in="1.4" style="color:var(--teal-deep)">Let’s make it hands-on.</div>
+    <div class="center" style="top:1550px">
+      <div class="cap" data-in="3.2" style="color:var(--teal-deep)">So let’s make it<br><span style="white-space:nowrap">hands-on!</span></div>
     </div>
   </section>
 
@@ -135,26 +139,35 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
   <!-- 6. Phone: colour a fraction -->
   <section class="scene" id="s6">
     <div class="center" style="top:240px"><div class="pill" data-in="0.05">📱 Laptop, tablet or phone</div></div>
-    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Colour fractions in,<br><em>tap by tap.</em></div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Colour in fractions,<br><em>tap by tap.</em></div></div>
     <div class="phone" style="top:560px" data-in="0.3" data-zoom="1"><div class="notch"></div><div class="screen"><img class="full" data-clip="s6" data-at="0" alt=""></div></div>
   </section>
 
   <!-- 7. Hints and Show me -->
   <section class="scene" id="s7">
     <div class="center" style="top:240px"><div class="pill" data-in="0.05">💡 Help when they need it</div></div>
-    <div class="center" style="top:350px"><div class="cap" data-in="0.15" data-out="3.0">A wrong answer gets<br>a <em>kind, clear hint.</em></div></div>
-    <div class="center" style="top:350px"><div class="cap" data-in="3.15">Stuck? <em style="white-space:nowrap">“Show me 👀”</em><br>walks through it.</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15" data-out="2.85">A wrong answer gets<br>a <em>kind hint.</em></div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="3.0">Still stuck? <em style="white-space:nowrap">“Show me”</em><br>walks them through it.</div></div>
     <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen">
       <img data-clip="s7a" data-at="0" data-until="3.1" alt="">
       <img data-clip="s7b" data-at="3.1" alt="">
     </div></div>
-    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Never just “wrong”.</div></div>
+  </section>
+
+  <!-- 7n. Never just "wrong" -->
+  <section class="scene" id="s7n">
+    <div class="center" style="top:300px"><div class="cap" data-in="0.1" style="font-size:104px; line-height:1.04">Never just<br><em>“wrong”.</em></div></div>
+    <div class="center" style="top:640px"><div class="chip" id="s7nchip" data-in="0.25" style="position:relative; color:#b42318; border-color:#f3c2bd">✗ Wrong.<span id="s7nstrike" style="position:absolute; left:24px; right:24px; top:50%; height:8px; margin-top:-4px; border-radius:4px; background:var(--ink); transform-origin:0 50%; transform:scaleX(0)"></span></div></div>
+    <div class="card" id="s7ncard" style="left:70px; top:820px; width:940px; height:498px" data-in="0.75">
+      <img src="../../assets/activity-clock-hint_phone.png" style="position:absolute; left:0; top:-152px; width:940px" alt="">
+    </div>
+    <div class="center" style="top:1390px"><div class="sub" data-in="1.1">A friendly next step,<br>every single time.</div></div>
   </section>
 
   <!-- 8. Learn screens -->
   <section class="scene" id="s8">
     <div class="center" style="top:240px"><div class="pill" data-in="0.05">📖 Learn, then practise</div></div>
-    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Short Learn screens use<br><em>everyday objects.</em></div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Short lessons with<br><em>everyday objects.</em></div></div>
     <div class="phone" style="top:560px" data-in="0.3" data-zoom="1"><div class="notch"></div><div class="screen"><img class="full" src="../../assets/learn-equal-groups_phone.png" alt=""></div></div>
   </section>
 
@@ -163,7 +176,7 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
     <div class="center" style="top:240px"><div class="pill" data-in="0.05">⭐ Stars to collect</div></div>
     <div class="center" style="top:350px"><div class="cap" data-in="0.15">Up to 3 stars for answers<br><em>right first time.</em></div></div>
     <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s9" data-at="0" alt=""></div></div>
-    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Bolt the robot cheers them on.</div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="1.3">Bolt the robot cheers them on.</div></div>
   </section>
 
   <!-- 10. Parent corner -->
@@ -179,7 +192,7 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
   <!-- 11. Dashboard -->
   <section class="scene" id="s11">
     <div class="center" style="top:240px"><div class="pill" data-in="0.05">📊 Parent dashboard</div></div>
-    <div class="center" style="top:350px"><div class="cap" data-in="0.15">See the <em>slips to work on,</em><br>for each child.</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">A dashboard of<br><em>slips to work on.</em></div></div>
     <div class="tablet wide" style="top:640px" data-in="0.3"><div class="screen"><img id="s11img" src="../../assets/parent-dashboard_desktop.png" alt="" style="width:2732px">
       <div class="ring" id="s11ring"></div></div></div>
     <div class="center" style="top:1420px"><div class="sub" data-in="0.6">Stars, right first time,<br>and repeated mistakes.</div></div>
@@ -192,9 +205,9 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
       <img src="../../assets/whos-playing_phone.png" style="position:absolute; left:0; top:-124px; width:760px" alt="">
     </div>
     <div class="center" style="top:1310px; gap:26px">
-      <div class="chip" data-in="0.7">☁️ Progress syncs across devices</div>
-      <div class="sub" data-in="0.85" style="font-size:40px; margin-top:-8px">with an optional parent account</div>
-      <div class="chip" data-in="1.0">🚫 No ads. No tracking.</div>
+      <div class="chip" data-in="1.2">☁️ Progress syncs across devices</div>
+      <div class="sub" data-in="1.35" style="font-size:40px; margin-top:-8px">with an optional parent account</div>
+      <div class="chip" data-in="2.5">🚫 No ads. No tracking.</div>
     </div>
   </section>
 
@@ -211,7 +224,7 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
   <!-- 14. End card -->
   <section class="scene" id="s14">
     <div class="center" style="top:150px"><div class="bolt" id="s14bolt" data-in="0.0"></div></div>
-    <div class="center" style="top:430px"><div class="cap" data-in="0.1" style="font-size:80px">Try it with your child <em>tonight.</em></div></div>
+    <div class="center" style="top:430px"><div class="cap" data-in="0.1" style="font-size:80px">Try it with your child <em>tonight!</em></div></div>
     <div class="qr" data-in="0.3"><img src="qr.svg" alt="QR code"></div>
     <div class="center" style="top:1250px">
       <div class="sub" data-in="0.45" style="font-size:46px">Scan, or visit</div>
@@ -221,6 +234,7 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
     <div class="center" style="top:1560px">
       <div class="sub" data-in="0.7" style="font-size:36px; font-weight:600; max-width:940px; line-height:1.3">Follows the Cambridge Primary Mathematics Stage 3 curriculum. Not affiliated with or endorsed by Cambridge.</div>
     </div>
+    <div class="center" style="top:1748px"><div class="credit" data-in="1.6">Made by Ahmedullah’s Dad (Grade&nbsp;III‑D)</div></div>
   </section>
 
   <!-- Poster (not part of the timeline) -->
@@ -231,8 +245,9 @@ body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink);
       <div class="sub" style="margin-top:30px; color:var(--ink)">Hands-on maths for <b>Grade&nbsp;3</b></div>
     </div>
     <div class="tablet" style="top:840px"><div class="screen"><img src="../../assets/activity-place-value-correct_desktop.png" style="width:1328px; left:-28px" alt=""></div></div>
-    <div class="center" style="top:1780px; flex-direction:row; justify-content:center; gap:16px">
+    <div class="center" style="top:1752px; gap:14px">
       <div class="sub" style="font-size:44px; color:var(--ink)">syedanwaarullah.com/maths3g</div>
+      <div class="credit" style="font-size:32px; padding:10px 26px">Made by Ahmedullah’s Dad (Grade&nbsp;III‑D)</div>
     </div>
   </section>
 
@@ -265,12 +280,14 @@ document.getElementById('pbolt').innerHTML = bolt('cheer', 230);
 document.getElementById('footbolt').innerHTML = bolt('happy', 44);
 
 /* ---------------- timeline ---------------- */
+// Boundaries = ../vo/plan.json. The voice line for plan slot "s8" is "Never just wrong!" (scene s7n here), so the
+// visual scenes s8..s12 sit in plan slots s9..s13, and plan slot s14 holds both s13 (15 minutes) and s14 (end card).
 const SCENES = [
-  ['s1', 0.0, 4.0], ['s2', 4.0, 8.4], ['s3', 8.4, 13.5], ['s4', 13.5, 18.4], ['s5', 18.4, 22.6],
-  ['s6', 22.6, 27.0], ['s7', 27.0, 34.0], ['s8', 34.0, 37.4], ['s9', 37.4, 41.6], ['s10', 41.6, 45.6],
-  ['s11', 45.6, 49.1], ['s12', 49.1, 52.7], ['s13', 52.7, 56.6], ['s14', 56.6, 61.8],
+  ['s1', 0.0, 5.36], ['s2', 5.36, 10.93], ['s3', 10.93, 16.03], ['s4', 16.03, 20.93], ['s5', 20.93, 25.13],
+  ['s6', 25.13, 29.53], ['s7', 29.53, 36.53], ['s7n', 36.53, 39.93], ['s8', 39.93, 44.13], ['s9', 44.13, 48.13],
+  ['s10', 48.13, 52.29], ['s11', 52.29, 55.89], ['s12', 55.89, 60.83], ['s13', 60.83, 64.3], ['s14', 64.3, 70.31],
 ];
-const DURATION = 61.8, FPS = 30;
+const DURATION = 70.31, FPS = 30;
 const FADE_IN = 0.45, FADE_OUT = 0.35;
 window.CLIPS = window.CLIPS || {};          // { s3: {dir: 'file:///…/s3/', n: 166}, … } set by build.js
 window.TIMELINE = { DURATION, FPS, SCENES };
@@ -332,9 +349,16 @@ function custom(id, u, dur) {
   }
   if (id === 's2') {
     const sh = document.getElementById('s2sheet');
-    const grey = sine((u - 0.8) / 1.2);
+    const grey = sine((u - 0.8) / 2.0);
     sh.style.transform += ` rotate(${(-3 + 1.5 * Math.sin(u * 0.8)).toFixed(2)}deg)`;
     sh.style.filter = `saturate(${1 - 0.6 * grey})`;
+  }
+  if (id === 's7n') {
+    // cross out the bare "Wrong.", then the real hint card arrives
+    const k = ease((u - 0.75) / 0.4);
+    document.getElementById('s7nstrike').style.transform = `scaleX(${k.toFixed(3)})`;
+    const chip = document.getElementById('s7nchip');
+    chip.style.opacity = (parseFloat(chip.style.opacity) * (1 - 0.55 * k)).toFixed(3);
   }
   if (id === 's10') {
     // slowly scroll the Parent corner panel (640 x 1726) inside its 840px card
@@ -383,7 +407,8 @@ window.renderAt = async function (t) {
   });
   // persistent web address on the activity scenes
   const f = document.getElementById('footer');
-  const fa = ease((t - 8.6) / 0.5) * (1 - ease((t - 56.3) / 0.4));
+  const span = id => SCENES.find(s => s[0] === id);
+  const fa = ease((t - span('s3')[1] - 0.2) / 0.5) * (1 - ease((t - span('s13')[2] + 0.3) / 0.4));
   f.style.opacity = (fa * 0.9).toFixed(3);
   await Promise.all(pending);
   await document.fonts.ready;

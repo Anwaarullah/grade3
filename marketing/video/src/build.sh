@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Rebuild the Interactive Maths promo video (1080x1920, 30 fps, about 62 s).
+# Rebuild the Interactive Maths promo video (1080x1920, 30 fps, about 70 s, with voice-over).
 #
 #   cd marketing/video/src && ./build.sh            # full build -> ../interactive-maths.mp4 and ../poster.png
 #   ./build.sh --stills 2,10,30                      # just render a few stills to $WORK/stills for checking
 #
 # Needs: ffmpeg, node + Playwright (chromium), python3 + numpy (for the music; set SILENT=1 to skip).
 # Sources: scenes.html (all scenes, a pure function of time), build.js (frame renderer),
-#          music.py (synthesised backing track), qr.svg (from make-qr.py), fonts/ (Nunito, OFL).
+#          music.py (synthesised backing track), mix.py (voice-over from ../vo + ducked music), qr.svg (from make-qr.py), fonts/ (Nunito, OFL).
 # Screenshots and clips are read from ../../assets (captured from the real site).
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -50,12 +50,20 @@ node "$HERE/build.js" --work "$WORK" --workers "$WORKERS"
 node "$HERE/build.js" --work "$WORK" --poster "$OUT/poster.png"
 DUR=$(node -e "const n=require('fs').readdirSync('$WORK/frames').length; console.log((n/30).toFixed(3))")
 
-# ---- 3. music -----------------------------------------------------------------------------
+# ---- 3. voice-over + music ------------------------------------------------------------------
+# Voice cues from ../vo/plan.json (synthetic voice), music ducked ~20 dB under the voice (mix.py),
+# then two-pass loudnorm to about -16 LUFS integrated, -1 dBTP.
 AUDIO_IN=(); AUDIO_OPT=(-an)
 if [ "${SILENT:-0}" != "1" ]; then
   python3 "$HERE/music.py" "$WORK/music.wav" "$DUR"
-  AUDIO_IN=(-i "$WORK/music.wav")
-  AUDIO_OPT=(-map 0:v -map 1:a -af "volume=-2.5dB" -c:a aac -b:a 128k -ar 48000 -shortest)
+  python3 "$HERE/mix.py" "$HERE/../vo/plan.json" "$WORK/music.wav" "$WORK/mix.wav" "$DUR"
+  LN="I=-16:TP=-1.0:LRA=11"
+  M=$(ffmpeg -hide_banner -nostats -i "$WORK/mix.wav" -af "loudnorm=$LN:print_format=json" -f null - 2>&1 | sed -n '/^{/,/^}/p')
+  j() { echo "$M" | python3 -c "import json,sys; print(json.load(sys.stdin)['$1'])"; }
+  ffmpeg -v error -y -i "$WORK/mix.wav" -af "loudnorm=$LN:measured_I=$(j input_i):measured_TP=$(j input_tp):measured_LRA=$(j input_lra):measured_thresh=$(j input_thresh):offset=$(j target_offset):linear=true,aresample=48000" \
+    -c:a pcm_s16le "$WORK/audio.wav"
+  AUDIO_IN=(-i "$WORK/audio.wav")
+  AUDIO_OPT=(-map 0:v -map 1:a -c:a aac -b:a 160k -ar 48000 -shortest)
 fi
 
 # ---- 4. encode ----------------------------------------------------------------------------

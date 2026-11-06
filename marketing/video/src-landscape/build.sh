@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Rebuild the LANDSCAPE Interactive Maths promo (1920x1080, 30 fps, about 70 s, with voice-over) for YouTube/laptops/projectors.
+# Same timeline, voice-over (../vo) and music as the vertical cut in ../src; only the layout in scenes.html differs.
+#
+#   cd marketing/video/src-landscape && ./build.sh            # full build -> ../interactive-maths-landscape.mp4 and ../poster-landscape.png
+#   ./build.sh --stills 2,10,30                      # just render a few stills to $WORK/stills for checking
+#
+# Needs: ffmpeg, node + Playwright (chromium), python3 + numpy (for the music; set SILENT=1 to skip).
+# Sources: scenes.html (all scenes, a pure function of time), build.js (frame renderer),
+#          music.py (synthesised backing track), mix.py (voice-over from ../vo + ducked music), qr.svg (from make-qr.py), fonts/ (Nunito, OFL).
+# Screenshots and clips are read from ../../assets (captured from the real site).
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ASSETS="$HERE/../../assets/clips"
+OUT="$HERE/.."
+WORK="${WORK:-/tmp/im-video-landscape}"
+WORKERS="${WORKERS:-4}"
+export NODE_PATH="${NODE_PATH:-$(npm root -g)}"
+mkdir -p "$WORK/clips"
+
+# ---- 1. cut, crop and speed up the screen recordings into numbered frames -------------
+# name | source clip | start s | end s | speed | crop (desktop clips: drop the Parent-corner side panel)
+DESK="crop=1360:1200:40:0"
+seg() {
+  local name=$1 src=$2 ss=$3 to=$4 speed=$5 vf=$6
+  local d="$WORK/clips/$name"
+  if [ -f "$d/.ok" ] && [ "$(cat "$d/.ok")" = "$*" ]; then return; fi
+  rm -rf "$d"; mkdir -p "$d"
+  local dur; dur=$(python3 -c "print($to-$ss)")
+  ffmpeg -v error -y -ss "$ss" -t "$dur" -i "$ASSETS/$src" \
+    -vf "${vf:+$vf,}setpts=(PTS-STARTPTS)/$speed,fps=30" -q:v 2 "$d/%04d.jpg"
+  echo "$*" > "$d/.ok"
+  echo "clip $name: $(ls "$d" | grep -c jpg) frames"
+}
+seg s3  clip-01-build-a-number.mp4          4.0  20.6 3.2  "$DESK"
+seg s4  clip-02-sort-3d-shapes.mp4          1.0  15.8 3.0  "$DESK"
+seg s5  clip-04-build-a-rectangle.mp4       1.5  8.5  1.75 "$DESK"
+seg s6  clip-06-phone-colour-a-fraction.mp4 1.0  9.0  1.85 ""
+seg s7a clip-03-clock-hint-and-show-me.mp4  4.6  8.6  1.3  "$DESK"
+seg s7b clip-03-clock-hint-and-show-me.mp4  18.6 27.5 2.3  "$DESK"
+seg s9  clip-05-finish-three-stars.mp4      3.0  11.5 2.0  "$DESK"
+
+if [ "${1:-}" = "--stills" ]; then
+  node "$HERE/build.js" --work "$WORK" --stills "$2"
+  exit 0
+fi
+
+# ---- 2. render every frame of the HTML timeline -----------------------------------------
+rm -rf "$WORK/frames"
+node "$HERE/build.js" --work "$WORK" --workers "$WORKERS"
+node "$HERE/build.js" --work "$WORK" --poster "$OUT/poster-landscape.png"
+DUR=$(node -e "const n=require('fs').readdirSync('$WORK/frames').length; console.log((n/30).toFixed(3))")
+
+# ---- 3. voice-over + music ------------------------------------------------------------------
+# Voice cues from ../vo/plan.json (synthetic voice), music ducked ~20 dB under the voice (mix.py),
+# then two-pass loudnorm to about -16 LUFS integrated, -1 dBTP.
+AUDIO_IN=(); AUDIO_OPT=(-an)
+if [ "${SILENT:-0}" != "1" ]; then
+  python3 "$HERE/music.py" "$WORK/music.wav" "$DUR"
+  python3 "$HERE/mix.py" "$HERE/../vo/plan.json" "$WORK/music.wav" "$WORK/mix.wav" "$DUR"
+  LN="I=-16:TP=-1.0:LRA=11"
+  M=$(ffmpeg -hide_banner -nostats -i "$WORK/mix.wav" -af "loudnorm=$LN:print_format=json" -f null - 2>&1 | sed -n '/^{/,/^}/p')
+  j() { echo "$M" | python3 -c "import json,sys; print(json.load(sys.stdin)['$1'])"; }
+  ffmpeg -v error -y -i "$WORK/mix.wav" -af "loudnorm=$LN:measured_I=$(j input_i):measured_TP=$(j input_tp):measured_LRA=$(j input_lra):measured_thresh=$(j input_thresh):offset=$(j target_offset):linear=true,aresample=48000" \
+    -c:a pcm_s16le "$WORK/audio.wav"
+  AUDIO_IN=(-i "$WORK/audio.wav")
+  AUDIO_OPT=(-map 0:v -map 1:a -c:a aac -b:a 160k -ar 48000 -shortest)
+fi
+
+# ---- 4. encode ----------------------------------------------------------------------------
+ffmpeg -v error -y -framerate 30 -i "$WORK/frames/%06d.jpg" "${AUDIO_IN[@]}" \
+  -c:v libx264 -preset slow -crf 20 -maxrate 6M -bufsize 12M -profile:v high -level 4.1 -pix_fmt yuv420p \
+  -r 30 "${AUDIO_OPT[@]}" -movflags +faststart \
+  -metadata title="Interactive Maths: hands-on maths for Grade 3" "$OUT/interactive-maths-landscape.mp4"
+ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate,pix_fmt -of compact "$OUT/interactive-maths-landscape.mp4"

@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Interactive Maths promo (1920x1080)</title>
+<!--
+  Landscape (16:9) cut of the parent promo, for YouTube, laptops and projectors.
+  Same timeline, voice-over and music as the vertical version (../src); every scene is re-laid out:
+  captions in a left column, the device with the screen recording on the right.
+  The whole film is a pure function of time: window.renderAt(t) draws the frame at t seconds,
+  build.js screenshots every frame. Open with #play to preview in real time (clip frames must exist).
+-->
+<style>
+@font-face { font-family: 'Nunito'; src: url(fonts/Nunito-latin-var.woff2) format('woff2'); font-weight: 200 1000; font-style: normal; }
+:root {
+  --ink: #1b2a4a; --ink-soft: #46557a; --teal: #2ec4b6; --teal-deep: #0b7a70; --gold: #ffb703;
+  --orange: #c2410c; --paper: #f7f9ff; --line: #c9d3ee; --bezel: #1f2433;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f3f6fc; }
+body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage { position: absolute; inset: 0; overflow: hidden; }
+
+/* background: soft paper with slow drifting colour blobs */
+#bg { position: absolute; inset: 0; background: linear-gradient(115deg, #eaf4ff 0%, #f6f8ff 50%, #fff6e6 100%); }
+.blob { position: absolute; width: 1000px; height: 1000px; border-radius: 50%; will-change: transform; }
+#b1 { background: radial-gradient(circle, rgba(46,196,182,.22) 0%, rgba(46,196,182,0) 65%); left: -380px; top: -420px; }
+#b2 { background: radial-gradient(circle, rgba(255,183,3,.22) 0%, rgba(255,183,3,0) 65%); right: -380px; top: 280px; }
+#b3 { background: radial-gradient(circle, rgba(124,140,255,.16) 0%, rgba(124,140,255,0) 65%); left: 300px; bottom: -620px; }
+
+.scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; }
+.center { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* left caption column, vertically centred between the top margin and the footer */
+.col { position: absolute; left: 110px; width: 660px; top: 90px; bottom: 140px; display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start; text-align: left; gap: 30px; }
+.swap { display: grid; }
+.swap > * { grid-area: 1 / 1; }
+
+.pill { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: #fff; font-weight: 800;
+  font-size: 34px; line-height: 1; padding: 16px 30px; border-radius: 999px; box-shadow: 0 8px 24px rgba(27,42,74,.18); }
+.cap { font-weight: 900; font-size: 74px; line-height: 1.08; letter-spacing: -0.5px; }
+.cap em { font-style: normal; color: var(--teal-deep); }
+.sub { font-weight: 700; font-size: 42px; line-height: 1.25; color: var(--ink-soft); }
+.sub b { color: var(--ink); font-weight: 900; }
+
+/* devices */
+.tablet { position: absolute; left: 824px; top: 88px; padding: 28px; border-radius: 50px; background: var(--bezel);
+  box-shadow: 0 40px 80px rgba(27,42,74,.28), inset 0 0 0 3px #343b4f; }
+.tablet .screen { position: relative; width: 960px; height: 847px; border-radius: 16px; overflow: hidden; background: #f3f5fa; }
+.tablet.wide { left: 814px; top: 189px; }
+.tablet.wide .screen { width: 980px; height: 646px; }
+.tablet.small { left: 790px; top: 220px; padding: 24px; border-radius: 44px; }
+.tablet.small .screen { width: 700px; height: 618px; }
+.phone { position: absolute; padding: 18px; border-radius: 64px; background: var(--bezel);
+  box-shadow: 0 40px 80px rgba(27,42,74,.28), inset 0 0 0 3px #343b4f; }
+.phone .screen { position: relative; width: 400px; height: 866px; border-radius: 48px; overflow: hidden; background: #f3f5fa; }
+.phone.mini { padding: 14px; border-radius: 52px; }
+.phone.mini .screen { width: 300px; height: 649px; border-radius: 38px; }
+.phone .notch { position: absolute; top: 28px; left: 50%; width: 100px; height: 26px; margin-left: -50px; border-radius: 18px; background: var(--bezel); z-index: 3; }
+.phone.mini .notch { top: 22px; width: 76px; height: 20px; margin-left: -38px; }
+.laptop { position: absolute; padding: 18px 18px 22px; border-radius: 26px 26px 10px 10px; background: var(--bezel);
+  box-shadow: 0 40px 80px rgba(27,42,74,.26), inset 0 0 0 3px #343b4f; }
+.laptop .screen { position: relative; border-radius: 8px; overflow: hidden; background: #f3f5fa; }
+.laptop .base { position: absolute; left: -70px; right: -70px; bottom: -28px; height: 28px; border-radius: 4px 4px 26px 26px;
+  background: linear-gradient(180deg, #d9dfec 0%, #aab4ca 100%); box-shadow: 0 18px 30px rgba(27,42,74,.18); }
+.laptop .base::before { content: ''; position: absolute; left: 50%; top: 0; width: 180px; height: 10px; margin-left: -90px;
+  border-radius: 0 0 10px 10px; background: #96a1b9; }
+.screen img { position: absolute; left: 0; top: 0; width: 100%; display: block; transform-origin: 0 0; }
+.screen img.full { height: 100%; object-fit: cover; object-position: top; }
+/* desktop screenshots (2732 x 1800) shown like the recordings: main area only, Parent-corner side panel cropped off */
+.tablet .screen img.crop { width: 1410px; left: -21px; }
+.tablet.small .screen img.crop { width: 1028px; left: -15px; }
+.kb { position: absolute; inset: 0; transform-origin: 0 0; }
+
+.card { position: absolute; background: #fff; border-radius: 36px; box-shadow: 0 40px 80px rgba(27,42,74,.20); overflow: hidden; }
+.chip { display: inline-flex; white-space: nowrap; align-items: center; gap: 16px; background: #fff; border: 3px solid var(--line); border-radius: 26px;
+  padding: 18px 30px; font-size: 42px; font-weight: 800; line-height: 1.1; box-shadow: 0 10px 26px rgba(27,42,74,.10); }
+.tile { width: 520px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; background: #fff; border-radius: 30px;
+  padding: 34px 38px 38px; font-weight: 800; line-height: 1.15; text-align: left; box-shadow: 0 14px 34px rgba(27,42,74,.12);
+  border-top: 14px solid var(--teal); min-height: 330px; font-size: 48px; }
+.tile .ic { font-size: 64px; line-height: 1; }
+
+#footer { position: absolute; left: 110px; top: 966px; display: flex; align-items: center; gap: 14px;
+  font-size: 34px; font-weight: 800; color: var(--ink-soft); opacity: 0; }
+#footer svg { width: 38px; height: 48px; }
+
+/* scene 2 worksheet */
+.sheet { position: absolute; left: 1120px; top: 150px; width: 620px; height: 740px; background: #fff; border-radius: 26px; padding: 56px 60px;
+  box-shadow: 0 30px 60px rgba(27,42,74,.16); transform-origin: 50% 50%; }
+.sheet .row { font-size: 58px; font-weight: 700; color: #8b96b3; line-height: 1; margin-bottom: 50px; letter-spacing: 2px; }
+.sheet .row span { display: inline-block; width: 130px; border-bottom: 6px solid #d5dcef; margin-left: 16px; }
+.sheet .yawn { position: absolute; right: -50px; top: -64px; font-size: 140px; }
+
+.qr { position: absolute; left: 1322px; top: 250px; width: 480px; height: 480px; padding: 38px; background: #fff; border-radius: 40px;
+  box-shadow: 0 30px 70px rgba(27,42,74,.20); }
+.qr img { width: 404px; height: 404px; display: block; image-rendering: pixelated; }
+.ring { position: absolute; border: 7px solid var(--orange); border-radius: 22px; pointer-events: none; opacity: 0; }
+.bolt svg { display: block; }
+.credit { display: inline-flex; align-items: center; font-size: 36px; font-weight: 800; line-height: 1.1; color: var(--ink-soft);
+  background: rgba(255,255,255,.75); border: 3px solid var(--line); border-radius: 999px; padding: 14px 32px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div class="blob" id="b1"></div><div class="blob" id="b2"></div><div class="blob" id="b3"></div></div>
+
+  <!-- 1. Title -->
+  <section class="scene" id="s1">
+    <div class="bolt" id="s1bolt" data-in="-1" style="position:absolute; left:250px; top:250px"></div>
+    <div class="col" style="left:820px; width:1000px; gap:26px">
+      <div class="pill" data-in="-1">👋 Hi parents!</div>
+      <div class="cap" data-in="-1" style="font-size:150px; line-height:0.98">Interactive<br><em>Maths</em></div>
+      <div class="sub" data-in="-1" style="font-size:58px; color:var(--ink); margin-top:10px">Hands-on maths for <b>Grade&nbsp;3</b></div>
+      <div class="sub" data-in="-1" style="font-size:40px">Cambridge Primary Stage 3 curriculum</div>
+    </div>
+  </section>
+
+  <!-- 2. The problem -->
+  <section class="scene" id="s2">
+    <div class="col" style="width:820px; justify-content:space-between; top:150px; bottom:170px">
+      <div class="cap" data-in="0.1" style="font-size:84px">Maths practice at home can feel like a&nbsp;chore.</div>
+      <div class="cap" data-in="3.2" style="font-size:84px; color:var(--teal-deep)">So let’s make it hands-on!</div>
+    </div>
+    <div class="sheet" id="s2sheet" data-in="0.35">
+      <div class="yawn">🥱</div>
+      <div class="row">47 + 25 =<span></span></div>
+      <div class="row">83 − 38 =<span></span></div>
+      <div class="row">6 × 4 =<span></span></div>
+      <div class="row">36 ÷ 4 =<span></span></div>
+      <div class="row">¼ of 20 =<span></span></div>
+      <div class="row">9 × 3 =<span></span></div>
+    </div>
+  </section>
+
+  <!-- 3. Build a number -->
+  <section class="scene" id="s3">
+    <div class="col">
+      <div class="pill" data-in="0.05">✋ Drag and build</div>
+      <div class="cap" data-in="0.15">Build a number,<br><em>block by block.</em></div>
+      <div class="sub" data-in="0.6">Hundreds, tens and ones<br>they can move.</div>
+    </div>
+    <div class="tablet" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s3" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 4. Shape sorter -->
+  <section class="scene" id="s4">
+    <div class="col">
+      <div class="pill" data-in="0.05">✋ Sort it out</div>
+      <div class="cap" data-in="0.15">Sort real 3D shapes<br><em>by dragging.</em></div>
+      <div class="sub" data-in="0.6">Things from home,<br>not just drawings.</div>
+    </div>
+    <div class="tablet" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s4" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 5. Rectangle builder -->
+  <section class="scene" id="s5">
+    <div class="col">
+      <div class="pill" data-in="0.05">✋ Build it</div>
+      <div class="cap" data-in="0.15">Times tables<br><em>you can build.</em></div>
+      <div class="sub" data-in="0.6"><b>3 rows of 4</b> is 3 × 4 = 12</div>
+    </div>
+    <div class="tablet" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s5" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 6. Phone: colour a fraction (laptop behind: same activity on a big screen) -->
+  <section class="scene" id="s6">
+    <div class="col" style="width:640px">
+      <div class="pill" data-in="0.05">📱 Laptop, tablet or phone</div>
+      <div class="cap" data-in="0.15">Colour in fractions,<br><em>tap by tap.</em></div>
+    </div>
+    <div class="laptop" style="left:800px; top:250px" data-in="0.3"><div class="screen" style="width:720px; height:474px">
+      <img src="../../assets/activity-fraction-colouring_desktop.png" alt=""></div><div class="base"></div></div>
+    <div class="phone" style="left:1424px; top:89px" data-in="0.45" data-zoom="1"><div class="notch"></div><div class="screen"><img class="full" data-clip="s6" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 7. Hints and Show me -->
+  <section class="scene" id="s7">
+    <div class="col">
+      <div class="pill" data-in="0.05">💡 Help when they need it</div>
+      <div class="swap">
+        <div class="cap" data-in="0.15" data-out="2.85">A wrong answer gets<br>a <em>kind hint.</em></div>
+        <div class="cap" data-in="3.0">Still stuck? <em style="white-space:nowrap">“Show me”</em><br>walks them through it.</div>
+      </div>
+    </div>
+    <div class="tablet" data-in="0.3" data-zoom="1"><div class="screen">
+      <img data-clip="s7a" data-at="0" data-until="3.1" alt="">
+      <img data-clip="s7b" data-at="3.1" alt="">
+    </div></div>
+  </section>
+
+  <!-- 7n. Never just "wrong" -->
+  <section class="scene" id="s7n">
+    <div class="col" style="gap:40px">
+      <div class="cap" data-in="0.1" style="font-size:100px; line-height:1.02">Never just<br><em>“wrong”.</em></div>
+      <div class="chip" id="s7nchip" data-in="0.25" style="position:relative; color:#b42318; border-color:#f3c2bd">✗ Wrong.<span id="s7nstrike" style="position:absolute; left:22px; right:22px; top:50%; height:7px; margin-top:-3px; border-radius:4px; background:var(--ink); transform-origin:0 50%; transform:scaleX(0)"></span></div>
+      <div class="sub" data-in="1.1">A friendly next step,<br>every single time.</div>
+    </div>
+    <div class="tablet" data-in="0.45"><div class="screen"><div class="kb" id="s7nkb">
+      <img class="crop" src="../../assets/activity-clock-hint_desktop.png" alt="">
+      <div class="ring" id="s7nring"></div>
+    </div></div></div>
+  </section>
+
+  <!-- 8. Learn screens -->
+  <section class="scene" id="s8">
+    <div class="col">
+      <div class="pill" data-in="0.05">📖 Learn, then practise</div>
+      <div class="cap" data-in="0.15">Short lessons with<br><em>everyday objects.</em></div>
+    </div>
+    <div class="tablet" data-in="0.3"><div class="screen"><div class="kb" id="s8kb">
+      <img class="crop" src="../../assets/learn-equal-groups_desktop.png" alt=""></div></div></div>
+  </section>
+
+  <!-- 9. Stars -->
+  <section class="scene" id="s9">
+    <div class="col">
+      <div class="pill" data-in="0.05">⭐ Stars to collect</div>
+      <div class="cap" data-in="0.15">Up to 3 stars for answers <em>right first time.</em></div>
+      <div class="sub" data-in="1.3">Bolt the robot cheers them on.</div>
+    </div>
+    <div class="tablet" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s9" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 10. Parent corner: the activity, and its Parent corner panel scrolling beside it -->
+  <section class="scene" id="s10">
+    <div class="col" style="width:640px">
+      <div class="pill" data-in="0.05">👪 For parents</div>
+      <div class="cap" data-in="0.15">A <em>Parent corner</em><br>in every activity.</div>
+      <div class="sub" data-in="0.6">What to say, what to watch for, and a task away from the screen.</div>
+    </div>
+    <div class="tablet small" data-in="0.3"><div class="screen">
+      <img class="crop" src="../../assets/activity-place-value-building_desktop.png" alt=""></div></div>
+    <div class="card" id="s10card" style="left:1376px; top:100px; width:480px; height:860px; background:#fff8ea" data-in="0.5">
+      <img id="s10img" src="../../assets/parent-tips-panel_desktop.png" style="position:absolute; left:0; top:0; width:480px" alt="">
+    </div>
+  </section>
+
+  <!-- 11. Dashboard -->
+  <section class="scene" id="s11">
+    <div class="col">
+      <div class="pill" data-in="0.05">📊 Parent dashboard</div>
+      <div class="cap" data-in="0.15">A dashboard of<br><em>slips to work on.</em></div>
+      <div class="sub" data-in="0.6">Stars, right first time,<br>and repeated mistakes.</div>
+    </div>
+    <div class="tablet wide" data-in="0.3"><div class="screen"><img id="s11img" src="../../assets/parent-dashboard_desktop.png" alt="" style="width:2732px">
+      <div class="ring" id="s11ring"></div></div></div>
+  </section>
+
+  <!-- 12. Profiles, sync, no ads -->
+  <section class="scene" id="s12">
+    <div class="col" style="gap:24px">
+      <div class="cap" data-in="0.1" style="margin-bottom:16px">A profile for<br><em>each child.</em></div>
+      <div class="chip" data-in="1.2" style="font-size:38px">☁️ Progress syncs across devices</div>
+      <div class="sub" data-in="1.35" style="font-size:34px; margin:-4px 0 14px 8px">with an optional parent account</div>
+      <div class="chip" data-in="2.5" style="font-size:38px">🚫 No ads. No tracking.</div>
+    </div>
+    <div class="laptop" style="left:800px; top:236px" data-in="0.3"><div class="screen" style="width:860px; height:567px">
+      <img src="../../assets/whos-playing_desktop.png" style="width:1230px; left:-47px; top:-20px" alt=""></div><div class="base"></div></div>
+    <div class="phone mini" style="left:1530px; top:160px" data-in="0.55" data-zoom="1"><div class="notch"></div><div class="screen">
+      <img class="full" src="../../assets/whos-playing_phone.png" alt=""></div></div>
+  </section>
+
+  <!-- 13. Facts -->
+  <section class="scene" id="s13">
+    <div class="center" style="top:200px"><div class="cap" data-in="0.05" style="font-size:116px">Just <em>15 minutes</em> a day.</div></div>
+    <div class="center" style="top:480px; flex-direction:row; justify-content:center; gap:40px; align-items:stretch">
+      <div class="tile" data-in="0.3"><span class="ic">📚</span><span>17 units,<br>105 activities</span></div>
+      <div class="tile" data-in="0.5" style="border-top-color:var(--gold)"><span class="ic">📖</span><span>Same order as Learner’s Book 3</span></div>
+      <div class="tile" data-in="0.7" style="border-top-color:#7c8cff"><span class="ic">📝</span><span>Matching textbook and workbook pages</span></div>
+    </div>
+  </section>
+
+  <!-- 14. End card: call to action + address on the left, QR on the right, credit underneath -->
+  <section class="scene" id="s14">
+    <div class="col" style="width:1120px; top:70px; bottom:170px; gap:16px">
+      <div class="bolt" id="s14bolt" data-in="0.0" style="margin-bottom:6px"></div>
+      <div class="cap" data-in="0.1" style="font-size:80px">Try it with your child <em>tonight!</em></div>
+      <div class="sub" data-in="0.45" style="font-size:40px; margin-top:18px">Scan, or visit</div>
+      <div class="cap" data-in="0.5" style="font-size:66px">syedanwaarullah.com/maths3g</div>
+      <div class="sub" data-in="0.55" style="font-size:32px">https://syedanwaarullah.com/maths3g/</div>
+      <div class="credit" data-in="1.6" style="margin-top:34px; white-space:nowrap">Made by Ahmedullah’s Dad (Grade&nbsp;III‑D)</div>
+    </div>
+    <div class="qr" data-in="0.3"><img src="qr.svg" alt="QR code"></div>
+    <div class="center" style="top:930px">
+      <div class="sub" data-in="0.7" style="font-size:28px; font-weight:600; line-height:1.3">Follows the Cambridge Primary Mathematics Stage 3 curriculum. Not affiliated with or endorsed by Cambridge.</div>
+    </div>
+  </section>
+
+  <!-- Poster / thumbnail (not part of the timeline) -->
+  <section class="scene" id="poster">
+    <div class="col" style="width:720px; top:60px; bottom:60px; gap:22px">
+      <div class="bolt" id="pbolt"></div>
+      <div class="cap" style="font-size:118px; line-height:0.98">Interactive<br><em>Maths</em></div>
+      <div class="sub" style="font-size:52px; color:var(--ink)">Hands-on maths for <b>Grade&nbsp;3</b></div>
+      <div class="sub" style="font-size:38px; color:var(--ink); margin-top:14px">syedanwaarullah.com/maths3g</div>
+      <div class="credit" style="font-size:30px; padding:10px 26px; margin-top:6px">Made by Ahmedullah’s Dad (Grade&nbsp;III‑D)</div>
+    </div>
+    <div class="tablet"><div class="screen"><img class="crop" src="../../assets/activity-place-value-correct_desktop.png" alt=""></div></div>
+  </section>
+
+  <div id="footer"><span id="footbolt"></span>syedanwaarullah.com/maths3g</div>
+</div>
+
+<script>
+/* ---------------- Bolt (same drawing as the site's MQ.robot) ---------------- */
+function bolt(mood, w) {
+  const mouth = mood === 'cheer' ? '<path d="M37 66 q13 16 26 0 z" fill="#1b2a4a"/>'
+    : '<path d="M39 67 q11 10 22 0" fill="none" stroke="#1b2a4a" stroke-width="4" stroke-linecap="round"/>';
+  const er = mood === 'cheer' ? 5 : 6.5;
+  const arms = mood === 'cheer'
+    ? '<path class="armL" d="M18 92 L6 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/><path class="armR" d="M82 92 L94 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>'
+    : '<path d="M18 92 L8 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/><path d="M82 92 L92 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>';
+  return `<svg viewBox="0 -2 100 127" width="${w}" height="${w * 1.27}" aria-hidden="true">
+    <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+    <circle class="bulb" cx="50" cy="6" r="6" fill="#ffb703"/>
+    <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+    <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+    <circle cx="38" cy="50" r="${er}" fill="#1b2a4a"/><circle cx="62" cy="50" r="${er}" fill="#1b2a4a"/>
+    <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+    ${mouth}
+    <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+    <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>${arms}</svg>`;
+}
+document.getElementById('s1bolt').innerHTML = bolt('cheer', 440);
+document.getElementById('s14bolt').innerHTML = bolt('cheer', 130);
+document.getElementById('pbolt').innerHTML = bolt('cheer', 170);
+document.getElementById('footbolt').innerHTML = bolt('happy', 38);
+
+/* ---------------- timeline ---------------- */
+// Boundaries = ../vo/plan.json (same as the vertical cut). The voice line for plan slot "s8" is "Never just wrong!"
+// (scene s7n here), so the visual scenes s8..s12 sit in plan slots s9..s13, and plan slot s14 holds both
+// s13 (15 minutes) and s14 (end card); mix.py moves "Try it tonight! ..." onto the end card.
+const SCENES = [
+  ['s1', 0.0, 5.36], ['s2', 5.36, 10.93], ['s3', 10.93, 16.03], ['s4', 16.03, 20.93], ['s5', 20.93, 25.13],
+  ['s6', 25.13, 29.53], ['s7', 29.53, 36.53], ['s7n', 36.53, 39.93], ['s8', 39.93, 44.13], ['s9', 44.13, 48.13],
+  ['s10', 48.13, 52.29], ['s11', 52.29, 55.89], ['s12', 55.89, 60.83], ['s13', 60.83, 64.3], ['s14', 64.3, 70.31],
+];
+const DURATION = 70.31, FPS = 30;
+const FADE_IN = 0.45, FADE_OUT = 0.35;
+window.CLIPS = window.CLIPS || {};          // { s3: {dir: 'file:///…/s3/', n: 166}, … } set by build.js
+window.TIMELINE = { DURATION, FPS, SCENES };
+const span = id => SCENES.find(s => s[0] === id);
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const sine = x => { x = clamp(x); return 0.5 - 0.5 * Math.cos(Math.PI * x); };
+const lerp = (a, b, k) => a + (b - a) * k;
+
+const pending = [];
+function setSrc(img, src) {
+  if (img.getAttribute('src') === src) return;
+  img.setAttribute('src', src);
+  pending.push(img.decode().catch(() => {}));
+}
+
+function sceneAlpha(t, a, b, i) {
+  const fin = i === 0 ? 1 : ease((t - a) / FADE_IN);
+  const fout = i === SCENES.length - 1 ? 1 : 1 - ease((t - (b - FADE_OUT)) / FADE_OUT);
+  return Math.min(fin, fout);
+}
+
+function renderScene(el, u, dur) {
+  // entrances / exits of tagged children
+  el.querySelectorAll('[data-in]').forEach(c => {
+    const d = parseFloat(c.dataset.in);
+    let k = ease((u - d) / 0.6);
+    let y = (1 - k) * 40;
+    if (c.dataset.out) { const o = ease((u - parseFloat(c.dataset.out)) / 0.35); k *= 1 - o; y -= o * 26; }
+    let s = '';
+    if (c.dataset.zoom) s = ` scale(${1 + 0.03 * sine(u / dur)})`;
+    c.style.opacity = k.toFixed(3);
+    c.style.transform = `translateY(${y.toFixed(2)}px)${s}`;
+  });
+  // recorded clips (pre-extracted frames)
+  el.querySelectorAll('img[data-clip]').forEach(img => {
+    const c = window.CLIPS[img.dataset.clip];
+    const at = parseFloat(img.dataset.at || 0);
+    const until = img.dataset.until ? parseFloat(img.dataset.until) : Infinity;
+    if (!c) return;
+    const idx = clamp(Math.floor((u - at) * FPS + 1e-6), 0, c.n - 1) + 1;
+    setSrc(img, c.dir + String(idx).padStart(4, '0') + '.jpg');
+    // short cross-fade between consecutive segments
+    let o = 1;
+    if (isFinite(until)) o = 1 - ease((u - until) / 0.3);
+    if (at > 0) o = ease((u - at) / 0.3);
+    img.style.opacity = o.toFixed(3);
+  });
+}
+
+// Ken Burns inside a screen: scale about a focus point (screen px), k in 0..1
+function kb(id, k, s1, fx, fy) {
+  const s = lerp(1, s1, k);
+  document.getElementById(id).style.transform =
+    `translate(${(fx * (1 - s)).toFixed(1)}px, ${(fy * (1 - s)).toFixed(1)}px) scale(${s.toFixed(4)})`;
+}
+
+function custom(id, u, dur) {
+  if (id === 's1') {
+    const b = document.getElementById('s1bolt');
+    b.style.transform += ` translateY(${(Math.sin(u * 2.4) * 16).toFixed(2)}px) rotate(${(Math.sin(u * 1.6) * 3).toFixed(2)}deg)`;
+  }
+  if (id === 's14') {
+    const b = document.getElementById('s14bolt');
+    b.style.transform += ` translateY(${(Math.sin(u * 2.4) * 8).toFixed(2)}px)`;
+  }
+  if (id === 's2') {
+    const sh = document.getElementById('s2sheet');
+    const grey = sine((u - 0.8) / 2.0);
+    sh.style.transform += ` rotate(${(2.5 + 1.5 * Math.sin(u * 0.8)).toFixed(2)}deg)`;
+    sh.style.filter = `saturate(${1 - 0.6 * grey})`;
+  }
+  if (id === 's7n') {
+    // cross out the bare "Wrong.", then glide into the real hint on the screen
+    const k = ease((u - 0.75) / 0.4);
+    document.getElementById('s7nstrike').style.transform = `scaleX(${k.toFixed(3)})`;
+    const chip = document.getElementById('s7nchip');
+    chip.style.opacity = (parseFloat(chip.style.opacity) * (1 - 0.55 * k)).toFixed(3);
+    // hint box in the screenshot: image px x 200..1540, y 1370..1505 -> screen px at 1410/2732 scale, -21 offset
+    const sc = 1410 / 2732, z = 1.18;
+    const hx = 200 * sc - 21, hy = 1368 * sc, hw = 1340 * sc, hh = 165 * sc;
+    kb('s7nkb', sine((u - 0.6) / (dur - 0.9)), z, hx, hy + hh);
+    const ring = document.getElementById('s7nring');
+    ring.style.opacity = ease((u - 1.3) / 0.4).toFixed(3);
+    ring.style.left = (hx - 10) + 'px'; ring.style.top = (hy - 10) + 'px';
+    ring.style.width = (hw + 20) + 'px'; ring.style.height = (hh + 20) + 'px';
+  }
+  if (id === 's8') {
+    kb('s8kb', sine((u - 0.3) / (dur - 0.3)), 1.1, 480, 330);
+  }
+  if (id === 's10') {
+    // slowly scroll the Parent corner panel (600 x 1618 shown at 480 x 1294) inside its 860px card
+    const k = sine((u - 0.9) / (dur - 1.3));
+    document.getElementById('s10img').style.transform = `translateY(${(-k * (1294 - 860)).toFixed(1)}px)`;
+  }
+  if (id === 's11') {
+    // start on the whole dashboard, then glide to the row with a slip to work on
+    const img = document.getElementById('s11img');
+    const k = sine((u - 0.7) / 1.4);
+    const s0 = 980 / 2732, s1 = 0.6;
+    // focus: the "Bigger or smaller?" row and its slip (image px x 780..2280, row centre y 1203, row height ~90)
+    const x1 = -780 * s1 + 30, y1 = 330 - 1203 * s1;
+    const s = lerp(s0, s1, k), x = lerp(0, x1, k), y = lerp(0, y1, k);
+    img.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(4)})`;
+    const ring = document.getElementById('s11ring');
+    const r = ease((u - 2.1) / 0.4);
+    ring.style.opacity = r.toFixed(3);
+    ring.style.left = (780 * s1 + x1 - 12) + 'px';
+    ring.style.top = ((1203 - 45) * s1 + y1 - 12) + 'px';
+    ring.style.width = (1500 * s1 + 24) + 'px';
+    ring.style.height = (90 * s1 + 24) + 'px';
+  }
+}
+
+function background(t) {
+  const b = [['b1', 70, 40, 0.11], ['b2', 60, 50, 0.08], ['b3', 80, 40, 0.13]];
+  b.forEach(([id, ax, ay, w], i) => {
+    document.getElementById(id).style.transform =
+      `translate(${(Math.sin(t * w + i) * ax).toFixed(1)}px, ${(Math.cos(t * w * 0.8 + i * 2) * ay).toFixed(1)}px)`;
+  });
+}
+
+window.renderAt = async function (t) {
+  pending.length = 0;
+  background(t);
+  SCENES.forEach(([id, a, b], i) => {
+    const el = document.getElementById(id);
+    const vis = t >= a - 1e-6 && t < b + 1e-6 || (i === SCENES.length - 1 && t >= a);
+    if (!vis) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    el.style.opacity = sceneAlpha(t, a, b, i).toFixed(3);
+    const u = t - a;
+    renderScene(el, u, b - a);
+    custom(id, u, b - a);
+  });
+  // persistent web address on the activity scenes (s3 .. s13)
+  const f = document.getElementById('footer');
+  const fa = ease((t - span('s3')[1] - 0.2) / 0.5) * (1 - ease((t - span('s13')[2] + 0.3) / 0.4));
+  f.style.opacity = (fa * 0.9).toFixed(3);
+  await Promise.all(pending);
+  await document.fonts.ready;
+};
+
+window.renderPoster = async function () {
+  pending.length = 0;
+  SCENES.forEach(([id]) => document.getElementById(id).style.visibility = 'hidden');
+  document.getElementById('footer').style.opacity = 0;
+  background(3);
+  const p = document.getElementById('poster');
+  p.style.visibility = 'visible'; p.style.opacity = 1;
+  await Promise.all([...p.querySelectorAll('img')].map(i => i.decode().catch(() => {})));
+  await document.fonts.ready;
+};
+
+/* real-time preview: open scenes.html#play */
+if (location.hash === '#play') {
+  const t0 = performance.now();
+  (function loop() { const t = ((performance.now() - t0) / 1000) % DURATION; window.renderAt(t).then(() => requestAnimationFrame(loop)); })();
+} else {
+  window.renderAt(0);
+}
+</script>
+</body>
+</html>
