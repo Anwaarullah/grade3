@@ -506,6 +506,8 @@
     if (/at most 10/i.test(raw)) return KIDS_FULL_TEXT + ' Remove one in Your children to keep saving.';
     if (/failed to fetch|networkerror|network request failed|load failed|could not load|could not reach|timed? ?out|offline/i.test(raw)) return 'Could not reach the internet. Progress is still saved on this device.';
     if (/rate limit|too many|only request this after|\b429\b/i.test(raw)) return 'Too many tries. Please wait a few minutes, then try again.';
+    // The sign-in service could not hand the email to its mail server (Supabase SMTP settings).
+    if (/error sending .*email|smtp/i.test(raw)) return 'The website could not send the email right now. Please try Continue with Google, or contact ' + ((MQ.config || {}).contactEmail || 'the site owner') + '.';
     // Sign-in problems that trying again does not fix.
     var code = e && typeof e === 'object' && e.code ? ' ' + e.code : '';
     if (/invalid format|email_address_invalid|email address .*is invalid|invalid email/i.test(raw + code)) return 'That email address does not look right. Please check it.';
