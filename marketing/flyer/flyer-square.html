@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=540">
+<title>Interactive Maths Square</title>
+<style>
+  @font-face { font-family: 'Nunito'; src: url('fonts/nunito-latin.woff2') format('woff2'); font-weight: 200 1000; }
+  :root { --ink:#1b2a4a; --ink-soft:#4a5a7d; --line:#c9d3ee; --gold:#ffb703; --teal:#2ec4b6; --teal-ink:#0f766e; --teal-soft:#dff6f3; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: 'Nunito', sans-serif; color: var(--ink); background: #f3f6ff; }
+  .sq {
+    width: 540px; height: 540px; overflow: hidden; position: relative;
+    padding: 22px 24px 0;
+    background:
+      radial-gradient(circle at 95% 4%, rgba(46,196,182,0.13) 0, rgba(46,196,182,0) 38%),
+      radial-gradient(circle at 0% 60%, rgba(255,183,3,0.12) 0, rgba(255,183,3,0) 34%),
+      linear-gradient(180deg, #f1f5ff 0%, #f8faff 100%);
+    display: flex; flex-direction: column;
+  }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 7px; }
+  .brand svg { width: 22px; height: 27.5px; }
+  .brand span { font-size: 16px; font-weight: 900; }
+  .tag { font-size: 11px; font-weight: 800; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .tag b { color: var(--ink); }
+  .hero { display: grid; grid-template-columns: 218px 1fr; gap: 8px; margin-top: 18px; }
+  h1 { font-size: 33px; line-height: 1.04; font-weight: 900; letter-spacing: -0.8px; margin: 0; }
+  h1 .hl { background: linear-gradient(180deg, transparent 62%, rgba(255,183,3,0.55) 62%, rgba(255,183,3,0.55) 92%, transparent 92%); padding: 0 2px; }
+  .sub { font-size: 13.5px; line-height: 1.42; color: var(--ink-soft); font-weight: 600; margin: 12px 0 0; }
+  .sub b { color: var(--ink); font-weight: 800; }
+  .devices { position: relative; height: 240px; }
+  .laptop { position: absolute; left: 6px; top: 10px; width: 236px; }
+  .lid { background: var(--ink); border-radius: 9px 9px 0 0; padding: 6px 6px 7px; box-shadow: 0 8px 18px rgba(27,42,74,0.16); }
+  .lid img { display: block; width: 100%; border-radius: 2px; }
+  .base { height: 8px; margin: 0 -12px; background: linear-gradient(180deg,#d9e0ef,#b9c4dc); border-radius: 0 0 9px 9px; }
+  .phone { position: absolute; right: 0; top: 52px; width: 84px; background: var(--ink); border-radius: 15px; padding: 4.5px; box-shadow: 0 10px 22px rgba(27,42,74,0.22); }
+  .phone img { display: block; width: 100%; border-radius: 11px; }
+  .chip { position: absolute; left: 10px; top: 196px; font-size: 11.5px; font-weight: 800; background: #fff; border: 1.5px solid var(--line); border-radius: 9px; padding: 5px 9px; box-shadow: 0 4px 10px rgba(27,42,74,0.10); }
+  .cta { margin-top: 14px; background: var(--ink); color: #fff; border-radius: 20px; padding: 16px 16px 16px 20px; display: grid; grid-template-columns: 1fr 140px; gap: 14px; align-items: center; position: relative; overflow: hidden; }
+  .cta::after { content: ''; position: absolute; right: -50px; top: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(46,196,182,0.14); }
+  .facts { font-size: 13px; font-weight: 800; color: #dfe6f7; display: flex; gap: 8px; flex-wrap: wrap; }
+  .facts span { background: rgba(255,255,255,0.10); border-radius: 999px; padding: 3px 10px; }
+  .scan { font-size: 21px; font-weight: 900; margin: 12px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .scan svg { width: 34px; height: 42.5px; }
+  .url { display: inline-block; font-size: 15.5px; font-weight: 900; color: var(--ink); background: var(--gold); border-radius: 10px; padding: 6px 11px 7px; white-space: nowrap; }
+  .qr { position: relative; z-index: 1; background: #fff; border-radius: 14px; padding: 9px; }
+  .qr img { display: block; width: 122px; height: 122px; }
+  .foot { margin-top: auto; padding: 8px 0 11px; text-align: center; font-size: 10px; font-weight: 700; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="sq">
+  <div class="top">
+    <div class="brand"><svg viewBox="0 0 100 125" aria-hidden="true">
+        <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+        <circle cx="50" cy="6" r="6" fill="#ffb703"/>
+        <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+        <circle cx="38" cy="50" r="6.5" fill="#1b2a4a"/><circle cx="62" cy="50" r="6.5" fill="#1b2a4a"/>
+        <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+        <path d="M39 67 q11 10 22 0" fill="none" stroke="#1b2a4a" stroke-width="4" stroke-linecap="round"/>
+        <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>
+        <path d="M18 92 L8 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+        <path d="M82 92 L92 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+      </svg><span>Interactive Maths</span></div>
+    <div class="tag"><b>Grade 3</b> &middot; Stage 3 maths</div>
+  </div>
+  <div class="hero">
+    <div>
+      <h1>Maths your child can <span class="hl">build, move</span> and master.</h1>
+      <p class="sub">Hands-on activities that follow the <b>Stage&nbsp;3 maths book</b>, with kind hints, stars and tips for parents.</p>
+    </div>
+    <div class="devices">
+      <div class="laptop"><div class="lid"><img src="img/screen-rectangle.jpg" alt="Rectangle Builder activity"></div><div class="base"></div></div>
+      <div class="phone"><img src="img/screen-clock-hint.jpg" alt="Set the Clock activity with a hint"></div>
+      <div class="chip">Build it: 3 rows of 4 = 3 &times; 4</div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <div class="facts"><span>17 units</span><span>105 activities</span><span>15 min a day</span></div>
+      <div class="scan"><svg viewBox="0 0 100 125" aria-hidden="true">
+        <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+        <circle cx="50" cy="6" r="6" fill="#ffb703"/>
+        <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+        <circle cx="38" cy="50" r="5" fill="#1b2a4a"/><circle cx="62" cy="50" r="5" fill="#1b2a4a"/>
+        <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+        <path d="M37 66 q13 16 26 0 z" fill="#1b2a4a"/>
+        <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>
+        <path d="M18 92 L6 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+        <path d="M82 92 L94 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+      </svg> Scan to start</div>
+      <span class="url">https://syedanwaarullah.com/maths3g/</span>
+    </div>
+    <div class="qr"><img src="img/qr.svg" alt="QR code for https://syedanwaarullah.com/maths3g/"></div>
+  </div>
+  <div class="foot"><span style="color:var(--ink);font-size:11.5px;font-weight:900">Made by Ahmedullah’s Dad (Grade III-D)</span><br>Follows the Cambridge Primary Mathematics Stage 3 curriculum.<br>Not affiliated with or endorsed by Cambridge.</div>
+</div>
+</body>
+</html>

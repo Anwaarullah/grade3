@@ -1,4 +1,4 @@
-# Grade 3 Maths
+# Interactive Maths
 
 An interactive maths website for a Grade 3 learner following **Cambridge Primary
 Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a clean,
@@ -33,25 +33,32 @@ and number ranges, and each activity lists the matching textbook and workbook pa
 
 ## Putting it on your own website
 
-The site is plain HTML, CSS and JavaScript. It has no build step, needs no server code
-and no database.
+The site is plain HTML, CSS and JavaScript. It has no build step and needs no server code.
+It works without a database: progress is then saved on each device. Parent accounts with
+cloud sync (so progress follows a child to other devices) are optional; to switch them on,
+follow `docs/SETUP-ACCOUNTS.md`.
 
-1. Copy these files and folders to any folder on your web host, keeping the structure:
+1. Copy **only** these files and folders to any folder on your web host, keeping the
+   structure:
    ```
    index.html
    css/
-   js/
+   js/        (all of it, including js/config.js and the js/vendor/ folder)
    assets/
    ```
-   (`tools/`, `ACTIVITY_API.md` and `README.md` are only for development and don't need uploading.)
+   Do not upload anything else. `TODO.md` (notes about the family and its decisions),
+   `backend/`, `docs/`, `tools/`, `ACTIVITY_API.md` and `README.md` are only for the owner
+   and development; uploading them would publish them.
 2. Open the folder's address in a browser, e.g. `https://your-domain.example/maths/`.
 
 All paths are relative, so it works in a sub-folder. You can also double-click
 `index.html` to run it straight from the laptop with no internet (it then uses the
 laptop's default font instead of Nunito).
 
-**Progress** (stars, mistakes, settings) is saved in the browser on that laptop. Use the
-same browser each time. "Reset all progress" is in the Parent corner.
+**Progress** (stars, mistakes, settings) is saved in the browser on that device, for each
+child profile. Use the same browser each time, or sign in as a parent (when accounts are
+switched on) to use it on other devices too. "Reset progress" for a child is in the Parent
+corner.
 
 ## How to use it with your child
 
@@ -59,8 +66,8 @@ same browser each time. "Reset all progress" is in the Parent corner.
 * Open the **Parent corner** panel on the right of each activity: it gives the goal,
   phrases to use, the mistakes to watch for, and a quick hands-on task.
 * After finishing a section, do the matching workbook pages (listed on the home page).
-* The Parent corner page (👪 at the top) shows stars, how many questions he got
-  right first time, and his most common slips.
+* The Parent corner page (👪 at the top) shows stars, how many questions your child got
+  right first time, and their most common slips.
 * 🗣️ turns on read-aloud; 🔊 turns sound effects on or off.
 
 ## Development
@@ -73,3 +80,6 @@ same browser each time. "Reset all progress" is in the Parent corner.
   node tools/smoke.js            # all activities + the map
   node tools/smoke.js ruler-lab  # one activity
   ```
+* Accounts and sync tests (no internet needed): `node tools/accounts-test.js` (a fake
+  Supabase client) and `node tools/wire-test.js` (the real supabase-js from `js/vendor/`
+  against a small local imitation of Supabase's HTTP API).

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=794">
+<title>Interactive Maths Flyer</title>
+<style>
+  @font-face {
+    font-family: 'Nunito';
+    src: url('fonts/nunito-latin.woff2') format('woff2');
+    font-weight: 200 1000;
+    font-style: normal;
+  }
+  :root {
+    --ink: #1b2a4a;
+    --ink-soft: #4a5a7d;
+    --paper: #f7f9ff;
+    --paper-2: #e9eefc;
+    --line: #c9d3ee;
+    --gold: #ffb703;
+    --gold-soft: #fff4d6;
+    --teal: #2ec4b6;
+    --teal-ink: #0f766e;
+    --teal-soft: #dff6f3;
+    --bg: #f3f5fa;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', 'Trebuchet MS', sans-serif;
+    color: var(--ink);
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    position: relative;
+    background:
+      radial-gradient(circle at 92% 6%, rgba(46,196,182,0.10) 0, rgba(46,196,182,0) 34%),
+      radial-gradient(circle at 4% 40%, rgba(255,183,3,0.10) 0, rgba(255,183,3,0) 30%),
+      linear-gradient(180deg, #f3f6ff 0%, #f7f9ff 46%, #ffffff 100%);
+    padding: 24px 36px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- header ---------- */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .brand svg { width: 30px; height: 37.5px; }
+  .brand-name { font-size: 20px; font-weight: 900; letter-spacing: -0.2px; }
+  .top-tag {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--ink-soft);
+    background: #ffffff;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+  .top-tag b { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 322px 1fr;
+    gap: 14px;
+    margin-top: 18px;
+    align-items: start;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--teal-ink);
+    background: var(--teal-soft);
+    border-radius: 999px;
+    padding: 4px 11px;
+  }
+  h1 {
+    font-size: 40px;
+    line-height: 1.04;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 12px 0 0;
+  }
+  h1 .hl {
+    background: linear-gradient(180deg, transparent 62%, rgba(255,183,3,0.55) 62%, rgba(255,183,3,0.55) 92%, transparent 92%);
+    padding: 0 2px;
+  }
+  .sub {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin: 14px 0 0;
+  }
+  .sub b { color: var(--ink); font-weight: 800; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .stat {
+    background: #ffffff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 8px 10px 7px;
+    text-align: center;
+  }
+  .stat .n { display: block; font-size: 25px; font-weight: 900; line-height: 1; }
+  .stat .n small { font-size: 14px; font-weight: 900; }
+  .stat .l { display: block; font-size: 11.5px; font-weight: 800; color: var(--ink-soft); margin-top: 3px; }
+  .stat:nth-child(1) .n { color: var(--teal-ink); }
+  .stat:nth-child(2) .n { color: #b77900; }
+  .stat:nth-child(3) .n { color: var(--ink); }
+
+  /* devices */
+  .devices { position: relative; height: 318px; }
+  .laptop { position: absolute; left: 4px; top: 38px; width: 336px; }
+  .laptop .lid {
+    background: #1b2a4a;
+    border-radius: 12px 12px 0 0;
+    padding: 9px 9px 10px;
+    box-shadow: 0 10px 24px rgba(27,42,74,0.16);
+  }
+  .laptop .lid img { display: block; width: 100%; border-radius: 3px; }
+  .laptop .base {
+    height: 11px;
+    margin: 0 -18px;
+    background: linear-gradient(180deg, #d9e0ef 0%, #b9c4dc 100%);
+    border-radius: 0 0 12px 12px;
+    position: relative;
+  }
+  .laptop .base::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 64px; height: 5px;
+    margin-left: -32px;
+    background: #a7b3cf;
+    border-radius: 0 0 6px 6px;
+  }
+  .phone {
+    position: absolute;
+    right: 0; top: 74px;
+    width: 112px;
+    background: #1b2a4a;
+    border-radius: 20px;
+    padding: 6px;
+    box-shadow: 0 12px 26px rgba(27,42,74,0.22);
+  }
+  .phone img { display: block; width: 100%; border-radius: 14px; }
+  .phone::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 9px;
+    width: 30px; height: 6px;
+    margin-left: -15px;
+    background: #1b2a4a;
+    border-radius: 6px;
+  }
+  .callout {
+    position: absolute;
+    font-size: 11.5px;
+    font-weight: 800;
+    line-height: 1.25;
+    background: #ffffff;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 6px 9px;
+    box-shadow: 0 4px 12px rgba(27,42,74,0.10);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .callout .dot {
+    flex: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    display: grid; place-items: center;
+    color: #fff; font-size: 12px; font-weight: 900;
+  }
+  .c1 { left: 10px; top: 292px; }
+  .c1 .dot { background: var(--teal); }
+  .c2 { right: 0; top: 0; }
+  .c2 .dot { background: var(--gold); color: var(--ink); }
+
+  /* ---------- middle ---------- */
+  .mid {
+    display: grid;
+    grid-template-columns: 1fr 296px;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  h2 {
+    font-size: 19px;
+    font-weight: 900;
+    margin: 0 0 10px;
+    letter-spacing: -0.2px;
+  }
+  .mid > .kid { display: flex; flex-direction: column; padding-top: 15.5px; }
+  .benefits { display: grid; gap: 9px; flex: 1; grid-auto-rows: 1fr; }
+  .b {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 11px;
+    align-items: start;
+    background: #ffffff;
+    border: 1.5px solid #dde4f5;
+    border-radius: 14px;
+    padding: 9px 12px 9px 10px;
+  }
+  .ic {
+    width: 38px; height: 38px; border-radius: 11px;
+    display: grid; place-items: center;
+  }
+  .ic svg { width: 22px; height: 22px; }
+  .ic.t { background: var(--teal-soft); color: var(--teal-ink); }
+  .ic.g { background: var(--gold-soft); color: #a86b00; }
+  .ic.b2 { background: var(--paper-2); color: var(--ink); }
+  .b h3 { font-size: 14.5px; font-weight: 900; margin: 1px 0 2px; line-height: 1.2; }
+  .b p { font-size: 13.4px; line-height: 1.38; margin: 0; color: var(--ink-soft); font-weight: 600; }
+
+  .parents {
+    background: var(--gold-soft);
+    border: 1.5px solid #f6dc95;
+    border-radius: 18px;
+    padding: 14px 14px 12px;
+  }
+  .parents h2 { margin-bottom: 9px; }
+  .browser {
+    background: #ffffff;
+    border: 1.5px solid #e7d6a6;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(120,86,0,0.10);
+  }
+  .browser .bar {
+    height: 14px; background: #f3ecd8;
+    display: flex; align-items: center; gap: 4px; padding: 0 7px;
+  }
+  .browser .bar i { width: 5px; height: 5px; border-radius: 50%; background: #d8c48e; display: block; }
+  .browser img { display: block; width: 100%; }
+  .plist { list-style: none; margin: 11px 0 0; padding: 0; display: grid; gap: 7px; }
+  .plist li {
+    display: grid; grid-template-columns: 20px 1fr; gap: 8px;
+    font-size: 13.4px; line-height: 1.36; font-weight: 600; color: #4a4330;
+  }
+  .plist li b { color: var(--ink); font-weight: 900; }
+  .tick {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--gold); display: grid; place-items: center; margin-top: 1px;
+  }
+  .tick svg { width: 11px; height: 11px; }
+
+  /* ---------- trust strip ---------- */
+  .trust {
+    display: flex; justify-content: space-between;
+    margin-top: 14px;
+    padding: 9px 16px;
+    background: #ffffff;
+    border: 1.5px solid #dde4f5;
+    border-radius: 999px;
+    font-size: 12.5px; font-weight: 800;
+  }
+  .trust span { display: inline-flex; align-items: center; gap: 6px; }
+  .trust svg { width: 15px; height: 15px; color: var(--teal-ink); flex: none; }
+
+  /* ---------- call to action ---------- */
+  .cta {
+    margin-top: 14px;
+    background: var(--ink);
+    color: #ffffff;
+    border-radius: 22px;
+    padding: 18px 20px 16px 22px;
+    display: grid;
+    grid-template-columns: 1fr 178px;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::after {
+    content: '';
+    position: absolute; right: -60px; top: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: rgba(46,196,182,0.14);
+  }
+  .cta h2 { color: #ffffff; font-size: 21px; margin-bottom: 11px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .steps li {
+    display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start;
+    font-size: 13.6px; line-height: 1.36; color: #dfe6f7; font-weight: 600;
+  }
+  .steps li b { color: #ffffff; font-weight: 900; }
+  .num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--gold); color: var(--ink);
+    display: grid; place-items: center;
+    font-weight: 900; font-size: 14px;
+  }
+  .url-row { margin-top: 14px; display: flex; align-items: flex-end; gap: 12px; }
+  .url {
+    display: inline-block;
+    font-size: 19.5px; font-weight: 900; letter-spacing: -0.2px;
+    color: var(--ink);
+    background: var(--gold);
+    border-radius: 12px;
+    padding: 6px 13px 7px;
+    white-space: nowrap;
+  }
+  .qrcard {
+    position: relative; z-index: 1;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 12px 12px 8px;
+    text-align: center;
+    align-self: center;
+  }
+  .qrcard img { display: block; width: 154px; height: 154px; }
+  .qrcard .cap { font-size: 12.5px; font-weight: 900; color: var(--ink); margin-top: 6px; letter-spacing: 0.3px; }
+  .bolt-cta { flex: none; margin: -30px 0 -8px; }
+  .bolt-cta svg { width: 50px; height: 62.5px; display: block; }
+
+  /* ---------- footer ---------- */
+  .foot {
+    margin-top: auto;
+    padding: 10px 0 16px;
+    display: flex; justify-content: space-between; gap: 16px;
+    font-size: 10px; line-height: 1.35;
+    color: var(--ink-soft); font-weight: 600;
+  }
+  .foot b { color: var(--ink); font-weight: 800; }
+  .foot .credit { font-size: 11.5px; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- header -->
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 100 125" aria-hidden="true">
+        <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+        <circle cx="50" cy="6" r="6" fill="#ffb703"/>
+        <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+        <circle cx="38" cy="50" r="6.5" fill="#1b2a4a"/><circle cx="62" cy="50" r="6.5" fill="#1b2a4a"/>
+        <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+        <path d="M39 67 q11 10 22 0" fill="none" stroke="#1b2a4a" stroke-width="4" stroke-linecap="round"/>
+        <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>
+        <path d="M18 92 L8 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+        <path d="M82 92 L92 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">Interactive Maths</span>
+    </div>
+    <div class="top-tag"><b>Grade 3</b> &middot; Cambridge Primary Stage 3 curriculum</div>
+  </header>
+
+  <!-- hero -->
+  <section class="hero">
+    <div>
+      <span class="eyebrow">For parents of Grade 3 children</span>
+      <h1>Maths your child can <span class="hl">build, move</span> and master.</h1>
+      <p class="sub">Hands-on activities that follow your child&rsquo;s <b>Stage&nbsp;3 maths book</b>, unit by unit. Sit together for just <b>15&nbsp;minutes a&nbsp;day</b>.</p>
+      <div class="stats">
+        <div class="stat"><span class="n">17</span><span class="l">units</span></div>
+        <div class="stat"><span class="n">105</span><span class="l">activities</span></div>
+        <div class="stat"><span class="n">15<small>&thinsp;min</small></span><span class="l">a day</span></div>
+      </div>
+    </div>
+    <div class="devices">
+      <div class="laptop">
+        <div class="lid"><img src="img/screen-rectangle.jpg" alt="Rectangle Builder activity: 3 rows of 4 makes 3 times 4 equals 12"></div>
+        <div class="base"></div>
+      </div>
+      <div class="phone"><img src="img/screen-clock-hint.jpg" alt="Set the Clock activity on a phone, with Bolt giving a hint about the short hand"></div>
+      <div class="callout c1"><span class="dot"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></span>Build it: 3 rows of 4 = 3 &times; 4</div>
+      <div class="callout c2"><span class="dot">?</span>A kind hint, not just &ldquo;wrong&rdquo;</div>
+    </div>
+  </section>
+
+  <!-- middle -->
+  <section class="mid">
+    <div class="kid">
+      <h2>How it helps your child</h2>
+      <div class="benefits">
+        <div class="b">
+          <div class="ic t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14l7 3-3 1-1 3z" fill="currentColor"/></svg></div>
+          <div><h3>Hands-on, not just tick boxes</h3><p>Your child drags, builds, measures, colours, sets clocks and sorts shapes.</p></div>
+        </div>
+        <div class="b">
+          <div class="ic g"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17l-5.6 3 1.1-6.3L2.9 9.3l6.3-.9z"/></svg></div>
+          <div><h3>Learn, practise, earn stars</h3><p>Everyday objects first, then gradually harder questions. Up to 3&nbsp;stars for answers right first time.</p></div>
+        </div>
+        <div class="b">
+          <div class="ic b2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg></div>
+          <div><h3>Kind hints, then &ldquo;Show me&rdquo;</h3><p>Wrong answer? Bolt the robot gives a specific hint. After two tries, &ldquo;Show&nbsp;me&rdquo; shows the working.</p></div>
+        </div>
+        <div class="b">
+          <div class="ic t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5c3-1.3 6.5-1.3 10 1 3.5-2.3 7-2.3 10-1v14c-3-1.3-6.5-1.3-10 1-3.5-2.3-7-2.3-10-1z"/><path d="M12 6v14"/></svg></div>
+          <div><h3>Follows the school book</h3><p>Same order as Learner&rsquo;s Book 3 and Workbook 3 (2nd&nbsp;edition), with matching pages on every activity.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="parents">
+      <h2>How it helps you</h2>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <img src="img/screen-dashboard.jpg" alt="Parent dashboard showing a sample child's stars, right-first-time percentage and slips to work on">
+      </div>
+      <ul class="plist">
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#1b2a4a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></span><span><b>Parent corner</b> in every activity: the goal, things to say, mistakes to watch for and a task away from the screen.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#1b2a4a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></span><span><b>Dashboard</b> of stars, right-first-time % and the slips to work on.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#1b2a4a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></span><span><b>A profile for each child</b>: nickname, animal picture and their own stars.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#1b2a4a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></span><span><b>No ads</b>, no tracking or profiling of children. Children never need an email.</span></li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- call to action -->
+  <section class="cta">
+    <div>
+      <h2>Start in 3 steps</h2>
+      <ol class="steps">
+        <li><span class="num">1</span><span><b>Scan the code</b> or type the address on a laptop or tablet.</span></li>
+        <li><span class="num">2</span><span><b>Add your child</b> with a nickname and an animal picture.</span></li>
+        <li><span class="num">3</span><span><b>Sit together</b> for 15&ndash;20 minutes a day and collect stars.</span></li>
+      </ol>
+      <div class="url-row"><span class="url">https://syedanwaarullah.com/maths3g/</span>
+        <span class="bolt-cta">
+      <svg viewBox="0 0 100 125" aria-hidden="true">
+        <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+        <circle cx="50" cy="6" r="6" fill="#ffb703"/>
+        <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+        <circle cx="38" cy="50" r="5" fill="#1b2a4a"/><circle cx="62" cy="50" r="5" fill="#1b2a4a"/>
+        <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+        <path d="M37 66 q13 16 26 0 z" fill="#1b2a4a"/>
+        <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+        <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>
+        <path d="M18 92 L6 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+        <path d="M82 92 L94 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+        </span></div>
+    </div>
+    <div class="qrcard">
+      <img src="img/qr.svg" alt="QR code for https://syedanwaarullah.com/maths3g/">
+      <div class="cap">SCAN TO START</div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span><b class="credit">Made by Ahmedullah’s Dad (Grade III-D)</b><br>Best on a laptop or tablet; works on phones too. An optional parent account (Google or email link) syncs progress across devices. Screens show a sample child.</span>
+    <span style="flex:none;width:300px;text-align:right"><b>Follows the Cambridge Primary Mathematics Stage 3 curriculum. Not affiliated with or endorsed by Cambridge.</b></span>
+  </footer>
+</div>
+</body>
+</html>

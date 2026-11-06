@@ -1,4 +1,4 @@
-# Grade 3 Maths — requests and to-do list
+# Interactive Maths — requests and to-do list
 
 Everything asked for so far, what is done, and what is still open.
 Last updated: 3 November 2026.
@@ -47,25 +47,34 @@ Decisions: **public** site, **India** first, progress **synced across devices**,
 **Google + email link**, phones supported ("works, best on tablet"), **keep dollars**,
 start with **Phase 1**.
 
-### Phase 1: parent accounts and cloud sync (in progress)
-- [x] Store rewritten for **child profiles** (`js/core.js`): each child's progress kept separately;
-      old single-player progress moves into a "Player 1" profile; changes marked for syncing.
+### Phase 1: parent accounts and cloud sync (built 3 Nov 2026; needs the parent's Supabase setup)
+- [x] Store rewritten for **child profiles** (`js/core.js`), with reset times, account ownership and
+      cross-tab safety.
 - [x] `js/config.js` (Supabase URL/key, contact email, consent version; empty = on-device mode).
 - [x] `js/sync.js`: Supabase sign-in (Google, email link, PKCE), offline-first sync with merge
-      (never loses stars), consent check, sign out, delete account, export data.
-- [ ] **App screens** (`js/app.js`): "Who's playing?" profile picker + add child; child chip in the
-      top bar; parent gate; account panel (sign in / consent / sync status / sign out / download
-      data / delete account); manage children (rename/remove); dashboard per child; privacy page.
-- [ ] Load `js/config.js` and `js/sync.js` in `index.html`; styles for the new screens.
-- [ ] `backend/schema.sql`: tables `parents`, `children`, `progress` with row-level security
-      (each family sees only its own data), `delete_my_account()` function.
-- [ ] `docs/SETUP-ACCOUNTS.md`: step-by-step Supabase setup (Mumbai region), Google sign-in,
-      email link, redirect URLs. **The parent creates the Supabase account.**
-- [ ] Tests with a fake Supabase client (sign-in, consent, sync between two devices, offline).
-- [ ] Note: cloud sync cannot work inside the claude.ai preview (it blocks outside servers);
-      test on the parent's own domain.
-- Note: the store rewrite is committed and safe on its own: if no profile exists it creates
-  "Player 1" automatically. config.js and sync.js are committed but not loaded by index.html yet.
+      (never loses stars), consent check, sign out (local scope, clears the device), delete
+      account, export data. supabase-js 2.45.4 is served from `js/vendor/` (no CDN).
+- [x] **App screens** (`js/app.js`): "Who's playing?" picker, child chip, parent gate, Parent
+      corner (account card, Your children, per-child dashboard, per-child reset), add child,
+      draft privacy page (`#privacy`).
+- [x] `index.html` loads `config.js` and `sync.js`; styles for the new screens.
+- [x] `backend/schema.sql`: `parents`, `children`, `progress`, row-level security, limits
+      (10 children, 400 records per child), `delete_my_account()`. Tested on local Postgres 16.
+- [x] `docs/SETUP-ACCOUNTS.md`: Supabase (Mumbai), Google sign-in, email link, redirect URLs,
+      clean-up, data requests, turning accounts off.
+- [x] Tests: `tools/accounts-test.js` (139 checks, fake client) and `tools/wire-test.js`
+      (13 checks, the real supabase-js against a local imitation of Supabase).
+- [x] Three independent review rounds (logic, security/privacy, Supabase behaviour, UX), each
+      finding checked by skeptics: 36 + 24 + 16 confirmed issues, all fixed.
+- [ ] **Parent:** create the Supabase project and follow `docs/SETUP-ACCOUNTS.md`
+      (run `backend/schema.sql` before uploading the new site code).
+- [ ] **Parent:** test sign-in and sync on the real domain (cannot work inside the claude.ai preview).
+- [ ] **Parent:** have the privacy notice checked by a qualified person, including whether the
+      tick box is enough for "verifiable" parental consent under the DPDP Act.
+- Note: the parent gate (a 13–19 × 6–9 question, with a wait after 3 wrong answers in a row) is a
+  speed bump, not a lock. The real safeguard is the second confirmation on every destructive action.
+- Note: the code grew large (app.js about 2,400 lines, sync.js about 1,100) through the review
+  rounds. A tidy-up pass to simplify it is worth doing before Phase 3.
 
 ### Phase 2: privacy and legal basics (India DPDP Act)
 - [ ] Only the parent has an account; children get a nickname only, no email.

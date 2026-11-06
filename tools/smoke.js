@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Smoke test for Maths Mission activities (development only, not needed on the server).
+ * Smoke test for Interactive Maths activities (development only, not needed on the server).
  *
  *   node tools/smoke.js                       # every registered activity + the map
  *   node tools/smoke.js ruler-lab which-unit  # just these

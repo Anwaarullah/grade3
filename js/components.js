@@ -1,4 +1,4 @@
-/* Maths Mission — reusable building blocks for activities.
+/* Interactive Maths — reusable building blocks for activities.
  * All helpers live on MQ.ui. See ACTIVITY_API.md for usage notes.
  */
 (function () {
