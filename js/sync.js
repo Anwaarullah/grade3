@@ -1,4 +1,4 @@
-/* Grade 3 Maths — parent accounts and cloud sync (Supabase).
+/* Interactive Maths — parent accounts and cloud sync (Supabase).
  *
  * Progress is always saved on the device first (MQ.store). When a parent is signed in,
  * changed records are pushed to Supabase and other devices' records are pulled and merged,

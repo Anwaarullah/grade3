@@ -261,7 +261,7 @@ const TEST_CONFIG = `
 window.MQ = window.MQ || {};
 window.MQ.config = {
   supabaseUrl: '', supabaseAnonKey: '', contactEmail: ${JSON.stringify(CONTACT)},
-  siteName: 'Grade 3 Maths', consentVersion: ${JSON.stringify(CONSENT_VERSION)},
+  siteName: 'Interactive Maths', consentVersion: ${JSON.stringify(CONSENT_VERSION)},
   createClient: function () {
     // Test hook: the sign-in service cannot be reached when the page starts.
     if (localStorage.getItem('fake-start-fail')) throw new Error('net::ERR_FAILED (test: sign-in service unreachable)');
@@ -493,7 +493,7 @@ async function main() {
     check('on-device: account card says device only and offers download', /this device only/.test(acct) && /Download my data/.test(acct) && !/Sign in/.test(acct), acct.slice(0, 120));
     check('on-device: no developer file path and no repeated "device only" line', !/SETUP-ACCOUNTS|docs\//.test(acct) && !(await p.isVisible('#acct-where')));
     const dl = await download(p);
-    check('on-device: Download my data gives a dated JSON file', /^grade3-maths-data-\d{4}-\d\d-\d\d\.json$/.test(dl.name) && Array.isArray(dl.json.children) && dl.json.children.length === 1, dl.name);
+    check('on-device: Download my data gives a dated JSON file', /^interactive-maths-data-\d{4}-\d\d-\d\d\.json$/.test(dl.name) && Array.isArray(dl.json.children) && dl.json.children.length === 1, dl.name);
 
     // add / rename / picture / remove
     await p.click('text=+ Add a child');

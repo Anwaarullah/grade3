@@ -1,4 +1,4 @@
-/* Grade 3 Maths — site settings.
+/* Interactive Maths — site settings.
  *
  * With supabaseUrl empty the site saves progress on each device only (no accounts).
  * Fill in both values to turn on parent sign-in and cloud sync. See docs/SETUP-ACCOUNTS.md.
@@ -23,7 +23,7 @@ window.MQ = window.MQ || {};
     supabaseAnonKey: live ? 'sb_publishable_lNjxcZMDh02q0TilzyosbQ_ocjlWF_b' : '',
     /** Shown on the privacy page so families know who to contact. */
     contactEmail: 'hi@syedanwaarullah.com',
-    siteName: 'Grade 3 Maths',
+    siteName: 'Interactive Maths',
     /** Bump when the privacy notice changes; parents are asked to agree again. */
     consentVersion: '2026-11',
   };

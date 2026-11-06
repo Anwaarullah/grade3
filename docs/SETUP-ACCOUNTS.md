@@ -123,7 +123,7 @@ password is needed.
 2. Make sure **Email** is enabled. Leave **Confirm email** on. Passwords are not used by
    this site, so the other email settings can stay at their defaults.
 3. Optional: under **Authentication → Emails** (or **Email Templates**) you can change the
-   emails' wording, for example to mention "Grade 3 Maths". Change both the **Confirm
+   emails' wording, for example to mention "Interactive Maths". Change both the **Confirm
    signup** template (a parent's very first sign-in gets this one) and the **Magic Link**
    template (every later sign-in).
 

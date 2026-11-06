@@ -1,4 +1,4 @@
-# Writing a Grade 3 Maths activity
+# Writing a Interactive Maths activity
 
 Each activity is one plain JavaScript file in `js/activities/<id>.js`, loaded by a
 `<script>` tag in `index.html`. There is no build step and no ES modules, so the site

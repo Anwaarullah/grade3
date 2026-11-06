@@ -1,4 +1,4 @@
-/* Maths Mission — core runtime.
+/* Interactive Maths — core runtime.
  * Plain browser JavaScript (no build step, no modules) so the site works from
  * any static host and even when index.html is opened directly from disk.
  * Everything lives on the global `MQ` object.

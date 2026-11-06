@@ -1,4 +1,4 @@
-/* Grade 3 Maths — curriculum registry.
+/* Interactive Maths — curriculum registry.
  * Follows Cambridge Primary Mathematics Stage 3 (Learner's Book 3 and Workbook 3, 2nd edition).
  * Each unit lives in its own file, js/units/unit-NN.js, which calls MQ.addUnit(unit, activities):
  *   unit = { id: 'u6', number: 6, title: '...', sections: [ { id: '6.1', title, color, book, activities: [ids] } ] }

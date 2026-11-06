@@ -299,7 +299,7 @@ async function device(name) {
     } catch (e) {}
   });
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
-  const config = `window.MQ = window.MQ || {}; window.MQ.config = { supabaseUrl: ${JSON.stringify(API)}, supabaseAnonKey: ${JSON.stringify(ANON)}, contactEmail: 'help@example.test', siteName: 'Grade 3 Maths', consentVersion: '2026-11' };`;
+  const config = `window.MQ = window.MQ || {}; window.MQ.config = { supabaseUrl: ${JSON.stringify(API)}, supabaseAnonKey: ${JSON.stringify(ANON)}, contactEmail: 'help@example.test', siteName: 'Interactive Maths', consentVersion: '2026-11' };`;
   await ctx.route(/\/js\/config\.js(\?.*)?$/, (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: config }));
   const dev = { name, ctx, down: false };
   // Test switch: the sign-in and database service cannot be reached (the browser still says online).

@@ -1,4 +1,4 @@
-/* Grade 3 Maths — app shell: lesson map, activity player, parent corner. */
+/* Interactive Maths — app shell: lesson map, activity player, parent corner. */
 (function () {
   'use strict';
   var MQ = window.MQ;
@@ -154,7 +154,7 @@
     topbarEl = el(
       'header',
       { class: 'topbar' },
-      el('a', { class: 'brand', href: '#home' }, MQ.robot('happy', 30), el('span', null, 'Grade 3 Maths')),
+      el('a', { class: 'brand', href: '#home' }, MQ.robot('happy', 30), el('span', null, 'Interactive Maths')),
       crumb ? el('span', { class: 'crumb' }, crumb) : null,
       el('span', { class: 'spacer' }),
       childChip(),
@@ -1313,7 +1313,7 @@
       var json = MQ.sync ? MQ.sync.exportData() : localExport();
       var blob = new Blob([json], { type: 'application/json' });
       var url = URL.createObjectURL(blob);
-      var a = el('a', { href: url, download: 'grade3-maths-data-' + ymd() + '.json', hidden: true });
+      var a = el('a', { href: url, download: 'interactive-maths-data-' + ymd() + '.json', hidden: true });
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -2246,7 +2246,7 @@
         { class: 'card privacy' },
         el('p', { class: 'privacy-draft', role: 'note' }, 'Draft — to be checked by a qualified person before the site is public.'),
         el('h1', null, 'Privacy notice'),
-        el('p', { class: 'lead' }, (cfg.siteName || 'Grade 3 Maths') + ' is a maths practice website for children, used together with a parent or guardian. This notice explains, in plain words, what is saved and why. It is written with India’s Digital Personal Data Protection Act, 2023 (DPDP Act) in mind.'),
+        el('p', { class: 'lead' }, (cfg.siteName || 'Interactive Maths') + ' is a maths practice website for children, used together with a parent or guardian. This notice explains, in plain words, what is saved and why. It is written with India’s Digital Personal Data Protection Act, 2023 (DPDP Act) in mind.'),
         sec('Who runs this website', el('p', null, 'This website is run by its owner for families to use. It is not run by an advertising or data company. For questions or requests, contact ', contact(), '.')),
         sec(
           'What is stored',

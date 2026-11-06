@@ -1,4 +1,4 @@
-# Grade 3 Maths
+# Interactive Maths
 
 An interactive maths website for a Grade 3 learner following **Cambridge Primary
 Mathematics Stage 3** (Learner's Book 3 and Workbook 3, 2nd edition). It has a clean,

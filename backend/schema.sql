@@ -1,4 +1,4 @@
--- Grade 3 Maths: database for parent accounts and cloud sync (Supabase).
+-- Interactive Maths: database for parent accounts and cloud sync (Supabase).
 --
 -- How to use: open your Supabase project, go to "SQL Editor", paste this whole file
 -- and press "Run". It is safe to run again later (for example after an update): it

@@ -1,4 +1,4 @@
-# Grade 3 Maths — requests and to-do list
+# Interactive Maths — requests and to-do list
 
 Everything asked for so far, what is done, and what is still open.
 Last updated: 3 November 2026.
