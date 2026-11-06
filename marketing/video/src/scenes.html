@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Interactive Maths promo (1080x1920)</title>
+<!--
+  60-second vertical promo for parents. The whole film is a pure function of time:
+  window.renderAt(t) draws the frame at t seconds (await it), build.js screenshots every frame.
+  Open in a browser with #play to preview in real time (clip frames must exist; see build.sh).
+-->
+<style>
+@font-face { font-family: 'Nunito'; src: url(fonts/Nunito-latin-var.woff2) format('woff2'); font-weight: 200 1000; font-style: normal; }
+:root {
+  --ink: #1b2a4a; --ink-soft: #46557a; --teal: #2ec4b6; --teal-deep: #0b7a70; --gold: #ffb703;
+  --orange: #c2410c; --paper: #f7f9ff; --line: #c9d3ee; --bezel: #1f2433;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f3f6fc; }
+body { font-family: 'Nunito', 'Noto Color Emoji', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage { position: absolute; inset: 0; overflow: hidden; }
+
+/* background: soft paper with slow drifting colour blobs */
+#bg { position: absolute; inset: 0; background: linear-gradient(180deg, #eaf4ff 0%, #f6f8ff 48%, #fff6e6 100%); }
+.blob { position: absolute; width: 900px; height: 900px; border-radius: 50%; will-change: transform; }
+#b1 { background: radial-gradient(circle, rgba(46,196,182,.22) 0%, rgba(46,196,182,0) 65%); left: -380px; top: -260px; }
+#b2 { background: radial-gradient(circle, rgba(255,183,3,.22) 0%, rgba(255,183,3,0) 65%); right: -420px; top: 780px; }
+#b3 { background: radial-gradient(circle, rgba(124,140,255,.16) 0%, rgba(124,140,255,0) 65%); left: -300px; bottom: -420px; }
+
+.scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; }
+.center { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.pill { display: inline-flex; align-items: center; gap: 14px; background: var(--ink); color: #fff; font-weight: 800;
+  font-size: 42px; line-height: 1; padding: 18px 34px; border-radius: 999px; box-shadow: 0 8px 24px rgba(27,42,74,.18); }
+.cap { font-weight: 900; font-size: 76px; line-height: 1.1; letter-spacing: -0.5px; max-width: 980px; padding: 0 30px; }
+.cap em { font-style: normal; color: var(--teal-deep); }
+.sub { font-weight: 700; font-size: 56px; line-height: 1.2; color: var(--ink-soft); max-width: 980px; padding: 0 40px; }
+.sub b { color: var(--ink); font-weight: 900; }
+
+/* devices */
+.tablet { position: absolute; left: 40px; width: 1000px; padding: 30px; border-radius: 56px; background: var(--bezel);
+  box-shadow: 0 50px 90px rgba(27,42,74,.28), inset 0 0 0 3px #343b4f; }
+.tablet .screen { position: relative; width: 940px; height: 829px; border-radius: 18px; overflow: hidden; background: #f3f5fa; }
+.tablet.wide .screen { height: 619px; }
+.phone { position: absolute; width: 546px; padding: 22px; border-radius: 78px; background: var(--bezel);
+  box-shadow: 0 50px 90px rgba(27,42,74,.28), inset 0 0 0 3px #343b4f; left: 267px; }
+.phone .screen { position: relative; width: 502px; height: 1086px; border-radius: 56px; overflow: hidden; background: #f3f5fa; }
+.phone .notch { position: absolute; top: 34px; left: 50%; width: 120px; height: 30px; margin-left: -60px; border-radius: 20px; background: var(--bezel); z-index: 3; }
+.screen img { position: absolute; left: 0; top: 0; width: 100%; display: block; transform-origin: 0 0; }
+.screen img.full { height: 100%; object-fit: cover; object-position: top; }
+
+.card { position: absolute; background: #fff; border-radius: 40px; box-shadow: 0 40px 80px rgba(27,42,74,.20); overflow: hidden; }
+.chip { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid var(--line); border-radius: 28px;
+  padding: 22px 36px; font-size: 56px; font-weight: 800; line-height: 1.1; box-shadow: 0 10px 26px rgba(27,42,74,.10); }
+.tile { width: 940px; display: flex; align-items: center; gap: 30px; background: #fff; border-radius: 32px; padding: 34px 40px;
+  font-size: 58px; font-weight: 800; line-height: 1.12; text-align: left; box-shadow: 0 14px 34px rgba(27,42,74,.12); border-left: 16px solid var(--teal); }
+.tile .ic { font-size: 70px; }
+
+#footer { position: absolute; left: 0; right: 0; top: 1738px; display: flex; justify-content: center; align-items: center; gap: 14px;
+  font-size: 40px; font-weight: 800; color: var(--ink-soft); opacity: 0; }
+#footer svg { width: 44px; height: 55px; }
+
+/* scene 2 worksheet */
+.sheet { position: absolute; left: 190px; top: 760px; width: 700px; height: 720px; background: #fff; border-radius: 26px; padding: 56px 64px;
+  box-shadow: 0 30px 60px rgba(27,42,74,.16); transform-origin: 50% 50%; }
+.sheet .row { font-size: 64px; font-weight: 700; color: #8b96b3; line-height: 1; margin-bottom: 52px; letter-spacing: 2px; }
+.sheet .row span { display: inline-block; width: 140px; border-bottom: 6px solid #d5dcef; margin-left: 16px; }
+.sheet .yawn { position: absolute; right: -40px; top: -60px; font-size: 150px; }
+
+.qr { position: absolute; left: 290px; top: 700px; width: 500px; height: 500px; padding: 40px; background: #fff; border-radius: 40px;
+  box-shadow: 0 30px 70px rgba(27,42,74,.20); }
+.qr img { width: 420px; height: 420px; display: block; image-rendering: pixelated; }
+.ring { position: absolute; border: 7px solid var(--orange); border-radius: 22px; box-shadow: 0 0 0 9999px rgba(27,42,74,0); pointer-events: none; }
+.bolt svg { display: block; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div class="blob" id="b1"></div><div class="blob" id="b2"></div><div class="blob" id="b3"></div></div>
+
+  <!-- 1. Title -->
+  <section class="scene" id="s1">
+    <div class="center" style="top:330px">
+      <div class="bolt" id="s1bolt" data-in="0.0"></div>
+    </div>
+    <div class="center" style="top:880px">
+      <div class="cap" data-in="0.25" style="font-size:118px; line-height:1.02">Interactive<br><em>Maths</em></div>
+      <div class="sub" data-in="0.7" style="margin-top:46px; color:var(--ink)">Hands-on maths for <b>Grade&nbsp;3</b></div>
+      <div class="sub" data-in="1.05" style="margin-top:26px; font-size:44px">Cambridge Primary Stage 3 curriculum</div>
+    </div>
+  </section>
+
+  <!-- 2. The problem -->
+  <section class="scene" id="s2">
+    <div class="center" style="top:250px">
+      <div class="cap" data-in="0.1">Maths practice at home can feel like a&nbsp;chore.</div>
+    </div>
+    <div class="sheet" id="s2sheet" data-in="0.35">
+      <div class="yawn">🥱</div>
+      <div class="row">47 + 25 =<span></span></div>
+      <div class="row">83 − 38 =<span></span></div>
+      <div class="row">6 × 4 =<span></span></div>
+      <div class="row">36 ÷ 4 =<span></span></div>
+      <div class="row">¼ of 20 =<span></span></div>
+      <div class="row">9 × 3 =<span></span></div>
+    </div>
+    <div class="center" style="top:1560px">
+      <div class="cap" data-in="1.6" style="color:var(--teal-deep)">Let’s make it hands-on.</div>
+    </div>
+  </section>
+
+  <!-- 3. Build a number -->
+  <section class="scene" id="s3">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">✋ Drag and build</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Build a number,<br><em>block by block.</em></div></div>
+    <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s3" data-at="0" alt=""></div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Hundreds, tens and ones<br>they can move.</div></div>
+  </section>
+
+  <!-- 4. Shape sorter -->
+  <section class="scene" id="s4">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">✋ Sort it out</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Sort real 3D shapes<br><em>by dragging.</em></div></div>
+    <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s4" data-at="0" alt=""></div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Things from home,<br>not just drawings.</div></div>
+  </section>
+
+  <!-- 5. Rectangle builder -->
+  <section class="scene" id="s5">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">✋ Build it</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Times tables<br><em>you can build.</em></div></div>
+    <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s5" data-at="0" alt=""></div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="0.6"><b>3 rows of 4</b> is 3 × 4 = 12</div></div>
+  </section>
+
+  <!-- 6. Phone: colour a fraction -->
+  <section class="scene" id="s6">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">📱 Laptop, tablet or phone</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Colour fractions in,<br><em>tap by tap.</em></div></div>
+    <div class="phone" style="top:560px" data-in="0.3" data-zoom="1"><div class="notch"></div><div class="screen"><img class="full" data-clip="s6" data-at="0" alt=""></div></div>
+  </section>
+
+  <!-- 7. Hints and Show me -->
+  <section class="scene" id="s7">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">💡 Help when they need it</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15" data-out="3.0">A wrong answer gets<br>a <em>kind, clear hint.</em></div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="3.15">Still stuck? <em style="white-space:nowrap">“Show me 👀”</em><br>walks through it.</div></div>
+    <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen">
+      <img data-clip="s7a" data-at="0" data-until="3.1" alt="">
+      <img data-clip="s7b" data-at="3.1" alt="">
+    </div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Never just “wrong”.</div></div>
+  </section>
+
+  <!-- 8. Learn screens -->
+  <section class="scene" id="s8">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">📖 Learn, then practise</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Short Learn screens use<br><em>everyday objects.</em></div></div>
+    <div class="phone" style="top:560px" data-in="0.3" data-zoom="1"><div class="notch"></div><div class="screen"><img class="full" src="../../assets/learn-equal-groups_phone.png" alt=""></div></div>
+  </section>
+
+  <!-- 9. Stars -->
+  <section class="scene" id="s9">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">⭐ Stars to collect</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">Up to 3 stars for answers<br><em>right first time.</em></div></div>
+    <div class="tablet" style="top:600px" data-in="0.3" data-zoom="1"><div class="screen"><img data-clip="s9" data-at="0" alt=""></div></div>
+    <div class="center" style="top:1540px"><div class="sub" data-in="0.6">Bolt the robot cheers them on.</div></div>
+  </section>
+
+  <!-- 10. Parent corner -->
+  <section class="scene" id="s10">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">👪 For parents</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">A <em>Parent corner</em><br>in every activity.</div></div>
+    <div class="card" id="s10card" style="left:220px; top:580px; width:640px; height:840px; background:#fff8ea" data-in="0.3">
+      <img id="s10img" src="../../assets/parent-tips-panel_desktop.png" style="position:absolute; left:0; top:0; width:640px" alt="">
+    </div>
+    <div class="center" style="top:1470px"><div class="sub" data-in="0.6" style="font-size:56px">What to say, what to watch for,<br>and a task away from the screen.</div></div>
+  </section>
+
+  <!-- 11. Dashboard -->
+  <section class="scene" id="s11">
+    <div class="center" style="top:240px"><div class="pill" data-in="0.05">📊 Parent dashboard</div></div>
+    <div class="center" style="top:350px"><div class="cap" data-in="0.15">See the <em>slips to work on,</em><br>for each child.</div></div>
+    <div class="tablet wide" style="top:640px" data-in="0.3"><div class="screen"><img id="s11img" src="../../assets/parent-dashboard_desktop.png" alt="" style="width:2732px">
+      <div class="ring" id="s11ring"></div></div></div>
+    <div class="center" style="top:1420px"><div class="sub" data-in="0.6">Stars, right first time, and<br>the mistakes that keep coming back.</div></div>
+  </section>
+
+  <!-- 12. Profiles, sync, no ads -->
+  <section class="scene" id="s12">
+    <div class="center" style="top:250px"><div class="cap" data-in="0.1">A profile for <em>each child.</em></div></div>
+    <div class="card" style="left:160px; top:420px; width:760px; height:830px; background:#f3f5fa" data-in="0.25">
+      <img src="../../assets/whos-playing_phone.png" style="position:absolute; left:0; top:-124px; width:760px" alt="">
+    </div>
+    <div class="center" style="top:1310px; gap:26px">
+      <div class="chip" data-in="0.7">☁️ Progress syncs across devices</div>
+      <div class="sub" data-in="0.85" style="font-size:40px; margin-top:-8px">with an optional parent account</div>
+      <div class="chip" data-in="1.0">🚫 No ads. No tracking.</div>
+    </div>
+  </section>
+
+  <!-- 13. Facts -->
+  <section class="scene" id="s13">
+    <div class="center" style="top:300px"><div class="cap" data-in="0.05" style="font-size:96px">Just <em>15 minutes</em><br>a day.</div></div>
+    <div class="center" style="top:700px; gap:36px">
+      <div class="tile" data-in="0.35"><span class="ic">📚</span><span>17 units, 105 activities</span></div>
+      <div class="tile" data-in="0.6" style="border-left-color:var(--gold)"><span class="ic">📖</span><span>Same order as Learner’s Book 3</span></div>
+      <div class="tile" data-in="0.85" style="border-left-color:#7c8cff"><span class="ic">📝</span><span>Matching textbook and workbook pages</span></div>
+    </div>
+  </section>
+
+  <!-- 14. End card -->
+  <section class="scene" id="s14">
+    <div class="center" style="top:150px"><div class="bolt" id="s14bolt" data-in="0.0"></div></div>
+    <div class="center" style="top:430px"><div class="cap" data-in="0.1" style="font-size:80px">Try it with your child <em>tonight.</em></div></div>
+    <div class="qr" data-in="0.3"><img src="qr.svg" alt="QR code"></div>
+    <div class="center" style="top:1250px">
+      <div class="sub" data-in="0.45" style="font-size:46px">Scan, or visit</div>
+      <div class="cap" data-in="0.5" style="font-size:64px; margin-top:6px">syedanwaarullah.com/maths3g</div>
+      <div class="sub" data-in="0.55" style="font-size:38px; margin-top:12px">https://syedanwaarullah.com/maths3g/</div>
+    </div>
+    <div class="center" style="top:1560px">
+      <div class="sub" data-in="0.7" style="font-size:36px; font-weight:600; max-width:940px; line-height:1.3">Follows the Cambridge Primary Mathematics Stage 3 curriculum. Not affiliated with or endorsed by Cambridge.</div>
+    </div>
+  </section>
+
+  <!-- Poster (not part of the timeline) -->
+  <section class="scene" id="poster">
+    <div class="center" style="top:170px"><div class="bolt" id="pbolt"></div></div>
+    <div class="center" style="top:470px">
+      <div class="cap" style="font-size:112px; line-height:1.02">Interactive <em>Maths</em></div>
+      <div class="sub" style="margin-top:30px; color:var(--ink)">Hands-on maths for <b>Grade&nbsp;3</b></div>
+    </div>
+    <div class="tablet" style="top:840px"><div class="screen"><img src="../../assets/activity-place-value-correct_desktop.png" style="width:1889px" alt=""></div></div>
+    <div class="center" style="top:1780px; flex-direction:row; justify-content:center; gap:16px">
+      <div class="sub" style="font-size:44px; color:var(--ink)">syedanwaarullah.com/maths3g</div>
+    </div>
+  </section>
+
+  <div id="footer"><span id="footbolt"></span>syedanwaarullah.com/maths3g</div>
+</div>
+
+<script>
+/* ---------------- Bolt (same drawing as the site's MQ.robot) ---------------- */
+function bolt(mood, w) {
+  const mouth = mood === 'cheer' ? '<path d="M37 66 q13 16 26 0 z" fill="#1b2a4a"/>'
+    : '<path d="M39 67 q11 10 22 0" fill="none" stroke="#1b2a4a" stroke-width="4" stroke-linecap="round"/>';
+  const er = mood === 'cheer' ? 5 : 6.5;
+  const arms = mood === 'cheer'
+    ? '<path class="armL" d="M18 92 L6 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/><path class="armR" d="M82 92 L94 70" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>'
+    : '<path d="M18 92 L8 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/><path d="M82 92 L92 108" stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"/>';
+  return `<svg viewBox="0 -2 100 127" width="${w}" height="${w * 1.27}" aria-hidden="true">
+    <line x1="50" y1="6" x2="50" y2="22" stroke="#9fb3d9" stroke-width="4"/>
+    <circle class="bulb" cx="50" cy="6" r="6" fill="#ffb703"/>
+    <rect x="14" y="22" width="72" height="62" rx="18" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+    <rect x="22" y="32" width="56" height="44" rx="12" fill="#ffffff"/>
+    <circle cx="38" cy="50" r="${er}" fill="#1b2a4a"/><circle cx="62" cy="50" r="${er}" fill="#1b2a4a"/>
+    <circle cx="40" cy="48" r="2" fill="#fff"/><circle cx="64" cy="48" r="2" fill="#fff"/>
+    ${mouth}
+    <rect x="26" y="86" width="48" height="32" rx="10" fill="#dbe6ff" stroke="#9fb3d9" stroke-width="3"/>
+    <circle cx="50" cy="102" r="7" fill="#2ec4b6"/>${arms}</svg>`;
+}
+document.getElementById('s1bolt').innerHTML = bolt('cheer', 380);
+document.getElementById('s14bolt').innerHTML = bolt('cheer', 210);
+document.getElementById('pbolt').innerHTML = bolt('cheer', 230);
+document.getElementById('footbolt').innerHTML = bolt('happy', 44);
+
+/* ---------------- timeline ---------------- */
+const SCENES = [
+  ['s1', 0.0, 4.0], ['s2', 4.0, 8.4], ['s3', 8.4, 13.6], ['s4', 13.6, 18.6], ['s5', 18.6, 22.8],
+  ['s6', 22.8, 27.2], ['s7', 27.2, 34.2], ['s8', 34.2, 37.6], ['s9', 37.6, 41.8], ['s10', 41.8, 45.8],
+  ['s11', 45.8, 49.3], ['s12', 49.3, 52.9], ['s13', 52.9, 56.2], ['s14', 56.2, 61.5],
+];
+const DURATION = 61.5, FPS = 30;
+const FADE_IN = 0.45, FADE_OUT = 0.35;
+window.CLIPS = window.CLIPS || {};          // { s3: {dir: 'file:///…/s3/', n: 166}, … } set by build.js
+window.TIMELINE = { DURATION, FPS, SCENES };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const sine = x => { x = clamp(x); return 0.5 - 0.5 * Math.cos(Math.PI * x); };
+const lerp = (a, b, k) => a + (b - a) * k;
+
+const pending = [];
+function setSrc(img, src) {
+  if (img.getAttribute('src') === src) return;
+  img.setAttribute('src', src);
+  pending.push(img.decode().catch(() => {}));
+}
+
+function sceneAlpha(t, a, b, i) {
+  const fin = i === 0 ? 1 : ease((t - a) / FADE_IN);
+  const fout = i === SCENES.length - 1 ? 1 : 1 - ease((t - (b - FADE_OUT)) / FADE_OUT);
+  return Math.min(fin, fout);
+}
+
+function renderScene(el, u, dur) {
+  // entrances / exits of tagged children
+  el.querySelectorAll('[data-in]').forEach(c => {
+    const d = parseFloat(c.dataset.in);
+    let k = ease((u - d) / 0.6);
+    let y = (1 - k) * 46;
+    if (c.dataset.out) { const o = ease((u - parseFloat(c.dataset.out)) / 0.35); k *= 1 - o; y -= o * 30; }
+    let s = '';
+    if (c.dataset.zoom) s = ` scale(${1 + 0.035 * sine(u / dur)})`;
+    c.style.opacity = k.toFixed(3);
+    c.style.transform = `translateY(${y.toFixed(2)}px)${s}`;
+  });
+  // recorded clips (pre-extracted frames)
+  el.querySelectorAll('img[data-clip]').forEach(img => {
+    const c = window.CLIPS[img.dataset.clip];
+    const at = parseFloat(img.dataset.at || 0);
+    const until = img.dataset.until ? parseFloat(img.dataset.until) : Infinity;
+    if (!c) return;
+    const idx = clamp(Math.floor((u - at) * FPS + 1e-6), 0, c.n - 1) + 1;
+    setSrc(img, c.dir + String(idx).padStart(4, '0') + '.jpg');
+    // short cross-fade between consecutive segments
+    let o = 1;
+    if (isFinite(until)) o = 1 - ease((u - until) / 0.3);
+    if (at > 0) o = ease((u - at) / 0.3);
+    img.style.opacity = o.toFixed(3);
+  });
+}
+
+function custom(id, u, dur) {
+  if (id === 's1') {
+    const b = document.getElementById('s1bolt');
+    b.style.transform += ` translateY(${(Math.sin(u * 2.4) * 14).toFixed(2)}px) rotate(${(Math.sin(u * 1.6) * 3).toFixed(2)}deg)`;
+  }
+  if (id === 's14') {
+    const b = document.getElementById('s14bolt');
+    b.style.transform += ` translateY(${(Math.sin(u * 2.4) * 10).toFixed(2)}px)`;
+  }
+  if (id === 's2') {
+    const sh = document.getElementById('s2sheet');
+    const grey = sine((u - 0.8) / 1.2);
+    sh.style.transform += ` rotate(${(-3 + 1.5 * Math.sin(u * 0.8)).toFixed(2)}deg)`;
+    sh.style.filter = `saturate(${1 - 0.6 * grey})`;
+  }
+  if (id === 's10') {
+    // slowly scroll the Parent corner panel (640 x 1726) inside its 840px card
+    const k = sine((u - 0.8) / (dur - 1.3));
+    document.getElementById('s10img').style.transform = `translateY(${(-k * (1726 - 840)).toFixed(1)}px)`;
+  }
+  if (id === 's11') {
+    // start on the whole dashboard, then glide to the row with a slip to work on
+    const img = document.getElementById('s11img');
+    const k = sine((u - 0.7) / 1.4);
+    const s0 = 940 / 2732, s1 = 0.6;
+    // focus: the "Bigger or smaller?" row and its slip (image px x 780..2280, row centre y 1203, row height ~90)
+    const x1 = -780 * s1 + 20, y1 = 310 - 1203 * s1;
+    const s = lerp(s0, s1, k), x = lerp(0, x1, k), y = lerp(0, y1, k);
+    img.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(4)})`;
+    const ring = document.getElementById('s11ring');
+    const r = ease((u - 2.1) / 0.4);
+    ring.style.opacity = r.toFixed(3);
+    ring.style.left = (780 * s1 + x1 - 12) + 'px';
+    ring.style.top = ((1203 - 45) * s1 + y1 - 12) + 'px';
+    ring.style.width = (1500 * s1 + 24) + 'px';
+    ring.style.height = (90 * s1 + 24) + 'px';
+  }
+}
+
+function background(t) {
+  const b = [['b1', 60, 40, 0.11], ['b2', 70, 50, 0.08], ['b3', 50, 60, 0.13]];
+  b.forEach(([id, ax, ay, w], i) => {
+    document.getElementById(id).style.transform =
+      `translate(${(Math.sin(t * w + i) * ax).toFixed(1)}px, ${(Math.cos(t * w * 0.8 + i * 2) * ay).toFixed(1)}px)`;
+  });
+}
+
+window.renderAt = async function (t) {
+  pending.length = 0;
+  background(t);
+  SCENES.forEach(([id, a, b], i) => {
+    const el = document.getElementById(id);
+    const vis = t >= a - 1e-6 && t < b + 1e-6 || (i === SCENES.length - 1 && t >= a);
+    if (!vis) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    el.style.opacity = sceneAlpha(t, a, b, i).toFixed(3);
+    const u = t - a;
+    renderScene(el, u, b - a);
+    custom(id, u, b - a);
+  });
+  // persistent web address on the activity scenes
+  const f = document.getElementById('footer');
+  const fa = ease((t - 8.6) / 0.5) * (1 - ease((t - 55.9) / 0.4));
+  f.style.opacity = (fa * 0.9).toFixed(3);
+  await Promise.all(pending);
+  await document.fonts.ready;
+};
+
+window.renderPoster = async function () {
+  pending.length = 0;
+  SCENES.forEach(([id]) => document.getElementById(id).style.visibility = 'hidden');
+  document.getElementById('footer').style.opacity = 0;
+  background(3);
+  const p = document.getElementById('poster');
+  p.style.visibility = 'visible'; p.style.opacity = 1;
+  await Promise.all([...p.querySelectorAll('img')].map(i => i.decode().catch(() => {})));
+  await document.fonts.ready;
+};
+
+/* real-time preview: open scenes.html#play */
+if (location.hash === '#play') {
+  const t0 = performance.now();
+  (function loop() { const t = ((performance.now() - t0) / 1000) % DURATION; window.renderAt(t).then(() => requestAnimationFrame(loop)); })();
+} else {
+  window.renderAt(0);
+}
+</script>
+</body>
+</html>
