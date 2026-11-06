@@ -1,0 +1,295 @@
+<!-- wp:paragraph {"fontSize":"medium"} -->
+<p class="has-medium-font-size">My child Ahmedullah is in Grade III-D. Like many parents, I wanted maths practice at home to feel less like a worksheet and more like play. So I built a website for it: <strong>Interactive Maths</strong>, with 105 hands-on activities that follow the Cambridge Primary Mathematics Stage 3 book, unit by unit. I wrote it with an AI coding agent (Claude Code) over a few days in November 2026. This post covers what I built, how I approached it, what went wrong, and what I'd tell anyone trying something similar.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://syedanwaarullah.com/maths3g/">Try Interactive Maths</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:image {"sizeSlug":"large","align":"center"} -->
+<figure class="wp-block-image aligncenter size-large"><img src="/wp-content/uploads/2026/11/flyer-square.png" alt="Interactive Maths flyer: maths your child can build, move and master. 17 units, 105 activities, 15 minutes a day."/><figcaption class="wp-element-caption">The flyer I share with other parents. Scan the code to open the site.</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Why I built it</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Workbooks are good at checking answers and bad at explaining them. When a child writes a wrong answer on paper, nothing happens until a grown-up notices. I wanted something that does three things a worksheet can't:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Let the child touch the maths.</strong> Drag blocks to build 330 out of hundreds, tens and ones. Build a rectangle to see that 3 rows of 4 is 12. Turn the hands of a clock.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Respond to a mistake straight away</strong>, with a kind, specific hint rather than a red cross. After two tries, a "Show me" button walks through the working.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Tell me, the parent, what to say.</strong> I'm not a maths teacher. I needed the goal of each activity, the words to use, and the mistakes to watch for, right next to the screen.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>And it had to follow the school book: same topics, same order, same number ranges, so what happens at home backs up what happens in class.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What it does</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>17 units, 105 activities</strong>, in the order of the Learner's Book 3 and Workbook 3 (2nd edition): numbers to 1000, tally charts, money, 3D shapes, multiplication and division, measurement, fractions, time, graphs, angles, chance, symmetry and more. Each activity lists the matching textbook and workbook pages.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Learn, then practise.</strong> Short "Learn" screens use everyday objects, then the practice questions get gradually harder. Up to 3 stars for answers right first time.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Bolt the robot</strong> is the only character. Bolt cheers, gives hints and can read questions aloud.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>A Parent corner in every activity</strong>: the goal, things to say, what to watch out for, and a quick hands-on task away from the screen.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>A parent dashboard</strong> showing stars, the right-first-time percentage and the "slips" that keep coming back, for each child.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>A profile for each child</strong> (a nickname and an animal picture), and an optional parent account that keeps progress in sync across a laptop, tablet and phone.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>No ads, no tracking, no profiling of children.</strong> Children never need an email address.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:video -->
+<figure class="wp-block-video"><video controls poster="/wp-content/uploads/2026/11/poster-landscape.png" src="/wp-content/uploads/2026/11/interactive-maths-landscape.mp4"></video><figcaption class="wp-element-caption">A 70-second tour of the site.</figcaption></figure>
+<!-- /wp:video -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">My approach, step by step</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">1. Start from the book, not from the code</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Before any building, the agent read the textbook and workbook (the online copies, plus my photos of the workbook) and wrote syllabus notes for every unit: what is taught, the number ranges, the vocabulary, and the traps. It found real things worth knowing, such as misprints in the book and pages missing from the online scans. Those notes became the brief for every activity.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">2. Build one unit properly first</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>I started with Unit 6 (measurement, area and perimeter, 12 activities) and got it right before touching anything else. That first unit set the pattern: how a Learn screen looks, how hints work, how stars are counted, and a written "activity contract" that every later activity had to follow. The first version had a space theme, which I dropped for a plain, light design with everyday objects. Much easier on the eyes for 15 minutes a day.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3. Fan out, but not too wide</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>With the pattern fixed, the remaining 16 units were built in parallel, each in its own cloud session working on its own branch. My first attempt ran 16 sessions at once and hit the 5-hour usage limit. <strong>Four at a time</strong> turned out to be the sweet spot: fast, and nothing stalled halfway.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">4. Have someone else check the work</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Every unit got an independent review by a separate agent that hadn't written the code. Units 1–4 and 6 got a full review, including playing through every activity in a browser. To save usage, the other units got a maths-only review. Then an automated play-through opened all 105 activities at laptop and tablet widths, stepped through every screen, and checked for errors, empty screens and sideways scrolling.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">5. Keep the technology boring</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The whole site is plain HTML, CSS and JavaScript. There is no build step and no framework, and it doesn't need a server of its own: you copy the folder to any web host and it works. You can even double-click <code>index.html</code> on a laptop with no internet. Each activity is a single file that registers itself with a small shared runtime. Boring technology meant I could deploy it myself and fix it without a developer.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Adding parent accounts, safely</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Once other parents wanted to use it, I needed accounts so a child's progress could follow them from laptop to tablet. This was the hardest part, and the part I was most careful about, because it's children's data.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Only parents have accounts.</strong> Parents sign in with Google or an email link. Children get a nickname and an animal picture; no surnames, no emails, no photos.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Supabase as the backend</strong>, in the Mumbai region. Its row-level security rules make sure each family can only ever read and write its own children's data, even though the key in the website is public.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Offline first.</strong> Progress is always saved on the device first and synced when there's a connection. When two devices disagree, the merge rule is simple: never lose stars.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Consent before anything is uploaded</strong>, a draft privacy notice written with India's DPDP Act in mind, and self-service "Download my data" and "Delete my account" buttons.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>A grown-up gate</strong> in front of the Parent corner: a multiplication question too hard for most Grade 3 children. It's a speed bump, not a lock; the real safeguard is that every destructive action asks twice.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>I'm not a lawyer, and the privacy notice is a draft. Having it checked by someone qualified is on my list before I promote the site widely.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Reviews found real bugs</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For the account work I asked for a stronger process: several independent reviewers each looking from a different angle (logic, security and privacy, how Supabase really behaves, and how it looks and feels in a browser), and a sceptic checking every finding before it was fixed. Four rounds confirmed and fixed over a hundred issues. Some of the important ones:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Sign-in would never have completed: the code tidied the page address before the sign-in library had read the code inside it.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>On a shared family laptop, the next parent to sign in could have uploaded the previous family's children into their own account.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Resetting a child's progress on one device was quietly undone by the next sync from another device.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Signing out on one device signed the parent out everywhere.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>None of these would have shown up in a quick click-through. The accounts now have 139 automated checks using a fake server, plus 13 that run the real Supabase library against a local imitation of it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Launch day gotchas</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The code was tested. Getting it live still taught me five things:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item -->
+<li><strong>I uploaded the old version.</strong> The repository's default branch was the one from before accounts existed, so downloading it from GitHub gave me the old files. Check which branch you're deploying.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>I pasted the wrong address.</strong> I copied the Supabase URL with <code>/rest/v1/</code> on the end. The site now accepts it either way.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Browsers held on to old files.</strong> My host tells browsers to keep files for 7 days, so visitors would have kept running the old version. Adding a version number to every file name in the page fixed it.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>The email link didn't send.</strong> Supabase answered "Error sending confirmation email". The cause was the email (SMTP) settings in my Supabase project, not the website.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Google's sign-in screen shows the Supabase address</strong>, not my site's name. Showing a friendly name needs Google brand verification or a custom domain for Supabase. I've left it for now; it works, it just looks less polished.</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Telling other parents</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same agent made a one-page flyer with a QR code (I checked it scans) and a 70-second video in vertical and landscape versions. The video uses real screens from the site, captions for watching with the sound off, and a computer-generated voiceover in an Indian-English voice. Both carry a clear line that the site follows the Cambridge curriculum but is not affiliated with or endorsed by Cambridge.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What I learned</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Be the product owner, not the programmer.</strong> My job was deciding what my child needed, what "good" looked like, and what I would and wouldn't accept. The agent did the typing.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Write decisions down.</strong> A running to-do file with every request, decision and open item meant each new session started from the same page.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Get one piece perfect, then copy the pattern.</strong> Unit 6 first saved far more time than it cost.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Parallel work needs limits.</strong> Four sessions at a time beat sixteen.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Independent review is worth every minute.</strong> The agent that writes the code is the worst one to judge it. A second, sceptical one finds what the first missed.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Test the real thing.</strong> Automated play-throughs, and a test against the real sign-in library rather than only a fake, caught bugs nobody would have spotted by hand.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Children's data deserves extra care</strong>: collect less, explain clearly, let parents delete everything, and get the legal text checked.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Most launch problems are configuration, not code.</strong> Branches, URLs, caching and email settings caused every hiccup I had on launch day.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What's next</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Have the privacy notice checked by a qualified person.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Test every activity on tablets and phones with touch, and tidy any cramped screens.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Make it installable and usable offline, like an app.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Add a "Report a problem" button to every activity, so parents can tell me what to fix.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Try it with your child</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>If your child is in Grade 3 and follows the Cambridge Stage 3 book, give it 15 minutes tonight: <a href="https://syedanwaarullah.com/maths3g/">syedanwaarullah.com/maths3g</a>. It works best on a laptop or tablet. You can use it without an account, or sign in to keep progress across devices. If something looks wrong or could be better, I'd love to hear from you at <a href="mailto:hi@syedanwaarullah.com">hi@syedanwaarullah.com</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"fontSize":"small"} -->
+<p class="has-small-font-size"><em>Made by Ahmedullah's Dad (Grade III-D). Interactive Maths follows the Cambridge Primary Mathematics Stage 3 curriculum. It is not affiliated with or endorsed by Cambridge.</em></p>
+<!-- /wp:paragraph -->
