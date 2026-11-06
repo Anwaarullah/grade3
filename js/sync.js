@@ -11,6 +11,13 @@
   'use strict';
   var MQ = window.MQ;
   var cfg = MQ.config || {};
+  /** "https://x.supabase.co/rest/v1/" (as copied from the dashboard) -> "https://x.supabase.co". */
+  function projectUrl(u) {
+    return String(u || '')
+      .trim()
+      .replace(/\/+(rest|auth)\/v1\/?.*$/i, '')
+      .replace(/\/+$/, '');
+  }
   // Served from this site (same origin), so no outside script host is involved. To update,
   // copy dist/umd/supabase.js of the new @supabase/supabase-js release to js/vendor/.
   var SUPABASE_JS = 'js/vendor/supabase-2.45.4.js';
@@ -122,7 +129,7 @@
       });
     }
     var go = function () {
-      return window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
+      return window.supabase.createClient(projectUrl(cfg.supabaseUrl), String(cfg.supabaseAnonKey).trim(), {
         auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' },
       });
     };
